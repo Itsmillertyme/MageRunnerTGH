@@ -616,6 +616,9 @@ public class PlayerController : MonoBehaviour {
             spellBook.Cast();
         }
 
+        //play cast sound
+        audioSource.resource = spellBook.GetSpellSpawnSound();
+        audioSource.Play();
 
         //Wait for animation to finish
         yield return new WaitUntil(() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Cast"));

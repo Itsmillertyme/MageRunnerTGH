@@ -1,0 +1,106 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &3243354409107120636
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7456772467043138112, guid: d022cc27c93deb643bda5a0550d6e530,
+        type: 3}
+      propertyPath: m_Name
+      value: Spirited Crystals Nature
+      objectReference: {fileID: 0}
+    - target: {fileID: 7456772467043034720, guid: d022cc27c93deb643bda5a0550d6e530,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7456772467043034720, guid: d022cc27c93deb643bda5a0550d6e530,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7456772467043034720, guid: d022cc27c93deb643bda5a0550d6e530,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7456772467043034720, guid: d022cc27c93deb643bda5a0550d6e530,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7456772467043034720, guid: d022cc27c93deb643bda5a0550d6e530,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7456772467043034720, guid: d022cc27c93deb643bda5a0550d6e530,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7456772467043034720, guid: d022cc27c93deb643bda5a0550d6e530,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7456772467043034720, guid: d022cc27c93deb643bda5a0550d6e530,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7456772467043034720, guid: d022cc27c93deb643bda5a0550d6e530,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7456772467043034720, guid: d022cc27c93deb643bda5a0550d6e530,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7456772467043034720, guid: d022cc27c93deb643bda5a0550d6e530,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2130922579400493346, guid: d022cc27c93deb643bda5a0550d6e530,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.17849922
+      objectReference: {fileID: 0}
+    - target: {fileID: 2130922579400493346, guid: d022cc27c93deb643bda5a0550d6e530,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2130922579400493346, guid: d022cc27c93deb643bda5a0550d6e530,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7456772467272441406, guid: d022cc27c93deb643bda5a0550d6e530,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.17849922
+      objectReference: {fileID: 0}
+    - target: {fileID: 7456772467272441406, guid: d022cc27c93deb643bda5a0550d6e530,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7456772467272441406, guid: d022cc27c93deb643bda5a0550d6e530,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7456772467056736064, guid: d022cc27c93deb643bda5a0550d6e530,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7c9506af0e331d547bf7bb32374cb7d1, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d022cc27c93deb643bda5a0550d6e530, type: 3}

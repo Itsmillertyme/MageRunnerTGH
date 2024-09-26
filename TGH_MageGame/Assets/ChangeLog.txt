@@ -1,0 +1,22 @@
+9/24 - Jacob
+-Fixed Dash moving player in wrong direction sometimes
+-Scaled player object to 1.5
+-Reworked jump physics
+-Added ability to control jump height based on input duration
+-Tweaked Jump values
+-Added collision detection during jump to reset jump velocity
+-Snapped all projectiles to 0 on Z axis to prevent missed shots
+-Fixed turning animation stopping movement but playing animation
+-Turning animation now transitions to correct walking animation, forward or backward
+
+9/25 - Cory
+Created my sandbox.
+Changed code for what spell ui displays.
+Updated Game Events for spells 4-6.
+Added projectiles for spells 3,4,6. These are mainly placeholders.
+Added enum for spawn method. Will utilize later.
+Added the logic to update projectile size. Will utilize later. After doing that there will only be one prefab per spell.
+Locked spell 5. I have to figure out how to do this one still. 
+
+9/25 - Jacob
+-Added coroutine to SpellBook.cs to handle firing 2nd 'ray' projectile for that spell

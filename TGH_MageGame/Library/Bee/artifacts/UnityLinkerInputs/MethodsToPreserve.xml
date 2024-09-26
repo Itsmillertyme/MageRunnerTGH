@@ -1,0 +1,42 @@
+<linker>
+	<assembly fullname="Assembly-CSharp" ignoreIfMissing="1">
+		<type fullname="DebugMenuController">
+			<method name="MoveToLocation"/>
+			<method name="MoveToLocation"/>
+			<method name="MoveToLocation"/>
+			<method name="MoveToLocation"/>
+			<method name="MoveToLocation"/>
+		</type>
+		<type fullname="GameEvent">
+			<method name="Raise"/>
+			<method name="Raise"/>
+			<method name="Raise"/>
+			<method name="Raise"/>
+			<method name="Raise"/>
+			<method name="Raise"/>
+			<method name="Raise"/>
+			<method name="Raise"/>
+			<method name="Raise"/>
+			<method name="Raise"/>
+			<method name="Raise"/>
+			<method name="Raise"/>
+			<method name="Raise"/>
+		</type>
+		<type fullname="GameManager">
+			<method name="Quit"/>
+		</type>
+		<type fullname="PlayerStats">
+			<method name="updateCurrentHealth"/>
+			<method name="updateCurrentMana"/>
+		</type>
+		<type fullname="SpellBook">
+			<method name="LevelDownActiveSpell"/>
+			<method name="LevelUpActiveSpell"/>
+		</type>
+		<type fullname="SpellUI">
+			<method name="UpdateSpellUI"/>
+			<method name="UpdateSpellUI"/>
+			<method name="UpdateSpellUI"/>
+		</type>
+	</assembly>
+</linker>

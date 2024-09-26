@@ -21,6 +21,7 @@ public class SpellBook : MonoBehaviour {
 
     // GETTERS
     public int ActiveSpell => activeSpell;
+    public bool IsReadyToCast => isReadyToCast;
 
     // DRIVEN
     #region DRIVEN

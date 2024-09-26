@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour {
     bool isFacingLeft;
     bool wasFlippedLastFrame;
     bool isJumpPressed = false;
+    bool isPaused = false;
 
     //Jump Varbiables
     [SerializeField] float maxJumpHeight; //SII
@@ -429,18 +431,32 @@ public class PlayerController : MonoBehaviour {
     }
     //
     //DEV ONLY - DELETE BEFORE FINAL BUILD
-    void Devbreak(InputAction.CallbackContext context) {
-        Debug.Break();
-        if (!Application.isEditor) {
-            if (Time.timeScale != 0) {
-                Time.timeScale = 0;
+    void Devbreak(InputAction.CallbackContext context) 
+    {
+        isPaused = !isPaused;
+        if (context.performed) 
+        {
+            /*
+            // *** CODE FOR UNITY EDITOR ONLY *** //
+            if (EditorApplication.isPlaying)
+            {
+                EditorApplication.isPaused = true;
             }
-            else {
-                Time.timeScale = 1;
+            // *** END CODE FOR UNITY EDITOR *** //
+            */
+
+            // PAUSE THE GAME TIME
+            if (isPaused)
+            {
+                Time.timeScale = 0f;
+                Cursor.visible = true;
             }
+            else 
+            {
+                Time.timeScale = 1f;
+                Cursor.visible = false;
+            }            
         }
-
-
     }
 
     //**Coroutines**

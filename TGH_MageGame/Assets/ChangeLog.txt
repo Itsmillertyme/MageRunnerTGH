@@ -20,3 +20,8 @@ Locked spell 5. I have to figure out how to do this one still.
 
 9/25 - Jacob
 -Added coroutine to SpellBook.cs to handle firing 2nd 'ray' projectile for that spell
+
+9/26 - Cory
+Added textures and materials for spells 2 and 3. Adjusted material and trail renderer values for 1-3.
+Modified the devbreak code. It now pauses time rather than the editor. It also unpauses. This way we can skip frame by frame. 
+Something happened to the reticle again. 

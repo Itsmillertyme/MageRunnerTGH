@@ -24,19 +24,19 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTexture:
-        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+        m_Texture: {fileID: 2800000, guid: ae1e588b1f0728a44aa76affb7d61750, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
-    - _DissolveScale: 35
+    - _DissolveScale: 125
     m_Colors:
-    - _Color01: {r: 0.9077568, g: 0.1113287, b: 0.1113287, a: 0}
-    - _Color02: {r: 0.1288912, g: 0.1519827, b: 0.9245283, a: 0}
+    - _Color01: {r: 1, g: 1, b: 1, a: 0}
+    - _Color02: {r: 1, g: 0.34509805, b: 0, a: 0}
     - _DissolveSpeed: {r: -0.1, g: 0, b: 0, a: 0}
-    - _MainTextSpeed: {r: -0.5, g: 0, b: 0, a: 0}
+    - _MainTextSpeed: {r: -1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &128954037688451027

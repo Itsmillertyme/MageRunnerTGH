@@ -16,9 +16,6 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private List<string> knownBugs = new List<string>();
 
     private void Awake() {
-        //Hide mouse
-        Cursor.visible = false;
-
         //DEV ONLY - REMOVE BEFORE BUILD - setup debug object
         mousePositionObject = new GameObject().transform;
         mousePositionObject.name = "MousePosObject";

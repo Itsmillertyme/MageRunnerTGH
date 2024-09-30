@@ -41,6 +41,9 @@ public class SpellBook : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// //REWORK THIS. ONE SETUP. for now i put currentprojectile in each level as a workaround
+    /// </summary>
     public void Cast() {
         if (isReadyToCast && playerStats.getCurrentMana() >= spellBook[activeSpell].ManaCost) {
             GameObject projectile;
@@ -48,15 +51,15 @@ public class SpellBook : MonoBehaviour {
 
             switch (spellLevel) {
                 case 1:
-                    projectile = Instantiate(spellBook[activeSpell].SpawnObjectLvl1, spawnPosition.transform.position, spawnPosition.transform.rotation);
+                    projectile = Instantiate(spellBook[activeSpell].CurrentProjectile, spawnPosition.transform.position, spawnPosition.transform.rotation);
                     projectile.GetComponent<ProjectileMover>().SetAttributes(spellBook[activeSpell].Damage, spellBook[activeSpell].LifeSpan, spellBook[activeSpell].MoveSpeed, mousePositionTracker.CurrentPosition);
                     break;
                 case 2:
-                    projectile = Instantiate(spellBook[activeSpell].SpawnObjectLvl2, spawnPosition.transform.position, spawnPosition.transform.rotation);
+                    projectile = Instantiate(spellBook[activeSpell].CurrentProjectile, spawnPosition.transform.position, spawnPosition.transform.rotation);
                     projectile.GetComponent<ProjectileMover>().SetAttributes(spellBook[activeSpell].Damage, spellBook[activeSpell].LifeSpan, spellBook[activeSpell].MoveSpeed, mousePositionTracker.CurrentPosition);
                     break;
                 case 3:
-                    projectile = Instantiate(spellBook[activeSpell].SpawnObjectLvl3, spawnPosition.transform.position, spawnPosition.transform.rotation);
+                    projectile = Instantiate(spellBook[activeSpell].CurrentProjectile, spawnPosition.transform.position, spawnPosition.transform.rotation);
                     projectile.GetComponent<ProjectileMover>().SetAttributes(spellBook[activeSpell].Damage, spellBook[activeSpell].LifeSpan, spellBook[activeSpell].MoveSpeed, mousePositionTracker.CurrentPosition);
                     break;
             }
@@ -138,7 +141,7 @@ public class SpellBook : MonoBehaviour {
 
         yield return new WaitForSeconds(6f / 30f);
 
-        ray2 = Instantiate(spellBook[activeSpell].SpawnObjectLvl2, spawnPosition.transform.position, spawnPosition.transform.rotation);
+        ray2 = Instantiate(spellBook[activeSpell].CurrentProjectile, spawnPosition.transform.position, spawnPosition.transform.rotation);
         ray2.GetComponent<ProjectileMover>().SetAttributes(spellBook[activeSpell].Damage, spellBook[activeSpell].LifeSpan, spellBook[activeSpell].MoveSpeed, mousePositionTracker.CurrentPosition);
 
     }

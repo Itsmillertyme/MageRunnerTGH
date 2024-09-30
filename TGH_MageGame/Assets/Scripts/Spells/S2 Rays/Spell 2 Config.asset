@@ -21,7 +21,7 @@ MonoBehaviour:
   manaCost: 2
   damage: 5
   lifeSpan: 1
-  castDelayTime: 1
+  castDelayTime: 0.05
   moveSpeed: 20
   projectileSize: {x: 0, y: 0, z: 0}
   moveMethod: 0

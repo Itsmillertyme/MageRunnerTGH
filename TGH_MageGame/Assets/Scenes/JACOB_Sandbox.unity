@@ -14107,7 +14107,7 @@ MonoBehaviour:
     Run - L Shift
 
     Jump
-    - Space
+    - W
 
     Aim - Mouse
 
@@ -14115,24 +14115,24 @@ MonoBehaviour:
 
     Block - RMB
 
-    Melee -
-    E
+    Melee - E
 
-    Dash Forward - L Alt
+    Dash
+    Forward - Space
 
     Change Camera Position - C
 
-    Dev-Debug Menu/Exit-
-    I
+    Dev-Debug Menu/Exit- I
 
-    Dev-Pause - B
+    Dev-Pause
+    - B
 
     Dev-Refill Mana - M
 
     Dev-Refill Health - L
 
-    Dev-Add
-    5% Exp - P
+    Dev-Add 5% Exp -
+    P
 
     Press ''O'' To Hide This Menu'
   m_isRightToLeft: 0

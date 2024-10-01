@@ -10,6 +10,7 @@ public class SpellUI : MonoBehaviour
     [SerializeField] private TMP_Text spellBookUIText;
     [SerializeField] private SpellBook SpellBook;
     [SerializeField] private Image activeSpellIcon;
+    [SerializeField] private Image activeSpellReticle;
 
     private void Start()
     {
@@ -26,9 +27,15 @@ public class SpellUI : MonoBehaviour
         activeSpellIcon.sprite = SpellBook.GetSpellIconData();
     }
 
+    public void GetActiveReticle()
+    {
+        activeSpellReticle. sprite = SpellBook.GetSpellReticleData();
+    }
+
     public void UpdateSpellUI()
     {
         GetSpellUIData();
+        GetActiveReticle();
         GetActiveSpellIcon();
     }
 }

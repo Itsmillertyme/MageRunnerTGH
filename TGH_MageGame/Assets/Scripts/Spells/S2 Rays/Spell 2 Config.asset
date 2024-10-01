@@ -32,6 +32,7 @@ MonoBehaviour:
   hitSFX: {fileID: 8300000, guid: e1d61468a269b2343962d97c42dcb20f, type: 3}
   castAnimation: {fileID: 7400000, guid: 653c1b3e8dcbb8242b1269f433990ab0, type: 2}
   icon: {fileID: 21300000, guid: 4029a9cfeb86f134c9c5af05993eaac8, type: 3}
+  reticle: {fileID: 21300000, guid: 12437f522baabf744ae290bba6780b6d, type: 3}
   isUnlocked: 1
   level1_ManaCost: 2
   level1_Damage: 5
@@ -39,18 +40,6 @@ MonoBehaviour:
   level1_CastDelayTime: 1
   level1_MoveSpeed: 20
   level1_ProjectileSize: {x: 0, y: 0, z: 0}
-  level2_ManaCost: 3
-  level2_Damage: 7
-  level2_LifeSpan: 1
-  level2_CastDelayTime: 1
-  level2_MoveSpeed: 23
-  level2_ProjectileSize: {x: 0, y: 0, z: 0}
-  level3_ManaCost: 4
-  level3_Damage: 9
-  level3_LifeSpan: 1.5
-  level3_CastDelayTime: 1
-  level3_MoveSpeed: 25
-  level3_ProjectileSize: {x: 0, y: 0, z: 0}
   spellLeveledUp:
     m_PersistentCalls:
       m_Calls:

@@ -15,6 +15,7 @@ public class MousePositionTracking : ScriptableObject
 
         // Convert screen position to world position
         currentPosition = Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPosition.x, mouseScreenPosition.y, Camera.main.transform.position.z));
+
         return currentPosition;
     }
 }

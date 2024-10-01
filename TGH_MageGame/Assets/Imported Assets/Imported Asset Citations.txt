@@ -1,0 +1,5 @@
+// ASSETS USED LIST
+Kenney from itch.io for crosshairs.
+Kevin Iglesias for animations.
+Meshtint Studios for Mage character.
+Synty Studios for modular level assets.

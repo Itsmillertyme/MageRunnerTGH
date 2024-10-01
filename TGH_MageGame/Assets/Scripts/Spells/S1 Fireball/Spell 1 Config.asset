@@ -21,16 +21,17 @@ MonoBehaviour:
   damage: 15
   lifeSpan: 3
   castDelayTime: 0.3
-  moveSpeed: 12
+  moveSpeed: 15
   projectileSize: {x: 0, y: 0, z: 0}
   moveMethod: 0
-  spawnObjectLvl1: {fileID: 3749226296805990834, guid: 6e7ee72289f06084e9733622b9545ab8, type: 3}
+  spawnObjectLvl1: {fileID: 8551828608240389149, guid: 95fe9b8ccf23fed4f8a66905f2b0f8d9, type: 3}
   spawnObjectLvl2: {fileID: 2199366279595633794, guid: 170aabef6ec6bce4c9d7dc9b3a9590a5, type: 3}
   spawnObjectLvl3: {fileID: 2199366279595633794, guid: f74e8764a33d3324b94932cf21085764, type: 3}
   spawnSFX: {fileID: 8300000, guid: c1b696512730afd419cf972439680077, type: 3}
   hitSFX: {fileID: 8300000, guid: 4897caa60f417444b972bca550a8a76a, type: 3}
   castAnimation: {fileID: 7400000, guid: 70946658bb3dfdd4a86d93329aba96a7, type: 2}
   icon: {fileID: 21300000, guid: 12c28f7828b9dac429b215fda81958ad, type: 3}
+  reticle: {fileID: 21300000, guid: e698f77bcca134941b2edad09247d436, type: 3}
   isUnlocked: 1
   level1_ManaCost: 15
   level1_Damage: 15
@@ -38,18 +39,6 @@ MonoBehaviour:
   level1_CastDelayTime: 0.3
   level1_MoveSpeed: 12
   level1_ProjectileSize: {x: 0, y: 0, z: 0}
-  level2_ManaCost: 16
-  level2_Damage: 20
-  level2_LifeSpan: 3
-  level2_CastDelayTime: 0.3
-  level2_MoveSpeed: 13
-  level2_ProjectileSize: {x: 0, y: 0, z: 0}
-  level3_ManaCost: 17
-  level3_Damage: 25
-  level3_LifeSpan: 3
-  level3_CastDelayTime: 0.3
-  level3_MoveSpeed: 14
-  level3_ProjectileSize: {x: 0, y: 0, z: 0}
   spellLeveledUp:
     m_PersistentCalls:
       m_Calls:

@@ -24,7 +24,7 @@ public class ProjectileMover : MonoBehaviour {
 
     private void Move() {
         // MOVE TOWARD TARGET
-        transform.position += moveDirection * moveSpeed * Time.deltaTime;
+        transform.position += moveSpeed * Time.deltaTime * moveDirection;
 
         // ROTATE OBJECT TOWARDS DIRECTION TO MOVE
         if (moveDirection != Vector3.zero)  // Ensure there is a valid direction

@@ -118,6 +118,12 @@ public class SpellBook : MonoBehaviour {
         return spellBook[activeSpell].SpellIcon;
     }
 
+    // GETS ACTIVE SPELL RETICLE TO USE IN UI
+    public Sprite GetSpellReticleData()
+    {
+        return spellBook[activeSpell].Reticle;
+    }
+
     // GETTER FOR ACTIVE SPELL ANIMATION
     public AnimationClip GetSpellAnimation() {
         return spellBook[activeSpell].CastAnimation;

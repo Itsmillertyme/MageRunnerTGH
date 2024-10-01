@@ -54,10 +54,9 @@ public class Spell : ScriptableObject
     //[SerializeField] private ParticleSystem spawnFX;
     //[SerializeField] private ParticleSystem hitFX;
 
-    [Header("UI Icon")]
+    [Header("UI")]
     [SerializeField] private Sprite icon;
-
-    // Projectile Cast Method (can't do headers on Enums)
+    [SerializeField] private Sprite reticle;
 
     //[SerializeField] private enum Element { Air, Earth, Fire, Water }
     [Header("Unlock Status")]
@@ -80,6 +79,7 @@ public class Spell : ScriptableObject
     //[SerializeField] private float level1_Range;
     [SerializeField] private Vector3 level1_ProjectileSize;
 
+    /* DISABLED FOR NOW AND PROBS WILL REMOVE
     [Header("Level 2 Attributes")]
     //[SerializeField] private int level2_ProjectileCount;
     [SerializeField] private int level2_ManaCost;
@@ -103,6 +103,7 @@ public class Spell : ScriptableObject
     //[SerializeField] private float level3_ImpactForce;
     //[SerializeField] private float level3_Range;
     [SerializeField] private Vector3 level3_ProjectileSize;
+    */
 
     [Header("Unity Events")]
     [SerializeField] private UnityEvent spellLeveledUp;
@@ -125,6 +126,7 @@ public class Spell : ScriptableObject
     //public GameObject SpawnObjectLvl2 => spawnObjectLvl2;
     //public GameObject SpawnObjectLvl3 => spawnObjectLvl3;
     public Sprite SpellIcon => icon;
+    public Sprite Reticle => reticle;
     public AudioClip SpawnSFX => spawnSFX;
     public AudioClip HitSFX => hitSFX;
     #endregion
@@ -152,6 +154,18 @@ public class Spell : ScriptableObject
 
     public void SetLevelAttributes(int level)
     {
+
+        manaCost = level1_ManaCost;
+        damage = level1_Damage;
+        lifeSpan = level1_LifeSpan;
+        castDelayTime = level1_CastDelayTime;
+        //
+        moveSpeed = level1_MoveSpeed;
+        //
+        //
+        projectileSize = level1_ProjectileSize;
+
+        /*
         switch (level)
         {
             case 1:
@@ -190,6 +204,8 @@ public class Spell : ScriptableObject
                 //
                 projectileSize = level3_ProjectileSize;
                 break;
+                
         }
+        */
     }
 }

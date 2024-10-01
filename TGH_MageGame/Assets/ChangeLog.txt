@@ -25,3 +25,9 @@ Locked spell 5. I have to figure out how to do this one still.
 Added textures and materials for spells 2 and 3. Adjusted material and trail renderer values for 1-3.
 Modified the devbreak code. It now pauses time rather than the editor. It also unpauses. This way we can skip frame by frame. 
 Something happened to the reticle again. 
+
+9/27 - Cory
+Adjusted spells 1 and 2 vfx.
+Added many textures for use in spells.
+Adjusted code for spells. Temporarily turned off other projectile levels. 
+Fixed bug with spell 3 casting different spell level projectiles.

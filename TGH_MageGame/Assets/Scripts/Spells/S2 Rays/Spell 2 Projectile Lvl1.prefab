@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 1, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -133,11 +133,11 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.5
+  m_Time: 0.2
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 1
+    widthMultiplier: 0.5
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -151,13 +151,22 @@ TrailRenderer:
         inWeight: 0
         outWeight: 0.73572236
       - serializedVersion: 3
-        time: 1
-        value: 0.34825134
-        inSlope: 0.6460622
-        outSlope: 0.6460622
+        time: 0.7256332
+        value: 0.28513992
+        inSlope: -1.5345627
+        outSlope: -1.5345627
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.25524807
+        inWeight: 0.21358588
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0.0066833496
+        inSlope: -0.41343683
+        outSlope: -0.41343683
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.6039196
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2

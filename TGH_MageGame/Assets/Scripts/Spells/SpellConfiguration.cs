@@ -120,9 +120,10 @@ public class Spell : ScriptableObject
     public AnimationClip CastAnimation => castAnimation;
     public Vector3 TargetPosition => targetPosition;
     public bool IsUnlocked => isUnlocked;
-    public GameObject SpawnObjectLvl1 => spawnObjectLvl1;
-    public GameObject SpawnObjectLvl2 => spawnObjectLvl2;
-    public GameObject SpawnObjectLvl3 => spawnObjectLvl3;
+    public GameObject CurrentProjectile => spawnObjectLvl1;
+    //public GameObject SpawnObjectLvl1 => spawnObjectLvl1;
+    //public GameObject SpawnObjectLvl2 => spawnObjectLvl2;
+    //public GameObject SpawnObjectLvl3 => spawnObjectLvl3;
     public Sprite SpellIcon => icon;
     public AudioClip SpawnSFX => spawnSFX;
     public AudioClip HitSFX => hitSFX;

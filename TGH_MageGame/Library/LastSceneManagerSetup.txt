@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/CORY_Sandbox.unity
+- path: Assets/Scenes/JACOB_Sandbox.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

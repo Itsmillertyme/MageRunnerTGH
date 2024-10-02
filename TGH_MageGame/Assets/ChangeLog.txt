@@ -31,3 +31,17 @@ Adjusted spells 1 and 2 vfx.
 Added many textures for use in spells.
 Adjusted code for spells. Temporarily turned off other projectile levels. 
 Fixed bug with spell 3 casting different spell level projectiles.
+
+10/1 - Cory
+Added clamp on z for mouse position tracker. removed clamp from spellbook.
+Reworked spellbooks to have enums for each spell.
+Removed the prefabbed levels of spells. Now the scale is changed per level and we use one prefab. 
+Using the enum, we can now dictate the spawn method per spell. 
+Set up the spawn logic and added to most spells.
+There's an issue with flamethrower going the wrong way when casted too soon. it's projectile mover script related. 
+Reorganized the spell folders.
+Remade the fireball shader material setup to use the same style as ray. 1 less mat, plus less transparent.
+Updated all spell values besides earth shards.
+For all spells that spawn with an offset, removed the parent "base point" empties. With the new spawn system, we no longer need an intermediate party.
+Damage now works for all spells besides earth shards. Earth shards has not been worked on yet. 
+Temporarily commented out the player damage stuff from the script.

@@ -67,7 +67,7 @@ public class TemporaryEnemyShoot : MonoBehaviour
         {
             targetPosition = GameObject.FindWithTag("Player").transform.position;
             GameObject projectile = Instantiate(prefab, transform.position, transform.rotation);
-            projectile.GetComponent<ProjectileMover>().SetAttributes(5, 2, 10, targetPosition);
+            projectile.GetComponent<ProjectileMover>().SetAttributes(5, 2, 10, new Vector3(0.5f,0.5f,0.5f), targetPosition);
             int waitTime = Random.Range(1, 7);
 
             yield return new WaitForSeconds(waitTime);

@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 public class GameManager : MonoBehaviour {
 
     [SerializeField] Canvas hud;
-    [SerializeField] RectTransform crosshair;
     [SerializeField] Transform projectileSpawn;
     [SerializeField] Transform player;
     Vector3 playerPivot;

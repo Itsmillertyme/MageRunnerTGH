@@ -4,11 +4,13 @@ ScriptsOnlyBuild:
     - AnimatorForward
     - CameraController
     - DebugMenuController
+    - DungeonCreator
     - EnemyHealth
     - EnemyHealthUI
     - GameEvent
     - GameEventListener
     - GameManager
+    - LevelSelector
     - MouseFollower
     - MousePositionTracking
     - ObjectHider
@@ -39,6 +41,39 @@ ScriptsOnlyBuild:
     - UnityEngine.InputSystem.PlayerInput
     - UnityEngine.InputSystem.RemoteInputPlayerConnection
     - UnityEngine.InputSystem.UI.InputSystemUIInputModule
+    Unity.RenderPipelines.Core.Runtime:
+    - UnityEngine.Rendering.UI.DebugUIHandlerBitField
+    - UnityEngine.Rendering.UI.DebugUIHandlerButton
+    - UnityEngine.Rendering.UI.DebugUIHandlerCanvas
+    - UnityEngine.Rendering.UI.DebugUIHandlerColor
+    - UnityEngine.Rendering.UI.DebugUIHandlerContainer
+    - UnityEngine.Rendering.UI.DebugUIHandlerEnumField
+    - UnityEngine.Rendering.UI.DebugUIHandlerEnumHistory
+    - UnityEngine.Rendering.UI.DebugUIHandlerFloatField
+    - UnityEngine.Rendering.UI.DebugUIHandlerFoldout
+    - UnityEngine.Rendering.UI.DebugUIHandlerGroup
+    - UnityEngine.Rendering.UI.DebugUIHandlerHBox
+    - UnityEngine.Rendering.UI.DebugUIHandlerIndirectFloatField
+    - UnityEngine.Rendering.UI.DebugUIHandlerIndirectToggle
+    - UnityEngine.Rendering.UI.DebugUIHandlerIntField
+    - UnityEngine.Rendering.UI.DebugUIHandlerMessageBox
+    - UnityEngine.Rendering.UI.DebugUIHandlerObject
+    - UnityEngine.Rendering.UI.DebugUIHandlerObjectList
+    - UnityEngine.Rendering.UI.DebugUIHandlerObjectPopupField
+    - UnityEngine.Rendering.UI.DebugUIHandlerPanel
+    - UnityEngine.Rendering.UI.DebugUIHandlerPersistentCanvas
+    - UnityEngine.Rendering.UI.DebugUIHandlerProgressBar
+    - UnityEngine.Rendering.UI.DebugUIHandlerRow
+    - UnityEngine.Rendering.UI.DebugUIHandlerToggle
+    - UnityEngine.Rendering.UI.DebugUIHandlerToggleHistory
+    - UnityEngine.Rendering.UI.DebugUIHandlerUIntField
+    - UnityEngine.Rendering.UI.DebugUIHandlerVBox
+    - UnityEngine.Rendering.UI.DebugUIHandlerValue
+    - UnityEngine.Rendering.UI.DebugUIHandlerValueTuple
+    - UnityEngine.Rendering.UI.DebugUIHandlerVector2
+    - UnityEngine.Rendering.UI.DebugUIHandlerVector3
+    - UnityEngine.Rendering.UI.DebugUIHandlerVector4
+    - UnityEngine.Rendering.UI.UIFoldout
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
     Unity.TextMeshPro:
@@ -65,8 +100,24 @@ ScriptsOnlyBuild:
     - UnityEditor.TestTools.TestRunner.CommandLineTest.RunData
     - UnityEditor.TestTools.TestRunner.TestListCacheData
     - UnityEditor.TestTools.TestRunner.TestRun.TestJobDataHolder
+    UnityEngine.UI:
+    - UnityEngine.EventSystems.EventTrigger
+    - UnityEngine.UI.Button
+    - UnityEngine.UI.CanvasScaler
+    - UnityEngine.UI.ContentSizeFitter
+    - UnityEngine.UI.GraphicRaycaster
+    - UnityEngine.UI.HorizontalLayoutGroup
+    - UnityEngine.UI.Image
+    - UnityEngine.UI.LayoutElement
+    - UnityEngine.UI.Mask
+    - UnityEngine.UI.ScrollRect
+    - UnityEngine.UI.Scrollbar
+    - UnityEngine.UI.Text
+    - UnityEngine.UI.Toggle
+    - UnityEngine.UI.VerticalLayoutGroup
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
+    - UnityEngine.EventSystems.StandaloneInputModule
     - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.GraphicRaycaster
@@ -92,6 +143,8 @@ ScriptsOnlyBuild:
     - UnityEngine.InputSystem.PlayerInput/DeviceLostEvent
     - UnityEngine.InputSystem.PlayerInput/DeviceRegainedEvent
     - UnityEngine.InputSystem.iOS.PrivacyDataUsage
+    Unity.RenderPipelines.Core.Runtime:
+    - UnityEngine.Rendering.UI.DebugUIPrefabBundle
     Unity.TextMeshPro:
     - TMPro.FaceInfo_Legacy
     - TMPro.FontAssetCreationSettings
@@ -109,6 +162,7 @@ ScriptsOnlyBuild:
     - UnityEngine.Events.PersistentCallGroup
     - UnityEngine.Events.PersistentListenerMode
     - UnityEngine.Events.UnityEvent
+    - UnityEngine.RectOffset
     UnityEngine.TextCoreFontEngineModule:
     - UnityEngine.TextCore.FaceInfo
     - UnityEngine.TextCore.Glyph
@@ -118,81 +172,118 @@ ScriptsOnlyBuild:
     - UnityEngine.TextCore.LowLevel.GlyphPairAdjustmentRecord
     - UnityEngine.TextCore.LowLevel.GlyphValueRecord
     UnityEngine.UI:
+    - UnityEngine.EventSystems.EventTrigger/Entry
+    - UnityEngine.EventSystems.EventTrigger/TriggerEvent
     - UnityEngine.UI.AnimationTriggers
     - UnityEngine.UI.Button/ButtonClickedEvent
     - UnityEngine.UI.ColorBlock
     - UnityEngine.UI.FontData
     - UnityEngine.UI.MaskableGraphic/CullStateChangedEvent
     - UnityEngine.UI.Navigation
+    - UnityEngine.UI.ScrollRect/ScrollRectEvent
     - UnityEngine.UI.Scrollbar/ScrollEvent
     - UnityEngine.UI.SpriteState
+    - UnityEngine.UI.Toggle/ToggleEvent
   methodsToPreserve:
   - assembly: Assembly-CSharp
-    fullTypeName: GameEvent
-    methodName: Raise
-  - assembly: Assembly-CSharp
-    fullTypeName: GameEvent
-    methodName: Raise
-  - assembly: Assembly-CSharp
-    fullTypeName: GameEvent
-    methodName: Raise
-  - assembly: Assembly-CSharp
-    fullTypeName: GameEvent
-    methodName: Raise
-  - assembly: Assembly-CSharp
-    fullTypeName: GameEvent
-    methodName: Raise
-  - assembly: Assembly-CSharp
-    fullTypeName: GameEvent
-    methodName: Raise
-  - assembly: Assembly-CSharp
-    fullTypeName: GameEvent
-    methodName: Raise
-  - assembly: Assembly-CSharp
-    fullTypeName: GameEvent
-    methodName: Raise
-  - assembly: Assembly-CSharp
-    fullTypeName: GameEvent
-    methodName: Raise
-  - assembly: Assembly-CSharp
-    fullTypeName: GameEvent
-    methodName: Raise
-  - assembly: Assembly-CSharp
-    fullTypeName: GameEvent
-    methodName: Raise
-  - assembly: Assembly-CSharp
-    fullTypeName: GameEvent
-    methodName: Raise
-  - assembly: Assembly-CSharp
-    fullTypeName: DebugMenuController
-    methodName: MoveToLocation
-  - assembly: Assembly-CSharp
-    fullTypeName: DebugMenuController
-    methodName: MoveToLocation
+    fullTypeName: SpellBook
+    methodName: LevelDownActiveSpell
   - assembly: Assembly-CSharp
     fullTypeName: SpellBook
     methodName: LevelUpActiveSpell
   - assembly: Assembly-CSharp
-    fullTypeName: DebugMenuController
-    methodName: MoveToLocation
-  - assembly: Assembly-CSharp
-    fullTypeName: DebugMenuController
-    methodName: MoveToLocation
-  - assembly: Assembly-CSharp
     fullTypeName: PlayerStats
     methodName: updateCurrentMana
-  - assembly: Assembly-CSharp
-    fullTypeName: GameEvent
-    methodName: Raise
-  - assembly: Assembly-CSharp
-    fullTypeName: GameManager
-    methodName: Quit
   - assembly: Assembly-CSharp
     fullTypeName: PlayerStats
     methodName: updateCurrentHealth
   - assembly: Assembly-CSharp
-    fullTypeName: DebugMenuController
-    methodName: MoveToLocation
+    fullTypeName: GameEvent
+    methodName: Raise
+  - assembly: Assembly-CSharp
+    fullTypeName: SpellUI
+    methodName: UpdateSpellUI
+  - assembly: Assembly-CSharp
+    fullTypeName: SpellUI
+    methodName: UpdateSpellUI
+  - assembly: Assembly-CSharp
+    fullTypeName: SpellUI
+    methodName: UpdateSpellUI
+  - assembly: Assembly-CSharp
+    fullTypeName: GameEvent
+    methodName: Raise
+  - assembly: Assembly-CSharp
+    fullTypeName: GameEvent
+    methodName: Raise
+  - assembly: Assembly-CSharp
+    fullTypeName: GameEvent
+    methodName: Raise
+  - assembly: Assembly-CSharp
+    fullTypeName: GameEvent
+    methodName: Raise
+  - assembly: Assembly-CSharp
+    fullTypeName: GameEvent
+    methodName: Raise
+  - assembly: Assembly-CSharp
+    fullTypeName: GameEvent
+    methodName: Raise
+  - assembly: Assembly-CSharp
+    fullTypeName: GameEvent
+    methodName: Raise
+  - assembly: Assembly-CSharp
+    fullTypeName: GameEvent
+    methodName: Raise
+  - assembly: Assembly-CSharp
+    fullTypeName: GameEvent
+    methodName: Raise
+  - assembly: Assembly-CSharp
+    fullTypeName: GameEvent
+    methodName: Raise
+  - assembly: Assembly-CSharp
+    fullTypeName: GameEvent
+    methodName: Raise
+  - assembly: Assembly-CSharp
+    fullTypeName: GameEvent
+    methodName: Raise
+  - assembly: Unity.RenderPipelines.Core.Runtime
+    fullTypeName: UnityEngine.Rendering.UI.DebugUIHandlerPanel
+    methodName: OnScrollbarClicked
+  - assembly: Unity.RenderPipelines.Core.Runtime
+    fullTypeName: UnityEngine.Rendering.UI.DebugUIHandlerPanel
+    methodName: OnScrollbarClicked
+  - assembly: Unity.RenderPipelines.Core.Runtime
+    fullTypeName: UnityEngine.Rendering.UI.DebugUIHandlerIntField
+    methodName: OnIncrement
+  - assembly: Unity.RenderPipelines.Core.Runtime
+    fullTypeName: UnityEngine.Rendering.UI.DebugUIHandlerIntField
+    methodName: OnDecrement
+  - assembly: Unity.RenderPipelines.Core.Runtime
+    fullTypeName: UnityEngine.Rendering.UI.DebugUIHandlerIntField
+    methodName: OnDecrement
+  - assembly: Unity.RenderPipelines.Core.Runtime
+    fullTypeName: UnityEngine.Rendering.UI.DebugUIHandlerIntField
+    methodName: OnIncrement
+  - assembly: Unity.RenderPipelines.Core.Runtime
+    fullTypeName: UnityEngine.Rendering.UI.DebugUIHandlerUIntField
+    methodName: OnDecrement
+  - assembly: Unity.RenderPipelines.Core.Runtime
+    fullTypeName: UnityEngine.Rendering.UI.DebugUIHandlerUIntField
+    methodName: OnIncrement
+  - assembly: Unity.RenderPipelines.Core.Runtime
+    fullTypeName: UnityEngine.Rendering.UI.DebugUIHandlerUIntField
+    methodName: OnIncrement
+  - assembly: Unity.RenderPipelines.Core.Runtime
+    fullTypeName: UnityEngine.Rendering.UI.DebugUIHandlerUIntField
+    methodName: OnDecrement
+  - assembly: Unity.RenderPipelines.Core.Runtime
+    fullTypeName: UnityEngine.Rendering.UI.DebugUIHandlerObjectPopupField
+    methodName: OnDecrement
+  - assembly: Unity.RenderPipelines.Core.Runtime
+    fullTypeName: UnityEngine.Rendering.UI.DebugUIHandlerObjectPopupField
+    methodName: OnIncrement
+  - assembly: Unity.RenderPipelines.Core.Runtime
+    fullTypeName: UnityEngine.Rendering.UI.DebugUIHandlerPanel
+    methodName: ResetDebugManager
   - assembly: Assembly-CSharp
     fullTypeName: SpellUI
     methodName: UpdateSpellUI
@@ -205,7 +296,206 @@ ScriptsOnlyBuild:
   - assembly: Assembly-CSharp
     fullTypeName: SpellBook
     methodName: LevelDownActiveSpell
+  - assembly: Assembly-CSharp
+    fullTypeName: SpellBook
+    methodName: LevelUpActiveSpell
+  - assembly: Assembly-CSharp
+    fullTypeName: PlayerStats
+    methodName: updateCurrentMana
+  - assembly: Assembly-CSharp
+    fullTypeName: PlayerStats
+    methodName: updateCurrentHealth
+  - assembly: Assembly-CSharp
+    fullTypeName: GameEvent
+    methodName: Raise
+  - assembly: Assembly-CSharp
+    fullTypeName: GameEvent
+    methodName: Raise
+  - assembly: Assembly-CSharp
+    fullTypeName: GameEvent
+    methodName: Raise
+  - assembly: Assembly-CSharp
+    fullTypeName: GameEvent
+    methodName: Raise
+  - assembly: Assembly-CSharp
+    fullTypeName: GameEvent
+    methodName: Raise
+  - assembly: Assembly-CSharp
+    fullTypeName: GameEvent
+    methodName: Raise
+  - assembly: Assembly-CSharp
+    fullTypeName: GameEvent
+    methodName: Raise
+  - assembly: Assembly-CSharp
+    fullTypeName: GameEvent
+    methodName: Raise
+  - assembly: Assembly-CSharp
+    fullTypeName: GameEvent
+    methodName: Raise
+  - assembly: Assembly-CSharp
+    fullTypeName: GameEvent
+    methodName: Raise
+  - assembly: Assembly-CSharp
+    fullTypeName: GameEvent
+    methodName: Raise
+  - assembly: Assembly-CSharp
+    fullTypeName: GameEvent
+    methodName: Raise
+  - assembly: Assembly-CSharp
+    fullTypeName: GameEvent
+    methodName: Raise
   sceneClasses:
+    Assets/Scenes/ProceduralGenerationTestLevel.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 23
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 33
+      Script: {instanceID: 0}
+    - Class: 43
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 54
+      Script: {instanceID: 0}
+    - Class: 64
+      Script: {instanceID: 0}
+    - Class: 65
+      Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
+      Script: {instanceID: 0}
+    - Class: 89
+      Script: {instanceID: 0}
+    - Class: 90
+      Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
+      Script: {instanceID: 0}
+    - Class: 96
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 108
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 18048}
+    - Class: 114
+      Script: {instanceID: 29002}
+    - Class: 114
+      Script: {instanceID: 29316}
+    - Class: 114
+      Script: {instanceID: 29322}
+    - Class: 114
+      Script: {instanceID: 29398}
+    - Class: 114
+      Script: {instanceID: 29672}
+    - Class: 114
+      Script: {instanceID: 29676}
+    - Class: 114
+      Script: {instanceID: 29916}
+    - Class: 114
+      Script: {instanceID: 30018}
+    - Class: 114
+      Script: {instanceID: 30338}
+    - Class: 114
+      Script: {instanceID: 30966}
+    - Class: 114
+      Script: {instanceID: 31164}
+    - Class: 114
+      Script: {instanceID: 31526}
+    - Class: 114
+      Script: {instanceID: 32024}
+    - Class: 114
+      Script: {instanceID: 32094}
+    - Class: 114
+      Script: {instanceID: 32186}
+    - Class: 114
+      Script: {instanceID: 32518}
+    - Class: 114
+      Script: {instanceID: 32526}
+    - Class: 114
+      Script: {instanceID: 32898}
+    - Class: 114
+      Script: {instanceID: 33204}
+    - Class: 114
+      Script: {instanceID: 33624}
+    - Class: 114
+      Script: {instanceID: 34982}
+    - Class: 114
+      Script: {instanceID: 34990}
+    - Class: 114
+      Script: {instanceID: 35226}
+    - Class: 114
+      Script: {instanceID: 35360}
+    - Class: 114
+      Script: {instanceID: 36378}
+    - Class: 114
+      Script: {instanceID: 36942}
+    - Class: 114
+      Script: {instanceID: 36998}
+    - Class: 114
+      Script: {instanceID: 37078}
+    - Class: 114
+      Script: {instanceID: 37816}
+    - Class: 114
+      Script: {instanceID: 37908}
+    - Class: 114
+      Script: {instanceID: 37970}
+    - Class: 114
+      Script: {instanceID: 38020}
+    - Class: 114
+      Script: {instanceID: 38570}
+    - Class: 114
+      Script: {instanceID: 38728}
+    - Class: 114
+      Script: {instanceID: 39080}
+    - Class: 114
+      Script: {instanceID: 45918}
+    - Class: 114
+      Script: {instanceID: 8120034}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 135
+      Script: {instanceID: 0}
+    - Class: 136
+      Script: {instanceID: 0}
+    - Class: 137
+      Script: {instanceID: 0}
+    - Class: 143
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 196
+      Script: {instanceID: 0}
+    - Class: 198
+      Script: {instanceID: 0}
+    - Class: 199
+      Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
+      Script: {instanceID: 0}
     Assets/Scenes/Sandbox.unity:
     - Class: 1
       Script: {instanceID: 0}
@@ -256,93 +546,175 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 25288}
+      Script: {instanceID: 18048}
     - Class: 114
-      Script: {instanceID: 25348}
+      Script: {instanceID: 29002}
     - Class: 114
-      Script: {instanceID: 25506}
+      Script: {instanceID: 29082}
     - Class: 114
-      Script: {instanceID: 25510}
+      Script: {instanceID: 29102}
     - Class: 114
-      Script: {instanceID: 25564}
+      Script: {instanceID: 29264}
     - Class: 114
-      Script: {instanceID: 25764}
+      Script: {instanceID: 29266}
     - Class: 114
-      Script: {instanceID: 25768}
+      Script: {instanceID: 29316}
     - Class: 114
-      Script: {instanceID: 25912}
+      Script: {instanceID: 29322}
     - Class: 114
-      Script: {instanceID: 25990}
+      Script: {instanceID: 29398}
     - Class: 114
-      Script: {instanceID: 26052}
+      Script: {instanceID: 29604}
     - Class: 114
-      Script: {instanceID: 26218}
+      Script: {instanceID: 29672}
     - Class: 114
-      Script: {instanceID: 26306}
+      Script: {instanceID: 29676}
     - Class: 114
-      Script: {instanceID: 26642}
+      Script: {instanceID: 29916}
     - Class: 114
-      Script: {instanceID: 26784}
+      Script: {instanceID: 30018}
     - Class: 114
-      Script: {instanceID: 26818}
+      Script: {instanceID: 30040}
     - Class: 114
-      Script: {instanceID: 26986}
+      Script: {instanceID: 30108}
     - Class: 114
-      Script: {instanceID: 27376}
+      Script: {instanceID: 30338}
     - Class: 114
-      Script: {instanceID: 27418}
+      Script: {instanceID: 30468}
     - Class: 114
-      Script: {instanceID: 27482}
+      Script: {instanceID: 30710}
     - Class: 114
-      Script: {instanceID: 27698}
+      Script: {instanceID: 30904}
     - Class: 114
-      Script: {instanceID: 27812}
+      Script: {instanceID: 30966}
     - Class: 114
-      Script: {instanceID: 27944}
+      Script: {instanceID: 31004}
     - Class: 114
-      Script: {instanceID: 28132}
+      Script: {instanceID: 31164}
     - Class: 114
-      Script: {instanceID: 28426}
+      Script: {instanceID: 31216}
     - Class: 114
-      Script: {instanceID: 29384}
+      Script: {instanceID: 31246}
     - Class: 114
-      Script: {instanceID: 29392}
+      Script: {instanceID: 31526}
     - Class: 114
-      Script: {instanceID: 29540}
+      Script: {instanceID: 31818}
     - Class: 114
-      Script: {instanceID: 29626}
+      Script: {instanceID: 32024}
     - Class: 114
-      Script: {instanceID: 30080}
+      Script: {instanceID: 32048}
     - Class: 114
-      Script: {instanceID: 30208}
+      Script: {instanceID: 32094}
     - Class: 114
-      Script: {instanceID: 30332}
+      Script: {instanceID: 32186}
     - Class: 114
-      Script: {instanceID: 30464}
+      Script: {instanceID: 32518}
     - Class: 114
-      Script: {instanceID: 30728}
+      Script: {instanceID: 32706}
     - Class: 114
-      Script: {instanceID: 30766}
+      Script: {instanceID: 32792}
     - Class: 114
-      Script: {instanceID: 30828}
+      Script: {instanceID: 32898}
     - Class: 114
-      Script: {instanceID: 31320}
+      Script: {instanceID: 33204}
     - Class: 114
-      Script: {instanceID: 31324}
+      Script: {instanceID: 33248}
     - Class: 114
-      Script: {instanceID: 31394}
+      Script: {instanceID: 33600}
     - Class: 114
-      Script: {instanceID: 31442}
+      Script: {instanceID: 33624}
     - Class: 114
-      Script: {instanceID: 31484}
+      Script: {instanceID: 33702}
     - Class: 114
-      Script: {instanceID: 31874}
+      Script: {instanceID: 33766}
     - Class: 114
-      Script: {instanceID: 31976}
+      Script: {instanceID: 33820}
     - Class: 114
-      Script: {instanceID: 32230}
+      Script: {instanceID: 33888}
     - Class: 114
-      Script: {instanceID: 32490}
+      Script: {instanceID: 33930}
+    - Class: 114
+      Script: {instanceID: 33986}
+    - Class: 114
+      Script: {instanceID: 34500}
+    - Class: 114
+      Script: {instanceID: 34588}
+    - Class: 114
+      Script: {instanceID: 34982}
+    - Class: 114
+      Script: {instanceID: 34990}
+    - Class: 114
+      Script: {instanceID: 35080}
+    - Class: 114
+      Script: {instanceID: 35226}
+    - Class: 114
+      Script: {instanceID: 35360}
+    - Class: 114
+      Script: {instanceID: 35400}
+    - Class: 114
+      Script: {instanceID: 35504}
+    - Class: 114
+      Script: {instanceID: 36012}
+    - Class: 114
+      Script: {instanceID: 36024}
+    - Class: 114
+      Script: {instanceID: 36220}
+    - Class: 114
+      Script: {instanceID: 36364}
+    - Class: 114
+      Script: {instanceID: 36378}
+    - Class: 114
+      Script: {instanceID: 36808}
+    - Class: 114
+      Script: {instanceID: 36942}
+    - Class: 114
+      Script: {instanceID: 36946}
+    - Class: 114
+      Script: {instanceID: 36998}
+    - Class: 114
+      Script: {instanceID: 37008}
+    - Class: 114
+      Script: {instanceID: 37078}
+    - Class: 114
+      Script: {instanceID: 37180}
+    - Class: 114
+      Script: {instanceID: 37262}
+    - Class: 114
+      Script: {instanceID: 37286}
+    - Class: 114
+      Script: {instanceID: 37756}
+    - Class: 114
+      Script: {instanceID: 37810}
+    - Class: 114
+      Script: {instanceID: 37816}
+    - Class: 114
+      Script: {instanceID: 37908}
+    - Class: 114
+      Script: {instanceID: 37934}
+    - Class: 114
+      Script: {instanceID: 37970}
+    - Class: 114
+      Script: {instanceID: 38020}
+    - Class: 114
+      Script: {instanceID: 38060}
+    - Class: 114
+      Script: {instanceID: 38238}
+    - Class: 114
+      Script: {instanceID: 38298}
+    - Class: 114
+      Script: {instanceID: 38398}
+    - Class: 114
+      Script: {instanceID: 38570}
+    - Class: 114
+      Script: {instanceID: 38610}
+    - Class: 114
+      Script: {instanceID: 38728}
+    - Class: 114
+      Script: {instanceID: 39080}
+    - Class: 114
+      Script: {instanceID: 39472}
+    - Class: 114
+      Script: {instanceID: 8120034}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -359,6 +731,10 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 196
       Script: {instanceID: 0}
+    - Class: 198
+      Script: {instanceID: 0}
+    - Class: 199
+      Script: {instanceID: 0}
     - Class: 213
       Script: {instanceID: 0}
     - Class: 222
@@ -368,6 +744,12 @@ ScriptsOnlyBuild:
     - Class: 224
       Script: {instanceID: 0}
   scriptHashData:
+  - hash:
+      serializedVersion: 2
+      Hash: 540882762544409cc4530e60db00e951
+    assemblyName: UnityEngine.UI
+    namespaceName: UnityEngine.UI
+    className: CanvasScaler
   - hash:
       serializedVersion: 2
       Hash: 76985d05e160474a34860b693b206ee2
@@ -382,6 +764,12 @@ ScriptsOnlyBuild:
     className: TemporaryEnemyShoot
   - hash:
       serializedVersion: 2
+      Hash: f5df081962c06a171f380eb236cd1f3c
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering.UI
+    className: DebugUIHandlerVBox
+  - hash:
+      serializedVersion: 2
       Hash: b2d2a01a2a85d9ed12e80cb33a9a6044
     assemblyName: Unity.Timeline
     namespaceName: UnityEngine.Timeline
@@ -392,6 +780,18 @@ ScriptsOnlyBuild:
     assemblyName: Unity.InputSystem
     namespaceName: UnityEngine.InputSystem.OnScreen
     className: OnScreenStick
+  - hash:
+      serializedVersion: 2
+      Hash: e8fd74e57e72e8e4ef28792881adb864
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering.UI
+    className: DebugUIHandlerUIntField
+  - hash:
+      serializedVersion: 2
+      Hash: 58570e231c93c2f96918856759b81286
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering.UI
+    className: DebugUIHandlerPanel
   - hash:
       serializedVersion: 2
       Hash: 7dee1d3c1d776b807847bc05d2a399d1
@@ -406,7 +806,7 @@ ScriptsOnlyBuild:
     className: TextMeshProUGUI
   - hash:
       serializedVersion: 2
-      Hash: 3bb1a2222d37b5ec8e5c46187e0193dc
+      Hash: c7d6bddb7f2848ca8a8ca4c50ca1c513
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: SpellUI
@@ -440,6 +840,18 @@ ScriptsOnlyBuild:
     assemblyName: Unity.InputSystem
     namespaceName: UnityEngine.InputSystem.UI
     className: VirtualMouseInput
+  - hash:
+      serializedVersion: 2
+      Hash: cc46027bee2f332d7ef2951100d8ee3a
+    assemblyName: Unity.Rendering.LightTransport.Runtime
+    namespaceName: UnityEngine.Rendering.UnifiedRayTracing
+    className: RayTracingResources
+  - hash:
+      serializedVersion: 2
+      Hash: b72d9c057c0f9460abf04218f4cc4f0e
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering.UI
+    className: DebugUIHandlerMessageBox
   - hash:
       serializedVersion: 2
       Hash: 5a4aa2850fe11587f47e34c270c7fd22
@@ -502,7 +914,7 @@ ScriptsOnlyBuild:
     className: UnityOnTriggerExitMessageListener
   - hash:
       serializedVersion: 2
-      Hash: d103bf5c944282ff33b4886a16b2b7ed
+      Hash: 133036b2b3b8210aa53a296ab93a10e6
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: GameManager
@@ -530,6 +942,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.InputSystem
     namespaceName: UnityEngine.InputSystem.Editor
     className: PlayerInputEditor
+  - hash:
+      serializedVersion: 2
+      Hash: 4392bfff79efe0630144f16ea4d656ab
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering.UI
+    className: DebugUIHandlerObjectList
   - hash:
       serializedVersion: 2
       Hash: dbe80c9dc024d18e75107a0b4da06133
@@ -574,7 +992,7 @@ ScriptsOnlyBuild:
     className: UnityMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 197501b597768191587a735835563061
+      Hash: e56190226a89c5408d842151f548ac6d
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: DebugMenuController
@@ -640,6 +1058,12 @@ ScriptsOnlyBuild:
     className: Outline
   - hash:
       serializedVersion: 2
+      Hash: 2deddcdd5f664164bb803747210cbba2
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering.UI
+    className: DebugUIHandlerRow
+  - hash:
+      serializedVersion: 2
       Hash: 2bbd05175d4cdd21e24f9716cdd24f83
     assemblyName: Unity.InputSystem
     namespaceName: UnityEngine.InputSystem.XR
@@ -650,6 +1074,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro
     namespaceName: TMPro
     className: TMP_ScrollbarEventHandler
+  - hash:
+      serializedVersion: 2
+      Hash: 1362033cd491d66ad3cc206af29cc0de
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering
+    className: Volume
   - hash:
       serializedVersion: 2
       Hash: 8bf800a764665b085fe469e8aea7f167
@@ -664,10 +1094,28 @@ ScriptsOnlyBuild:
     className: UnityOnMouseExitMessageListener
   - hash:
       serializedVersion: 2
+      Hash: da281dc879c7932e0c9669da88ae40c0
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering.UI
+    className: DebugUIHandlerGroup
+  - hash:
+      serializedVersion: 2
+      Hash: dbe83177d13c4d8c58a1857e92999ae3
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering
+    className: LensFlareComponentSRP
+  - hash:
+      serializedVersion: 2
       Hash: 1de42070c8cfb5ce0dd077efe6147882
     assemblyName: Cinemachine
     namespaceName: Cinemachine
     className: Cinemachine3rdPersonFollow
+  - hash:
+      serializedVersion: 2
+      Hash: 10ffd5579f941e0f4946756d18f1a9df
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering.UI
+    className: DebugUIHandlerValueTuple
   - hash:
       serializedVersion: 2
       Hash: e636708ac1677b6f3be0cafe31e1bf77
@@ -730,10 +1178,22 @@ ScriptsOnlyBuild:
     className: EnemyHealth
   - hash:
       serializedVersion: 2
+      Hash: ef19274111491b6b8bcc6fd227f656f5
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering.UI
+    className: DebugUIHandlerIndirectFloatField
+  - hash:
+      serializedVersion: 2
       Hash: ee34255e3e86289bde9bad5e07b84cbc
     assemblyName: Unity.VisualScripting.Core
     namespaceName: Unity.VisualScripting
     className: UnityOnScrollRectValueChangedMessageListener
+  - hash:
+      serializedVersion: 2
+      Hash: 0126f347d98d02424c7e030465a71ead
+    assemblyName: Unity.InputSystem
+    namespaceName: UnityEngine.InputSystem.HID.Editor
+    className: HIDDescriptorWindow
   - hash:
       serializedVersion: 2
       Hash: dd9dda1dfd39e605c49e72003342ef5d
@@ -742,10 +1202,16 @@ ScriptsOnlyBuild:
     className: Image
   - hash:
       serializedVersion: 2
-      Hash: 0126f347d98d02424c7e030465a71ead
-    assemblyName: Unity.InputSystem
-    namespaceName: UnityEngine.InputSystem.HID.Editor
-    className: HIDDescriptorWindow
+      Hash: 2dea7200f0d78b17b92248cc72c0c84f
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering
+    className: ProbeVolumeBakingSet
+  - hash:
+      serializedVersion: 2
+      Hash: dbe4f05d59170430398f6453d7253fe5
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering.UI
+    className: DebugUIHandlerWidget
   - hash:
       serializedVersion: 2
       Hash: 43ba8d6499e36926549225e81183d2ca
@@ -784,6 +1250,12 @@ ScriptsOnlyBuild:
     className: CinemachineBlendListCamera
   - hash:
       serializedVersion: 2
+      Hash: 415316b9bbc4e339c901a46503e2790b
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering
+    className: VolumeProfile
+  - hash:
+      serializedVersion: 2
       Hash: cce88ec4737eb3cf0faab402148b7c4e
     assemblyName: Cinemachine
     namespaceName: Cinemachine
@@ -796,10 +1268,22 @@ ScriptsOnlyBuild:
     className: HorizontalLayoutGroup
   - hash:
       serializedVersion: 2
+      Hash: de8e34fffe62b77ca47bae273d0414ba
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering
+    className: ObsoleteProbeVolumeAsset
+  - hash:
+      serializedVersion: 2
       Hash: 8b95baa8da25d9a7e0cd3a2990e4552d
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: AnimatorForward
+  - hash:
+      serializedVersion: 2
+      Hash: 24af424a437762b0c98a2238a41b2825
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering.UI
+    className: DebugUIHandlerButton
   - hash:
       serializedVersion: 2
       Hash: ff76cf6cf52b4db7b95af6ffadca9288
@@ -874,7 +1358,7 @@ ScriptsOnlyBuild:
     className: UnityOnMouseUpAsButtonMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 78e6522cae4135ce870cbb8f93cb7c76
+      Hash: cfb59435ed4e17d6cb5a8d2b3e82843a
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: Spell
@@ -884,6 +1368,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI
     namespaceName: UnityEngine.EventSystems
     className: StandaloneInputModule
+  - hash:
+      serializedVersion: 2
+      Hash: ea5e0cb2f62c5bafc3dfb7bcdc9595e1
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering
+    className: DebugUpdater
   - hash:
       serializedVersion: 2
       Hash: a92561298b80715aa69e8fa770123cb5
@@ -928,16 +1418,16 @@ ScriptsOnlyBuild:
     className: CinemachineCameraOffset
   - hash:
       serializedVersion: 2
+      Hash: 6b2b20d5352b9f1294595326f54bd3c2
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering.UI
+    className: DebugUIHandlerObjectPopupField
+  - hash:
+      serializedVersion: 2
       Hash: 191c3402cd43ee08f0a96795440c294e
     assemblyName: Unity.InputSystem
     namespaceName: UnityEngine.InputSystem.Editor
     className: AdvancedDropdownWindow
-  - hash:
-      serializedVersion: 2
-      Hash: 35bb517bac2f684076b9999b33de0400
-    assemblyName: Cinemachine
-    namespaceName: Cinemachine
-    className: CinemachineInputProvider
   - hash:
       serializedVersion: 2
       Hash: 915204dac8acad99f076d6e72ada0a0f
@@ -946,10 +1436,22 @@ ScriptsOnlyBuild:
     className: Button
   - hash:
       serializedVersion: 2
+      Hash: 35bb517bac2f684076b9999b33de0400
+    assemblyName: Cinemachine
+    namespaceName: Cinemachine
+    className: CinemachineInputProvider
+  - hash:
+      serializedVersion: 2
       Hash: 95426d463074947dcbffc797c44e779c
     assemblyName: Unity.InputSystem
     namespaceName: UnityEngine.InputSystem.UI.Editor
     className: StandaloneInputModuleModuleEditor
+  - hash:
+      serializedVersion: 2
+      Hash: 8fe6d4f095ce838f5396d1867140a9b6
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering
+    className: CameraSwitcher
   - hash:
       serializedVersion: 2
       Hash: aa0d9690d4fcf762950bd9364343ca93
@@ -970,6 +1472,12 @@ ScriptsOnlyBuild:
     className: CinemachineImpulseSource
   - hash:
       serializedVersion: 2
+      Hash: c0a2b4d13675f08bfb211e044c334e68
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering.UI
+    className: DebugUIHandlerIntField
+  - hash:
+      serializedVersion: 2
       Hash: 84fd5b58131005680184ae89163ce396
     assemblyName: Cinemachine
     namespaceName: Cinemachine
@@ -980,6 +1488,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.InputSystem
     namespaceName: 
     className: DownloadableSample
+  - hash:
+      serializedVersion: 2
+      Hash: 47247e29ff0f727264f83a7f754b229c
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering
+    className: LensFlareDataSRP
   - hash:
       serializedVersion: 2
       Hash: a86c76e3081313bbddd26f2d2c1c6830
@@ -1042,16 +1556,46 @@ ScriptsOnlyBuild:
     className: ObjectHider
   - hash:
       serializedVersion: 2
+      Hash: 0f6b6107168e347e854c0107aa8cb9fb
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering.UI
+    className: DebugUIHandlerEnumHistory
+  - hash:
+      serializedVersion: 2
       Hash: 51b80d3734ea86b38e3101db98029e15
     assemblyName: Unity.Timeline
     namespaceName: UnityEngine.Timeline
     className: AnimationPlayableAsset
   - hash:
       serializedVersion: 2
+      Hash: 7d026ae582dc02c5edc3fc23b8c03ff7
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering.UI
+    className: DebugUIHandlerVector3
+  - hash:
+      serializedVersion: 2
+      Hash: 049f6aa84fe1cb5359c9338e96d0b07e
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering.UI
+    className: UIFoldout
+  - hash:
+      serializedVersion: 2
+      Hash: b72839eb6e4350778dc879d98832aa2b
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering.UI
+    className: DebugUIHandlerHBox
+  - hash:
+      serializedVersion: 2
       Hash: 8bbce9932f67ad8e7f4eefec87800f94
     assemblyName: Unity.TextMeshPro
     namespaceName: TMPro
     className: TextContainer
+  - hash:
+      serializedVersion: 2
+      Hash: 67ba98f8a8977f3e60e5f0e049923033
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering.UI
+    className: DebugUIHandlerColor
   - hash:
       serializedVersion: 2
       Hash: 7bb32d6e4c7614a97d9723ce7e26588c
@@ -1120,10 +1664,22 @@ ScriptsOnlyBuild:
     className: MacroScriptableObject
   - hash:
       serializedVersion: 2
+      Hash: 5f70b16cd9acc9c1dd88b51b6ed89669
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering.UI
+    className: DebugUIHandlerIndirectToggle
+  - hash:
+      serializedVersion: 2
       Hash: 5874b789cd9832847c61ebfa803213af
     assemblyName: UnityEngine.UI
     namespaceName: UnityEngine.UIElements
     className: PanelEventHandler
+  - hash:
+      serializedVersion: 2
+      Hash: cb49ce80d4b69cb2ed30d83bfcb146ae
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering.UI
+    className: DebugUIHandlerBitField
   - hash:
       serializedVersion: 2
       Hash: 4f353524ce6564e40764f1ea080b2d85
@@ -1142,6 +1698,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI
     namespaceName: UnityEngine.UI
     className: Dropdown
+  - hash:
+      serializedVersion: 2
+      Hash: 2cc5af0f17cef9c717df88c8c7e4c9aa
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine
+    className: LightAnchor
   - hash:
       serializedVersion: 2
       Hash: a99265337bbcb574a8c61bbdc198821a
@@ -1210,6 +1772,12 @@ ScriptsOnlyBuild:
     className: CinemachineIndependentImpulseListener
   - hash:
       serializedVersion: 2
+      Hash: 5dc51b0140815ee83ba613dce32f5b12
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering.UI
+    className: DebugUIHandlerPersistentCanvas
+  - hash:
+      serializedVersion: 2
       Hash: ff71db1a48de41d3a8a5ffdfae1ea607
     assemblyName: Unity.InputSystem
     namespaceName: UnityEngine.InputSystem
@@ -1220,6 +1788,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI
     namespaceName: UnityEngine.UI
     className: Text
+  - hash:
+      serializedVersion: 2
+      Hash: 5eb6cce88773189eff63cb8cf38222ea
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering
+    className: ProbeVolumesOptions
   - hash:
       serializedVersion: 2
       Hash: 768e82c9f94a259fa0c7d35e971b8c57
@@ -1324,6 +1898,12 @@ ScriptsOnlyBuild:
     className: UnityOnPointerExitMessageListener
   - hash:
       serializedVersion: 2
+      Hash: fe0a072dbdcbca34d5003c5299de3aaf
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering
+    className: SceneRenderPipeline
+  - hash:
+      serializedVersion: 2
       Hash: 8dc40a01667ca02b3354a4e7a61be082
     assemblyName: UnityEngine.UI
     namespaceName: UnityEngine.UI
@@ -1366,6 +1946,12 @@ ScriptsOnlyBuild:
     className: VerticalLayoutGroup
   - hash:
       serializedVersion: 2
+      Hash: e0cf060d3a0d1afae0c661ac42606ab8
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering
+    className: ProbeVolume
+  - hash:
+      serializedVersion: 2
       Hash: 40be2ad159aa1a2b72ecc74cb38c7824
     assemblyName: Unity.InputSystem
     namespaceName: UnityEngine.InputSystem.UI
@@ -1402,6 +1988,12 @@ ScriptsOnlyBuild:
     className: UnityOnTransformParentChangedMessageListener
   - hash:
       serializedVersion: 2
+      Hash: 5382156409d7c462c67822a5ee8d6c85
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering.UI
+    className: DebugUIHandlerToggleHistory
+  - hash:
+      serializedVersion: 2
       Hash: 42284ecb06b05bfc619be3758fa5dd7a
     assemblyName: Unity.InputSystem
     namespaceName: UnityEngine.InputSystem
@@ -1424,12 +2016,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.InputSystem
     namespaceName: UnityEngine.InputSystem.Editor
     className: PlayerInputManagerEditor
-  - hash:
-      serializedVersion: 2
-      Hash: 540882762544409cc4530e60db00e951
-    assemblyName: UnityEngine.UI
-    namespaceName: UnityEngine.UI
-    className: CanvasScaler
   - hash:
       serializedVersion: 2
       Hash: 3074afe1b03a0fb081e176a4ef1b9d09
@@ -1456,10 +2042,28 @@ ScriptsOnlyBuild:
     className: UnityOnTriggerExit2DMessageListener
   - hash:
       serializedVersion: 2
+      Hash: ed2c59b75f8f3cd8df4cd4387d965e71
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering.UI
+    className: DebugUIHandlerVector2
+  - hash:
+      serializedVersion: 2
+      Hash: 2c4b4125225bcb37eb3266cf6ff8f4de
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering
+    className: ProbeVolumePerSceneData
+  - hash:
+      serializedVersion: 2
       Hash: 65ea505f12b599257da917ded6ba259c
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: CameraController
+  - hash:
+      serializedVersion: 2
+      Hash: 2541c03d117382d4ebbe0bb0775dd2dc
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering.UI
+    className: DebugUIHandlerProgressBar
   - hash:
       serializedVersion: 2
       Hash: 28fd3d045acc780719a17f02073eb448
@@ -1478,6 +2082,12 @@ ScriptsOnlyBuild:
     assemblyName: Cinemachine
     namespaceName: Cinemachine
     className: CinemachinePixelPerfect
+  - hash:
+      serializedVersion: 2
+      Hash: 5c21f4846181ee6e245db1fcfb62fc0e
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering.UI
+    className: DebugUIHandlerContainer
   - hash:
       serializedVersion: 2
       Hash: e49f64f6c7006f2a8a0e7674b5de1fae
@@ -1522,16 +2132,40 @@ ScriptsOnlyBuild:
     className: CinemachineVolumeSettings
   - hash:
       serializedVersion: 2
+      Hash: c833d8ddc320fe5153f6a88cef23c858
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering.UI
+    className: DebugUIHandlerObject
+  - hash:
+      serializedVersion: 2
       Hash: 0515d3107a65fdbab3ad88c2c94de99f
     assemblyName: Cinemachine
     namespaceName: Cinemachine
     className: CinemachineDollyCart
   - hash:
       serializedVersion: 2
+      Hash: 47f78e94e3df8d612cefa1307a19e2ce
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering.UI
+    className: DebugUIHandlerValue
+  - hash:
+      serializedVersion: 2
+      Hash: cde402e184a6ab530144506bc9d6a0af
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering.UI
+    className: DebugUIHandlerVector4
+  - hash:
+      serializedVersion: 2
       Hash: 4fcf0bb4aff1d14a1dfcdedc4b07bd05
     assemblyName: UnityEngine.UI
     namespaceName: UnityEngine.EventSystems
     className: TouchInputModule
+  - hash:
+      serializedVersion: 2
+      Hash: 8d7ab1303b1c14da5fdd62bf96ca6e89
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering
+    className: FreeCamera
   - hash:
       serializedVersion: 2
       Hash: f778e23b6ff26b8de4721be0eb1fa240
@@ -1606,6 +2240,12 @@ ScriptsOnlyBuild:
     className: TMP_FontAsset
   - hash:
       serializedVersion: 2
+      Hash: 953fad5c5ab1e7bb889420c434db93fe
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering.UI
+    className: DebugUIHandlerFloatField
+  - hash:
+      serializedVersion: 2
       Hash: 488f3922fa1ec8f7d72cbb04b88bf18d
     assemblyName: Cinemachine
     namespaceName: Cinemachine
@@ -1618,6 +2258,12 @@ ScriptsOnlyBuild:
     className: ProjectileMover
   - hash:
       serializedVersion: 2
+      Hash: a908b098f2284663c0b9130e88844772
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering.UI
+    className: DebugUIHandlerCanvas
+  - hash:
+      serializedVersion: 2
       Hash: c4b85a67513b4f0cf7b5fb2d5ded04b0
     assemblyName: Unity.VisualScripting.Core
     namespaceName: Unity.VisualScripting
@@ -1628,6 +2274,24 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline
     namespaceName: UnityEngine.Timeline
     className: AudioPlayableAsset
+  - hash:
+      serializedVersion: 2
+      Hash: 711ba963e2b245a25de71beeaeeeb658
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering.UI
+    className: DebugUIHandlerFoldout
+  - hash:
+      serializedVersion: 2
+      Hash: b88e78b6860b6061b2c681ea9b80b6bf
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering.UI
+    className: DebugUIHandlerToggle
+  - hash:
+      serializedVersion: 2
+      Hash: 9f355e210e7950e47ad1391c7681435b
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering.UI
+    className: DebugUIHandlerEnumField
   - hash:
       serializedVersion: 2
       Hash: 43ebd945b04bced376c791411cf5a289
@@ -1658,6 +2322,18 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI
     namespaceName: UnityEngine.UI
     className: Toggle
+  - hash:
+      serializedVersion: 2
+      Hash: a9f0153fc675e1f4ade818b83e4ff0c1
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering
+    className: VolumeComponent
+  - hash:
+      serializedVersion: 2
+      Hash: e5374060fe96ae123591717311128640
+    assemblyName: Unity.RenderPipelines.Core.Runtime
+    namespaceName: UnityEngine.Rendering
+    className: ProbeTouchupVolume
   - hash:
       serializedVersion: 2
       Hash: 81c83e51bc55081559f0a72472adfbb8
@@ -1760,7 +2436,26 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 3a01932d9c6b9cff8ef7f603c21e8e4a
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: DungeonCreator
+  - hash:
+      serializedVersion: 2
+      Hash: c95263f0a41191a8527a15bb53598eef
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: PlacePlayer
+  - hash:
+      serializedVersion: 2
+      Hash: e249f1c892a5e80ce2ed253141455f85
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: LevelSelector
   platform: 19
   scenePathNames:
   - Assets/Scenes/Sandbox.unity
-  playerPath: D:/School/KSU/Digital Media Interaction/_Builds/0.1.2/MageRunner.exe
+  - Assets/Scenes/ProceduralGenerationTestLevel.unity
+  playerPath: D:/School/KSU/Digital Media Interaction/_Builds/0.2/MageRunner.exe

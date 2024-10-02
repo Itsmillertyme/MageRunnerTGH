@@ -9,11 +9,12 @@ public class CameraController : MonoBehaviour {
     [SerializeField] List<CinemachineVirtualCamera> vCams;
     [SerializeField] TextMeshProUGUI primHUDCamTMP;
     int activeCam;
-    int CAM_PRIORITY_OFFSET = 3;
+    int CAM_PRIORITY_OFFSET;
 
     private void Awake() {
         //Initialize Cameras              
         int priority = 0;
+        CAM_PRIORITY_OFFSET = vCams.Count;
         for (int i = 0; i < vCams.Count; i++) {
             if (vCams[i].Priority > priority) {
                 activeCam = i;

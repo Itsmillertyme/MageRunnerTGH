@@ -1,7 +1,7 @@
 using System.Collections;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
 
@@ -93,6 +93,11 @@ public class PlayerController : MonoBehaviour {
         dashbackwardHash = Animator.StringToHash("Dash_Backward");
         //
         animator.SetBool(landedHash, true);
+        //
+
+        if (playerModel.transform.rotation.eulerAngles.y == 90) {
+            isFacingLeft = true;
+        }
 
 
         //Define callbacks
@@ -124,6 +129,7 @@ public class PlayerController : MonoBehaviour {
 
 
         SetupJumpVariables();
+        HandlePlayerDirection();
     }
     //
     void Update() {
@@ -164,12 +170,7 @@ public class PlayerController : MonoBehaviour {
             wasFlippedLastFrame = false;
         }
         //Facing player based on Mouse position
-        if ((!isFacingLeft && Input.mousePosition.x < Screen.width / 2f) || (isFacingLeft && Input.mousePosition.x > Screen.width / 2f)) {
-            if (turnAnimation == null) {
-                turnAnimation = StartCoroutine(TurnAnim());
-                wasFlippedLastFrame = true;
-            }
-        }
+        HandlePlayerDirection();
 
         HandleGravity();
         HandleJump();
@@ -201,6 +202,17 @@ public class PlayerController : MonoBehaviour {
         //Snap Z coord to 0
         transform.position = new Vector3(transform.position.x, transform.position.y, 0);
     }
+
+    private void HandlePlayerDirection() {
+        if ((!isFacingLeft && Input.mousePosition.x < Screen.width / 2f) || (isFacingLeft && Input.mousePosition.x > Screen.width / 2f)) {
+
+            if (turnAnimation == null) {
+                turnAnimation = StartCoroutine(TurnAnim());
+                wasFlippedLastFrame = true;
+            }
+        }
+    }
+
     //
     private void OnEnable() {
         //Turn on action assets
@@ -415,27 +427,29 @@ public class PlayerController : MonoBehaviour {
     }
     //
     void HandleJump() {
-        if (!isJumping && characterController.isGrounded && isJumpPressed) {
-            isJumping = true;
-            jumpAnimation = StartCoroutine(JumpAnim());
-        }
-        else if (!isJumpPressed && characterController.isGrounded && isJumping) {
-            isJumping = false;
-
-            if (isMovementPressed) {
-                animator.CrossFade(walkHash, 0.01f);
+        //unlimited jumps in level testing
+        string temp = SceneManager.GetActiveScene().name;
+        if ((temp != "CORY_Sandbox" && temp != "JACOB_Sandbox" && temp != "Sandbox") || characterController.isGrounded) {
+            if (!isJumping && isJumpPressed) {
+                isJumping = true;
+                jumpAnimation = StartCoroutine(JumpAnim());
             }
-            animator.SetBool(landedHash, true);
+            else if (!isJumpPressed && isJumping) {
+                isJumping = false;
 
+                if (isMovementPressed) {
+                    animator.CrossFade(walkHash, 0.01f);
+                }
+                animator.SetBool(landedHash, true);
+
+            }
         }
     }
     //
     //DEV ONLY - DELETE BEFORE FINAL BUILD
-    void Devbreak(InputAction.CallbackContext context) 
-    {
+    void Devbreak(InputAction.CallbackContext context) {
         isPaused = !isPaused;
-        if (context.performed) 
-        {
+        if (context.performed) {
             /*
             // *** CODE FOR UNITY EDITOR ONLY *** //
             if (EditorApplication.isPlaying)
@@ -446,16 +460,14 @@ public class PlayerController : MonoBehaviour {
             */
 
             // PAUSE THE GAME TIME
-            if (isPaused)
-            {
+            if (isPaused) {
                 Time.timeScale = 0f;
                 Cursor.visible = true;
             }
-            else 
-            {
+            else {
                 Time.timeScale = 1f;
                 Cursor.visible = false;
-            }            
+            }
         }
     }
 

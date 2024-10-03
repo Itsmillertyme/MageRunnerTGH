@@ -2,35 +2,28 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHealthUIController : MonoBehaviour {
-    [SerializeField]
-    public TextMeshProUGUI currentHealthText;
-    [SerializeField]
-    private PlayerStats playerStats;
+public class PlayerHealthUIController : MonoBehaviour
+{
+    [SerializeField] PlayerHealth health;
+    [SerializeField] public TextMeshProUGUI currentHealthText;
+    [SerializeField] Image healthBar;
 
-    private void Start() {
-        currentHealthText.text = "HP:\n" + playerStats.getCurrentHealth();
-        GetComponent<Image>().fillAmount = playerStats.getCurrentHealth() / (float)playerStats.getMaxHealth();
+    public void UpdateUI()
+    {
+        Debug.Log("Updating ui");
+        currentHealthText.text = "HP:\n" + health.CurrentHealth;
+        healthBar.fillAmount = (float)health.CurrentHealth / health.MaxHealth;
     }
 
-    private void OnEnable() {
-        playerStats.currentHealthChangeEvent.AddListener(updateCurrentHealthText);
-    }
-    private void OnDisable() {
-        playerStats.currentHealthChangeEvent.RemoveListener(updateCurrentHealthText);
-    }
-
-    private void updateCurrentHealthText(int health) {
-        currentHealthText.text = "HP:\n" + health;
-        GetComponent<Image>().fillAmount = health / (float)playerStats.getMaxHealth();
-    }
-
-    private void Update() {
-        if (Input.GetKey(KeyCode.K)) {
-            playerStats.updateCurrentHealth(-5);
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.K))
+        {
+            health.RemoveFromHealth(-5);
         }
-        if (Input.GetKey(KeyCode.L)) {
-            playerStats.updateCurrentHealth(5);
+        if (Input.GetKey(KeyCode.L))
+        {
+            health.AddToHealth(5);
         }
     }
 }

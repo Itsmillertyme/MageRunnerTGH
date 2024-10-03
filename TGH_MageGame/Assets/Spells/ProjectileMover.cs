@@ -53,13 +53,18 @@ public class ProjectileMover : MonoBehaviour {
 
         else if (collision.gameObject.CompareTag("Player"))
         {
-            //playerStats.updateCurrentHealth(-damage);
+            collision.gameObject.GetComponent<PlayerHealth>().RemoveFromHealth(damage);
+            Destroy(gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
+    }
 
-
+    private void OnTriggerEnter(Collider collided)
+    {
+        collided.gameObject.GetComponent<EnemyHealth>().RemoveFromHealth(damage);
+        Destroy(gameObject, lifeSpan);
     }
 }

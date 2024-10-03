@@ -45,3 +45,13 @@ Updated all spell values besides earth shards.
 For all spells that spawn with an offset, removed the parent "base point" empties. With the new spawn system, we no longer need an intermediate party.
 Damage now works for all spells besides earth shards. Earth shards has not been worked on yet. 
 Temporarily commented out the player damage stuff from the script.
+
+10/3 - Cory
+Reordered spells folders and files.
+Added on trigger enter for continuous spells. Moved those spells to is trigger.
+Replaced the flamethrower sounds.
+Reworked the player ui controller for health then moved it to be on the HUD object.
+Created a new player health component. It does not currently derive from the player stats SO.
+Updated damage in projectile mover for player to use the new player health. 
+Changed some of the prefab references for the new health setup.
+Added event listener for health plus the invoke logic.

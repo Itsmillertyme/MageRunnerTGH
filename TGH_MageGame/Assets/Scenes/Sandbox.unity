@@ -1302,8 +1302,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000000001519075, y: 0.99939597, z: 0.034752384, w: -0.000000043684985}
-  m_LocalPosition: {x: 7.15, y: 15.46, z: 26}
+  m_LocalRotation: {x: 0.0000000014778386, y: 0.99942833, z: 0.033809006, w: -0.0000000436864}
+  m_LocalPosition: {x: 7.15, y: 15.46, z: 22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2596,6 +2596,10 @@ PrefabInstance:
       propertyPath: m_LookAt
       value: 
       objectReference: {fileID: 1455437823}
+    - target: {fileID: 2904909864830783087, guid: 1398c45f96961234db3bdb9e7cd7da4e, type: 3}
+      propertyPath: CameraDistance
+      value: -16
+      objectReference: {fileID: 0}
     - target: {fileID: 3147030685674928244, guid: 1398c45f96961234db3bdb9e7cd7da4e, type: 3}
       propertyPath: m_Follow
       value: 
@@ -2642,23 +2646,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6366269736405727099, guid: 1398c45f96961234db3bdb9e7cd7da4e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 26
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 6366269736405727099, guid: 1398c45f96961234db3bdb9e7cd7da4e, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.000000043684985
+      value: -0.0000000436864
       objectReference: {fileID: 0}
     - target: {fileID: 6366269736405727099, guid: 1398c45f96961234db3bdb9e7cd7da4e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.000000001519075
+      value: 0.0000000014778386
       objectReference: {fileID: 0}
     - target: {fileID: 6366269736405727099, guid: 1398c45f96961234db3bdb9e7cd7da4e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.99939597
+      value: 0.99942833
       objectReference: {fileID: 0}
     - target: {fileID: 6366269736405727099, guid: 1398c45f96961234db3bdb9e7cd7da4e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.034752384
+      value: 0.033809006
       objectReference: {fileID: 0}
     - target: {fileID: 6537888147415361826, guid: 1398c45f96961234db3bdb9e7cd7da4e, type: 3}
       propertyPath: m_Follow

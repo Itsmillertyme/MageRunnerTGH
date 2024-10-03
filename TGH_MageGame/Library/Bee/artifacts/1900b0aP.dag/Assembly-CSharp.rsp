@@ -365,10 +365,10 @@
 "Assets/Scripts/PlayerManaController.cs"
 "Assets/Scripts/PlayerManaUIController.cs"
 "Assets/Scripts/PlayerStats.cs"
-"Assets/Scripts/Spells/ProjectileMover.cs"
-"Assets/Scripts/Spells/Spell UI.cs"
-"Assets/Scripts/Spells/SpellBook.cs"
-"Assets/Scripts/Spells/SpellConfiguration.cs"
+"Assets/Spells/ProjectileMover.cs"
+"Assets/Spells/Spell UI.cs"
+"Assets/Spells/SpellBook.cs"
+"Assets/Spells/SpellConfiguration.cs"
 -langversion:9.0
 
 /deterministic

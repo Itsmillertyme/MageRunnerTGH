@@ -676,13 +676,6 @@
         {
             "managedAssemblyName": "Unity.InputSystem.dll",
             "nativeClass": "",
-            "fullManagedTypeName": "UnityEngine.InputSystem.Editor.InputActionEditorWindow",
-            "moduleName": "",
-            "usedInScenes": []
-        },
-        {
-            "managedAssemblyName": "Unity.InputSystem.dll",
-            "nativeClass": "",
             "fullManagedTypeName": "UnityEngine.InputSystem.InputActionAsset",
             "moduleName": "",
             "usedInScenes": []
@@ -824,26 +817,6 @@
             "nativeClass": "Object",
             "fullManagedTypeName": "UnityEngine.Object",
             "moduleName": "Core",
-            "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
-            ]
-        },
-        {
-            "managedAssemblyName": "UnityEngine.dll",
-            "nativeClass": "ParticleSystem",
-            "fullManagedTypeName": "UnityEngine.ParticleSystem",
-            "moduleName": "ParticleSystem",
-            "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
-            ]
-        },
-        {
-            "managedAssemblyName": "UnityEngine.dll",
-            "nativeClass": "ParticleSystemRenderer",
-            "fullManagedTypeName": "UnityEngine.ParticleSystemRenderer",
-            "moduleName": "ParticleSystem",
             "usedInScenes": [
                 "Assets/Scenes/ProceduralGenerationTestLevel.unity",
                 "Assets/Scenes/Sandbox.unity"

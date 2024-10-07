@@ -447,9 +447,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15bcdafb8c49de64d8484873d36a4368, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scenes:
-  - m_Handle: 0
-  - m_Handle: 0
 --- !u!1 &602996375429018636
 GameObject:
   m_ObjectHideFlags: 0
@@ -682,6 +679,7 @@ GameObject:
   - component: {fileID: 6181347903127314661}
   - component: {fileID: 6456794056660470820}
   - component: {fileID: 3943365685811408200}
+  - component: {fileID: 4997837955280028284}
   m_Layer: 0
   m_Name: HUD
   m_TagString: Untagged
@@ -826,6 +824,21 @@ MonoBehaviour:
   SpellBook: {fileID: 8870210333477321073}
   activeSpellIcon: {fileID: 5304923434451294597}
   activeSpellReticle: {fileID: 2068831857547963571}
+--- !u!114 &4997837955280028284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 845568383641301686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fe3bb74e68bef548b09b12756e1c419, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: {fileID: 8555942908378249174}
+  currentHealthText: {fileID: 3312448488127468259}
+  healthBar: {fileID: 329794525976322189}
 --- !u!1 &1016261515787679397
 GameObject:
   m_ObjectHideFlags: 0
@@ -1309,6 +1322,7 @@ GameObject:
   - component: {fileID: 7056088295344148173}
   - component: {fileID: 8626992333356324956}
   - component: {fileID: 5062082378893520633}
+  - component: {fileID: 8555942908378249174}
   - component: {fileID: 4607088606993383220}
   - component: {fileID: 8870210333477321073}
   - component: {fileID: 833808198341650746}
@@ -1433,6 +1447,37 @@ CharacterController:
   m_SkinWidth: 0.03
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.91, z: 0}
+--- !u!114 &8555942908378249174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1563637665092759220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b40139d6c4823c4ab4723d25da30e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 80
+  maxHealth: 100
+  healthRegenAmount: 1
+  healthRegenFrequency: 3
+  healthChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 68ff785fa5945314e86f2446b9c9de8e, type: 2}
+        m_TargetAssemblyTypeName: GameEvent, Assembly-CSharp
+        m_MethodName: Raise
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &4607088606993383220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3395,11 +3440,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 8899160554987832047}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -365, y: -195}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 10, y: 10}
   m_SizeDelta: {x: 45, y: 45}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0}
 --- !u!222 &8036587638734255106
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5391,7 +5436,6 @@ GameObject:
   - component: {fileID: 2192729854277991267}
   - component: {fileID: 9032943750073267274}
   - component: {fileID: 329794525976322189}
-  - component: {fileID: 7485473433468716863}
   m_Layer: 5
   m_Name: imgHPBar
   m_TagString: Untagged
@@ -5457,20 +5501,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7485473433468716863
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7757537336227265321}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fe3bb74e68bef548b09b12756e1c419, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentHealthText: {fileID: 3312448488127468259}
-  playerStats: {fileID: 11400000, guid: f5f0a9cfc30db7740be311bccceebbb0, type: 2}
 --- !u!1 &7921605857463492332
 GameObject:
   m_ObjectHideFlags: 0

@@ -68,7 +68,7 @@ public class Spell : ScriptableObject
     [Header("Unlock Status")]
     [SerializeField] private bool isUnlocked;
 
-    [Header("Debugging")]
+    //[Header("Debugging")]
     //private Vector3 targetPosition;
 
     [Header("Level Specific Attributes")]

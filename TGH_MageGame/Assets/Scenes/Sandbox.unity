@@ -1933,26 +1933,6 @@ PrefabInstance:
       propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: SpellUI, Assembly-CSharp
       objectReference: {fileID: 0}
-    - target: {fileID: 2653290496590314553, guid: 287a00ccaade065439701d80067bc3c0, type: 3}
-      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2653290496590314553, guid: 287a00ccaade065439701d80067bc3c0, type: 3}
-      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1964723186}
-    - target: {fileID: 2653290496590314553, guid: 287a00ccaade065439701d80067bc3c0, type: 3}
-      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: UpdateUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 2653290496590314553, guid: 287a00ccaade065439701d80067bc3c0, type: 3}
-      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlayerHealthUIController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 2653290496590314553, guid: 287a00ccaade065439701d80067bc3c0, type: 3}
-      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 6483276940030095456, guid: 287a00ccaade065439701d80067bc3c0, type: 3}
       propertyPath: m_Name
       value: Event Listeners
@@ -3247,17 +3227,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1931237769}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1964723186 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4997837955280028284, guid: 41a0755bad083f642a64c68234a56d74, type: 3}
-  m_PrefabInstance: {fileID: 1422696105358828010}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fe3bb74e68bef548b09b12756e1c419, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2135630454 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8659292604335546441, guid: 41a0755bad083f642a64c68234a56d74, type: 3}
@@ -6234,18 +6203,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5304923434451294597, guid: 41a0755bad083f642a64c68234a56d74, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5304923434451294597, guid: 41a0755bad083f642a64c68234a56d74, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5304923434451294597, guid: 41a0755bad083f642a64c68234a56d74, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6181347903127314661, guid: 41a0755bad083f642a64c68234a56d74, type: 3}
       propertyPath: location1
       value: 
@@ -6349,10 +6306,6 @@ PrefabInstance:
     - target: {fileID: 8423850363213195736, guid: 41a0755bad083f642a64c68234a56d74, type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8555942908378249174, guid: 41a0755bad083f642a64c68234a56d74, type: 3}
-      propertyPath: currentHealth
-      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8626992333356324956, guid: 41a0755bad083f642a64c68234a56d74, type: 3}
       propertyPath: m_Camera

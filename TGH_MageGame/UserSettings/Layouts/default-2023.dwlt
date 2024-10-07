@@ -18,9 +18,15 @@ MonoBehaviour:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     y: 43
     width: 1920
     height: 997
+=======
+    y: 42
+    width: 1920
+    height: 998
+>>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
 =======
     y: 42
     width: 1920
@@ -80,6 +86,9 @@ MonoBehaviour:
   controlID: 110
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
+=======
 >>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
 =======
 >>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
@@ -105,6 +114,7 @@ MonoBehaviour:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     x: 953
     y: 0
     width: 554
@@ -116,6 +126,10 @@ MonoBehaviour:
 =======
     x: 1466.5
     y: 0
+=======
+    x: 1466.5
+    y: 0
+>>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
 =======
     x: 1466.5
     y: 0
@@ -214,7 +228,11 @@ MonoBehaviour:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     height: 997
+=======
+    height: 998
+>>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
 =======
     height: 998
 >>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
@@ -297,7 +315,11 @@ MonoBehaviour:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     y: 977
+=======
+    y: 978
+>>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
 =======
     y: 978
 >>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
@@ -356,6 +378,7 @@ MonoBehaviour:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     width: 554
     height: 434
   m_MinSize: {x: 202, y: 221}
@@ -370,6 +393,8 @@ MonoBehaviour:
 >>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
 =======
 >>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
+=======
+>>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
     width: 1466.5
     height: 948
   m_MinSize: {x: 403, y: 271}
@@ -378,6 +403,9 @@ MonoBehaviour:
   controlID: 54
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
+=======
 >>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
 =======
 >>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
@@ -403,6 +431,7 @@ MonoBehaviour:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     width: 413
     height: 947
   m_MinSize: {x: 276, y: 71}
@@ -417,6 +446,8 @@ MonoBehaviour:
 >>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
 =======
 >>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
+=======
+>>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
     width: 1466.5
     height: 561.5
   m_MinSize: {x: 403, y: 221}
@@ -425,6 +456,9 @@ MonoBehaviour:
   controlID: 55
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
+=======
 >>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
 =======
 >>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
@@ -448,6 +482,7 @@ MonoBehaviour:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     x: 0
     y: 0
     width: 953
@@ -458,6 +493,10 @@ MonoBehaviour:
 =======
     x: 363
     y: 0
+=======
+    x: 363
+    y: 0
+>>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
 =======
     x: 363
     y: 0
@@ -731,11 +770,14 @@ MonoBehaviour:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     x: 953
     y: 507
     width: 552
     height: 492
 =======
+=======
+>>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
 =======
 >>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
 =======
@@ -746,6 +788,9 @@ MonoBehaviour:
     height: 365.5
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
+=======
 >>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
 =======
 >>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
@@ -776,7 +821,11 @@ MonoBehaviour:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     - Assets
+=======
+    - Assets/Scripts/Player
+>>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
 =======
     - Assets/Scripts/Player
 >>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
@@ -798,7 +847,11 @@ MonoBehaviour:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   - Assets
+=======
+  - Assets/Scripts/Player
+>>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
 =======
   - Assets/Scripts/Player
 >>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
@@ -816,11 +869,14 @@ MonoBehaviour:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 2aeb0000
     m_LastClickedID: 60202
     m_ExpandedIDs: 0000000082a8000084a8000086a8000088a800008aa800008ca80000
 =======
+=======
+>>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
 =======
 >>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
 =======
@@ -831,6 +887,9 @@ MonoBehaviour:
     m_ExpandedIDs: 000000003aa800003ca800003ea8000040a8000042a8000044a80000
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
+=======
 >>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
 =======
 >>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
@@ -867,7 +926,11 @@ MonoBehaviour:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     m_ExpandedIDs: 0000000082a8000084a8000086a8000088a800008aa800008ca80000
+=======
+    m_ExpandedIDs: 000000003aa800003ca800003ea8000040a8000042a8000044a80000
+>>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
 =======
     m_ExpandedIDs: 000000003aa800003ca800003ea8000040a8000042a8000044a80000
 >>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
@@ -1012,9 +1075,15 @@ MonoBehaviour:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     y: 559
     width: 952
     height: 440
+=======
+    y: 72
+    width: 362
+    height: 540.5
+>>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
 =======
     y: 72
     width: 362
@@ -1163,11 +1232,14 @@ MonoBehaviour:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     x: 0
     y: 73
     width: 952
     height: 465
 =======
+=======
+>>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
 =======
 >>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
 =======
@@ -1178,6 +1250,9 @@ MonoBehaviour:
     height: 540.5
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
+=======
 >>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
 =======
 >>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)

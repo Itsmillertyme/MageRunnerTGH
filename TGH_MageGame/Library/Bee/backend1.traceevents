@@ -1,5 +1,6 @@
 { "cat":"", "pid":12345, "tid":0, "ts":0, "ph":"M", "name":"process_name", "args": { "name":"bee_backend" } }
 <<<<<<< HEAD
+<<<<<<< HEAD
 ,{ "pid":12345, "tid":0, "ts":1727919266997232, "dur":87200, "ph":"X", "name": "DriverInitData",  "args": { "detail":"" }}
 ,{ "pid":12345, "tid":0, "ts":1727919267084443, "dur":77096, "ph":"X", "name": "RemoveStaleOutputs",  "args": { "detail":"" }}
 ,{ "pid":12345, "tid":0, "ts":1727919267161598, "dur":731, "ph":"X", "name": "BuildQueueInit",  "args": { "detail":"" }}
@@ -680,6 +681,8 @@
 ,{ "pid":12345, "tid":16, "ts":1727919269848327, "dur":4841833, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
 ,{ "pid":12345, "tid":0, "ts":1727919274697517, "dur":2183, "ph":"X", "name": "ProfilerWriteOutput" }
 =======
+=======
+>>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
 ,{ "pid":12345, "tid":0, "ts":1727966291802034, "dur":2957, "ph":"X", "name": "DriverInitData",  "args": { "detail":"" }}
 ,{ "pid":12345, "tid":0, "ts":1727966291805006, "dur":1221, "ph":"X", "name": "RemoveStaleOutputs",  "args": { "detail":"" }}
 ,{ "pid":12345, "tid":0, "ts":1727966291806414, "dur":93, "ph":"X", "name": "Tundra",  "args": { "detail":"PrepareNodes" }}
@@ -2395,5 +2398,8 @@
 ,{ "pid":12345, "tid":12, "ts":1727966292052339, "dur":91, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
 ,{ "pid":12345, "tid":12, "ts":1727966292052443, "dur":369693, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
 ,{ "pid":12345, "tid":0, "ts":1727966292431128, "dur":3813, "ph":"X", "name": "ProfilerWriteOutput" }
+<<<<<<< HEAD
+>>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
+=======
 >>>>>>> parent of 27fc191e (Fixed sandbox scene health ui)
 ,

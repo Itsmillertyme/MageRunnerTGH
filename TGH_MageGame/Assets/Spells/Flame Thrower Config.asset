@@ -30,7 +30,7 @@ MonoBehaviour:
   castAnimation: {fileID: 7400000, guid: 70946658bb3dfdd4a86d93329aba96a7, type: 2}
   icon: {fileID: 21300000, guid: dd3885098198d104888439be4c590aba, type: 3}
   reticle: {fileID: 21300000, guid: 5623df08cb5764f4e93fb78f2feef145, type: 3}
-  isUnlocked: 1
+  isUnlocked: 0
   level1_ManaCost: 3
   level1_Damage: 5
   level1_LifeSpan: 0.3

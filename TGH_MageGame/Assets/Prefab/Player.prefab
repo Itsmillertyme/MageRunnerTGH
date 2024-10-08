@@ -1459,7 +1459,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b40139d6c4823c4ab4723d25da30e08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 80
+  currentHealth: 100
   maxHealth: 100
   healthRegenAmount: 1
   healthRegenFrequency: 3

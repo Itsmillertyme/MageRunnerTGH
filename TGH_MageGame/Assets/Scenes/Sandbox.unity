@@ -1937,6 +1937,26 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2653290496590314553, guid: 287a00ccaade065439701d80067bc3c0, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653290496590314553, guid: 287a00ccaade065439701d80067bc3c0, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1422696105358828011}
+    - target: {fileID: 2653290496590314553, guid: 287a00ccaade065439701d80067bc3c0, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UpdateUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653290496590314553, guid: 287a00ccaade065439701d80067bc3c0, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerHealthUIController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653290496590314553, guid: 287a00ccaade065439701d80067bc3c0, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6483276940030095456, guid: 287a00ccaade065439701d80067bc3c0, type: 3}
       propertyPath: m_Name
       value: Event Listeners
@@ -6311,6 +6331,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8555942908378249174, guid: 41a0755bad083f642a64c68234a56d74, type: 3}
+      propertyPath: currentHealth
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 8626992333356324956, guid: 41a0755bad083f642a64c68234a56d74, type: 3}
       propertyPath: m_Camera
       value: 
@@ -6333,6 +6357,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41a0755bad083f642a64c68234a56d74, type: 3}
+--- !u!114 &1422696105358828011 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4997837955280028284, guid: 41a0755bad083f642a64c68234a56d74, type: 3}
+  m_PrefabInstance: {fileID: 1422696105358828010}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fe3bb74e68bef548b09b12756e1c419, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1447794318745584325
 Transform:
   m_ObjectHideFlags: 0

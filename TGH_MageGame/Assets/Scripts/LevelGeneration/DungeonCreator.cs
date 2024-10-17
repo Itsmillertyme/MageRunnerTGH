@@ -73,6 +73,7 @@ public class DungeonCreator : MonoBehaviour {
         possibleWallHorizontalPosition = new List<Vector3Int>();
         possibleWallVerticalPosition = new List<Vector3Int>();
 
+
         //wallParent.parent = transform;
 
         //Generate list of corridors
@@ -231,12 +232,15 @@ public class DungeonCreator : MonoBehaviour {
             doorList.Add(point);
             //remove from wall list
             wallList.Remove(point);
+
+            //remove this segment from constraints list
         }
         else {
             //add to wall list
             wallList.Add(point);
         }
     }
+
 
     public void PlacePlayer(List<RoomNode> rooms) {
         Vector3 spawnPos = Vector3.zero;

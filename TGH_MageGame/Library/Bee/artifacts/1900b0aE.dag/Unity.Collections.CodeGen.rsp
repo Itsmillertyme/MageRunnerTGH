@@ -373,10 +373,10 @@
 -analyzer:"C:/Program Files/Unity/Hub/Editor/2023.2.1f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll"
 -analyzer:"C:/Program Files/Unity/Hub/Editor/2023.2.1f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 -analyzer:"C:/Program Files/Unity/Hub/Editor/2023.2.1f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll"
-"Library/PackageCache/com.unity.collections@1.4.0/Unity.Collections.CodeGen/CecilExtensionMethods.cs"
-"Library/PackageCache/com.unity.collections@1.4.0/Unity.Collections.CodeGen/JobReflectionDataPostProcessor.cs"
-"Library/PackageCache/com.unity.collections@1.4.0/Unity.Collections.CodeGen/JobsILPostProcessor.cs"
-"Library/PackageCache/com.unity.collections@1.4.0/Unity.Collections.CodeGen/UserError.cs"
+"Library/PackageCache/com.unity.collections@2.2.0/Unity.Collections.CodeGen/CecilExtensionMethods.cs"
+"Library/PackageCache/com.unity.collections@2.2.0/Unity.Collections.CodeGen/JobReflectionDataPostProcessor.cs"
+"Library/PackageCache/com.unity.collections@2.2.0/Unity.Collections.CodeGen/JobsILPostProcessor.cs"
+"Library/PackageCache/com.unity.collections@2.2.0/Unity.Collections.CodeGen/UserError.cs"
 -langversion:9.0
 /unsafe+
 /deterministic

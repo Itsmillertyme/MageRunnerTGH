@@ -28,31 +28,30 @@ public class DungeonCreator : MonoBehaviour {
     public Transform corridorParent;
     public Transform dungeonParent;
     public Transform wallParent;
+    public Transform maskParent;
     public GameObject wallHorizontal;
     public GameObject wallVertical;
+    public GameObject maskPrefab;
     public GameObject playerPrefab;
 
 
-    List<Vector3Int> possibleDoorHorizontalPosition;
-    List<Vector3Int> possibleDoorVerticalPosition;
-    List<Vector3Int> possibleWallHorizontalPosition;
-    List<Vector3Int> possibleWallVerticalPosition;
+    List<WallData> possibleDoorHorizontalPosition;
+    List<WallData> possibleDoorVerticalPosition;
+    List<WallData> possibleWallPosition;
+    List<WallData> possibleFloorCeilingPosition;
 
 
-    // Start is called before the first frame update
+    //**Unity Methods*
     void Start() {
         if (generateOnLoad) {
             RetryGeneration();
         }
+
+
+
     }
 
-    public void RetryGeneration() {
-
-        ClearDungeon();
-
-        //create new dungeon
-        CreateDungeon();
-    }
+    //**Generation Methods**
 
     //Main method for making dungeon
     private void CreateDungeon() {
@@ -68,10 +67,10 @@ public class DungeonCreator : MonoBehaviour {
                                                    );
 
         //Instantiate lists
-        possibleDoorHorizontalPosition = new List<Vector3Int>();
-        possibleDoorVerticalPosition = new List<Vector3Int>();
-        possibleWallHorizontalPosition = new List<Vector3Int>();
-        possibleWallVerticalPosition = new List<Vector3Int>();
+        possibleDoorHorizontalPosition = new List<WallData>();
+        possibleDoorVerticalPosition = new List<WallData>();
+        possibleWallPosition = new List<WallData>();
+        possibleFloorCeilingPosition = new List<WallData>();
 
 
         //wallParent.parent = transform;
@@ -92,6 +91,8 @@ public class DungeonCreator : MonoBehaviour {
 
         CreateWalls(wallParent);
 
+        CreateMasks(maskParent);
+
         PlacePlayer(listOfRooms);
 
         //DEV - rotate parent to show vertically
@@ -99,11 +100,21 @@ public class DungeonCreator : MonoBehaviour {
         dungeonParent.position = new Vector3(0, 0, -0.5f);
     }
 
+    public void RetryGeneration() {
+
+        ClearDungeon();
+
+        //create new dungeon
+        CreateDungeon();
+    }
+
+    //**Utility Methods**
     public void ClearDungeon() {
-        //get all rooms and corridors
+        //get all rooms, corridors, walls and masks
         Transform[] roomchildren = roomParent.GetComponentsInChildren<Transform>();
         Transform[] corridorchildren = corridorParent.GetComponentsInChildren<Transform>();
         Transform[] wallchildren = wallParent.GetComponentsInChildren<Transform>();
+        Transform[] maskchildren = maskParent.GetComponentsInChildren<Transform>();
 
         //reset dungeon parent rotation
         dungeonParent.rotation = Quaternion.Euler(0, 0, 0);
@@ -121,22 +132,49 @@ public class DungeonCreator : MonoBehaviour {
         for (int i = wallchildren.Length - 1; i > 0; i--) {
             DestroyImmediate(wallchildren[i].gameObject);
         }
+        //Destroy mask objects
+        for (int i = maskchildren.Length - 1; i > 0; i--) {
+            DestroyImmediate(maskchildren[i].gameObject);
+        }
     }
 
     //generate all walls
     private void CreateWalls(Transform wallParent) {
-        foreach (Vector3Int wallPosition in possibleWallHorizontalPosition) {
+        foreach (WallData wallPosition in possibleWallPosition) {
             CreateWall(wallParent, wallPosition, wallVertical);
         }
 
-        foreach (Vector3Int wallPosition in possibleWallVerticalPosition) {
+        foreach (WallData wallPosition in possibleFloorCeilingPosition) {
             CreateWall(wallParent, wallPosition, wallHorizontal);
         }
     }
 
     //generate a single wall
-    private void CreateWall(Transform wallParent, Vector3Int wallPosition, GameObject wallPrefab) {
-        Instantiate(wallPrefab, new Vector3(wallPosition.x, wallPosition.y, wallPosition.z), Quaternion.identity, wallParent);
+    private void CreateWall(Transform wallParent, WallData wallPosition, GameObject wallPrefab) {
+
+        GameObject go = Instantiate(wallPrefab, new Vector3(wallPosition.position.x, wallPosition.position.y, wallPosition.position.z), Quaternion.identity, wallParent);
+
+        float newRotation = (int) wallPosition.direction * 90f;
+
+        GameObject rotationobject = go.transform.GetChild(0).gameObject;
+        Quaternion rotation = go.transform.rotation;
+        rotationobject.transform.rotation = Quaternion.Euler(rotation.x, rotation.y + newRotation, rotation.z);
+    }
+
+
+    //Generate masking meshes
+    private void CreateMasks(Transform maskParent) {
+
+        //foreach (Vector3Int wallPosition in possibleWallPosition) {
+        //    Vector3Int maskPosition = new Vector3Int(wallPosition.x, 3, wallPosition.z);
+
+        //    Instantiate(maskPrefab, maskPosition, Quaternion.identity, maskParent);
+        //    Instantiate(maskPrefab, new Vector3Int(maskPosition.x, 3, maskPosition.z - 1), Quaternion.identity, maskParent);
+        //    Instantiate(maskPrefab, new Vector3Int(maskPosition.x, 3, maskPosition.z - 2), Quaternion.identity, maskParent);
+        //    Instantiate(maskPrefab, new Vector3Int(maskPosition.x, 3, maskPosition.z - 3), Quaternion.identity, maskParent);
+        //    Instantiate(maskPrefab, new Vector3Int(maskPosition.x, 3, maskPosition.z - 4), Quaternion.identity, maskParent);
+        //}
+
     }
 
     //creates mesh and gameobjects, instantiates them
@@ -199,48 +237,54 @@ public class DungeonCreator : MonoBehaviour {
 
 
         //GENERATE WALL POSITIONS
-        //bottom of room
+        //Right side of room
         for (int row = (int) bottomLeftVertice.x; row < (int) bottomRightVertice.x; row++) {
             var wallPosition = new Vector3(row, 0, bottomLeftVertice.z);
-            AddWallPositionToList(wallPosition, possibleWallHorizontalPosition, possibleDoorHorizontalPosition);
+            AddWallPositionToList(wallPosition, possibleWallPosition, possibleDoorHorizontalPosition, WallDirection.RIGHT);
         }
-        //top of room
+        //Left side of room
         for (int row = (int) topLeftVertice.x; row < (int) node.TopRightAreaCorner.x; row++) {
             var wallPosition = new Vector3(row, 0, topRightVertice.z);
-            AddWallPositionToList(wallPosition, possibleWallHorizontalPosition, possibleDoorHorizontalPosition);
+            AddWallPositionToList(wallPosition, possibleWallPosition, possibleDoorHorizontalPosition, WallDirection.LEFT);
         }
-        //left side of room
+        //Bottom of Room
         for (int col = (int) bottomLeftVertice.z; col < (int) topLeftVertice.z; col++) {
             var wallPosition = new Vector3(bottomLeftVertice.x, 0, col);
-            AddWallPositionToList(wallPosition, possibleWallVerticalPosition, possibleDoorVerticalPosition);
+            AddWallPositionToList(wallPosition, possibleFloorCeilingPosition, possibleDoorVerticalPosition, WallDirection.DOWN);
         }
-        //right side of room
+        //top of room
         for (int col = (int) bottomRightVertice.z; col < (int) topRightVertice.z; col++) {
             var wallPosition = new Vector3(bottomRightVertice.x, 0, col);
-            AddWallPositionToList(wallPosition, possibleWallVerticalPosition, possibleDoorVerticalPosition);
+            AddWallPositionToList(wallPosition, possibleFloorCeilingPosition, possibleDoorVerticalPosition, WallDirection.UP);
         }
 
     }
 
     //sets positions of walls to proper list
-    private void AddWallPositionToList(Vector3 wallPosition, List<Vector3Int> wallList, List<Vector3Int> doorList) {
+    private void AddWallPositionToList(Vector3 wallPosition, List<WallData> wallList, List<WallData> doorList, WallDirection direction) {
         //get point from wall position
         Vector3Int point = Vector3Int.CeilToInt(wallPosition);
-        //test if already in the wall list
-        if (wallList.Contains(point)) {
-            //add to door list
-            doorList.Add(point);
-            //remove from wall list
-            wallList.Remove(point);
+        WallData temp = new WallData(point, direction);
+        int index = -1;
 
-            //remove this segment from constraints list
+        //Check if wall list already contains this point
+        for (int i = 0; i < wallList.Count; i++) {
+            if (wallList[i].position == temp.position) {
+                index = i;
+                break;
+            }
+        }
+
+        //Test index need to be a door
+        if (index != -1) {
+            wallList.RemoveAt(index);
+            doorList.Add(temp);
         }
         else {
             //add to wall list
-            wallList.Add(point);
+            wallList.Add(temp);
         }
     }
-
 
     public void PlacePlayer(List<RoomNode> rooms) {
         Vector3 spawnPos = Vector3.zero;
@@ -262,4 +306,22 @@ public class DungeonCreator : MonoBehaviour {
         playerPrefab.transform.position = new Vector3(playerPrefab.transform.position.x + 1, spawnPos.x + 1, playerPrefab.transform.position.z + 1);
     }
 
+}
+
+struct WallData {
+
+    public Vector3Int position;
+    public WallDirection direction;
+
+    public WallData(Vector3Int positionIn, WallDirection directionIn) {
+        position = positionIn;
+        direction = directionIn;
+    }
+}
+
+public enum WallDirection {
+    LEFT = 0,
+    UP = 1,
+    RIGHT = 2,
+    DOWN = 3
 }

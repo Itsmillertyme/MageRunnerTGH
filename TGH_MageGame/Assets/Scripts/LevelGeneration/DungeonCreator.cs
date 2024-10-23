@@ -91,13 +91,31 @@ public class DungeonCreator : MonoBehaviour {
 
         CreateWalls(wallParent);
 
-        CreateMasks(maskParent);
+
+        List<Transform> walls = new List<Transform>();
+
+
+        for (int i = 0; i < wallParent.childCount; i++) {
+
+            walls.Add(wallParent.GetChild(i));
+        }
+
+
+        Debug.Log(walls[wallParent.childCount - 1].position);
+        Debug.Log(walls[wallParent.childCount - 1].GetChild(0).rotation.eulerAngles.y);
+
+        //DEV ONLY
+        List<Transform> testList = new List<Transform> {
+            walls[wallParent.childCount-1]
+        };
+
+        CreateMasks(walls);
 
         PlacePlayer(listOfRooms);
 
         //DEV - rotate parent to show vertically
-        dungeonParent.rotation = Quaternion.Euler(0, 90, 90);
-        dungeonParent.position = new Vector3(0, 0, -0.5f);
+        //dungeonParent.rotation = Quaternion.Euler(0, 90, 90);
+        //dungeonParent.position = new Vector3(0, 0, -0.5f);
     }
 
     public void RetryGeneration() {
@@ -114,7 +132,7 @@ public class DungeonCreator : MonoBehaviour {
         Transform[] roomchildren = roomParent.GetComponentsInChildren<Transform>();
         Transform[] corridorchildren = corridorParent.GetComponentsInChildren<Transform>();
         Transform[] wallchildren = wallParent.GetComponentsInChildren<Transform>();
-        Transform[] maskchildren = maskParent.GetComponentsInChildren<Transform>();
+        Transform[] maskchildren = maskParent.GetComponentsInChildren<Transform>(true);
 
         //reset dungeon parent rotation
         dungeonParent.rotation = Quaternion.Euler(0, 0, 0);
@@ -150,11 +168,11 @@ public class DungeonCreator : MonoBehaviour {
     }
 
     //generate a single wall
-    private void CreateWall(Transform wallParent, WallData wallPosition, GameObject wallPrefab) {
+    private void CreateWall(Transform wallParentIn, WallData wallPositionIn, GameObject wallPrefabIn) {
 
-        GameObject go = Instantiate(wallPrefab, new Vector3(wallPosition.position.x, wallPosition.position.y, wallPosition.position.z), Quaternion.identity, wallParent);
+        GameObject go = Instantiate(wallPrefabIn, new Vector3(wallPositionIn.position.x, wallPositionIn.position.y, wallPositionIn.position.z), Quaternion.identity, wallParentIn);
 
-        float newRotation = (int) wallPosition.direction * 90f;
+        float newRotation = (int) wallPositionIn.direction * 90f;
 
         GameObject rotationobject = go.transform.GetChild(0).gameObject;
         Quaternion rotation = go.transform.rotation;
@@ -163,17 +181,11 @@ public class DungeonCreator : MonoBehaviour {
 
 
     //Generate masking meshes
-    private void CreateMasks(Transform maskParent) {
+    private void CreateMasks(List<Transform> wallsIn) {
 
-        //foreach (Vector3Int wallPosition in possibleWallPosition) {
-        //    Vector3Int maskPosition = new Vector3Int(wallPosition.x, 3, wallPosition.z);
+        MaskGenerator mg = GetComponent<MaskGenerator>();
 
-        //    Instantiate(maskPrefab, maskPosition, Quaternion.identity, maskParent);
-        //    Instantiate(maskPrefab, new Vector3Int(maskPosition.x, 3, maskPosition.z - 1), Quaternion.identity, maskParent);
-        //    Instantiate(maskPrefab, new Vector3Int(maskPosition.x, 3, maskPosition.z - 2), Quaternion.identity, maskParent);
-        //    Instantiate(maskPrefab, new Vector3Int(maskPosition.x, 3, maskPosition.z - 3), Quaternion.identity, maskParent);
-        //    Instantiate(maskPrefab, new Vector3Int(maskPosition.x, 3, maskPosition.z - 4), Quaternion.identity, maskParent);
-        //}
+        mg.GenerateMaskMesh(wallsIn);
 
     }
 
@@ -308,7 +320,7 @@ public class DungeonCreator : MonoBehaviour {
 
 }
 
-struct WallData {
+public struct WallData {
 
     public Vector3Int position;
     public WallDirection direction;

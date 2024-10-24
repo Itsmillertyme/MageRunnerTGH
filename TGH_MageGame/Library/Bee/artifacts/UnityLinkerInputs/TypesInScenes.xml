@@ -10,6 +10,7 @@
 		<type fullname="GameEventListener" preserve="nothing"/>
 		<type fullname="GameManager" preserve="nothing"/>
 		<type fullname="LevelSelector" preserve="nothing"/>
+		<type fullname="MaskGenerator" preserve="nothing"/>
 		<type fullname="MouseFollower" preserve="nothing"/>
 		<type fullname="MousePositionTracking" preserve="nothing"/>
 		<type fullname="ObjectHider" preserve="nothing"/>

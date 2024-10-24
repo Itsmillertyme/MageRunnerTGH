@@ -182,33 +182,38 @@ public class CorridorNode : Node {
     //gets valid x for corridor
     private int GetValidXForNeighbourUpDown(Vector2Int bottomNodeLeft,
         Vector2Int bottomNodeRight, Vector2Int topNodeLeft, Vector2Int topNodeRight) {
+
         //Check if top structure's left is more left than bottom's left and top's right is more right than bottom's right
         if (topNodeLeft.x < bottomNodeLeft.x && bottomNodeRight.x < topNodeRight.x) {
             //return middle point
-            return StructureHelper.CalculateMiddlePoint(bottomNodeLeft + new Vector2Int(modifierDistanceFromWall, 0),
-                                                        bottomNodeRight - new Vector2Int(this.corridorWidth + modifierDistanceFromWall, 0)
-                                                        ).x;
+            //return StructureHelper.CalculateMiddlePoint(bottomNodeLeft + new Vector2Int(modifierDistanceFromWall, 0),
+            //                                            bottomNodeRight - new Vector2Int(this.corridorWidth + modifierDistanceFromWall, 0)
+            //                                            ).x;
+            return bottomNodeLeft.x;
         }
         //Check if bottom structure's left is more left than top's left and bottom's right is more right than top's right
         if (topNodeLeft.x >= bottomNodeLeft.x && bottomNodeRight.x >= topNodeRight.x) {
             //return middle point
-            return StructureHelper.CalculateMiddlePoint(topNodeLeft + new Vector2Int(modifierDistanceFromWall, 0),
-                                                        topNodeRight - new Vector2Int(this.corridorWidth + modifierDistanceFromWall, 0)
-                                                        ).x;
+            //return StructureHelper.CalculateMiddlePoint(topNodeLeft + new Vector2Int(modifierDistanceFromWall, 0),
+            //                                            topNodeRight - new Vector2Int(this.corridorWidth + modifierDistanceFromWall, 0)
+            //                                            ).x;
+            return topNodeLeft.x;
         }
         //Check if bottom structure's left is between top's left and top's right (bottom right MUST be more right than top right)
         if (bottomNodeLeft.x >= topNodeLeft.x && bottomNodeLeft.x <= topNodeRight.x) {
             //return middle point
-            return StructureHelper.CalculateMiddlePoint(bottomNodeLeft + new Vector2Int(modifierDistanceFromWall, 0),
-                                                        topNodeRight - new Vector2Int(this.corridorWidth + modifierDistanceFromWall, 0)
-                                                        ).x;
+            //return StructureHelper.CalculateMiddlePoint(bottomNodeLeft + new Vector2Int(modifierDistanceFromWall, 0),
+            //                                            topNodeRight - new Vector2Int(this.corridorWidth + modifierDistanceFromWall, 0)
+            //                                            ).x;
+            return bottomNodeLeft.x;
         }
         //Check if bottom structure's right is between top's left and top's right (bottom left MUST be more left than top left)
         if (bottomNodeRight.x <= topNodeRight.x && bottomNodeRight.x >= topNodeLeft.x) {
             //return middle point
-            return StructureHelper.CalculateMiddlePoint(topNodeLeft + new Vector2Int(modifierDistanceFromWall, 0),
-                                                        bottomNodeRight - new Vector2Int(this.corridorWidth + modifierDistanceFromWall, 0)
-                                                        ).x;
+            //return StructureHelper.CalculateMiddlePoint(topNodeLeft + new Vector2Int(modifierDistanceFromWall, 0),
+            //                                            bottomNodeRight - new Vector2Int(this.corridorWidth + modifierDistanceFromWall, 0)
+            //                                            ).x;
+            return topNodeLeft.x;
         }
         //return negative to indicate no valid x
         return -1;

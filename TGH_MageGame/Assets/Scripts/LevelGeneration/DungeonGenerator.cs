@@ -23,7 +23,6 @@ public class DungeonGenerator {
     //calculates dimensions or locations of all rooms, MUST BE CALLED BEFORE CalculateCorriodors()!!!
     public List<RoomNode> CalculateDungeon(int maxIterations, int roomWidthMin, int roomLengthMin, float roomBottomCornerModifier, float roomTopCornerModifier, int roomOffset) {
         //Create instance of BSP script
-        //BinarySpacePartitioner bsp = new BinarySpacePartitioner(dungeonWidth, dungeonLength);
         //get list of spaces with area
         allNodesCollection = bsp.PrepareNodesCollection(maxIterations, roomWidthMin, roomLengthMin);
 

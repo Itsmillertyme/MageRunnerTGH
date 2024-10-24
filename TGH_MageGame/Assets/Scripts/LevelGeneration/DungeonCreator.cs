@@ -5,11 +5,11 @@ using UnityEngine;
 public class DungeonCreator : MonoBehaviour {
 
     [Header("Dungeon Size Settings")]
+    public int dungeonHeight;
     public int dungeonWidth;
-    public int dungeonLength;
+    public int roomHeightMin;
     public int roomWidthMin;
-    public int roomLengthMin;
-    public int corridorWidth;
+    public int corridorSize;
 
     [Header("Generator Settings")]
     public bool generateOnLoad;
@@ -56,11 +56,11 @@ public class DungeonCreator : MonoBehaviour {
     //Main method for making dungeon
     private void CreateDungeon() {
         //Create instance of generator script
-        DungeonGenerator generator = new DungeonGenerator(dungeonWidth, dungeonLength);
+        DungeonGenerator generator = new DungeonGenerator(dungeonHeight, dungeonWidth);
         //Generate list of rooms
         var listOfRooms = generator.CalculateDungeon(maxIterations,
+                                                   roomHeightMin,
                                                    roomWidthMin,
-                                                   roomLengthMin,
                                                    roomBottomCornerModifier,
                                                    roomTopCornerModifier,
                                                    roomOffset
@@ -76,7 +76,7 @@ public class DungeonCreator : MonoBehaviour {
         //wallParent.parent = transform;
 
         //Generate list of corridors
-        var listOfCorridors = generator.CalculateCorridors(corridorWidth);
+        var listOfCorridors = generator.CalculateCorridors(corridorSize);
 
         //create mesh and object from list of rooms
         for (int i = 0; i < listOfRooms.Count; i++) {
@@ -100,10 +100,6 @@ public class DungeonCreator : MonoBehaviour {
             walls.Add(wallParent.GetChild(i));
         }
 
-
-        Debug.Log(walls[wallParent.childCount - 1].position);
-        Debug.Log(walls[wallParent.childCount - 1].GetChild(0).rotation.eulerAngles.y);
-
         //DEV ONLY
         List<Transform> testList = new List<Transform> {
             walls[wallParent.childCount-1]
@@ -114,8 +110,8 @@ public class DungeonCreator : MonoBehaviour {
         PlacePlayer(listOfRooms);
 
         //DEV - rotate parent to show vertically
-        //dungeonParent.rotation = Quaternion.Euler(0, 90, 90);
-        //dungeonParent.position = new Vector3(0, 0, -0.5f);
+        dungeonParent.rotation = Quaternion.Euler(0, 90, 90);
+        dungeonParent.position = new Vector3(0, 0, -0.5f);
     }
 
     public void RetryGeneration() {

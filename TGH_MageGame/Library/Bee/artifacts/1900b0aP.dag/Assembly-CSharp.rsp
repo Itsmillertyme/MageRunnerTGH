@@ -350,6 +350,8 @@
 "Assets/Scripts/LevelGeneration/DungeonCreator.cs"
 "Assets/Scripts/LevelGeneration/DungeonGenerator.cs"
 "Assets/Scripts/LevelGeneration/Line.cs"
+"Assets/Scripts/LevelGeneration/MaskGenerator.cs"
+"Assets/Scripts/LevelGeneration/MeshStitcher.cs"
 "Assets/Scripts/LevelGeneration/Node.cs"
 "Assets/Scripts/LevelGeneration/PlacePlayer.cs"
 "Assets/Scripts/LevelGeneration/RoomGenerator.cs"

@@ -27,12 +27,6 @@ public class MeshStitcher {
             combineInstances[i].transform = meshes[i].transform.localToWorldMatrix;
         }
 
-        for (int i = 0; i < meshesParent.transform.childCount; i++) {
-            //IN BUILD SET TO DESTROY GAMEOBJECTS
-            meshesParent.transform.GetChild(i).gameObject.SetActive(false);
-        }
-
-
         Mesh mesh = new Mesh();
         mesh.indexFormat = IndexFormat.UInt32;
         mesh.CombineMeshes(combineInstances);

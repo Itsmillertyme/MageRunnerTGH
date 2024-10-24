@@ -105,7 +105,7 @@ public class DungeonCreator : MonoBehaviour {
             walls[wallParent.childCount-1]
         };
 
-        CreateMasks(walls);
+        CreateMasks(listOfRooms, listOfCorridors);
 
         PlacePlayer(listOfRooms);
 
@@ -177,11 +177,11 @@ public class DungeonCreator : MonoBehaviour {
 
 
     //Generate masking meshes
-    private void CreateMasks(List<Transform> wallsIn) {
+    private void CreateMasks(List<RoomNode> roomsIn, List<Node> corridorsIn) {
 
         MaskGenerator mg = GetComponent<MaskGenerator>();
 
-        mg.GenerateMaskMesh(wallsIn);
+        mg.GenerateMaskMesh(roomsIn, corridorsIn, dungeonWidth, dungeonHeight);
 
     }
 

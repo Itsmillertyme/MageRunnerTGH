@@ -2,170 +2,72 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MaskGenerator : MonoBehaviour {
-    List<Transform> walls;
+
     [SerializeField] GameObject maskPrefab; //SII
-    [SerializeField] GameObject maskParent; //SII
+    [SerializeField] Transform maskParent; //SII
     [SerializeField] Material maskMat; //SII
-    [SerializeField] int debugRayTime; //SII
+    [SerializeField] Material altMat; //SII
+    [SerializeField] int maskOverflow; //SII
 
+    public void GenerateMaskMesh(List<RoomNode> rooms, List<Node> corridors, int dungeonWidth, int dungeonHeight) {
 
-    public void GenerateMaskMesh(List<Transform> wallsIn) {
-        walls = wallsIn;
-        int counter = 0;
-        for (int i = 0; i < walls.Count; i++) {
-            Vector3 dir = walls[i].GetChild(0).forward.normalized;
-            Vector3 rayStartPos = new Vector3();
+        //Loop through every space in dungeon width
+        for (int i = -maskOverflow; i < dungeonWidth + maskOverflow; i++) {
+            //Loop through every space in dungeon height
+            for (int j = -maskOverflow; j < dungeonHeight + maskOverflow; j++) {
+                //Flag
+                bool outsideOfRoom = true;
 
-            Direction faceDir = Direction.UP;
-            switch (walls[i].GetChild(0).transform.rotation.eulerAngles.y) {
-                case 0:
-                    faceDir = Direction.LEFT;
-                    rayStartPos = new Vector3(walls[i].position.x + .5f, 2f, walls[i].position.z);
-                    break;
-                case 90:
-                    faceDir = Direction.UP;
-                    rayStartPos = new Vector3(walls[i].position.x, 2f, walls[i].position.z + .5f);
-                    break;
-                case 180:
-                    faceDir = Direction.RIGHT;
-                    rayStartPos = new Vector3(walls[i].position.x + .5f, 2f, walls[i].position.z);
-                    break;
-                case 270:
-                    faceDir = Direction.DOWN;
-                    rayStartPos = new Vector3(walls[i].position.x, 2f, walls[i].position.z + .5f);
-                    break;
-            }
-
-
-            //DEBUG RAYS
-            //Debug.DrawRay(rayStartPos + dir * 0.1f, dir, Color.red, debugRayTime);
-            //Vector3 maskCheckDebugStartPo = new Vector3(rayStartPos.x, rayStartPos.y + 1.5f, rayStartPos.z);
-            //Debug.DrawRay(maskCheckDebugStartPo + dir * 0.1f, new Vector3(dir.x * 1, dir.y - .51f, dir.z * 1), Color.green, debugRayTime);
-
-
-
-            Ray wallRay = new Ray(rayStartPos + dir * 0.1f, dir);
-            //Ray maskRay = new Ray(maskCheckDebugStartPo + dir * 0.1f, new Vector3(dir.x * 1, dir.y - .51f, dir.z * 1));
-
-            RaycastHit wallHitInfo = new RaycastHit();
-            //RaycastHit maskHitInfo = new RaycastHit();
-
-            Physics.Raycast(wallRay, out wallHitInfo);
-            //Physics.Raycast(maskRay, out maskHitInfo);
-
-
-
-
-            int dist = -1;
-            if (wallHitInfo.collider != null) {
-                dist = Mathf.RoundToInt(wallHitInfo.distance);
-            }
-
-            //if (maskHitInfo.collider == null && dist < 20) {
-            //Vector3 maskSpawnPos = new Vector3(walls[i].position.x, 3f, walls[i].position.z);
-            //Debug.Log(faceDir);
-
-            for (int j = 0; j < (dist < 0 || dist > 100 ? 100 : (dist / 2) + 1); j++) {
-                counter++;
-                int index = j;
-                if (faceDir == Direction.LEFT) {
-                    index *= -1;
+                //Loop through each room
+                foreach (RoomNode room in rooms) {
+                    //Check if this space is inside of room bounds
+                    if (j > room.TopLeftAreaCorner.x - 1 &&
+                        j < room.TopRightAreaCorner.x &&
+                        i > room.BottomLeftAreaCorner.y &&
+                        i < room.TopLeftAreaCorner.y + 1) {
+                        //Set flag
+                        outsideOfRoom = false;
+                    }
                 }
-                if (faceDir == Direction.UP) {
-                    index *= -1;
+                //Loop through each corridor
+                foreach (Node corridor in corridors) {
+                    //Check if this space is inside of room bounds
+                    if (j > corridor.TopLeftAreaCorner.x - 1 &&
+                        j < corridor.TopRightAreaCorner.x &&
+                        i > corridor.BottomLeftAreaCorner.y &&
+                        i < corridor.TopLeftAreaCorner.y + 1) {
+                        //Set flag
+                        outsideOfRoom = false;
+                    }
                 }
 
-                Vector3 prefabSpawnPos = new Vector3(walls[i].position.x, 3f, walls[i].position.z);
-                Vector3 maskCheckRaySpawnPos = prefabSpawnPos;
-                Vector3 maskCheckRayDir = prefabSpawnPos;
-
-                switch (faceDir) {
-                    case Direction.UP:
-                        prefabSpawnPos = new Vector3(prefabSpawnPos.x - index, prefabSpawnPos.y, prefabSpawnPos.z + 1);
-                        maskCheckRaySpawnPos = new Vector3(maskCheckRaySpawnPos.x, maskCheckRaySpawnPos.y + 5f, maskCheckRaySpawnPos.z + .5f);
-                        maskCheckRayDir = new Vector3(dir.x * -index, dir.y - 5.01f, dir.z * index);
-                        //Debug.DrawRay(maskCheckRaySpawnPos, maskCheckRayDir, Color.green, debugRayTime);
-                        break;
-                    case Direction.DOWN:
-                        prefabSpawnPos = new Vector3(prefabSpawnPos.x - index - 1, prefabSpawnPos.y, prefabSpawnPos.z + 1);
-                        maskCheckRaySpawnPos = new Vector3(maskCheckRaySpawnPos.x, maskCheckRaySpawnPos.y + 5f, maskCheckRaySpawnPos.z + .5f);
-                        maskCheckRayDir = new Vector3(dir.x * index, dir.y - 5.01f, dir.z * index);
-                        //Debug.DrawRay(maskCheckRaySpawnPos, maskCheckRayDir, Color.green, debugRayTime);
-                        break;
-                    case Direction.RIGHT:
-                        prefabSpawnPos = new Vector3(prefabSpawnPos.x, prefabSpawnPos.y, prefabSpawnPos.z - index);
-                        maskCheckRaySpawnPos = new Vector3(maskCheckRaySpawnPos.x + .5f, maskCheckRaySpawnPos.y + 5f, maskCheckRaySpawnPos.z);
-                        maskCheckRayDir = new Vector3(dir.x * index, dir.y - 5.01f, dir.z * index);
-                        //Debug.DrawRay(maskCheckRaySpawnPos, maskCheckRayDir, Color.green, debugRayTime);
-                        break;
-                    case Direction.LEFT:
-                        prefabSpawnPos = new Vector3(prefabSpawnPos.x, prefabSpawnPos.y, prefabSpawnPos.z - index + 1);
-                        maskCheckRaySpawnPos = new Vector3(maskCheckRaySpawnPos.x + .5f, maskCheckRaySpawnPos.y + 5f
-                            , maskCheckRaySpawnPos.z);
-                        maskCheckRayDir = new Vector3(dir.x * index, dir.y - 5.01f, dir.z * -index);
-                        //Debug.DrawRay(maskCheckRaySpawnPos, maskCheckRayDir, Color.green, debugRayTime);
-                        break;
+                //Test flag
+                if (outsideOfRoom) {
+                    //Create mask prefab for this cell
+                    GameObject mask = Instantiate(maskPrefab, new Vector3(j, 3, i), Quaternion.Euler(0, 0, 0), maskParent);
                 }
-
-                if (prefabSpawnPos.x < -5 ||
-                    prefabSpawnPos.x > GetComponent<DungeonCreator>().dungeonHeight + 5 ||
-                    prefabSpawnPos.z < -5 ||
-                    prefabSpawnPos.z > GetComponent<DungeonCreator>().dungeonWidth + 5) {
-                    break;
-                }
-
-
-                RaycastHit maskHit = new RaycastHit();
-                Ray maskRay = new Ray(maskCheckRaySpawnPos, maskCheckRayDir);
-                Physics.Raycast(maskRay, out maskHit);
-
-                //if (maskHit.collider != null) {
-
-                //    Debug.Log(maskHit.collider.name);
-                //    Debug.DrawRay(maskCheckRaySpawnPos, maskCheckRayDir, Color.blue, debugRayTime);
-
-                //}
-                Instantiate(maskPrefab, prefabSpawnPos, Quaternion.Euler(0, 0, 0), maskParent.transform);
             }
         }
 
+        //Create composite mesh of all masks
+        MeshStitcher stitcher = new MeshStitcher(maskParent.gameObject);
 
-        Debug.Log(counter);
-        //Stitch all masks together
-        MeshStitcher stitcher = new MeshStitcher(maskParent);
-
-        //Destroy all mask gameobjects
+        //Destroy all mask GameObjects
         while (GameObject.Find("Mask(Clone)") != null) {
             //IN BUILD SET TO DESTROY GAMEOBJECTS
             //GameObject.Find("Mask(Clone)").SetActive(false);
             DestroyImmediate(GameObject.Find("Mask(Clone)"));
         }
 
-
-        GameObject newMeshObj = new GameObject("New Mask Mesh", typeof(MeshFilter), typeof(MeshRenderer), typeof(MeshCollider));
+        //Create new GameObject for composite mesh
+        GameObject newMeshObj = new GameObject("LevelMask", typeof(MeshFilter), typeof(MeshRenderer), typeof(MeshCollider));
+        //Setup GameObject
         newMeshObj.transform.position = Vector3.zero;
         newMeshObj.transform.parent = maskParent.transform;
         newMeshObj.transform.SetSiblingIndex(0);
-
+        //Attach mesh
         newMeshObj.GetComponent<MeshFilter>().sharedMesh = stitcher.NewMesh;
+        //Set material
         newMeshObj.GetComponent<MeshRenderer>().material = maskMat;
     }
-
-    public GameObject GetTopmostParent(GameObject child) {
-        // Check if the object has a parent
-        if (child.transform.parent == null) {
-            return child;
-        }
-
-        Transform current = child.transform;
-        while (current.parent != null) {
-            current = current.parent;
-        }
-
-        return current.gameObject;
-    }
-}
-
-public enum Direction {
-    LEFT = 0, UP = 1, RIGHT = 2, DOWN = 3
 }

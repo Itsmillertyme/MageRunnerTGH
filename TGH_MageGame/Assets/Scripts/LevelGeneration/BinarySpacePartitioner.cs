@@ -36,7 +36,7 @@ public class BinarySpacePartitioner {
             //pop node from queue
             RoomNode currentNode = graph.Dequeue();
             //make sure roomnode is large enough to split
-            if (currentNode.width >= roomWidthMin * 2 || currentNode.length >= roomLengthMin * 2) {
+            if (currentNode.Width >= roomWidthMin * 2 || currentNode.Length >= roomLengthMin * 2) {
                 //split
                 SplitTheSpace(currentNode, listToReturn, roomWidthMin, roomLengthMin, graph);
                 //kill corner object from split node

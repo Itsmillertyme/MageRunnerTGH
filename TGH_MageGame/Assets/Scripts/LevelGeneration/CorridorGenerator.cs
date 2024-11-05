@@ -4,8 +4,8 @@ using System.Linq;
 public class CorridorGenerator {
 
     //generates corridors
-    public List<Node> CreateCorridors(List<RoomNode> allNodesCollection, int corridorWidth) {
-        List<Node> corridorList = new List<Node>();
+    public List<CorridorNode> CreateCorridors(List<RoomNode> allNodesCollection, int corridorWidth) {
+        List<CorridorNode> corridorList = new List<CorridorNode>();
         //queue of nodes starting with node at lowest index
         Queue<RoomNode> structuresToCheck = new Queue<RoomNode>(allNodesCollection.OrderByDescending(node => node.TreeLayerIndex).ToList());
         //loop while there are structures to check
@@ -17,7 +17,11 @@ public class CorridorGenerator {
                 continue;
             }
 
-            CorridorNode corridor = new CorridorNode(node.ChildrenNodes[0], node.ChildrenNodes[1], corridorWidth);
+            RoomNode room1 = (RoomNode) node.ChildrenNodes[0];
+            RoomNode room2 = (RoomNode) node.ChildrenNodes[1];
+
+            CorridorNode corridor = new CorridorNode(room1, room2, corridorWidth);
+
             corridorList.Add(corridor);
         }
 

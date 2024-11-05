@@ -2,7 +2,6 @@
 using UnityEngine;
 public abstract class Node {
     List<Node> childrenNodes;
-
     public List<Node> ChildrenNodes { get => childrenNodes; }
 
     public bool Visited { get; set; }

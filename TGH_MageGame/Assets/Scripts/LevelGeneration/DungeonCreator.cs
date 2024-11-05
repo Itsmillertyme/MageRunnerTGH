@@ -13,6 +13,7 @@ public class DungeonCreator : MonoBehaviour {
 
     [Header("Generator Settings")]
     public bool generateOnLoad;
+    public bool debugMode;
     public int maxIterations;
     [Range(0.0f, 0.3f)]
     public float roomBottomCornerModifier;
@@ -27,12 +28,15 @@ public class DungeonCreator : MonoBehaviour {
     public Transform roomParent;
     public Transform corridorParent;
     public Transform dungeonParent;
+    public Transform pathNodeParent;
     public Transform wallParent;
     public Transform maskParent;
     public GameObject wallHorizontal;
     public GameObject wallVertical;
     public GameObject maskPrefab;
     public GameObject playerPrefab;
+    public Mesh pathNodeMesh;
+    public Material pathNodeMaterial;
 
 
     List<WallData> possibleDoorHorizontalPosition;
@@ -63,8 +67,7 @@ public class DungeonCreator : MonoBehaviour {
                                                    roomWidthMin,
                                                    roomBottomCornerModifier,
                                                    roomTopCornerModifier,
-                                                   roomOffset
-                                                   );
+                                                   roomOffset);
 
         //Instantiate lists
         possibleDoorHorizontalPosition = new List<WallData>();
@@ -77,6 +80,9 @@ public class DungeonCreator : MonoBehaviour {
 
         //Generate list of corridors
         var listOfCorridors = generator.CalculateCorridors(corridorSize);
+
+        //create path nodes
+        CreatePathNodes(listOfRooms, listOfCorridors);
 
         //create mesh and object from list of rooms
         for (int i = 0; i < listOfRooms.Count; i++) {
@@ -107,13 +113,26 @@ public class DungeonCreator : MonoBehaviour {
 
         CreateMasks(listOfRooms, listOfCorridors);
 
+        //RUN PATH FINDER
+        PathFinder pf = new PathFinder();
+        pf.StartPoint.GetComponent<MeshRenderer>().material.color = Color.blue;
+        for (int i = 0; i < pf.EndPoints.Count; i++) {
+            pf.EndPoints[i].GetComponent<MeshRenderer>().material.color = Color.yellow;
+        }
+
+
         PlacePlayer(listOfRooms);
+
+
 
         //DEV - rotate parent to show vertically
         dungeonParent.rotation = Quaternion.Euler(0, 90, 90);
         dungeonParent.position = new Vector3(0, 0, -0.5f);
-    }
 
+        for (int i = 0; i < pf.Path.Count - 1; i++) {
+            Debug.DrawLine(pf.Path[i].transform.position, pf.Path[i + 1].transform.position, Color.green, 60);
+        }
+    }
     public void RetryGeneration() {
 
         ClearDungeon();
@@ -129,6 +148,7 @@ public class DungeonCreator : MonoBehaviour {
         Transform[] corridorchildren = corridorParent.GetComponentsInChildren<Transform>();
         Transform[] wallchildren = wallParent.GetComponentsInChildren<Transform>();
         Transform[] maskchildren = maskParent.GetComponentsInChildren<Transform>(true);
+        Transform[] pathNodeChildren = pathNodeParent.GetComponentsInChildren<Transform>(true);
 
         //reset dungeon parent rotation
         dungeonParent.rotation = Quaternion.Euler(0, 0, 0);
@@ -149,6 +169,10 @@ public class DungeonCreator : MonoBehaviour {
         //Destroy mask objects
         for (int i = maskchildren.Length - 1; i > 0; i--) {
             DestroyImmediate(maskchildren[i].gameObject);
+        }
+        //Destroy mask objects
+        for (int i = pathNodeChildren.Length - 1; i > 0; i--) {
+            DestroyImmediate(pathNodeChildren[i].gameObject);
         }
     }
 
@@ -177,7 +201,7 @@ public class DungeonCreator : MonoBehaviour {
 
 
     //Generate masking meshes
-    private void CreateMasks(List<RoomNode> roomsIn, List<Node> corridorsIn) {
+    private void CreateMasks(List<RoomNode> roomsIn, List<CorridorNode> corridorsIn) {
 
         MaskGenerator mg = GetComponent<MaskGenerator>();
 
@@ -267,6 +291,72 @@ public class DungeonCreator : MonoBehaviour {
         }
 
     }
+
+    private void CreatePathNodes(List<RoomNode> listOfRooms, List<CorridorNode> listOfCorridors) {
+        for (int i = 0; i < listOfRooms.Count; i++) {
+            Vector2Int centerPoint = (listOfRooms[i].TopLeftAreaCorner + listOfRooms[i].BottomRightAreaCorner) / 2;
+
+            //create path node object
+            GameObject pathNodeObject = new GameObject("PathNode - room " + i, typeof(MeshFilter), typeof(MeshRenderer));
+
+
+            if (debugMode) {
+                pathNodeObject.GetComponent<MeshFilter>().mesh = pathNodeMesh;
+                pathNodeObject.GetComponent<MeshRenderer>().material = pathNodeMaterial;
+            }
+
+            //add pathnode script 
+            PathNode pathNode = pathNodeObject.AddComponent<PathNode>();
+            pathNode.Type = PathNodeType.ROOM;
+
+
+            pathNodeObject.transform.parent = pathNodeParent;
+
+            pathNodeObject.transform.position = new Vector3(centerPoint.x, 5, centerPoint.y);
+
+            //PATH NODES
+            listOfRooms[i].pathNode = pathNodeObject;
+        }
+        for (int i = 0; i < listOfCorridors.Count; i++) {
+            Vector2Int centerPoint = (listOfCorridors[i].TopLeftAreaCorner + listOfCorridors[i].BottomRightAreaCorner) / 2;
+
+            //create path node object
+            GameObject pathNodeObject = new GameObject("PathNode - corridor " + i, typeof(MeshFilter), typeof(MeshRenderer));
+
+
+            if (debugMode) {
+                pathNodeObject.GetComponent<MeshFilter>().mesh = pathNodeMesh;
+                pathNodeObject.GetComponent<MeshRenderer>().material = pathNodeMaterial;
+            }
+
+            //add pathnode script 
+            PathNode pathNode = pathNodeObject.AddComponent<PathNode>();
+            pathNode.Type = PathNodeType.CORRIDOR;
+
+            pathNodeObject.transform.parent = pathNodeParent;
+            pathNodeObject.transform.position = new Vector3(centerPoint.x, 5, centerPoint.y);
+
+            //PATH NODES
+            listOfCorridors[i].pathNode = pathNodeObject;
+
+
+            List<GameObject> adjacentStructuresPathNodeObjects = new List<GameObject> {
+                listOfCorridors[i].Structure1.pathNode,
+                listOfCorridors[i].Structure2.pathNode
+            };
+
+
+            //set corridor neighors with rooms
+            pathNode.neighbors = adjacentStructuresPathNodeObjects;
+
+            //Set corridor structures to have the corridor as a neighbor
+            listOfCorridors[i].Structure1.pathNode.GetComponent<PathNode>().neighbors.Add(pathNodeObject);
+
+            listOfCorridors[i].Structure2.pathNode.GetComponent<PathNode>().neighbors.Add(pathNodeObject);
+
+        }
+    }
+
 
     //sets positions of walls to proper list
     private void AddWallPositionToList(Vector3 wallPosition, List<WallData> wallList, List<WallData> doorList, WallDirection direction) {

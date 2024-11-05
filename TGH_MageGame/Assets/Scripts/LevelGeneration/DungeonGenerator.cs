@@ -37,11 +37,12 @@ public class DungeonGenerator {
         //CorridorGenerator corridorGenerator = new CorridorGenerator();
         //var corridorList = corridorGenerator.CreateCorridors(allNodesCollection, corridorWidth);
 
+
         //return list of rooms concatenated with list of corridors        
         return roomList;
     }
 
-    public List<Node> CalculateCorridors(int corridorWidth) {
+    public List<CorridorNode> CalculateCorridors(int corridorWidth) {
         CorridorGenerator corridorGenerator = new CorridorGenerator();
         var corridorList = corridorGenerator.CreateCorridors(allNodesCollection, corridorWidth);
         return corridorList;

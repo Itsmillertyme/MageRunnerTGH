@@ -9,7 +9,7 @@ public class MaskGenerator : MonoBehaviour {
     [SerializeField] Material altMat; //SII
     [SerializeField] int maskOverflow; //SII
 
-    public void GenerateMaskMesh(List<RoomNode> rooms, List<Node> corridors, int dungeonWidth, int dungeonHeight) {
+    public void GenerateMaskMesh(List<RoomNode> rooms, List<CorridorNode> corridors, int dungeonWidth, int dungeonHeight) {
 
         //Loop through every space in dungeon width
         for (int i = -maskOverflow; i < dungeonWidth + maskOverflow; i++) {

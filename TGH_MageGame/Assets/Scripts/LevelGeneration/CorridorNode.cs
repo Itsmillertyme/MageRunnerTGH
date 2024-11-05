@@ -5,14 +5,19 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class CorridorNode : Node {
-    private Node structure1;
-    private Node structure2;
+    private RoomNode structure1;
+    private RoomNode structure2;
     private int corridorWidth;
     private int modifierDistanceFromWall = 1;
 
+    public GameObject pathNode;
+    //public PathNode PathNode { get => pathNode; set => pathNode = value; }
+    public RoomNode Structure1 { get => structure1; }
+    public RoomNode Structure2 { get => structure2; }
+
 
     //constructor passes in null to super constructor for parent attribute, Makes corridors not connected
-    public CorridorNode(Node node1, Node node2, int corridorWidth) : base(null) {
+    public CorridorNode(RoomNode node1, RoomNode node2, int corridorWidth) : base(null) {
         this.structure1 = node1;
         this.structure2 = node2;
         this.corridorWidth = corridorWidth;
@@ -22,7 +27,7 @@ public class CorridorNode : Node {
         area = Mathf.Abs(BottomLeftAreaCorner.x - TopRightAreaCorner.x) * Mathf.Abs(BottomLeftAreaCorner.y - TopRightAreaCorner.y);
         string temp = area.ToString();
         bottomRightCornerObject = new GameObject(temp + "'s \"Bottom\" Left Corner");
-        bottomRightCornerObject.name = temp;
+        //bottomRightCornerObject.name = temp;
         bottomRightCornerObject.transform.position = new Vector3(BottomLeftAreaCorner.x, 0, BottomLeftAreaCorner.y);
 
     }
@@ -49,11 +54,11 @@ public class CorridorNode : Node {
     }
 
     //Gets rooms best suited to connect that are horizontally adjacent
-    private void ProcessRoomsInRelativeRightOrLeft(Node structure1, Node structure2) {
+    private void ProcessRoomsInRelativeRightOrLeft(Node structure1In, Node structure2In) {
         Node leftStructure = null;
-        List<Node> leftStructureChildren = StructureHelper.TraverseGraphToExtractLowestLeaves(structure1);
+        List<Node> leftStructureChildren = StructureHelper.TraverseGraphToExtractLowestLeaves(structure1In);
         Node rightStructure = null;
-        List<Node> rightStructureChildren = StructureHelper.TraverseGraphToExtractLowestLeaves(structure2);
+        List<Node> rightStructureChildren = StructureHelper.TraverseGraphToExtractLowestLeaves(structure2In);
 
         //Sort all children of the left structure by x value in top right corner of each child (we need to get most right aligned structure in left structure's children to connect to right structure's children)
         var sortedLeftStructures = leftStructureChildren.OrderByDescending(child => child.TopRightAreaCorner.x).ToList();
@@ -83,7 +88,7 @@ public class CorridorNode : Node {
 
         //set right structure to connect
         if (possibleNeightborsInRightStructureList.Count <= 0) {
-            rightStructure = structure2;
+            rightStructure = structure2In;
         }
         else {
             rightStructure = possibleNeightborsInRightStructureList[0];
@@ -112,14 +117,18 @@ public class CorridorNode : Node {
         TopRightAreaCorner = new Vector2Int(rightStructure.TopLeftAreaCorner.x, y + this.corridorWidth);
         BottomRightAreaCorner = new Vector2Int(rightStructure.TopLeftAreaCorner.x, y);
         TopLeftAreaCorner = new Vector2Int(leftStructure.BottomRightAreaCorner.x, y + this.corridorWidth);
+
+        //SET STRUCTURE NODES
+        structure1 = (RoomNode) leftStructure;
+        structure2 = (RoomNode) rightStructure;
     }
 
     //Gets rooms best suited to connect that are Vertically adjacent
-    private void ProcessRoomsInRelativeUpOrDown(Node structure1, Node structure2) {
+    private void ProcessRoomsInRelativeUpOrDown(Node structure1In, Node structure2In) {
         Node bottomStructure = null;
-        List<Node> bottomStructureChildren = StructureHelper.TraverseGraphToExtractLowestLeaves(structure1);
+        List<Node> bottomStructureChildren = StructureHelper.TraverseGraphToExtractLowestLeaves(structure1In);
         Node topStructure = null;
-        List<Node> topStructureChildren = StructureHelper.TraverseGraphToExtractLowestLeaves(structure2);
+        List<Node> topStructureChildren = StructureHelper.TraverseGraphToExtractLowestLeaves(structure2In);
 
         //Sort all children of the bottom structure by y value in top right corner of each child (we need to get most top aligned structure in bottom structure's children to connect to top structure's children)
         var sortedBottomStructure = bottomStructureChildren.OrderByDescending(child => child.TopRightAreaCorner.y).ToList();
@@ -148,11 +157,13 @@ public class CorridorNode : Node {
 
         //set top structure to connect
         if (possibleNeighboursInTopStructure.Count == 0) {
-            topStructure = structure2;
+            topStructure = structure2In;
         }
         else {
             topStructure = possibleNeighboursInTopStructure[0];
         }
+
+
 
         //get valid x
         int x = GetValidXForNeighbourUpDown(bottomStructure.TopLeftAreaCorner,
@@ -177,6 +188,11 @@ public class CorridorNode : Node {
         TopRightAreaCorner = new Vector2Int(x + this.corridorWidth, topStructure.BottomLeftAreaCorner.y);
         BottomRightAreaCorner = new Vector2Int(x + this.corridorWidth, bottomStructure.TopLeftAreaCorner.y);
         TopLeftAreaCorner = new Vector2Int(x, topStructure.BottomLeftAreaCorner.y);
+
+
+        //SET STRUCTURE NODES
+        structure1 = (RoomNode) topStructure;
+        structure2 = (RoomNode) bottomStructure;
     }
 
     //gets valid x for corridor

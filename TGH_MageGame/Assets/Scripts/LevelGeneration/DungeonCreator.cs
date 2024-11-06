@@ -125,6 +125,7 @@ public class DungeonCreator : MonoBehaviour {
 
         PlacePlayer(pf.StartPoint);
 
+        PlaceBoss(pf.EndPoints[0]);
 
 
         if (!dungeonFlatMode) {
@@ -399,7 +400,7 @@ public class DungeonCreator : MonoBehaviour {
     public void PlacePlayer(PathNode spawnRoomPathNode) {
         Vector3 spawnPos = Vector3.zero;
 
-        if (spawnRoomPathNode.RoomTopLeftCorner.y > dungeonWidth / 2) {
+        if ((spawnRoomPathNode.RoomTopLeftCorner.y - spawnRoomPathNode.RoomDimensions.y / 2) > dungeonWidth / 2) {
             //Spawn on "left" side of room
             spawnPos = new Vector3(spawnRoomPathNode.RoomTopLeftCorner.x + .1f, 0, spawnRoomPathNode.RoomTopLeftCorner.y - 2);
 
@@ -434,7 +435,7 @@ public class DungeonCreator : MonoBehaviour {
     public void PlaceBoss(PathNode bossRoomPathNode) {
         Vector3 spawnPos = Vector3.zero;
 
-        if (bossRoomPathNode.RoomTopLeftCorner.y > dungeonWidth) {
+        if ((bossRoomPathNode.RoomTopLeftCorner.y - bossRoomPathNode.RoomDimensions.y / 2) > dungeonWidth / 2) {
             //Spawn on "left" side of room
             spawnPos = new Vector3(bossRoomPathNode.RoomTopLeftCorner.x + .1f, 0, bossRoomPathNode.RoomTopLeftCorner.y - 2);
 
@@ -442,19 +443,20 @@ public class DungeonCreator : MonoBehaviour {
         else {
             //spawn on "right" side of room
             spawnPos = new Vector3(bossRoomPathNode.RoomTopLeftCorner.x + .1f, 0, bossRoomPathNode.RoomTopLeftCorner.y - bossRoomPathNode.RoomDimensions.y + 2);
+
         }
 
 
-        //places player
-        playerPrefab.transform.position = spawnPos;
+        //places boss
+        bossPrefab.transform.position = spawnPos;
         if (!dungeonFlatMode) {
-            //rotates player around origin to account for level rotation
-            playerPrefab.transform.RotateAround(Vector3.zero, Vector3.up, 90);
-            playerPrefab.transform.RotateAround(Vector3.zero, Vector3.left, 90);
+            //rotates boss around origin to account for level rotation
+            bossPrefab.transform.RotateAround(Vector3.zero, Vector3.up, 90);
+            bossPrefab.transform.RotateAround(Vector3.zero, Vector3.left, 90);
         }
 
-        playerPrefab.transform.rotation = Quaternion.Euler(0, 0, 0);
-        playerPrefab.transform.position = new Vector3(playerPrefab.transform.position.x + 1, spawnPos.x + 1, playerPrefab.transform.position.z + 1);
+        bossPrefab.transform.rotation = Quaternion.Euler(0, 0, 0);
+        bossPrefab.transform.position = new Vector3(bossPrefab.transform.position.x, spawnPos.x + 3f, bossPrefab.transform.position.z + 1);
     }
 }
 

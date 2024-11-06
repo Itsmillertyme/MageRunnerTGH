@@ -120,7 +120,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 120
+  controlID: 133
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -869,9 +869,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 60.49928, y: 5.0747557, z: 21.694866}
+    m_Target: {x: 16.47178, y: 38.95805, z: -7.9127665}
     speed: 2
-    m_Value: {x: 60.49928, y: 5.0747557, z: 21.694866}
+    m_Value: {x: 16.47178, y: 38.95805, z: -7.9127665}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -917,13 +917,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.0010055323, y: 0.9989188, z: -0.023975631, w: -0.04047835}
+    m_Target: {x: 0.0012410014, y: 0.9986106, z: -0.04496736, w: 0.028468914}
     speed: 2
-    m_Value: {x: -0.0010055057, y: 0.9988923, z: -0.023974996, w: -0.040477276}
+    m_Value: {x: 0.0012409659, y: 0.99858207, z: -0.044966076, w: 0.0284681}
   m_Size:
-    m_Target: 2.6291275
+    m_Target: 25.235603
     speed: 2
-    m_Value: 2.6291275
+    m_Value: 24.148903
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -1165,9 +1165,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 669d0000
-      m_LastClickedID: 40294
-      m_ExpandedIDs: 54faffff5cfaffff60faffff90faffff94faffff98faffff9cfaffffc8faffffecfaffff129d0000209d0000249d0000609d0000669d0000
+      m_SelectedIDs: 4a60fdff
+      m_LastClickedID: -171958
+      m_ExpandedIDs: 2c2bf8ff302bf8fff0efffff4af5ffffecfaffffbca5000090b40000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1239,7 +1239,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts
+    - Assets/Prefab
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1249,16 +1249,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scripts
+  - Assets/Prefab
   m_LastFoldersGridSize: 16
   m_LastProjectPath: D:\Github\MageRunnerTGH\TGH_MageGame
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: f0a20000
-    m_LastClickedID: 41712
-    m_ExpandedIDs: 00000000eca20000eea20000f0a20000f2a20000f4a20000f6a20000f8a20000faa2000000ca9a3b
+    m_SelectedIDs: 88a30000
+    m_LastClickedID: 41864
+    m_ExpandedIDs: 00000000eca20000eea20000f0a20000f2a20000f4a20000f6a20000f8a20000faa20000aca3000054a4000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1319,18 +1319,18 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: 2ae1020000000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: PlacePlayer
+      m_OriginalName: PlacePlayer
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 38112
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_TrimLeadingAndTrailingWhitespace: 0
       m_ClientGUIView: {fileID: 11}

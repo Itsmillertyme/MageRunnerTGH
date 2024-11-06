@@ -66,6 +66,8 @@ public class PlayerController : MonoBehaviour {
     Coroutine dashAnimation;
     Coroutine castAnimation;
 
+    public bool IsFacingLeft { get => isFacingLeft; set => isFacingLeft = value; }
+
     //**Unity Methods    
     void Awake() {
         //Initialize

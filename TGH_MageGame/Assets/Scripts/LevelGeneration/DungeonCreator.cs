@@ -14,6 +14,7 @@ public class DungeonCreator : MonoBehaviour {
     [Header("Generator Settings")]
     public bool generateOnLoad;
     public bool debugMode;
+    public bool dungeonFlatMode;
     public int maxIterations;
     [Range(0.0f, 0.3f)]
     public float roomBottomCornerModifier;
@@ -35,6 +36,7 @@ public class DungeonCreator : MonoBehaviour {
     public GameObject wallVertical;
     public GameObject maskPrefab;
     public GameObject playerPrefab;
+    public GameObject bossPrefab;
     public Mesh pathNodeMesh;
     public Material pathNodeMaterial;
 
@@ -121,17 +123,23 @@ public class DungeonCreator : MonoBehaviour {
         }
 
 
-        PlacePlayer(listOfRooms);
+        PlacePlayer(pf.StartPoint);
 
 
 
-        //DEV - rotate parent to show vertically
-        dungeonParent.rotation = Quaternion.Euler(0, 90, 90);
-        dungeonParent.position = new Vector3(0, 0, -0.5f);
-
-        for (int i = 0; i < pf.Path.Count - 1; i++) {
-            Debug.DrawLine(pf.Path[i].transform.position, pf.Path[i + 1].transform.position, Color.green, 60);
+        if (!dungeonFlatMode) {
+            //DEV - rotate parent to show vertically
+            dungeonParent.rotation = Quaternion.Euler(0, 90, 90);
+            dungeonParent.position = new Vector3(0, 0, -0.5f);
         }
+
+
+        if (debugMode) {
+            for (int i = 0; i < pf.Path.Count - 1; i++) {
+                Debug.DrawLine(pf.Path[i].transform.position, pf.Path[i + 1].transform.position, Color.green, 60);
+            }
+        }
+
     }
     public void RetryGeneration() {
 
@@ -308,6 +316,8 @@ public class DungeonCreator : MonoBehaviour {
             //add pathnode script 
             PathNode pathNode = pathNodeObject.AddComponent<PathNode>();
             pathNode.Type = PathNodeType.ROOM;
+            pathNode.RoomDimensions = new Vector2Int(listOfRooms[i].Width, listOfRooms[i].Length);
+            pathNode.RoomTopLeftCorner = listOfRooms[i].TopLeftAreaCorner;
 
 
             pathNodeObject.transform.parent = pathNodeParent;
@@ -332,6 +342,8 @@ public class DungeonCreator : MonoBehaviour {
             //add pathnode script 
             PathNode pathNode = pathNodeObject.AddComponent<PathNode>();
             pathNode.Type = PathNodeType.CORRIDOR;
+            pathNode.RoomDimensions = new Vector2Int(listOfCorridors[i].Width, listOfCorridors[i].Length);
+            pathNode.RoomTopLeftCorner = listOfCorridors[i].TopLeftAreaCorner;
 
             pathNodeObject.transform.parent = pathNodeParent;
             pathNodeObject.transform.position = new Vector3(centerPoint.x, 5, centerPoint.y);
@@ -384,26 +396,66 @@ public class DungeonCreator : MonoBehaviour {
         }
     }
 
-    public void PlacePlayer(List<RoomNode> rooms) {
+    public void PlacePlayer(PathNode spawnRoomPathNode) {
         Vector3 spawnPos = Vector3.zero;
-        float distFromOrigin = Mathf.Infinity;
 
-        foreach (RoomNode roomNode in rooms) {
-            if (roomNode.distanceFromOrigin < distFromOrigin) {
-                distFromOrigin = roomNode.distanceFromOrigin;
-                spawnPos = roomNode.bottomRightCornerObject.transform.position;
-            }
+        if (spawnRoomPathNode.RoomTopLeftCorner.y > dungeonWidth / 2) {
+            //Spawn on "left" side of room
+            spawnPos = new Vector3(spawnRoomPathNode.RoomTopLeftCorner.x + .1f, 0, spawnRoomPathNode.RoomTopLeftCorner.y - 2);
+
+            //Rotate player
+            playerPrefab.transform.GetChild(0).transform.localRotation = Quaternion.Euler(0, 270, 0);
+            playerPrefab.GetComponent<PlayerController>().IsFacingLeft = false;
+
         }
+        else {
+            //spawn on "right" side of room
+            spawnPos = new Vector3(spawnRoomPathNode.RoomTopLeftCorner.x + .1f, 0, spawnRoomPathNode.RoomTopLeftCorner.y - spawnRoomPathNode.RoomDimensions.y + 2);
+
+            //Rotate player
+            playerPrefab.transform.GetChild(0).transform.localRotation = Quaternion.Euler(0, 90, 0);
+            playerPrefab.GetComponent<PlayerController>().IsFacingLeft = true;
+        }
+
 
         //places player
         playerPrefab.transform.position = spawnPos;
-        //rotates player around origin to account for level rotation
-        playerPrefab.transform.RotateAround(Vector3.zero, Vector3.up, 90);
-        playerPrefab.transform.RotateAround(Vector3.zero, Vector3.left, 90);
+        if (!dungeonFlatMode) {
+            //rotates player around origin to account for level rotation
+            playerPrefab.transform.RotateAround(Vector3.zero, Vector3.up, 90);
+            playerPrefab.transform.RotateAround(Vector3.zero, Vector3.left, 90);
+        }
+
+        playerPrefab.transform.rotation = Quaternion.Euler(0, 0, 0);
+        playerPrefab.transform.position = new Vector3(playerPrefab.transform.position.x + 1, spawnPos.x, playerPrefab.transform.position.z + 1);
+    }
+
+
+    public void PlaceBoss(PathNode bossRoomPathNode) {
+        Vector3 spawnPos = Vector3.zero;
+
+        if (bossRoomPathNode.RoomTopLeftCorner.y > dungeonWidth) {
+            //Spawn on "left" side of room
+            spawnPos = new Vector3(bossRoomPathNode.RoomTopLeftCorner.x + .1f, 0, bossRoomPathNode.RoomTopLeftCorner.y - 2);
+
+        }
+        else {
+            //spawn on "right" side of room
+            spawnPos = new Vector3(bossRoomPathNode.RoomTopLeftCorner.x + .1f, 0, bossRoomPathNode.RoomTopLeftCorner.y - bossRoomPathNode.RoomDimensions.y + 2);
+        }
+
+
+        //places player
+        playerPrefab.transform.position = spawnPos;
+        if (!dungeonFlatMode) {
+            //rotates player around origin to account for level rotation
+            playerPrefab.transform.RotateAround(Vector3.zero, Vector3.up, 90);
+            playerPrefab.transform.RotateAround(Vector3.zero, Vector3.left, 90);
+        }
+
         playerPrefab.transform.rotation = Quaternion.Euler(0, 0, 0);
         playerPrefab.transform.position = new Vector3(playerPrefab.transform.position.x + 1, spawnPos.x + 1, playerPrefab.transform.position.z + 1);
     }
-
 }
 
 public struct WallData {

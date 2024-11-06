@@ -15,6 +15,9 @@ public class CorridorNode : Node {
     public RoomNode Structure1 { get => structure1; }
     public RoomNode Structure2 { get => structure2; }
 
+    public int Width { get => (int) (TopRightAreaCorner.x - BottomLeftAreaCorner.x); }
+    public int Length { get => (int) (TopRightAreaCorner.y - BottomLeftAreaCorner.y); }
+
 
     //constructor passes in null to super constructor for parent attribute, Makes corridors not connected
     public CorridorNode(RoomNode node1, RoomNode node2, int corridorWidth) : base(null) {

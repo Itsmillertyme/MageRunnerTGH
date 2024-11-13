@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour {
     bool wasFlippedLastFrame;
     bool isJumpPressed = false;
     bool isPaused = false;
+    bool topCollided = false;
 
     //Jump Varbiables
     [SerializeField] float maxJumpHeight; //SII
@@ -166,6 +167,8 @@ public class PlayerController : MonoBehaviour {
             appliedMovement.x = 0;
         }
 
+        //Debug.Log("Y axis movement: " + appliedMovement.y);
+
         collisionFlags = characterController.Move(appliedMovement * Time.deltaTime);
 
         if (wasFlippedLastFrame) {
@@ -194,15 +197,18 @@ public class PlayerController : MonoBehaviour {
         }
 
         //test for vertical collisions when jumping (BINARY COMPARE bit mask and above flag, make sure they match (i.e. equal 1 because they are the same))
-        if ((collisionFlags & CollisionFlags.Above) != 0) {
+        if (((collisionFlags & CollisionFlags.Above) != 0) && !topCollided) {
             currentMovement.y = 0;
             currentRunMovement.y = 0;
             currentCrouchMovement.y = 0;
-
+            topCollided = true;
+        }
+        else if ((collisionFlags & CollisionFlags.Above) == 0) {
+            topCollided = false;
         }
 
         //Snap Z coord to 0
-        transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+        transform.position = new Vector3(transform.position.x, transform.position.y, 2.5f);
     }
 
     private void HandlePlayerDirection() {
@@ -247,7 +253,6 @@ public class PlayerController : MonoBehaviour {
 
         //Set flag
         isMovementPressed = currentMovementInput != 0;
-
 
     }
     //
@@ -377,8 +382,12 @@ public class PlayerController : MonoBehaviour {
     }
     //
     void HandleGravity() {
-        bool isFalling = currentMovement.y <= 0f || !isJumpPressed;
+        bool isFalling = currentMovement.y < groundedGravity;
         float fallMultiplier = 2f;
+
+
+        //Debug.Log("Player grounded: " + characterController.isGrounded);
+        //Debug.Log("Player is falling: " + isFalling);
 
         //Sets gravity every frame
         if (characterController.isGrounded) {
@@ -387,38 +396,20 @@ public class PlayerController : MonoBehaviour {
             currentRunMovement.y = groundedGravity;
             appliedMovement.y = groundedGravity;
         }
+        //applies gravity when falling scaled by mult
         else if (isFalling) {
-            //applies gravity when falling scaled by mult
             float prevYVelocity = currentMovement.y;
             currentMovement.y = currentMovement.y + (gravity * fallMultiplier * Time.deltaTime);
-            appliedMovement.y = (prevYVelocity + currentMovement.y) * .5f;
+            appliedMovement.y = Mathf.Max((prevYVelocity + currentMovement.y) * .5f, -20.0f);
         }
-        //applies gravity every frame
+        //applies gravity every frame when not grounded
         else {
             //apply velocity verlet intergration
             float prevYVelocity = currentMovement.y;
             currentMovement.y = currentMovement.y + (gravity * Time.deltaTime);
             appliedMovement.y = (prevYVelocity + currentMovement.y) * .5f;
 
-
-            //else if (isFalling) {
-            //    //applies gravity when falling scaled by mult
-            //    float prevYVelocity = currentMovement.y;
-            //    float newYVelocity = currentMovement.y + (gravity * fallMultiplier * Time.deltaTime);
-            //    float nextYVelocity = (prevYVelocity + newYVelocity) * .5f;
-            //    currentMovement.y = nextYVelocity;
-            //    currentCrouchMovement.y = nextYVelocity;
-            //    currentRunMovement.y = nextYVelocity;
-            //}
-            ////applies gravity every frame
-            //else {
-            //    //apply velocity verlet intergration
-            //    float prevYVelocity = currentMovement.y;
-            //    float newYVelocity = currentMovement.y + (gravity * Time.deltaTime);
-            //    float nextYVelocity = (prevYVelocity + newYVelocity) * .5f;
-            //    currentMovement.y = nextYVelocity;
-            //    currentCrouchMovement.y = nextYVelocity;
-            //    currentRunMovement.y = nextYVelocity;
+            //Debug.Log("Weird gravity");
         }
     }
     //

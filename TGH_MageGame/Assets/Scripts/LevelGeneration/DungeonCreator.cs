@@ -23,23 +23,27 @@ public class DungeonCreator : MonoBehaviour {
     [Range(0, 2)]
     public int roomOffset;
 
-    [Header("Misc References")]
-    public Material roomMaterial;
-    public Material corridorMaterial;
+    [Header("Prefab References")]
     public Transform roomParent;
     public Transform corridorParent;
     public Transform dungeonParent;
     public Transform pathNodeParent;
     public Transform wallParent;
     public Transform maskParent;
+    public Transform platformParent;
     public GameObject wallHorizontal;
     public GameObject wallVertical;
     public GameObject maskPrefab;
     public GameObject playerPrefab;
     public GameObject bossPrefab;
-    public Mesh pathNodeMesh;
-    public Material pathNodeMaterial;
 
+    [Header("Misc References")]
+    public Material roomMaterial;
+    public Material corridorMaterial;
+    public Mesh pathNodeMesh;
+    public Material pathNodeBaseMaterial;
+    public Material pathNodeStartMaterial;
+    public Material pathNodeEndMaterial;
 
     List<WallData> possibleDoorHorizontalPosition;
     List<WallData> possibleDoorVerticalPosition;
@@ -117,11 +121,18 @@ public class DungeonCreator : MonoBehaviour {
 
         //RUN PATH FINDER
         PathFinder pf = new PathFinder();
-        pf.StartPoint.GetComponent<MeshRenderer>().material.color = Color.blue;
         for (int i = 0; i < pf.EndPoints.Count; i++) {
-            pf.EndPoints[i].GetComponent<MeshRenderer>().material.color = Color.yellow;
+            pf.EndPoints[i].GetComponent<MeshRenderer>().sharedMaterial = pathNodeEndMaterial;
         }
+        pf.StartPoint.GetComponent<MeshRenderer>().sharedMaterial = pathNodeStartMaterial;
 
+        //Create platforms
+        foreach (PathNode node in pf.Path) {
+            if (node.Type == PathNodeType.ROOM) {
+                PlacePlatforms(node);
+            }
+
+        }
 
         PlacePlayer(pf.StartPoint);
 
@@ -158,6 +169,7 @@ public class DungeonCreator : MonoBehaviour {
         Transform[] wallchildren = wallParent.GetComponentsInChildren<Transform>();
         Transform[] maskchildren = maskParent.GetComponentsInChildren<Transform>(true);
         Transform[] pathNodeChildren = pathNodeParent.GetComponentsInChildren<Transform>(true);
+        Transform[] platformChildren = platformParent.GetComponentsInChildren<Transform>(true);
 
         //reset dungeon parent rotation
         dungeonParent.rotation = Quaternion.Euler(0, 0, 0);
@@ -179,9 +191,13 @@ public class DungeonCreator : MonoBehaviour {
         for (int i = maskchildren.Length - 1; i > 0; i--) {
             DestroyImmediate(maskchildren[i].gameObject);
         }
-        //Destroy mask objects
+        //Destroy Pathnode objects
         for (int i = pathNodeChildren.Length - 1; i > 0; i--) {
             DestroyImmediate(pathNodeChildren[i].gameObject);
+        }
+        //Destroy platform objects
+        for (int i = platformChildren.Length - 1; i > 0; i--) {
+            DestroyImmediate(platformChildren[i].gameObject);
         }
     }
 
@@ -311,7 +327,7 @@ public class DungeonCreator : MonoBehaviour {
 
             if (debugMode) {
                 pathNodeObject.GetComponent<MeshFilter>().mesh = pathNodeMesh;
-                pathNodeObject.GetComponent<MeshRenderer>().material = pathNodeMaterial;
+                pathNodeObject.GetComponent<MeshRenderer>().material = pathNodeBaseMaterial;
             }
 
             //add pathnode script 
@@ -337,7 +353,7 @@ public class DungeonCreator : MonoBehaviour {
 
             if (debugMode) {
                 pathNodeObject.GetComponent<MeshFilter>().mesh = pathNodeMesh;
-                pathNodeObject.GetComponent<MeshRenderer>().material = pathNodeMaterial;
+                pathNodeObject.GetComponent<MeshRenderer>().material = pathNodeBaseMaterial;
             }
 
             //add pathnode script 
@@ -364,6 +380,7 @@ public class DungeonCreator : MonoBehaviour {
 
             //Set corridor structures to have the corridor as a neighbor
             listOfCorridors[i].Structure1.pathNode.GetComponent<PathNode>().neighbors.Add(pathNodeObject);
+
 
             listOfCorridors[i].Structure2.pathNode.GetComponent<PathNode>().neighbors.Add(pathNodeObject);
 
@@ -431,7 +448,6 @@ public class DungeonCreator : MonoBehaviour {
         playerPrefab.transform.position = new Vector3(playerPrefab.transform.position.x + 1, spawnPos.x, playerPrefab.transform.position.z + 1);
     }
 
-
     public void PlaceBoss(PathNode bossRoomPathNode) {
         Vector3 spawnPos = Vector3.zero;
 
@@ -457,6 +473,202 @@ public class DungeonCreator : MonoBehaviour {
 
         bossPrefab.transform.rotation = Quaternion.Euler(0, 0, 0);
         bossPrefab.transform.position = new Vector3(bossPrefab.transform.position.x, spawnPos.x + 3f, bossPrefab.transform.position.z + 1);
+    }
+
+    public void PlacePlatforms(PathNode room) {
+
+        int verticalPlatformDistance = 4;
+        int platformWidth = 5;
+        int roomHeight = room.RoomDimensions.y;
+        int roomWidth = room.RoomDimensions.x;
+        int groundLevel = room.RoomTopLeftCorner.x + roomOffset;
+        int wallSpace = 5;
+        int platformSpace = roomHeight - 2 * wallSpace;
+
+        //Debug.Log("Room size (Unrotated): " + room.RoomDimensions);
+
+        int count = 1;
+        for (int i = groundLevel + verticalPlatformDistance; i < groundLevel + roomWidth - 3; i += verticalPlatformDistance) {
+
+            switch (platformSpace / platformWidth) {
+
+                case 0:
+                    //odd level - spawn a single platform on right
+                    if (count % 2 == 1) {
+                        SpawnLineOfPlatforms("01", i, room, platformWidth);
+                    }
+                    //even level - spawn platforms on left
+                    else {
+                        SpawnLineOfPlatforms("10", i, room, platformWidth);
+                    }
+                    count++;
+                    break;
+                case 1:
+                    //odd level - spawn a single platform in middle
+                    if (count % 2 == 1) {
+                        SpawnLineOfPlatforms("010", i, room, platformWidth);
+                    }
+                    //even level - spawn platforms at each wall
+                    else {
+                        SpawnLineOfPlatforms("101", i, room, platformWidth);
+                    }
+                    count++;
+
+                    break;
+                case 2:
+                    //odd level - spawn a double platform in middle
+                    if (count % 2 == 1) {
+                        SpawnLineOfPlatforms("0110", i, room, platformWidth);
+                    }
+                    //even level - randomly pick from configurations: 1001, 0101, 1010
+                    else {
+                        SpawnLineOfPlatforms("1001", i, room, platformWidth);
+                    }
+                    count++;
+                    break;
+                case 3:
+                    //odd level - spawn a triple platform in middle
+                    if (count % 2 == 1) {
+                        SpawnLineOfPlatforms("01110", i, room, platformWidth);
+                    }
+                    //even level - randomly pick from configurations:
+                    else {
+                        SpawnLineOfPlatforms("10001", i, room, platformWidth);
+                    }
+                    count++;
+                    break;
+                case 4:
+                    //odd level - spawn a series of platforms in middle
+                    if (count % 2 == 1) {
+                        SpawnLineOfPlatforms("011110", i, room, platformWidth);
+                    }
+                    //even level - randomly pick from configurations:
+                    else {
+                        SpawnLineOfPlatforms("100001", i, room, platformWidth);
+                    }
+                    count++;
+                    break;
+                case 5:
+                    //odd level - spawn a series of platforms in middle
+                    if (count % 2 == 1) {
+                        SpawnLineOfPlatforms("0111110", i, room, platformWidth);
+                    }
+                    //even level - randomly pick from configurations:
+                    else {
+                        SpawnLineOfPlatforms("1000001", i, room, platformWidth);
+                    }
+                    count++;
+                    break;
+                case 6:
+                    //odd level - spawn a series of platforms in middle
+                    if (count % 2 == 1) {
+                        SpawnLineOfPlatforms("01111110", i, room, platformWidth);
+                    }
+                    //even level - randomly pick from configurations: 
+                    else {
+                        SpawnLineOfPlatforms("10000001", i, room, platformWidth);
+                    }
+                    count++;
+                    break;
+                case 7:
+                    //odd level - spawn a series of platforms in middle
+                    if (count % 2 == 1) {
+                        SpawnLineOfPlatforms("011111110", i, room, platformWidth);
+                    }
+                    //even level - randomly pick from configurations: 
+                    else {
+                        SpawnLineOfPlatforms("100000001", i, room, platformWidth);
+                    }
+                    count++;
+                    break;
+                case 8:
+                    //odd level - spawn a series of platforms in middle
+                    if (count % 2 == 1) {
+                        SpawnLineOfPlatforms("0111111110", i, room, platformWidth);
+                    }
+                    //even level - randomly pick from configurations: 
+                    else {
+                        SpawnLineOfPlatforms("1000000001", i, room, platformWidth);
+                    }
+                    count++;
+                    break;
+                case 9:
+                    //odd level - spawn a series of platforms in middle
+                    if (count % 2 == 1) {
+                        SpawnLineOfPlatforms("01111111110", i, room, platformWidth);
+                    }
+                    //even level - randomly pick from configurations: 
+                    else {
+                        SpawnLineOfPlatforms("10000000001", i, room, platformWidth);
+                    }
+                    count++;
+                    break;
+                case 10:
+                    //odd level - spawn a series of platforms in middle
+                    if (count % 2 == 1) {
+                        SpawnLineOfPlatforms("011111111110", i, room, platformWidth);
+                    }
+                    //even level - randomly pick from configurations: 
+                    else {
+                        SpawnLineOfPlatforms("100000000001", i, room, platformWidth);
+                    }
+                    count++;
+                    break;
+                default:
+                    //DEBUG - blank for now
+                    break;
+            }
+        }
+    }
+
+    void SpawnLineOfPlatforms(string lineData, int x, PathNode room, int platformWidth) {
+
+        //Helper
+        int numSpaces = 0;
+
+        //Validate linedata
+        foreach (char c in lineData.ToCharArray()) {
+            if (c != '0' && c != '1') {
+                return;
+            }
+            if (c == '0') {
+
+                numSpaces++;
+            }
+        }
+
+        //Setup space offset
+        int extraSpace = room.RoomDimensions.y % 5;
+        float spaceOffsetPerCell;
+        if (numSpaces == 0) {
+            spaceOffsetPerCell = 0;
+        }
+        else {
+            spaceOffsetPerCell = (float) extraSpace / numSpaces;
+        }
+
+        //Debug.Log("Number \"cells\" without a platform: " + numSpaces);
+        //Debug.Log("Room size remainder: " + extraSpace);
+        //Debug.Log("/Cell offset " + spaceOffsetPerCell);
+        //Debug.Log("=============================================");
+
+
+        GameObject platform = (GameObject) Resources.Load("CastlePlatform1");
+        Vector3 spawnPos = new Vector3();
+
+        float totalOffset = 0;
+        for (int i = 0; i < lineData.Length; i++) {
+            if (lineData[i] == '0') {
+                totalOffset += spaceOffsetPerCell;
+                continue;
+            }
+            spawnPos = new Vector3(x, -0.5f, room.RoomTopLeftCorner.y - (i * platformWidth) - totalOffset - platformWidth / 2f);
+
+            platform = Instantiate(platform, spawnPos, Quaternion.Euler(0, 0, 0));
+            platform.transform.parent = platformParent;
+        }
+
+
     }
 }
 

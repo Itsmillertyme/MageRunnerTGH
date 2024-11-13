@@ -44,7 +44,7 @@ public class MaskGenerator : MonoBehaviour {
                 //Test flag
                 if (outsideOfRoom) {
                     //Create mask prefab for this cell
-                    GameObject mask = Instantiate(maskPrefab, new Vector3(j, 3, i), Quaternion.Euler(0, 0, 0), maskParent);
+                    GameObject mask = Instantiate(maskPrefab, new Vector3(j, 5, i), Quaternion.Euler(0, 0, 0), maskParent);
                 }
             }
         }

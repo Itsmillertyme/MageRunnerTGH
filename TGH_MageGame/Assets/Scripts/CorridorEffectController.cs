@@ -18,8 +18,8 @@ public class CorridorEffectController : MonoBehaviour {
         float roomSize = direction == Direction.VERTICAL ? startPosition.z - flippedPosition.z : startPosition.x - flippedPosition.x;
 
         //CHAOS - idk why
-        startPosition = transform.position;
-        flippedPosition = direction == Direction.VERTICAL ? new Vector3(startPosition.x - roomSize, startPosition.y, startPosition.z) : new Vector3(startPosition.x, startPosition.y - roomSize, startPosition.z);
+        //startPosition = transform.position;
+        //flippedPosition = direction == Direction.VERTICAL ? new Vector3(startPosition.x - roomSize, startPosition.y, startPosition.z) : new Vector3(startPosition.x, startPosition.y - roomSize, startPosition.z);
 
         roomMidPoint = (startPosition + flippedPosition) / 2;
 
@@ -38,24 +38,24 @@ public class CorridorEffectController : MonoBehaviour {
     void Update() {
         if (direction == Direction.VERTICAL) {
             //face player
-            if (playerController.transform.position.x > roomMidPoint.x) {
+            if (playerController.transform.position.x > startPosition.z) {
                 transform.localRotation = Quaternion.Euler(0, 90, 0);
-                transform.position = startPosition;
+                transform.localPosition = startPosition;
             }
-            else {
+            else if (playerController.transform.position.x < flippedPosition.z) {
                 transform.localRotation = Quaternion.Euler(0, -90, 0);
-                transform.position = flippedPosition;
+                transform.localPosition = flippedPosition;
             }
         }
         else if (direction == Direction.HORTIZONTAL) {
             //face player
-            if (playerController.transform.position.y < roomMidPoint.y) {
+            if (playerController.transform.position.y < startPosition.x) {
                 transform.localRotation = Quaternion.Euler(0, 0, 0);
-                transform.position = startPosition;
+                transform.localPosition = startPosition;
             }
-            else {
+            else if (playerController.transform.position.y > flippedPosition.x) {
                 transform.localRotation = Quaternion.Euler(0, 180, 0);
-                transform.position = flippedPosition;
+                transform.localPosition = flippedPosition;
             }
         }
 
@@ -67,19 +67,26 @@ public class CorridorEffectController : MonoBehaviour {
         startPosition = StartPosIn;
         direction = directionIn;
 
+        transform.localPosition = startPosition;
+
         //Debug.Log("startPos: " + startPosition);
         //Debug.Log("direction: " + direction);
         //Debug.Log("corridorSize: " + corridorSize);
 
-        if (direction == Direction.HORTIZONTAL) {
-            flippedPosition = new Vector3(startPosition.x + corridorSize, startPosition.y, startPosition.z);
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-        }
-        else if (direction == Direction.VERTICAL) {
-            flippedPosition = new Vector3(startPosition.x, startPosition.y, startPosition.z - corridorSize);
-            transform.rotation = Quaternion.Euler(0, 90, 0);
-        }
+        //if (direction == Direction.HORTIZONTAL) {
+        //    flippedPosition = new Vector3(startPosition.x + corridorSize, startPosition.y, startPosition.z);
+        //    transform.rotation = Quaternion.Euler(0, 0, 0);
+        //}
+        //else if (direction == Direction.VERTICAL) {
+        //    flippedPosition = new Vector3(startPosition.x, startPosition.y, startPosition.z - corridorSize);
+        //    transform.rotation = Quaternion.Euler(0, 90, 0);
+        //}
+        flippedPosition = direction == Direction.VERTICAL ? new Vector3(startPosition.x, startPosition.y, startPosition.z - corridorSize) : new Vector3(startPosition.x + corridorSize, startPosition.y, startPosition.z);
+
+        roomMidPoint = (startPosition + flippedPosition) / 2;
+
         //Debug.Log("flippedPosition: " + flippedPosition);
+
     }
 
 }

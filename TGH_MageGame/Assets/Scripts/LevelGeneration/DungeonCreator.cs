@@ -128,7 +128,7 @@ public class DungeonCreator : MonoBehaviour {
         pf.StartPoint.GetComponent<MeshRenderer>().sharedMaterial = pathNodeStartMaterial;
 
 
-        foreach (PathNode node in pf.Path) {
+        foreach (PathNode node in pf.PathNodes) {
             //Create platforms
             if (node.Type == PathNodeType.ROOM) {
                 PlacePlatforms(node);
@@ -139,7 +139,7 @@ public class DungeonCreator : MonoBehaviour {
                 CorridorEffectController cec = effect.GetComponent<CorridorEffectController>();
 
                 effect.transform.position = node.Direction == Direction.VERTICAL ? new Vector3(node.RoomTopLeftCorner.x + (corridorSize / 2), 2f, node.RoomTopLeftCorner.y) : new Vector3(node.RoomTopLeftCorner.x, 2f, node.RoomTopLeftCorner.y - (corridorSize / 2));
-                effect.transform.rotation = Quaternion.Euler(90, 0, 0);
+                //effect.transform.rotation = Quaternion.Euler(90, 0, 0);
                 cec.SetupEffect(effect.transform.localPosition, node.Direction, node.Direction == Direction.VERTICAL ? node.RoomDimensions.y : node.RoomDimensions.x);
             }
 

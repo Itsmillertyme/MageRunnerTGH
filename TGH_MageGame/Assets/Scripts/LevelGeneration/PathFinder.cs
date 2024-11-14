@@ -10,7 +10,7 @@ public class PathFinder {
     public PathNode StartPoint { get => startPoint; }
     public List<PathNode> EndPoints { get => endPoints; }
     public List<PathNode> Path { get => path; }
-
+    public List<PathNode> PathNodes { get => pathNodes; set => pathNodes = value; }
 
     public PathFinder() {
         pathNodes = GameObject.Find("PathNodes").GetComponentsInChildren<PathNode>().ToList();

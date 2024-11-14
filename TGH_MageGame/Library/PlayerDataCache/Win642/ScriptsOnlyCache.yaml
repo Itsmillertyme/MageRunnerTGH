@@ -186,6 +186,18 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Toggle/ToggleEvent
   methodsToPreserve:
   - assembly: Assembly-CSharp
+    fullTypeName: PlayerHealthUIController
+    methodName: UpdateUI
+  - assembly: Assembly-CSharp
+    fullTypeName: SpellUI
+    methodName: UpdateSpellUI
+  - assembly: Assembly-CSharp
+    fullTypeName: SpellUI
+    methodName: UpdateSpellUI
+  - assembly: Assembly-CSharp
+    fullTypeName: SpellUI
+    methodName: UpdateSpellUI
+  - assembly: Assembly-CSharp
     fullTypeName: SpellBook
     methodName: LevelDownActiveSpell
   - assembly: Assembly-CSharp
@@ -203,18 +215,6 @@ ScriptsOnlyBuild:
   - assembly: Assembly-CSharp
     fullTypeName: GameEvent
     methodName: Raise
-  - assembly: Assembly-CSharp
-    fullTypeName: PlayerHealthUIController
-    methodName: UpdateUI
-  - assembly: Assembly-CSharp
-    fullTypeName: SpellUI
-    methodName: UpdateSpellUI
-  - assembly: Assembly-CSharp
-    fullTypeName: SpellUI
-    methodName: UpdateSpellUI
-  - assembly: Assembly-CSharp
-    fullTypeName: SpellUI
-    methodName: UpdateSpellUI
   - assembly: Assembly-CSharp
     fullTypeName: GameEvent
     methodName: Raise
@@ -2524,4 +2524,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/Sandbox.unity
   - Assets/Scenes/ProceduralGenerationTestLevel.unity
-  playerPath: D:/School/KSU/Digital Media Interaction/_Builds/0.3/MageRunner.exe
+  playerPath: D:/School/KSU/Digital Media Interaction/_Builds/0.3.0.1/MageRunner.exe

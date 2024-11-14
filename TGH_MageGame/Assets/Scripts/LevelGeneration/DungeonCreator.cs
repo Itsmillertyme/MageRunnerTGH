@@ -138,9 +138,16 @@ public class DungeonCreator : MonoBehaviour {
                 GameObject effect = Instantiate(corridorEffect, corridorParent);
                 CorridorEffectController cec = effect.GetComponent<CorridorEffectController>();
 
-                effect.transform.position = node.Direction == Direction.VERTICAL ? new Vector3(node.RoomTopLeftCorner.x + (corridorSize / 2), 2f, node.RoomTopLeftCorner.y) : new Vector3(node.RoomTopLeftCorner.x, 2f, node.RoomTopLeftCorner.y - (corridorSize / 2));
-                //effect.transform.rotation = Quaternion.Euler(90, 0, 0);
-                cec.SetupEffect(effect.transform.localPosition, node.Direction, node.Direction == Direction.VERTICAL ? node.RoomDimensions.y : node.RoomDimensions.x);
+                if (node.Direction == Direction.VERTICAL) {
+                    effect.transform.position = new Vector3(node.RoomTopLeftCorner.x + (corridorSize / 2) + 0.5f, 2.5f, node.RoomTopLeftCorner.y - 1f);
+                    effect.transform.localRotation = Quaternion.Euler(0, 90, 0);
+                }
+                else {
+                    effect.transform.position = new Vector3(node.RoomTopLeftCorner.x + 1f, 2.5f, node.RoomTopLeftCorner.y - (corridorSize / 2));
+                    effect.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                }
+
+                cec.SetupEffect(effect.transform.localPosition, node.Direction, node.Direction == Direction.VERTICAL ? node.RoomDimensions.y - 2f : node.RoomDimensions.x - 2f);
             }
 
         }
@@ -624,6 +631,61 @@ public class DungeonCreator : MonoBehaviour {
                     //even level - randomly pick from configurations: 
                     else {
                         SpawnLineOfPlatforms("100000000001", i, room, platformWidth);
+                    }
+                    count++;
+                    break;
+                case 11:
+                    //odd level - spawn a series of platforms in middle
+                    if (count % 2 == 1) {
+                        SpawnLineOfPlatforms("0111111111110", i, room, platformWidth);
+                    }
+                    //even level - randomly pick from configurations: 
+                    else {
+                        SpawnLineOfPlatforms("1000000000001", i, room, platformWidth);
+                    }
+                    count++;
+                    break;
+                case 12:
+                    //odd level - spawn a series of platforms in middle
+                    if (count % 2 == 1) {
+                        SpawnLineOfPlatforms("01111111111110", i, room, platformWidth);
+                    }
+                    //even level - randomly pick from configurations: 
+                    else {
+                        SpawnLineOfPlatforms("10000000000001", i, room, platformWidth);
+                    }
+                    count++;
+                    break;
+                case 13:
+                    //odd level - spawn a series of platforms in middle
+                    if (count % 2 == 1) {
+                        SpawnLineOfPlatforms("011111111111110", i, room, platformWidth);
+                    }
+                    //even level - randomly pick from configurations: 
+                    else {
+                        SpawnLineOfPlatforms("100000000000001", i, room, platformWidth);
+                    }
+                    count++;
+                    break;
+                case 14:
+                    //odd level - spawn a series of platforms in middle
+                    if (count % 2 == 1) {
+                        SpawnLineOfPlatforms("0111111111111110", i, room, platformWidth);
+                    }
+                    //even level - randomly pick from configurations: 
+                    else {
+                        SpawnLineOfPlatforms("1000000000000001", i, room, platformWidth);
+                    }
+                    count++;
+                    break;
+                case 15:
+                    //odd level - spawn a series of platforms in middle
+                    if (count % 2 == 1) {
+                        SpawnLineOfPlatforms("01111111111111110", i, room, platformWidth);
+                    }
+                    //even level - randomly pick from configurations: 
+                    else {
+                        SpawnLineOfPlatforms("10000000000000001", i, room, platformWidth);
                     }
                     count++;
                     break;

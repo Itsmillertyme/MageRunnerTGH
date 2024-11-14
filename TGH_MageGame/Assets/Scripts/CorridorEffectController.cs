@@ -13,24 +13,9 @@ public class CorridorEffectController : MonoBehaviour {
     private void Awake() {
         playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
 
-
-
         float roomSize = direction == Direction.VERTICAL ? startPosition.z - flippedPosition.z : startPosition.x - flippedPosition.x;
 
-        //CHAOS - idk why
-        //startPosition = transform.position;
-        //flippedPosition = direction == Direction.VERTICAL ? new Vector3(startPosition.x - roomSize, startPosition.y, startPosition.z) : new Vector3(startPosition.x, startPosition.y - roomSize, startPosition.z);
-
         roomMidPoint = (startPosition + flippedPosition) / 2;
-
-        ////set direction of corridor
-        //if (transform.localScale.x > transform.localScale.y) {
-        //    direction = Direction.VERTICAL;
-        //}
-        //else {
-        //    //horizontal
-        //    direction = Direction.HORTIZONTAL;
-        //}
 
     }
 
@@ -62,7 +47,7 @@ public class CorridorEffectController : MonoBehaviour {
 
     }
 
-    public void SetupEffect(Vector3 StartPosIn, Direction directionIn, int corridorSize) {
+    public void SetupEffect(Vector3 StartPosIn, Direction directionIn, float corridorSizeIn) {
 
         startPosition = StartPosIn;
         direction = directionIn;
@@ -73,19 +58,12 @@ public class CorridorEffectController : MonoBehaviour {
         //Debug.Log("direction: " + direction);
         //Debug.Log("corridorSize: " + corridorSize);
 
-        //if (direction == Direction.HORTIZONTAL) {
-        //    flippedPosition = new Vector3(startPosition.x + corridorSize, startPosition.y, startPosition.z);
-        //    transform.rotation = Quaternion.Euler(0, 0, 0);
-        //}
-        //else if (direction == Direction.VERTICAL) {
-        //    flippedPosition = new Vector3(startPosition.x, startPosition.y, startPosition.z - corridorSize);
-        //    transform.rotation = Quaternion.Euler(0, 90, 0);
-        //}
-        flippedPosition = direction == Direction.VERTICAL ? new Vector3(startPosition.x, startPosition.y, startPosition.z - corridorSize) : new Vector3(startPosition.x + corridorSize, startPosition.y, startPosition.z);
+        flippedPosition = direction == Direction.VERTICAL ? new Vector3(startPosition.x, startPosition.y, startPosition.z - corridorSizeIn) : new Vector3(startPosition.x + corridorSizeIn, startPosition.y, startPosition.z);
 
         roomMidPoint = (startPosition + flippedPosition) / 2;
 
-        //Debug.Log("flippedPosition: " + flippedPosition);
+        ParticleSystem ps = GetComponent<ParticleSystem>();
+        ps.startLifetime = 2.5f * (corridorSizeIn + 2) / 13f;
 
     }
 

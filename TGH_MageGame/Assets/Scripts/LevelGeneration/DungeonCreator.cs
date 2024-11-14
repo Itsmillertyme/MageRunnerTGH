@@ -139,7 +139,7 @@ public class DungeonCreator : MonoBehaviour {
                 CorridorEffectController cec = effect.GetComponent<CorridorEffectController>();
 
                 if (node.Direction == Direction.VERTICAL) {
-                    effect.transform.position = new Vector3(node.RoomTopLeftCorner.x + (corridorSize / 2) + 0.5f, 2.5f, node.RoomTopLeftCorner.y - 1f);
+                    effect.transform.position = new Vector3(node.RoomTopLeftCorner.x + (corridorSize / 2), 2.5f, node.RoomTopLeftCorner.y - 1f);
                     effect.transform.localRotation = Quaternion.Euler(0, 90, 0);
                 }
                 else {

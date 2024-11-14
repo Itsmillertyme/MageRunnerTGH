@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour {
     bool isJumpPressed = false;
     bool isPaused = false;
     bool topCollided = false;
+    bool freezePhysics = false;
 
     //Jump Varbiables
     [SerializeField] float maxJumpHeight; //SII
@@ -68,6 +69,7 @@ public class PlayerController : MonoBehaviour {
     Coroutine castAnimation;
 
     public bool IsFacingLeft { get => isFacingLeft; set => isFacingLeft = value; }
+    public bool FreezePhysics { get => freezePhysics; set => freezePhysics = value; }
 
     //**Unity Methods    
     void Awake() {
@@ -169,7 +171,24 @@ public class PlayerController : MonoBehaviour {
 
         //Debug.Log("Y axis movement: " + appliedMovement.y);
 
-        collisionFlags = characterController.Move(appliedMovement * Time.deltaTime);
+        if (!freezePhysics) {
+            collisionFlags = characterController.Move(appliedMovement * Time.deltaTime);
+
+            //test for vertical collisions when jumping (BINARY COMPARE bit mask and above flag, make sure they match (i.e. equal 1 because they are the same))
+            if (((collisionFlags & CollisionFlags.Above) != 0) && !topCollided) {
+                currentMovement.y = 0;
+                currentRunMovement.y = 0;
+                currentCrouchMovement.y = 0;
+                topCollided = true;
+            }
+            else if ((collisionFlags & CollisionFlags.Above) == 0) {
+                topCollided = false;
+            }
+
+            //Snap Z coord to 0
+            transform.position = new Vector3(transform.position.x, transform.position.y, 2.5f);
+        }
+
 
         if (wasFlippedLastFrame) {
             wasFlippedLastFrame = false;
@@ -196,19 +215,9 @@ public class PlayerController : MonoBehaviour {
             animator.SetBool(landedHash, true);
         }
 
-        //test for vertical collisions when jumping (BINARY COMPARE bit mask and above flag, make sure they match (i.e. equal 1 because they are the same))
-        if (((collisionFlags & CollisionFlags.Above) != 0) && !topCollided) {
-            currentMovement.y = 0;
-            currentRunMovement.y = 0;
-            currentCrouchMovement.y = 0;
-            topCollided = true;
-        }
-        else if ((collisionFlags & CollisionFlags.Above) == 0) {
-            topCollided = false;
-        }
 
-        //Snap Z coord to 0
-        transform.position = new Vector3(transform.position.x, transform.position.y, 2.5f);
+
+
     }
 
     private void HandlePlayerDirection() {

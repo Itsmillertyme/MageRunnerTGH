@@ -45,26 +45,27 @@ public class ProjectileMover : MonoBehaviour {
     }
 
     private void OnCollisionEnter(Collision collision) {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
+        if (collision.gameObject.CompareTag("Enemy")) {
             collision.gameObject.GetComponent<EnemyHealth>().RemoveFromHealth(damage);
             Destroy(gameObject);
         }
 
-        else if (collision.gameObject.CompareTag("Player"))
-        {
+        else if (collision.gameObject.CompareTag("Player")) {
             collision.gameObject.GetComponent<PlayerHealth>().RemoveFromHealth(damage);
             Destroy(gameObject);
         }
-        else
-        {
+        else {
             Destroy(gameObject);
         }
     }
 
-    private void OnTriggerEnter(Collider collided)
-    {
-        collided.gameObject.GetComponent<EnemyHealth>().RemoveFromHealth(damage);
-        Destroy(gameObject, lifeSpan);
+    private void OnTriggerEnter(Collider collided) {
+
+        if (collided.gameObject.CompareTag("Enemy")) {
+            collided.gameObject.GetComponent<EnemyHealth>().RemoveFromHealth(damage);
+
+            Destroy(gameObject, lifeSpan);
+        }
+
     }
 }

@@ -9,6 +9,7 @@ public class CorridorNode : Node {
     private RoomNode structure2;
     private int corridorWidth;
     private int modifierDistanceFromWall = 1;
+    private Direction direction;
 
     public GameObject pathNode;
     //public PathNode PathNode { get => pathNode; set => pathNode = value; }
@@ -17,6 +18,7 @@ public class CorridorNode : Node {
 
     public int Width { get => (int) (TopRightAreaCorner.x - BottomLeftAreaCorner.x); }
     public int Length { get => (int) (TopRightAreaCorner.y - BottomLeftAreaCorner.y); }
+    public Direction Direction { get => direction; set => direction = value; }
 
 
     //constructor passes in null to super constructor for parent attribute, Makes corridors not connected
@@ -43,14 +45,18 @@ public class CorridorNode : Node {
         switch (relativePositionOfStructure2) {
             case RelativePosition.UP:
                 ProcessRoomsInRelativeUpOrDown(this.structure1, this.structure2);
+                direction = Direction.VERTICAL;
                 break;
             case RelativePosition.DOWN:
+                direction = Direction.VERTICAL;
                 ProcessRoomsInRelativeUpOrDown(this.structure2, this.structure1);
                 break;
             case RelativePosition.RIGHT:
+                direction = Direction.HORTIZONTAL;
                 ProcessRoomsInRelativeRightOrLeft(this.structure1, this.structure2);
                 break;
             case RelativePosition.LEFT:
+                direction = Direction.HORTIZONTAL;
                 ProcessRoomsInRelativeRightOrLeft(this.structure2, this.structure1);
                 break;
         }

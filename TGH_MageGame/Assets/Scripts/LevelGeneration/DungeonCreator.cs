@@ -36,6 +36,7 @@ public class DungeonCreator : MonoBehaviour {
     public GameObject maskPrefab;
     public GameObject playerPrefab;
     public GameObject bossPrefab;
+    public GameObject corridorEffect;
 
     [Header("Misc References")]
     public Material roomMaterial;
@@ -126,10 +127,20 @@ public class DungeonCreator : MonoBehaviour {
         }
         pf.StartPoint.GetComponent<MeshRenderer>().sharedMaterial = pathNodeStartMaterial;
 
-        //Create platforms
+
         foreach (PathNode node in pf.Path) {
+            //Create platforms
             if (node.Type == PathNodeType.ROOM) {
                 PlacePlatforms(node);
+            }
+            //create corridor effects
+            if (node.Type == PathNodeType.CORRIDOR) {
+                GameObject effect = Instantiate(corridorEffect, corridorParent);
+                CorridorEffectController cec = effect.GetComponent<CorridorEffectController>();
+
+                effect.transform.position = node.Direction == Direction.VERTICAL ? new Vector3(node.RoomTopLeftCorner.x + (corridorSize / 2), 2f, node.RoomTopLeftCorner.y) : new Vector3(node.RoomTopLeftCorner.x, 2f, node.RoomTopLeftCorner.y - (corridorSize / 2));
+                effect.transform.rotation = Quaternion.Euler(90, 0, 0);
+                cec.SetupEffect(effect.transform.localPosition, node.Direction, node.Direction == Direction.VERTICAL ? node.RoomDimensions.y : node.RoomDimensions.x);
             }
 
         }
@@ -333,6 +344,7 @@ public class DungeonCreator : MonoBehaviour {
             //add pathnode script 
             PathNode pathNode = pathNodeObject.AddComponent<PathNode>();
             pathNode.Type = PathNodeType.ROOM;
+            pathNode.Direction = Direction.VERTICAL;
             pathNode.RoomDimensions = new Vector2Int(listOfRooms[i].Width, listOfRooms[i].Length);
             pathNode.RoomTopLeftCorner = listOfRooms[i].TopLeftAreaCorner;
 
@@ -359,6 +371,7 @@ public class DungeonCreator : MonoBehaviour {
             //add pathnode script 
             PathNode pathNode = pathNodeObject.AddComponent<PathNode>();
             pathNode.Type = PathNodeType.CORRIDOR;
+            pathNode.Direction = listOfCorridors[i].Direction;
             pathNode.RoomDimensions = new Vector2Int(listOfCorridors[i].Width, listOfCorridors[i].Length);
             pathNode.RoomTopLeftCorner = listOfCorridors[i].TopLeftAreaCorner;
 

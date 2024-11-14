@@ -337,6 +337,7 @@
 "Assets/Misc/ActionAsset.cs"
 "Assets/Scripts/AnimatorForward.cs"
 "Assets/Scripts/CameraController.cs"
+"Assets/Scripts/CorridorEffectController.cs"
 "Assets/Scripts/DebugMenuController.cs"
 "Assets/Scripts/Enemy/Enemy Behavior.cs"
 "Assets/Scripts/Enemy/Enemy Projectile Mover.cs"

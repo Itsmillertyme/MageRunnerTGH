@@ -2,6 +2,7 @@
 	<assembly fullname="Assembly-CSharp">
 		<type fullname="AnimatorForward" preserve="nothing"/>
 		<type fullname="CameraController" preserve="nothing"/>
+		<type fullname="CorridorEffectController" preserve="nothing"/>
 		<type fullname="DebugMenuController" preserve="nothing"/>
 		<type fullname="DungeonCreator" preserve="nothing"/>
 		<type fullname="EnemyHealth" preserve="nothing"/>
@@ -93,6 +94,8 @@
 		<type fullname="UnityEngine.MonoBehaviour" preserve="nothing"/>
 		<type fullname="UnityEngine.Motion" preserve="nothing"/>
 		<type fullname="UnityEngine.Object" preserve="nothing"/>
+		<type fullname="UnityEngine.ParticleSystem" preserve="nothing"/>
+		<type fullname="UnityEngine.ParticleSystemRenderer" preserve="nothing"/>
 		<type fullname="UnityEngine.QualitySettings" preserve="nothing"/>
 		<type fullname="UnityEngine.RectTransform" preserve="nothing"/>
 		<type fullname="UnityEngine.Renderer" preserve="nothing"/>

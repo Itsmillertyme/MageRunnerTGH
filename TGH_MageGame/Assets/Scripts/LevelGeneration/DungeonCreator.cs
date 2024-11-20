@@ -24,8 +24,10 @@ public class DungeonCreator : MonoBehaviour {
     public int roomOffset;
     [Range(0.0f, 1.0f)]
     public float wallDecorationFrequency;
+    [Range(0.0f, 1.0f)]
+    public float floorDecorationFrequency;
 
-    [Header("Prefab References")]
+    [Header("Parent References")]
     public Transform roomParent;
     public Transform corridorParent;
     public Transform dungeonParent;
@@ -33,16 +35,21 @@ public class DungeonCreator : MonoBehaviour {
     public Transform wallParent;
     public Transform maskParent;
     public Transform platformParent;
+    public Transform decorationParent;
+
+    [Header("Prefab References")]
     public GameObject wallHorizontal;
     public GameObject wallVertical;
     public GameObject maskPrefab;
     public GameObject playerPrefab;
     public GameObject bossPrefab;
     public GameObject corridorEffect;
+    public GameObject platformPrefab;
     public GameObject castleWall5x5Prefab;
     public GameObject castleWall1x5Prefab;
     public GameObject castleWall5x5WindowPrefab;
     public GameObject castleWall5x5DrainPrefab;
+    public GameObject castleWall5x5DoorPrefab;
 
     [Header("Misc References")]
     public Material roomMaterial;
@@ -51,6 +58,7 @@ public class DungeonCreator : MonoBehaviour {
     public Material pathNodeBaseMaterial;
     public Material pathNodeStartMaterial;
     public Material pathNodeEndMaterial;
+    public LevelDecorations levelDecorations;
 
     List<WallData> possibleDoorHorizontalPosition;
     List<WallData> possibleDoorVerticalPosition;
@@ -153,12 +161,48 @@ public class DungeonCreator : MonoBehaviour {
                 else {
                     effect.transform.position = new Vector3(node.RoomTopLeftCorner.x + 1f, 2.5f, node.RoomTopLeftCorner.y - (corridorSize / 2) - .5f);
                     effect.transform.localRotation = Quaternion.Euler(0, 0, 0);
+
                 }
 
                 cec.SetupEffect(effect.transform.localPosition, node.Direction, node.Direction == Direction.VERTICAL ? node.RoomDimensions.y - 2f : node.RoomDimensions.x - 2f);
             }
-
         }
+
+        foreach (PathNode node in pf.PathNodes) {
+            if (node.Type == PathNodeType.CORRIDOR && node.Direction == Direction.HORTIZONTAL) {
+                //use rays to check left (bottom) side
+
+                Vector3 checkOrigin = new Vector3(node.RoomTopLeftCorner.x, 2.5f, node.RoomTopLeftCorner.y - (node.RoomDimensions.y / 2f));
+
+                RaycastHit hitInfo = new RaycastHit();
+                Ray rayLeft = new Ray(checkOrigin, new Vector3(checkOrigin.x - 7, checkOrigin.y, checkOrigin.z + 5) - checkOrigin);
+                Ray rayCenter = new Ray(checkOrigin, new Vector3(checkOrigin.x - 7, checkOrigin.y, checkOrigin.z) - checkOrigin);
+                Ray rayRight = new Ray(checkOrigin, new Vector3(checkOrigin.x - 7, checkOrigin.y, checkOrigin.z - 5) - checkOrigin);
+
+                bool hitLeft = Physics.Raycast(rayLeft, out hitInfo, 9.4f);
+                bool hitCenter = Physics.Raycast(rayCenter, out hitInfo, 8f);
+                bool hitRight = Physics.Raycast(rayRight, out hitInfo, 9.4f);
+
+
+                //Debug.Log("Corridor(" + node.name + ") platform check - Left) " + hitLeft + ", Center) " + hitCenter + ", Right) " + hitRight);
+
+                if (!hitLeft && !hitCenter && !hitRight) {
+                    GameObject platform = Instantiate(platformPrefab, new Vector3(node.RoomTopLeftCorner.x - 5, -0.5f, node.RoomTopLeftCorner.y), Quaternion.Euler(0, 0, 0), platformParent);
+                    platform.name = "SAFETY PLATFORM";
+                }
+
+                if (debugMode && dungeonFlatMode) {
+                    GameObject test = new GameObject("Just Testing");
+                    test.transform.position = checkOrigin;
+                    test.transform.parent = corridorParent;
+
+                    Debug.DrawLine(checkOrigin, new Vector3(checkOrigin.x - 7, checkOrigin.y, checkOrigin.z), Color.blue, 60);
+                    Debug.DrawLine(checkOrigin, new Vector3(checkOrigin.x - 7, checkOrigin.y, checkOrigin.z + 5), Color.blue, 60);
+                    Debug.DrawLine(checkOrigin, new Vector3(checkOrigin.x - 7, checkOrigin.y, checkOrigin.z - 5), Color.blue, 60);
+                }
+            }
+        }
+
 
         PlacePlayer(pf.StartPoint);
 
@@ -176,6 +220,8 @@ public class DungeonCreator : MonoBehaviour {
             for (int i = 0; i < pf.Path.Count - 1; i++) {
                 Debug.DrawLine(pf.Path[i].transform.position, pf.Path[i + 1].transform.position, Color.green, 60);
             }
+
+
         }
 
     }
@@ -196,6 +242,7 @@ public class DungeonCreator : MonoBehaviour {
         Transform[] maskchildren = maskParent.GetComponentsInChildren<Transform>(true);
         Transform[] pathNodeChildren = pathNodeParent.GetComponentsInChildren<Transform>(true);
         Transform[] platformChildren = platformParent.GetComponentsInChildren<Transform>(true);
+        Transform[] decorationChildren = decorationParent.GetComponentsInChildren<Transform>(true);
 
         //reset dungeon parent rotation
         dungeonParent.rotation = Quaternion.Euler(0, 0, 0);
@@ -224,6 +271,10 @@ public class DungeonCreator : MonoBehaviour {
         //Destroy platform objects
         for (int i = platformChildren.Length - 1; i > 0; i--) {
             DestroyImmediate(platformChildren[i].gameObject);
+        }
+        //Destroy decoration objects
+        for (int i = decorationChildren.Length - 1; i > 0; i--) {
+            DestroyImmediate(decorationChildren[i].gameObject);
         }
     }
 
@@ -288,14 +339,11 @@ public class DungeonCreator : MonoBehaviour {
 
                 GameObject prefab = castleWall5x5Prefab;
 
-                Unity.Mathematics.Random rand = new Unity.Mathematics.Random((uint) System.DateTime.UtcNow.Ticks);
-
-                float randomFloat = rand.NextFloat();
-
+                float randomFloat = UnityEngine.Random.value;
 
                 if (randomFloat < wallDecorationFrequency) {
-                    bool choice = rand.NextBool();
-                    if (choice) {
+                    int choice = UnityEngine.Random.Range(0, 2);
+                    if (choice == 0) {
                         prefab = castleWall5x5DrainPrefab;
                     }
                     else {
@@ -564,7 +612,6 @@ public class DungeonCreator : MonoBehaviour {
         }
     }
 
-
     //sets positions of walls to proper list
     private void AddWallPositionToList(Vector3 wallPosition, List<WallData> wallList, List<WallData> doorList, WallDirection direction) {
         //get point from wall position
@@ -605,7 +652,7 @@ public class DungeonCreator : MonoBehaviour {
         }
         else {
             //spawn on "right" side of room
-            spawnPos = new Vector3(spawnRoomPathNode.RoomTopLeftCorner.x + .1f, 0, spawnRoomPathNode.RoomTopLeftCorner.y - spawnRoomPathNode.RoomDimensions.y + 2);
+            spawnPos = new Vector3(spawnRoomPathNode.RoomTopLeftCorner.x + .1f, 0, spawnRoomPathNode.RoomTopLeftCorner.y - spawnRoomPathNode.RoomDimensions.y + 1);
 
             //Rotate player
             playerPrefab.transform.GetChild(0).transform.localRotation = Quaternion.Euler(0, 90, 0);
@@ -615,6 +662,8 @@ public class DungeonCreator : MonoBehaviour {
 
         //places player
         playerPrefab.transform.position = spawnPos;
+
+        SpawnDoorAtPlayerStart();
         if (!dungeonFlatMode) {
             //rotates player around origin to account for level rotation
             playerPrefab.transform.RotateAround(Vector3.zero, Vector3.up, 90);
@@ -623,6 +672,7 @@ public class DungeonCreator : MonoBehaviour {
 
         playerPrefab.transform.rotation = Quaternion.Euler(0, 0, 0);
         playerPrefab.transform.position = new Vector3(playerPrefab.transform.position.x + 1, spawnPos.x, playerPrefab.transform.position.z + 1);
+
     }
 
     public void PlaceBoss(PathNode bossRoomPathNode) {
@@ -701,6 +751,34 @@ public class DungeonCreator : MonoBehaviour {
         }
     }
 
+    public void SpawnDoorAtPlayerStart() {
+
+        //Debug.Log("Player Pos: " + playerPrefab.transform.position);
+
+        Collider[] hits = Physics.OverlapSphere(playerPrefab.transform.position, 15f);
+        GameObject closestGO = null;
+        float closestDistance = Mathf.Infinity;
+
+        foreach (Collider collider in hits) {
+            GameObject go = collider.gameObject;
+            if (go.name == "CastleWall_5x5(Clone)") {
+                float distance = Vector3.Distance(playerPrefab.transform.position, go.transform.position);
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestGO = go;
+                }
+            }
+        }
+
+        //Debug.Log("Closest Distance: " + closestDistance);
+        //Debug.Log("Closest wall: " + closestGO.transform.position);
+
+        GameObject door = Instantiate(castleWall5x5DoorPrefab, closestGO.transform.parent);
+        door.name = "door";
+        door.transform.position = closestGO.transform.localPosition;
+        door.transform.rotation = Quaternion.Euler(90, 90, 0);
+        closestGO.SetActive(false);
+    }
 
     void SpawnLineOfPlatforms(string lineData, int x, PathNode room, int platformWidth) {
 
@@ -734,7 +812,7 @@ public class DungeonCreator : MonoBehaviour {
         //Debug.Log("=============================================");
 
 
-        GameObject platform = (GameObject) Resources.Load("CastlePlatform1");
+        //GameObject platform = (GameObject) Resources.Load("CastlePlatform1");
         Vector3 spawnPos = new Vector3();
 
         float totalOffset = 0;
@@ -745,9 +823,27 @@ public class DungeonCreator : MonoBehaviour {
             }
             spawnPos = new Vector3(x, -0.5f, room.RoomTopLeftCorner.y - (i * platformWidth) - totalOffset - platformWidth / 2f);
 
-            platform = Instantiate(platform, spawnPos, Quaternion.Euler(0, 0, 0));
+            GameObject platform = Instantiate(platformPrefab, spawnPos, Quaternion.Euler(0, 0, 0));
             platform.transform.parent = platformParent;
+
+            //spawn decoration
+            float roll = UnityEngine.Random.value;
+
+            if (roll < floorDecorationFrequency) {
+                SpawnDecorationItem(spawnPos);
+            }
         }
+    }
+
+    void SpawnDecorationItem(Vector3 platformSpawnPos) {
+        //get random item from SO
+
+        GameObject decoration = levelDecorations.DecorationPrefabs[UnityEngine.Random.Range(0, levelDecorations.DecorationPrefabs.Count)];
+
+        float decorZPos = UnityEngine.Random.Range(-2.5f, 2.5f) + platformSpawnPos.z;
+        Vector3 decorSpawnPos = new Vector3(platformSpawnPos.x + .05f, UnityEngine.Random.Range(0, 2) == 0 ? platformSpawnPos.y + 1f : platformSpawnPos.y + 4.75f, decorZPos);
+
+        decoration = Instantiate(decoration, decorSpawnPos, Quaternion.Euler(UnityEngine.Random.Range(0, 360), 0, -90), decorationParent);
     }
 }
 

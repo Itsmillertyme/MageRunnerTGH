@@ -42,16 +42,15 @@ public class PathFinder {
         while (nodesLeft) {
 
             if (path[path.Count - 1].neighbors.Count > 1) {
-                if (path.Contains(path[path.Count - 1].neighbors[0].GetComponent<PathNode>())) {
-                    path.Add(path[path.Count - 1].neighbors[1].GetComponent<PathNode>());
+                if (path.Contains(path[path.Count - 1].neighbors[1].GetComponent<PathNode>())) {
+                    path.Add(path[path.Count - 1].neighbors[0].GetComponent<PathNode>());
                 }
                 else {
-                    path.Add(path[path.Count - 1].neighbors[0].GetComponent<PathNode>());
+                    path.Add(path[path.Count - 1].neighbors[1].GetComponent<PathNode>());
                 }
             }
             else {
                 nodesLeft = false;
-
             }
         }
     }

@@ -616,7 +616,10 @@ public class PlayerController : MonoBehaviour {
         }
 
         //play animation state
-        animator.CrossFade(castHash, 0.01f);
+        if (spellBook.IsReadyToCast) {
+            animator.CrossFade(castHash, 0.01f);
+        }
+
 
         //Set anim delay
         int delayFrame = 0;

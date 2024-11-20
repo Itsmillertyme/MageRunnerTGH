@@ -22,6 +22,8 @@ public class DungeonCreator : MonoBehaviour {
     public float roomTopCornerModifier;
     [Range(0, 2)]
     public int roomOffset;
+    [Range(0.0f, 1.0f)]
+    public float wallDecorationFrequency;
 
     [Header("Prefab References")]
     public Transform roomParent;
@@ -37,6 +39,10 @@ public class DungeonCreator : MonoBehaviour {
     public GameObject playerPrefab;
     public GameObject bossPrefab;
     public GameObject corridorEffect;
+    public GameObject castleWall5x5Prefab;
+    public GameObject castleWall1x5Prefab;
+    public GameObject castleWall5x5WindowPrefab;
+    public GameObject castleWall5x5DrainPrefab;
 
     [Header("Misc References")]
     public Material roomMaterial;
@@ -94,12 +100,14 @@ public class DungeonCreator : MonoBehaviour {
         //create mesh and object from list of rooms
         for (int i = 0; i < listOfRooms.Count; i++) {
 
-            CreateGameObjectsAndMesh(listOfRooms[i], roomMaterial, roomParent);
+            CreateRoomBackground(listOfRooms[i], roomMaterial, roomParent);
+            GenerateWallPositions(listOfRooms[i], roomMaterial, roomParent);
         }
         //create mesh and object from list of corridors
         for (int i = 0; i < listOfCorridors.Count; i++) {
 
-            CreateGameObjectsAndMesh(listOfCorridors[i], corridorMaterial, corridorParent);
+            CreateCorridorBackground(listOfCorridors[i], corridorMaterial, corridorParent);
+            GenerateWallPositions(listOfCorridors[i], corridorMaterial, corridorParent);
         }
 
         CreateWalls(wallParent);
@@ -139,11 +147,11 @@ public class DungeonCreator : MonoBehaviour {
                 CorridorEffectController cec = effect.GetComponent<CorridorEffectController>();
 
                 if (node.Direction == Direction.VERTICAL) {
-                    effect.transform.position = new Vector3(node.RoomTopLeftCorner.x + (corridorSize / 2), 2.5f, node.RoomTopLeftCorner.y - 1f);
+                    effect.transform.position = new Vector3(node.RoomTopLeftCorner.x + (corridorSize / 2) + .5f, 2.5f, node.RoomTopLeftCorner.y - 1f);
                     effect.transform.localRotation = Quaternion.Euler(0, 90, 0);
                 }
                 else {
-                    effect.transform.position = new Vector3(node.RoomTopLeftCorner.x + 1f, 2.5f, node.RoomTopLeftCorner.y - (corridorSize / 2));
+                    effect.transform.position = new Vector3(node.RoomTopLeftCorner.x + 1f, 2.5f, node.RoomTopLeftCorner.y - (corridorSize / 2) - .5f);
                     effect.transform.localRotation = Quaternion.Euler(0, 0, 0);
                 }
 
@@ -154,7 +162,7 @@ public class DungeonCreator : MonoBehaviour {
 
         PlacePlayer(pf.StartPoint);
 
-        PlaceBoss(pf.EndPoints[0]);
+        PlaceBoss(pf.EndPoints[pf.EndPoints.Count - 1]);
 
 
         if (!dungeonFlatMode) {
@@ -182,9 +190,9 @@ public class DungeonCreator : MonoBehaviour {
     //**Utility Methods**
     public void ClearDungeon() {
         //get all rooms, corridors, walls and masks
-        Transform[] roomchildren = roomParent.GetComponentsInChildren<Transform>();
-        Transform[] corridorchildren = corridorParent.GetComponentsInChildren<Transform>();
-        Transform[] wallchildren = wallParent.GetComponentsInChildren<Transform>();
+        Transform[] roomchildren = roomParent.GetComponentsInChildren<Transform>(true);
+        Transform[] corridorchildren = corridorParent.GetComponentsInChildren<Transform>(true);
+        Transform[] wallchildren = wallParent.GetComponentsInChildren<Transform>(true);
         Transform[] maskchildren = maskParent.GetComponentsInChildren<Transform>(true);
         Transform[] pathNodeChildren = pathNodeParent.GetComponentsInChildren<Transform>(true);
         Transform[] platformChildren = platformParent.GetComponentsInChildren<Transform>(true);
@@ -233,13 +241,23 @@ public class DungeonCreator : MonoBehaviour {
     //generate a single wall
     private void CreateWall(Transform wallParentIn, WallData wallPositionIn, GameObject wallPrefabIn) {
 
-        GameObject go = Instantiate(wallPrefabIn, new Vector3(wallPositionIn.position.x, wallPositionIn.position.y, wallPositionIn.position.z), Quaternion.identity, wallParentIn);
+        if (wallPositionIn.direction == WallDirection.LEFT || wallPositionIn.direction == WallDirection.RIGHT) {
+            //Walls facing East or West (Vertical walls)
+            GameObject go = Instantiate(wallPrefabIn, new Vector3(wallPositionIn.position.x + 1, wallPositionIn.position.y - 0.01f, wallPositionIn.direction == WallDirection.LEFT ? wallPositionIn.position.z + 0.25f : wallPositionIn.position.z - 0.25f), Quaternion.Euler(0, 0, 0), wallParentIn);
+        }
+        else {
+            //Walls facing North or South (Horizontal walls)
+            GameObject go = Instantiate(wallPrefabIn, new Vector3(wallPositionIn.position.x, wallPositionIn.position.y - 0.01f, wallPositionIn.position.z), Quaternion.Euler(90, 90, 0), wallParentIn);
+        }
 
-        float newRotation = (int) wallPositionIn.direction * 90f;
 
-        GameObject rotationobject = go.transform.GetChild(0).gameObject;
-        Quaternion rotation = go.transform.rotation;
-        rotationobject.transform.rotation = Quaternion.Euler(rotation.x, rotation.y + newRotation, rotation.z);
+        //GameObject go = Instantiate(wallPrefabIn, new Vector3(wallPositionIn.position.x, wallPositionIn.position.y - .01f, wallPositionIn.position.z), Quaternion.Euler(90, 90, 0), wallParentIn);
+
+        //float newRotation = (int) wallPositionIn.direction * 90f;
+
+        //GameObject rotationobject = go.transform.GetChild(0).gameObject;
+        //Quaternion rotation = go.transform.rotation;
+        //rotationobject.transform.rotation = Quaternion.Euler(rotation.x, rotation.y + newRotation, rotation.z);
     }
 
 
@@ -252,64 +270,203 @@ public class DungeonCreator : MonoBehaviour {
 
     }
 
-    //creates mesh and gameobjects, instantiates them
-    void CreateGameObjectsAndMesh(Node node, Material materialIn, Transform newObjectParent) {
+    //creates ---
+    void CreateRoomBackground(RoomNode roomNode, Material materialIn, Transform newObjectParent) {
+
+        //Create mesh vertices
+        Vector3 bottomLeftVertice = new Vector3(roomNode.BottomLeftAreaCorner.x, 0, roomNode.BottomLeftAreaCorner.y);
+        Vector3 bottomRightVertice = new Vector3(roomNode.TopRightAreaCorner.x, 0, roomNode.BottomRightAreaCorner.y);
+        Vector3 topLeftVertice = new Vector3(roomNode.BottomLeftAreaCorner.x, 0, roomNode.TopRightAreaCorner.y);
+        Vector3 topRightVertice = new Vector3(roomNode.TopRightAreaCorner.x, 0, roomNode.TopRightAreaCorner.y);
+
+        GameObject roomParent = new GameObject("Room (" + topLeftVertice.x + ", " + topLeftVertice.z + ")");
 
 
+
+        for (int i = (int) bottomLeftVertice.z; i < topLeftVertice.z - 4; i += 5) {
+            for (int j = (int) bottomLeftVertice.x; j < bottomRightVertice.x - 4; j += 5) {
+
+                GameObject prefab = castleWall5x5Prefab;
+
+                Unity.Mathematics.Random rand = new Unity.Mathematics.Random((uint) System.DateTime.UtcNow.Ticks);
+
+                float randomFloat = rand.NextFloat();
+
+
+                if (randomFloat < wallDecorationFrequency) {
+                    bool choice = rand.NextBool();
+                    if (choice) {
+                        prefab = castleWall5x5DrainPrefab;
+                    }
+                    else {
+                        prefab = castleWall5x5WindowPrefab;
+                    }
+                }
+
+                Vector3 wallPos = new Vector3(j, -0.25f, i);
+                GameObject wallPiece = Instantiate(prefab, wallPos, Quaternion.Euler(90, 90, 0), roomParent.transform);
+            }
+
+            int roomWidth = (int) Math.Abs(bottomLeftVertice.x - bottomRightVertice.x);
+
+            if ((roomWidth % 5) != 0) {
+                for (int j = (int) i; j < i + 5; j++) {
+                    Vector3 wallPos = new Vector3(bottomRightVertice.x - (roomWidth % 5), -0.25f, j);
+                    GameObject wallPiece = Instantiate(castleWall1x5Prefab, wallPos, Quaternion.Euler(90, 90, 0), roomParent.transform);
+                }
+            }
+        }
+        int roomHeight = (int) Math.Abs(bottomLeftVertice.z - topLeftVertice.z);
+        if ((roomHeight % 5) != 0) {
+            for (int i = (int) (topLeftVertice.z - (roomHeight % 5)); i < topLeftVertice.z; i++) {
+                for (int j = (int) topLeftVertice.x; j < topRightVertice.x; j += 5) {
+                    Vector3 wallPos = new Vector3(j, -0.25f, i);
+                    GameObject wallPiece = Instantiate(castleWall1x5Prefab, wallPos, Quaternion.Euler(90, 90, 0), roomParent.transform);
+                }
+            }
+        }
+
+
+
+
+        roomParent.transform.parent = newObjectParent;
+
+
+        //Vector3[] vertices = new Vector3[] {
+        //        //ORDER IMPORTANT HERE FOR UNITY
+        //        topLeftVertice,
+        //        topRightVertice,
+        //        bottomLeftVertice,
+        //        bottomRightVertice
+        //    };
+
+        ////create uv's for mesh
+        //Vector2[] uvs = new Vector2[vertices.Length];
+        //for (int i = 0; i < uvs.Length; i++) {
+        //    uvs[i] = new Vector2(vertices[i].x, vertices[i].z);
+        //}
+
+        ////create triangles
+        //int[] triangles = new int[] {
+        //        //ORDER MATTERS HERE FOR UNITY
+        //        0,
+        //        1,
+        //        2,
+        //        2,
+        //        1,
+        //        3
+        //    };
+
+        ////create mesh
+        //Mesh mesh = new Mesh();
+        ////set attributes
+        //mesh.vertices = vertices;
+        //mesh.uv = uvs;
+        //mesh.triangles = triangles;
+
+        ////create new gameObject with a given name and components
+        //GameObject dungeonFloor = new GameObject("Mesh" + node.distanceFromOrigin, typeof(MeshFilter), typeof(MeshRenderer));
+
+
+
+
+        ////set transforms
+        //dungeonFloor.transform.position = Vector3.zero;
+        //dungeonFloor.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+        //dungeonFloor.transform.localScale = Vector3.one;
+        ////set other components
+        //dungeonFloor.GetComponent<MeshFilter>().mesh = mesh;
+        //dungeonFloor.GetComponent<MeshRenderer>().material = materialIn;
+        ////set parent object
+        //dungeonFloor.transform.parent = newObjectParent;
+
+        //set bottom left corner gameobject as child of mesh
+        roomNode.bottomRightCornerObject.transform.parent = roomParent.transform;
+
+
+
+        ////GENERATE WALL POSITIONS
+        ////Right side of room
+        //for (int row = (int) bottomLeftVertice.x; row < (int) bottomRightVertice.x; row++) {
+        //    var wallPosition = new Vector3(row, 0, bottomLeftVertice.z);
+        //    AddWallPositionToList(wallPosition, possibleWallPosition, possibleDoorHorizontalPosition, WallDirection.RIGHT);
+        //}
+        ////Left side of room
+        //for (int row = (int) topLeftVertice.x; row < (int) node.TopRightAreaCorner.x; row++) {
+        //    var wallPosition = new Vector3(row, 0, topRightVertice.z);
+        //    AddWallPositionToList(wallPosition, possibleWallPosition, possibleDoorHorizontalPosition, WallDirection.LEFT);
+        //}
+        ////Bottom of Room
+        //for (int col = (int) bottomLeftVertice.z; col < (int) topLeftVertice.z; col++) {
+        //    var wallPosition = new Vector3(bottomLeftVertice.x, 0, col);
+        //    AddWallPositionToList(wallPosition, possibleFloorCeilingPosition, possibleDoorVerticalPosition, WallDirection.DOWN);
+        //}
+        ////top of room
+        //for (int col = (int) bottomRightVertice.z; col < (int) topRightVertice.z; col++) {
+        //    var wallPosition = new Vector3(bottomRightVertice.x, 0, col);
+        //    AddWallPositionToList(wallPosition, possibleFloorCeilingPosition, possibleDoorVerticalPosition, WallDirection.UP);
+        //}
+
+    }
+
+    void CreateCorridorBackground(CorridorNode corridorNode, Material materialIn, Transform newObjectParent) {
+
+        //Create mesh vertices
+        Vector3 bottomLeftVertice = new Vector3(corridorNode.BottomLeftAreaCorner.x, 0, corridorNode.BottomLeftAreaCorner.y);
+        Vector3 bottomRightVertice = new Vector3(corridorNode.TopRightAreaCorner.x, 0, corridorNode.BottomRightAreaCorner.y);
+        Vector3 topLeftVertice = new Vector3(corridorNode.BottomLeftAreaCorner.x, 0, corridorNode.TopRightAreaCorner.y);
+        Vector3 topRightVertice = new Vector3(corridorNode.TopRightAreaCorner.x, 0, corridorNode.TopRightAreaCorner.y);
+
+        GameObject corridorParent = new GameObject("Corridor (" + topLeftVertice.x + ", " + topLeftVertice.z + ")");
+
+
+
+        if (corridorNode.Direction == Direction.HORTIZONTAL) {
+
+            for (int i = (int) bottomLeftVertice.x; i < bottomRightVertice.x - 4; i += 5) {
+                Vector3 wallPos = new Vector3(i, -0.25f, bottomRightVertice.z);
+                GameObject wallPiece = Instantiate(castleWall5x5Prefab, wallPos, Quaternion.Euler(90, 90, 0), corridorParent.transform);
+            }
+
+            int corridorWidth = (int) Math.Abs(bottomLeftVertice.x - bottomRightVertice.x);
+
+            if ((corridorWidth % 5) != 0) {
+                for (int i = (int) bottomRightVertice.z; i < bottomRightVertice.z + 5; i++) {
+                    Vector3 wallPos = new Vector3(bottomRightVertice.x - (corridorWidth % 5), -0.25f, i);
+                    GameObject wallPiece = Instantiate(castleWall1x5Prefab, wallPos, Quaternion.Euler(90, 90, 0), corridorParent.transform);
+                }
+            }
+        }
+        else {
+            for (int i = (int) bottomLeftVertice.z; i < topLeftVertice.z - 4; i += 5) {
+                Vector3 wallPos = new Vector3(bottomLeftVertice.x, -0.25f, i);
+                GameObject wallPiece = Instantiate(castleWall5x5Prefab, wallPos, Quaternion.Euler(90, 90, 0), corridorParent.transform);
+            }
+
+            int corridorHeight = (int) Math.Abs(bottomLeftVertice.z - topLeftVertice.z);
+
+            if ((corridorHeight % 5) != 0) {
+                for (int i = (int) topLeftVertice.z - (corridorHeight % 5); i < topLeftVertice.z; i++) {
+                    Vector3 wallPos = new Vector3(bottomLeftVertice.x, -0.25f, i);
+                    GameObject wallPiece = Instantiate(castleWall1x5Prefab, wallPos, Quaternion.Euler(90, 90, 0), corridorParent.transform);
+                }
+            }
+        }
+        corridorParent.transform.parent = newObjectParent;
+
+        //set bottom left corner gameobject as child of mesh
+        corridorNode.bottomRightCornerObject.transform.parent = corridorParent.transform;
+
+    }
+
+
+    //Generate wall positions
+    void GenerateWallPositions(Node node, Material materialIn, Transform newObjectParent) {
         //Create mesh vertices
         Vector3 bottomLeftVertice = new Vector3(node.BottomLeftAreaCorner.x, 0, node.BottomLeftAreaCorner.y);
         Vector3 bottomRightVertice = new Vector3(node.TopRightAreaCorner.x, 0, node.BottomRightAreaCorner.y);
         Vector3 topLeftVertice = new Vector3(node.BottomLeftAreaCorner.x, 0, node.TopRightAreaCorner.y);
         Vector3 topRightVertice = new Vector3(node.TopRightAreaCorner.x, 0, node.TopRightAreaCorner.y);
-
-        Vector3[] vertices = new Vector3[] {
-                //ORDER IMPORTANT HERE FOR UNITY
-                topLeftVertice,
-                topRightVertice,
-                bottomLeftVertice,
-                bottomRightVertice
-            };
-
-        //create uv's for mesh
-        Vector2[] uvs = new Vector2[vertices.Length];
-        for (int i = 0; i < uvs.Length; i++) {
-            uvs[i] = new Vector2(vertices[i].x, vertices[i].z);
-        }
-
-        //create triangles
-        int[] triangles = new int[] {
-                //ORDER MATTERS HERE FOR UNITY
-                0,
-                1,
-                2,
-                2,
-                1,
-                3
-            };
-
-        //create mesh
-        Mesh mesh = new Mesh();
-        //set attributes
-        mesh.vertices = vertices;
-        mesh.uv = uvs;
-        mesh.triangles = triangles;
-
-        //create new gameObject with a given name and components
-        GameObject dungeonFloor = new GameObject("Mesh" + node.distanceFromOrigin, typeof(MeshFilter), typeof(MeshRenderer));
-
-        //set transforms
-        dungeonFloor.transform.position = Vector3.zero;
-        dungeonFloor.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-        dungeonFloor.transform.localScale = Vector3.one;
-        //set other components
-        dungeonFloor.GetComponent<MeshFilter>().mesh = mesh;
-        dungeonFloor.GetComponent<MeshRenderer>().material = materialIn;
-        //set parent object
-        dungeonFloor.transform.parent = newObjectParent;
-        //set bottom left corner gameobject as child of mesh
-        node.bottomRightCornerObject.transform.parent = dungeonFloor.transform;
-
-
 
         //GENERATE WALL POSITIONS
         //Right side of room
@@ -505,196 +662,45 @@ public class DungeonCreator : MonoBehaviour {
         int wallSpace = 5;
         int platformSpace = roomHeight - 2 * wallSpace;
 
-        //Debug.Log("Room size (Unrotated): " + room.RoomDimensions);
-
         int count = 1;
         for (int i = groundLevel + verticalPlatformDistance; i < groundLevel + roomWidth - 3; i += verticalPlatformDistance) {
 
-            switch (platformSpace / platformWidth) {
+            int middleSpace = platformSpace / platformWidth;
+            string platformData = count % 2 == 1 ? "0" : "1";
 
-                case 0:
-                    //odd level - spawn a single platform on right
-                    if (count % 2 == 1) {
-                        SpawnLineOfPlatforms("01", i, room, platformWidth);
-                    }
-                    //even level - spawn platforms on left
-                    else {
-                        SpawnLineOfPlatforms("10", i, room, platformWidth);
-                    }
-                    count++;
-                    break;
-                case 1:
-                    //odd level - spawn a single platform in middle
-                    if (count % 2 == 1) {
-                        SpawnLineOfPlatforms("010", i, room, platformWidth);
-                    }
-                    //even level - spawn platforms at each wall
-                    else {
-                        SpawnLineOfPlatforms("101", i, room, platformWidth);
-                    }
-                    count++;
-
-                    break;
-                case 2:
-                    //odd level - spawn a double platform in middle
-                    if (count % 2 == 1) {
-                        SpawnLineOfPlatforms("0110", i, room, platformWidth);
-                    }
-                    //even level - randomly pick from configurations: 1001, 0101, 1010
-                    else {
-                        SpawnLineOfPlatforms("1001", i, room, platformWidth);
-                    }
-                    count++;
-                    break;
-                case 3:
-                    //odd level - spawn a triple platform in middle
-                    if (count % 2 == 1) {
-                        SpawnLineOfPlatforms("01110", i, room, platformWidth);
-                    }
-                    //even level - randomly pick from configurations:
-                    else {
-                        SpawnLineOfPlatforms("10001", i, room, platformWidth);
-                    }
-                    count++;
-                    break;
-                case 4:
-                    //odd level - spawn a series of platforms in middle
-                    if (count % 2 == 1) {
-                        SpawnLineOfPlatforms("011110", i, room, platformWidth);
-                    }
-                    //even level - randomly pick from configurations:
-                    else {
-                        SpawnLineOfPlatforms("100001", i, room, platformWidth);
-                    }
-                    count++;
-                    break;
-                case 5:
-                    //odd level - spawn a series of platforms in middle
-                    if (count % 2 == 1) {
-                        SpawnLineOfPlatforms("0111110", i, room, platformWidth);
-                    }
-                    //even level - randomly pick from configurations:
-                    else {
-                        SpawnLineOfPlatforms("1000001", i, room, platformWidth);
-                    }
-                    count++;
-                    break;
-                case 6:
-                    //odd level - spawn a series of platforms in middle
-                    if (count % 2 == 1) {
-                        SpawnLineOfPlatforms("01111110", i, room, platformWidth);
-                    }
-                    //even level - randomly pick from configurations: 
-                    else {
-                        SpawnLineOfPlatforms("10000001", i, room, platformWidth);
-                    }
-                    count++;
-                    break;
-                case 7:
-                    //odd level - spawn a series of platforms in middle
-                    if (count % 2 == 1) {
-                        SpawnLineOfPlatforms("011111110", i, room, platformWidth);
-                    }
-                    //even level - randomly pick from configurations: 
-                    else {
-                        SpawnLineOfPlatforms("100000001", i, room, platformWidth);
-                    }
-                    count++;
-                    break;
-                case 8:
-                    //odd level - spawn a series of platforms in middle
-                    if (count % 2 == 1) {
-                        SpawnLineOfPlatforms("0111111110", i, room, platformWidth);
-                    }
-                    //even level - randomly pick from configurations: 
-                    else {
-                        SpawnLineOfPlatforms("1000000001", i, room, platformWidth);
-                    }
-                    count++;
-                    break;
-                case 9:
-                    //odd level - spawn a series of platforms in middle
-                    if (count % 2 == 1) {
-                        SpawnLineOfPlatforms("01111111110", i, room, platformWidth);
-                    }
-                    //even level - randomly pick from configurations: 
-                    else {
-                        SpawnLineOfPlatforms("10000000001", i, room, platformWidth);
-                    }
-                    count++;
-                    break;
-                case 10:
-                    //odd level - spawn a series of platforms in middle
-                    if (count % 2 == 1) {
-                        SpawnLineOfPlatforms("011111111110", i, room, platformWidth);
-                    }
-                    //even level - randomly pick from configurations: 
-                    else {
-                        SpawnLineOfPlatforms("100000000001", i, room, platformWidth);
-                    }
-                    count++;
-                    break;
-                case 11:
-                    //odd level - spawn a series of platforms in middle
-                    if (count % 2 == 1) {
-                        SpawnLineOfPlatforms("0111111111110", i, room, platformWidth);
-                    }
-                    //even level - randomly pick from configurations: 
-                    else {
-                        SpawnLineOfPlatforms("1000000000001", i, room, platformWidth);
-                    }
-                    count++;
-                    break;
-                case 12:
-                    //odd level - spawn a series of platforms in middle
-                    if (count % 2 == 1) {
-                        SpawnLineOfPlatforms("01111111111110", i, room, platformWidth);
-                    }
-                    //even level - randomly pick from configurations: 
-                    else {
-                        SpawnLineOfPlatforms("10000000000001", i, room, platformWidth);
-                    }
-                    count++;
-                    break;
-                case 13:
-                    //odd level - spawn a series of platforms in middle
-                    if (count % 2 == 1) {
-                        SpawnLineOfPlatforms("011111111111110", i, room, platformWidth);
-                    }
-                    //even level - randomly pick from configurations: 
-                    else {
-                        SpawnLineOfPlatforms("100000000000001", i, room, platformWidth);
-                    }
-                    count++;
-                    break;
-                case 14:
-                    //odd level - spawn a series of platforms in middle
-                    if (count % 2 == 1) {
-                        SpawnLineOfPlatforms("0111111111111110", i, room, platformWidth);
-                    }
-                    //even level - randomly pick from configurations: 
-                    else {
-                        SpawnLineOfPlatforms("1000000000000001", i, room, platformWidth);
-                    }
-                    count++;
-                    break;
-                case 15:
-                    //odd level - spawn a series of platforms in middle
-                    if (count % 2 == 1) {
-                        SpawnLineOfPlatforms("01111111111111110", i, room, platformWidth);
-                    }
-                    //even level - randomly pick from configurations: 
-                    else {
-                        SpawnLineOfPlatforms("10000000000000001", i, room, platformWidth);
-                    }
-                    count++;
-                    break;
-                default:
-                    //DEBUG - blank for now
-                    break;
+            if (middleSpace == 0) {
+                platformData = count % 2 == 1 ? "01" : "10";
             }
+            else if (middleSpace > 0 && middleSpace < 3) {
+                for (int j = 0; j < middleSpace; j++) {
+                    platformData += count % 2 == 1 ? "1" : "0";
+                }
+                platformData += count % 2 == 1 ? "0" : "1";
+            }
+            else {
+                for (int j = 0; j < middleSpace; j++) {
+                    platformData += count % 2 == 1 ? "1" : "0";
+                }
+                platformData += count % 2 == 1 ? "0" : "1";
+            }
+
+            //add or remove random
+            System.Random rand = new System.Random();
+            int randomIndex = rand.Next(1, platformData.Length - 1);
+            char charToCheck = platformData[randomIndex];
+
+            if (platformData[randomIndex - 1] == charToCheck && platformData[randomIndex + 1] == charToCheck) {
+                string newPlatformData = platformData.Substring(0, randomIndex);
+                newPlatformData += charToCheck == '0' ? "1" : "0";
+                newPlatformData += platformData.Substring(randomIndex + 1);
+                platformData = newPlatformData;
+            }
+
+            SpawnLineOfPlatforms(platformData, i, room, platformWidth);
+            count++;
         }
     }
+
 
     void SpawnLineOfPlatforms(string lineData, int x, PathNode room, int platformWidth) {
 
@@ -742,8 +748,6 @@ public class DungeonCreator : MonoBehaviour {
             platform = Instantiate(platform, spawnPos, Quaternion.Euler(0, 0, 0));
             platform.transform.parent = platformParent;
         }
-
-
     }
 }
 

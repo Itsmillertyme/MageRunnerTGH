@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1bcda1821166cca49bc3a4d40978312c
+timeCreated: 1455551761
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 56491
+  packageName: Toon Loot and Props Pack
+  packageVersion: 1.2
+  assetPath: Assets/Toon Loot and Props Pack/Controllers/Chest Controller.controller
+  uploadId: 687586

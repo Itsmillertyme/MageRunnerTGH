@@ -6,9 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Splash.unity
+    guid: c2cce528445e2c44881592ed46ed3efe
+  - enabled: 1
+    path: Assets/Scenes/Level1_Dungeon.unity
+    guid: c7e8ba4f2187f0046bba1c14c2059551
+  - enabled: 1
     path: Assets/Scenes/Sandbox.unity
     guid: ca2cc9e643411584dba1d9ceae678cb3
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ProceduralGenerationTestLevel.unity
     guid: b40ce55ae96b04b4daf4cfa24b8e8229
   m_configObjects:

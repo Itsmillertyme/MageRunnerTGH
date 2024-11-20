@@ -59,8 +59,6 @@ public class CorridorEffectController : MonoBehaviour {
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.CompareTag("Player")) {
 
-            Debug.Log("Entered corridor");
-
             if (transportPlayer == null) {
                 transportPlayer = StartCoroutine(MovePlayer(other.gameObject));
             }
@@ -86,7 +84,9 @@ public class CorridorEffectController : MonoBehaviour {
         roomMidPoint = (startPosition + flippedPosition) / 2;
 
         ParticleSystem ps = GetComponent<ParticleSystem>();
+#pragma warning disable CS0618 // Type or member is obsolete
         ps.startLifetime = 2.5f * (corridorSizeIn + 2) / 13f;
+#pragma warning restore CS0618 // Type or member is obsolete
 
     }
 
@@ -145,13 +145,16 @@ public class CorridorEffectController : MonoBehaviour {
         }
 
         ParticleSystem ps = GetComponent<ParticleSystem>();
+#pragma warning disable CS0618 // Type or member is obsolete
         Color startCol = ps.startColor;
+
         int startMax = ps.maxParticles;
         float startEmission = ps.emissionRate;
 
         ps.startColor = Color.red;
-        ps.maxParticles = 1000;
-        ps.emissionRate = 100;
+        ps.maxParticles = 100;
+        ps.emissionRate = 10;
+#pragma warning restore CS0618 // Type or member is obsolete
 
         //unfreeze player
         playerController.FreezePhysics = false;
@@ -163,9 +166,11 @@ public class CorridorEffectController : MonoBehaviour {
         //cooldown
         yield return new WaitForSeconds(3);
 
+#pragma warning disable CS0618 // Type or member is obsolete
         ps.startColor = startCol;
         ps.maxParticles = startMax;
         ps.emissionRate = startEmission;
+#pragma warning restore CS0618 // Type or member is obsolete
 
         transform.GetChild(0).gameObject.SetActive(false);
 

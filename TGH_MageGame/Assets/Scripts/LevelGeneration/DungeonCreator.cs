@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 public class DungeonCreator : MonoBehaviour {
@@ -61,6 +62,7 @@ public class DungeonCreator : MonoBehaviour {
     public Material pathNodeEndMaterial;
     public LevelDecorations levelDecorations;
     public LevelEnemies levelEnemies;
+    public NavMeshSurface navMeshSurface;
 
     List<WallData> possibleDoorHorizontalPosition;
     List<WallData> possibleDoorVerticalPosition;
@@ -215,6 +217,7 @@ public class DungeonCreator : MonoBehaviour {
         }
 
         PlaceBoss(pf.EndPoints[pf.EndPoints.Count - 1]);
+
 
 
         if (!dungeonFlatMode) {

@@ -67,6 +67,20 @@
         {
             "managedAssemblyName": "Assembly-CSharp.dll",
             "nativeClass": "",
+            "fullManagedTypeName": "csDestroyEffect",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
+            "managedAssemblyName": "Assembly-CSharp.dll",
+            "nativeClass": "",
+            "fullManagedTypeName": "csParticleMove",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
+            "managedAssemblyName": "Assembly-CSharp.dll",
+            "nativeClass": "",
             "fullManagedTypeName": "DebugMenuController",
             "moduleName": "",
             "usedInScenes": []
@@ -91,8 +105,9 @@
             "fullManagedTypeName": "",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -129,8 +144,9 @@
             "fullManagedTypeName": "",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -148,13 +164,28 @@
             "usedInScenes": []
         },
         {
+            "managedAssemblyName": "Assembly-CSharp.dll",
+            "nativeClass": "",
+            "fullManagedTypeName": "LevelDecorations",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
+            "managedAssemblyName": "Assembly-CSharp.dll",
+            "nativeClass": "",
+            "fullManagedTypeName": "LevelEnemies",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
             "managedAssemblyName": "",
             "nativeClass": "LevelGameManager",
             "fullManagedTypeName": "",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -198,8 +229,9 @@
             "fullManagedTypeName": "",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -215,8 +247,9 @@
             "fullManagedTypeName": "",
             "moduleName": "AI",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -332,6 +365,13 @@
             "usedInScenes": []
         },
         {
+            "managedAssemblyName": "Assembly-CSharp.dll",
+            "nativeClass": "",
+            "fullManagedTypeName": "SplashManager",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
             "managedAssemblyName": "",
             "nativeClass": "StreamingManager",
             "fullManagedTypeName": "",
@@ -381,13 +421,21 @@
             "usedInScenes": []
         },
         {
+            "managedAssemblyName": "Unity.AI.Navigation.dll",
+            "nativeClass": "",
+            "fullManagedTypeName": "Unity.AI.Navigation.NavMeshSurface",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
             "managedAssemblyName": "UnityEngine.dll",
             "nativeClass": "AnimatorController",
             "fullManagedTypeName": "UnityEditor.Animations.AnimatorController",
             "moduleName": "Animation",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -417,8 +465,9 @@
             "fullManagedTypeName": "UnityEditor.MonoScript",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -469,8 +518,9 @@
             "fullManagedTypeName": "UnityEngine.AnimationClip",
             "moduleName": "Animation",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -479,8 +529,9 @@
             "fullManagedTypeName": "UnityEngine.Animator",
             "moduleName": "Animation",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -489,8 +540,9 @@
             "fullManagedTypeName": "UnityEngine.Audio.AudioResource",
             "moduleName": "Audio",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -499,8 +551,9 @@
             "fullManagedTypeName": "UnityEngine.Audio.AudioResource",
             "moduleName": "Audio",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -509,8 +562,9 @@
             "fullManagedTypeName": "UnityEngine.AudioBehaviour",
             "moduleName": "Audio",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -519,8 +573,9 @@
             "fullManagedTypeName": "UnityEngine.AudioClip",
             "moduleName": "Audio",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -529,8 +584,9 @@
             "fullManagedTypeName": "UnityEngine.AudioListener",
             "moduleName": "Audio",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -539,8 +595,9 @@
             "fullManagedTypeName": "UnityEngine.AudioSource",
             "moduleName": "Audio",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -549,8 +606,9 @@
             "fullManagedTypeName": "UnityEngine.Avatar",
             "moduleName": "Animation",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -559,8 +617,9 @@
             "fullManagedTypeName": "UnityEngine.Behaviour",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -569,8 +628,9 @@
             "fullManagedTypeName": "UnityEngine.BoxCollider",
             "moduleName": "Physics",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -579,8 +639,9 @@
             "fullManagedTypeName": "UnityEngine.Camera",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -589,8 +650,9 @@
             "fullManagedTypeName": "UnityEngine.Canvas",
             "moduleName": "UI",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -599,8 +661,9 @@
             "fullManagedTypeName": "UnityEngine.CanvasRenderer",
             "moduleName": "UI",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -609,7 +672,7 @@
             "fullManagedTypeName": "UnityEngine.CapsuleCollider",
             "moduleName": "Physics",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
+                "Assets/Scenes/Level1_Dungeon.unity",
                 "Assets/Scenes/Sandbox.unity"
             ]
         },
@@ -619,7 +682,7 @@
             "fullManagedTypeName": "UnityEngine.CharacterController",
             "moduleName": "Physics",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
+                "Assets/Scenes/Level1_Dungeon.unity",
                 "Assets/Scenes/Sandbox.unity"
             ]
         },
@@ -629,8 +692,9 @@
             "fullManagedTypeName": "UnityEngine.Collider",
             "moduleName": "Physics",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -639,8 +703,9 @@
             "fullManagedTypeName": "UnityEngine.Component",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -649,8 +714,9 @@
             "fullManagedTypeName": "UnityEngine.Cubemap",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -680,8 +746,9 @@
             "fullManagedTypeName": "UnityEngine.Font",
             "moduleName": "TextRendering",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -690,8 +757,9 @@
             "fullManagedTypeName": "UnityEngine.GameObject",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -749,8 +817,9 @@
             "fullManagedTypeName": "UnityEngine.Light",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -759,8 +828,9 @@
             "fullManagedTypeName": "UnityEngine.LightmapSettings",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -769,8 +839,9 @@
             "fullManagedTypeName": "UnityEngine.Material",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -779,8 +850,9 @@
             "fullManagedTypeName": "UnityEngine.Mesh",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -789,8 +861,9 @@
             "fullManagedTypeName": "UnityEngine.MeshCollider",
             "moduleName": "Physics",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -799,8 +872,9 @@
             "fullManagedTypeName": "UnityEngine.MeshFilter",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -809,8 +883,9 @@
             "fullManagedTypeName": "UnityEngine.MeshRenderer",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -819,8 +894,9 @@
             "fullManagedTypeName": "UnityEngine.MonoBehaviour",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -829,8 +905,9 @@
             "fullManagedTypeName": "UnityEngine.Motion",
             "moduleName": "Animation",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -839,8 +916,9 @@
             "fullManagedTypeName": "UnityEngine.Object",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -849,7 +927,8 @@
             "fullManagedTypeName": "UnityEngine.ParticleSystem",
             "moduleName": "ParticleSystem",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -858,7 +937,8 @@
             "fullManagedTypeName": "UnityEngine.ParticleSystemRenderer",
             "moduleName": "ParticleSystem",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -874,8 +954,9 @@
             "fullManagedTypeName": "UnityEngine.RectTransform",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -884,8 +965,9 @@
             "fullManagedTypeName": "UnityEngine.Renderer",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -901,8 +983,9 @@
             "fullManagedTypeName": "UnityEngine.RenderSettings",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -911,7 +994,7 @@
             "fullManagedTypeName": "UnityEngine.Rigidbody",
             "moduleName": "Physics",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
+                "Assets/Scenes/Level1_Dungeon.unity",
                 "Assets/Scenes/Sandbox.unity"
             ]
         },
@@ -921,8 +1004,9 @@
             "fullManagedTypeName": "UnityEngine.RuntimeAnimatorController",
             "moduleName": "Animation",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -931,8 +1015,9 @@
             "fullManagedTypeName": "UnityEngine.Shader",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -941,8 +1026,9 @@
             "fullManagedTypeName": "UnityEngine.SkinnedMeshRenderer",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -951,7 +1037,7 @@
             "fullManagedTypeName": "UnityEngine.SphereCollider",
             "moduleName": "Physics",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
+                "Assets/Scenes/Level1_Dungeon.unity",
                 "Assets/Scenes/Sandbox.unity"
             ]
         },
@@ -961,8 +1047,9 @@
             "fullManagedTypeName": "UnityEngine.Sprite",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -971,8 +1058,9 @@
             "fullManagedTypeName": "UnityEngine.TextAsset",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -981,8 +1069,9 @@
             "fullManagedTypeName": "UnityEngine.Texture",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -991,8 +1080,9 @@
             "fullManagedTypeName": "UnityEngine.Texture2D",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {
@@ -1001,7 +1091,7 @@
             "fullManagedTypeName": "UnityEngine.TrailRenderer",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
+                "Assets/Scenes/Level1_Dungeon.unity",
                 "Assets/Scenes/Sandbox.unity"
             ]
         },
@@ -1011,8 +1101,9 @@
             "fullManagedTypeName": "UnityEngine.Transform",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/ProceduralGenerationTestLevel.unity",
-                "Assets/Scenes/Sandbox.unity"
+                "Assets/Scenes/Level1_Dungeon.unity",
+                "Assets/Scenes/Sandbox.unity",
+                "Assets/Scenes/Splash.unity"
             ]
         },
         {

@@ -3,6 +3,8 @@
 		<type fullname="AnimatorForward" preserve="nothing"/>
 		<type fullname="CameraController" preserve="nothing"/>
 		<type fullname="CorridorEffectController" preserve="nothing"/>
+		<type fullname="csDestroyEffect" preserve="nothing"/>
+		<type fullname="csParticleMove" preserve="nothing"/>
 		<type fullname="DebugMenuController" preserve="nothing"/>
 		<type fullname="DungeonCreator" preserve="nothing"/>
 		<type fullname="EnemyHealth" preserve="nothing"/>
@@ -10,6 +12,8 @@
 		<type fullname="GameEvent" preserve="nothing"/>
 		<type fullname="GameEventListener" preserve="nothing"/>
 		<type fullname="GameManager" preserve="nothing"/>
+		<type fullname="LevelDecorations" preserve="nothing"/>
+		<type fullname="LevelEnemies" preserve="nothing"/>
 		<type fullname="LevelSelector" preserve="nothing"/>
 		<type fullname="MaskGenerator" preserve="nothing"/>
 		<type fullname="MouseFollower" preserve="nothing"/>
@@ -27,6 +31,7 @@
 		<type fullname="Spell" preserve="nothing"/>
 		<type fullname="SpellBook" preserve="nothing"/>
 		<type fullname="SpellUI" preserve="nothing"/>
+		<type fullname="SplashManager" preserve="nothing"/>
 		<type fullname="TemporaryEnemyShoot" preserve="nothing"/>
 	</assembly>
 	<assembly fullname="Cinemachine">
@@ -35,6 +40,9 @@
 		<type fullname="Cinemachine.CinemachineComposer" preserve="nothing"/>
 		<type fullname="Cinemachine.CinemachinePipeline" preserve="nothing"/>
 		<type fullname="Cinemachine.CinemachineVirtualCamera" preserve="nothing"/>
+	</assembly>
+	<assembly fullname="Unity.AI.Navigation">
+		<type fullname="Unity.AI.Navigation.NavMeshSurface" preserve="nothing"/>
 	</assembly>
 	<assembly fullname="Unity.InputSystem">
 		<type fullname="UnityEngine.InputSystem.InputActionAsset" preserve="nothing"/>

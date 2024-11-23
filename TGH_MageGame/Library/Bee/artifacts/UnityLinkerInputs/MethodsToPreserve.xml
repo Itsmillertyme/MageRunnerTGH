@@ -30,6 +30,9 @@
 			<method name="Raise"/>
 			<method name="Raise"/>
 		</type>
+		<type fullname="GameManager">
+			<method name="LoadMainMenu"/>
+		</type>
 		<type fullname="PlayerHealthUIController">
 			<method name="UpdateUI"/>
 			<method name="UpdateUI"/>
@@ -53,6 +56,9 @@
 			<method name="UpdateSpellUI"/>
 			<method name="UpdateSpellUI"/>
 			<method name="UpdateSpellUI"/>
+		</type>
+		<type fullname="SplashManager">
+			<method name="StartNewGame"/>
 		</type>
 	</assembly>
 	<assembly fullname="Unity.RenderPipelines.Core.Runtime" ignoreIfMissing="1">

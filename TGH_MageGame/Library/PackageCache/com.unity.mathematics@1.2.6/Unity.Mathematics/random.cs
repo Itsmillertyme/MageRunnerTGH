@@ -729,8 +729,5 @@ namespace Unity.Mathematics
 #endif
         }
 
-        public void InitState(double now) {
-            throw new NotImplementedException();
-        }
     }
 }

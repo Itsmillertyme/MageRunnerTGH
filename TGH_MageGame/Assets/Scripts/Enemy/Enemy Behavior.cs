@@ -37,6 +37,7 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField] private float distanceFromPlayer;
     private bool isPatrollingInReverse;
     private bool isAbleToShoot = true;
+    private bool isPatrolling = true;
     [SerializeField] private BehaviorType behavior; // BEHAVIOR THAT IS CONTROLLED
     private Vector3 moveTarget;
     private NavMeshAgent navAgent;
@@ -94,6 +95,8 @@ public class EnemyBehavior : MonoBehaviour
 
     private void Idle()
     {
+        punchAnim.SetTrigger("Idle");
+
         // RESET VELOCITY FOR INSTANT STOPPING (FOR TRANSITIONS)
         navAgent.velocity = Vector3.zero;
 
@@ -105,33 +108,45 @@ public class EnemyBehavior : MonoBehaviour
 
     private void Patrol()
     {
-        distanceFromObjective = Vector3.Distance(transform.position, patrolWaypoints[waypointGoalIndex].position);
-
-        if (distanceFromObjective < 2f) // IF AT WAYPOINT
+        if (patrolWaypoints.Count > 0)
         {
-            // LOGIC FOR INVERTING PATROL DIRECTION
-            if (waypointGoalIndex == patrolWaypoints.Count - 1) // IF AT END OF LIST
-            {
-                isPatrollingInReverse = true;
-            }
-            else if (waypointGoalIndex == 0) // IF AT START OF LIST
-            {
-                isPatrollingInReverse = false;
-            }
-
-            // PATROL POINT TO POINT IN DIRECTION ENEMY IS MOVING
-            if (!isPatrollingInReverse) // IF IS MOVING THROUGH THE LIST IN NORMAL DIRECTION
-            {
-                waypointGoalIndex++;
-            }
-            else // HAS ALREADY WENT THROUGH LIST AND IS NOW GOING IN REVERSE THROUGH LIST
-            {
-                waypointGoalIndex--;
-            }
+            isPatrolling = true;
+            distanceFromObjective = Vector3.Distance(transform.position, patrolWaypoints[waypointGoalIndex].position);
+        }
+        else
+        {
+            isPatrolling = false;
+            punchAnim.SetTrigger("Idle");
         }
 
-        moveTarget = patrolWaypoints[waypointGoalIndex].position;
-        navAgent.SetDestination(moveTarget);
+        if (isPatrolling)
+        {
+            if (distanceFromObjective < 2f) // IF AT WAYPOINT
+            {
+                // LOGIC FOR INVERTING PATROL DIRECTION
+                if (waypointGoalIndex == patrolWaypoints.Count - 1) // IF AT END OF LIST
+                {
+                    isPatrollingInReverse = true;
+                }
+                else if (waypointGoalIndex == 0) // IF AT START OF LIST
+                {
+                    isPatrollingInReverse = false;
+                }
+
+                // PATROL POINT TO POINT IN DIRECTION ENEMY IS MOVING
+                if (!isPatrollingInReverse) // IF IS MOVING THROUGH THE LIST IN NORMAL DIRECTION
+                {
+                    waypointGoalIndex++;
+                }
+                else // HAS ALREADY WENT THROUGH LIST AND IS NOW GOING IN REVERSE THROUGH LIST
+                {
+                    waypointGoalIndex--;
+                }
+            }
+
+            moveTarget = patrolWaypoints[waypointGoalIndex].position;
+            navAgent.SetDestination(moveTarget);
+        }
 
         if (distanceFromPlayer <= pursuitRange)
         {
@@ -144,7 +159,7 @@ public class EnemyBehavior : MonoBehaviour
         #region// LOGIC FOR ENEMIES THAT PATROL
         if (enemyTask == BehaviorType.Patrol && distanceFromPlayer < meleeRange) // IF IN MELEE RANGE
         {
-            MoveTowardsPlayer();
+            //MoveTowardsPlayer();
             Melee();
         }
         else if (enemyTask == BehaviorType.Patrol && distanceFromPlayer <= pursuitRange) // IF IN COMBAT BUT NOT IN MELEE RANGE
@@ -193,7 +208,7 @@ public class EnemyBehavior : MonoBehaviour
 
     private void Melee()
     {
-        punchAnim.SetTrigger("Punch");
+        punchAnim.SetTrigger("Melee");
     }
 
     private void CheckDistanceFromPlayer()
@@ -204,5 +219,6 @@ public class EnemyBehavior : MonoBehaviour
     private void MoveTowardsPlayer()
     {
         navAgent.SetDestination(player.position);
+        punchAnim.SetTrigger("Walking");
     }
 }

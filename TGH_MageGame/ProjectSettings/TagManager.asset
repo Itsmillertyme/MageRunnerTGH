@@ -9,6 +9,7 @@ TagManager:
   - Player Projectile
   - Enemy Projectile
   - Environment
+  - Enemy Melee
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - UI
   - Player Projectile
   - Enemy
-  - 
+  - Enemy Melee
   - 
   - 
   - 

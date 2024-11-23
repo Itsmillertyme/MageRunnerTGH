@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e49bca7170c59e844a4078f391ed04a4, type: 3}
+  m_Name: CastleEnemies
+  m_EditorClassIdentifier: 
+  enemies:
+  - {fileID: 5360181621231125501, guid: 038e4171a61b46fc804926fcf8f6f673, type: 3}
+  - {fileID: 2783849587530926222, guid: e84909acf9ca47448f639008bf9d55de, type: 3}
+  - {fileID: 2606371381518006874, guid: c9696dd279cc43c7b5bc64988ffb5a26, type: 3}
+  - {fileID: 7695038878699845317, guid: 443afc2412d74f44be8d5241437e576a, type: 3}
+  - {fileID: 6969136263848371978, guid: 13b61134d0a3411ebea69a98547f2559, type: 3}
+  - {fileID: 7695083982941622397, guid: e808098db9b442bbbd3afc8885ab12a6, type: 3}
+  - {fileID: 4527530870830567824, guid: 068d6af161244ecb8cabdf87b955fb96, type: 3}
+  - {fileID: 7638419679063239658, guid: 6338565bb60f49fbbaf501e371804e23, type: 3}
+  - {fileID: 7379252335875583254, guid: 8ebe1b609afd461fa7d3d8510bad65b0, type: 3}
+  - {fileID: 2931905550362880583, guid: 7d5af13c84a54944ad9de0180b35e7c1, type: 3}
+  - {fileID: 5494008500244076339, guid: e47c5815657a4a108ec576bc3367bfaf, type: 3}

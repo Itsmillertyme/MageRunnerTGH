@@ -36,6 +36,7 @@ public class DungeonCreator : MonoBehaviour {
     public Transform maskParent;
     public Transform platformParent;
     public Transform decorationParent;
+    public Transform enemiesParent;
 
     [Header("Prefab References")]
     public GameObject wallHorizontal;
@@ -59,6 +60,7 @@ public class DungeonCreator : MonoBehaviour {
     public Material pathNodeStartMaterial;
     public Material pathNodeEndMaterial;
     public LevelDecorations levelDecorations;
+    public LevelEnemies levelEnemies;
 
     List<WallData> possibleDoorHorizontalPosition;
     List<WallData> possibleDoorVerticalPosition;
@@ -206,6 +208,12 @@ public class DungeonCreator : MonoBehaviour {
 
         PlacePlayer(pf.StartPoint);
 
+        foreach (PathNode room in pf.PathNodes) {
+            if (room.Type == PathNodeType.ROOM && room != pf.EndPoints[pf.EndPoints.Count - 1]) {
+                PlaceEnemies(room);
+            }
+        }
+
         PlaceBoss(pf.EndPoints[pf.EndPoints.Count - 1]);
 
 
@@ -225,6 +233,7 @@ public class DungeonCreator : MonoBehaviour {
         }
 
     }
+
     public void RetryGeneration() {
 
         ClearDungeon();
@@ -243,6 +252,7 @@ public class DungeonCreator : MonoBehaviour {
         Transform[] pathNodeChildren = pathNodeParent.GetComponentsInChildren<Transform>(true);
         Transform[] platformChildren = platformParent.GetComponentsInChildren<Transform>(true);
         Transform[] decorationChildren = decorationParent.GetComponentsInChildren<Transform>(true);
+        Transform[] enemiesChildren = enemiesParent.GetComponentsInChildren<Transform>(true);
 
         //reset dungeon parent rotation
         dungeonParent.rotation = Quaternion.Euler(0, 0, 0);
@@ -275,6 +285,10 @@ public class DungeonCreator : MonoBehaviour {
         //Destroy decoration objects
         for (int i = decorationChildren.Length - 1; i > 0; i--) {
             DestroyImmediate(decorationChildren[i].gameObject);
+        }
+        //Destroy enemies objects
+        for (int i = enemiesChildren.Length - 1; i > 0; i--) {
+            DestroyImmediate(enemiesChildren[i].gameObject);
         }
     }
 
@@ -675,6 +689,81 @@ public class DungeonCreator : MonoBehaviour {
 
     }
 
+    private void PlaceEnemies(PathNode room) {
+
+        List<Vector3> spawnLocations = new List<Vector3>();
+        int roomArea = room.RoomDimensions.x * room.RoomDimensions.y;
+        int numEnemySpawns = 0;
+
+        if (roomArea < 250) {
+            numEnemySpawns = 1;
+        }
+        else if (roomArea < 500) {
+            numEnemySpawns = 2;
+        }
+        else if (roomArea < 750) {
+            numEnemySpawns = 3;
+        }
+        else if (roomArea < 1000) {
+            numEnemySpawns = 4;
+        }
+        else if (roomArea < 1250) {
+            numEnemySpawns = 5;
+        }
+        else if (roomArea < 1500) {
+            numEnemySpawns = 6;
+        }
+        else {
+            numEnemySpawns = 7;
+        }
+
+        //get random enemy spawn points
+        List<int> xLevels = new List<int>();
+        for (int i = 0; i < numEnemySpawns; i++) {
+            //find x values
+            for (int j = room.RoomTopLeftCorner.x; j < room.RoomTopLeftCorner.x + room.RoomDimensions.x - 3; j += 4) {
+                xLevels.Add(j);
+            }
+
+            bool locationFound = false;
+            float randX = 0;
+            float randZ = 0;
+
+            while (!locationFound) {
+                randX = xLevels[UnityEngine.Random.Range(0, xLevels.Count)] + 0.15f;
+                randZ = UnityEngine.Random.Range(room.RoomTopLeftCorner.y - room.RoomDimensions.y + 2, room.RoomTopLeftCorner.y - 2);
+
+                //test if on platform
+                Vector3 spawnPos = new Vector3(randX, 2.5f, randZ);
+                Ray platformCheckRay = new Ray(spawnPos, Vector3.left);
+
+                if (debugMode) {
+                    Debug.DrawLine(spawnPos, spawnPos + Vector3.left * 2f, Color.red, 60);
+                }
+
+                if (Physics.Raycast(platformCheckRay, 2f)) {
+                    locationFound = true;
+                    if (debugMode) {
+                        Debug.DrawLine(spawnPos, spawnPos + Vector3.left * 2f, Color.yellow, 60);
+                    }
+                }
+            }
+
+            if (locationFound) {
+                spawnLocations.Add(new Vector3(randX, 2.5f, randZ));
+            }
+        }
+
+        foreach (Vector3 spawnPos in spawnLocations) {
+            //get random enemy
+            GameObject enemy = levelEnemies.enemies[UnityEngine.Random.Range(0, levelEnemies.enemies.Count)];
+
+            enemy = Instantiate(enemy, spawnPos, Quaternion.Euler(0, 0, -90), enemiesParent);
+        }
+
+
+    }
+
     public void PlaceBoss(PathNode bossRoomPathNode) {
         Vector3 spawnPos = Vector3.zero;
 
@@ -688,7 +777,6 @@ public class DungeonCreator : MonoBehaviour {
             spawnPos = new Vector3(bossRoomPathNode.RoomTopLeftCorner.x + .1f, 0, bossRoomPathNode.RoomTopLeftCorner.y - bossRoomPathNode.RoomDimensions.y + 2);
 
         }
-
 
         //places boss
         bossPrefab.transform.position = spawnPos;
@@ -708,7 +796,7 @@ public class DungeonCreator : MonoBehaviour {
         int platformWidth = 5;
         int roomHeight = room.RoomDimensions.y;
         int roomWidth = room.RoomDimensions.x;
-        int groundLevel = room.RoomTopLeftCorner.x + roomOffset;
+        int groundLevel = room.RoomTopLeftCorner.x;
         int wallSpace = 5;
         int platformSpace = roomHeight - 2 * wallSpace;
 
@@ -811,8 +899,6 @@ public class DungeonCreator : MonoBehaviour {
         //Debug.Log("/Cell offset " + spaceOffsetPerCell);
         //Debug.Log("=============================================");
 
-
-        //GameObject platform = (GameObject) Resources.Load("CastlePlatform1");
         Vector3 spawnPos = new Vector3();
 
         float totalOffset = 0;

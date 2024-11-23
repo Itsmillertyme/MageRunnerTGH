@@ -427,6 +427,8 @@
 "Assets/Scripts/Events/GameEvent.cs"
 "Assets/Scripts/Events/GameEventListener.cs"
 "Assets/Scripts/GameManager.cs"
+"Assets/Scripts/LevelDecorations.cs"
+"Assets/Scripts/LevelEnemies.cs"
 "Assets/Scripts/LevelGeneration/BinarySpacePartitioner.cs"
 "Assets/Scripts/LevelGeneration/CorridorGenerator.cs"
 "Assets/Scripts/LevelGeneration/CorridorNode.cs"

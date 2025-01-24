@@ -18,7 +18,7 @@ public class EnemyProjectileMover : MonoBehaviour
 
     private void Update()
     {
-        rb.velocity = transform.forward * moveSpeed;
+        rb.linearVelocity = transform.forward * moveSpeed;
     }
 
     public void SetTarget(Vector3 direction)

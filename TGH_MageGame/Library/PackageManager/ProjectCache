@@ -5,29 +5,29 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638679336884577880
-    m_Hash: 3938896248
+      ticks: 638730081815085834
+    m_Hash: 4198039645
   m_LockFileStatus:
     m_FilePath: D:/Github/MageRunnerTGH/TGH_MageGame/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638679336884597897
-    m_Hash: 2961705238
+      ticks: 638730082426573968
+    m_Hash: 1602965653
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:
   m_LocalFileStatus: []
 m_ProjectPath: D:/Github/MageRunnerTGH/TGH_MageGame/Packages
-m_EditorVersion: 2023.2.1f1 (a6dd9a634651)
+m_EditorVersion: 6000.0.34f1 (5ab2d9ed9190)
 m_ResolvedPackages:
 - packageId: com.andywiecko.burst.triangulator@https://github.com/andywiecko/BurstTriangulator.git
   testable: 0
   isDirectDependency: 1
   version: 3.3.0
   source: 5
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.andywiecko.burst.triangulator@d071913d14
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.andywiecko.burst.triangulator
   assetPath: Packages/com.andywiecko.burst.triangulator
   name: com.andywiecko.burst.triangulator
   displayName: Burst Triangulator
@@ -52,19 +52,23 @@ m_ResolvedPackages:
     version: 2.2.0
   resolvedDependencies:
   - name: com.unity.burst
-    version: 1.8.10
+    version: 1.8.18
   - name: com.unity.mathematics
-    version: 1.2.6
-  - name: com.unity.collections
-    version: 2.2.0
-  - name: com.unity.nuget.mono-cecil
-    version: 1.11.4
-  - name: com.unity.modules.unityanalytics
-    version: 1.0.0
-  - name: com.unity.modules.unitywebrequest
-    version: 1.0.0
+    version: 1.3.2
   - name: com.unity.modules.jsonserialize
     version: 1.0.0
+  - name: com.unity.collections
+    version: 2.5.1
+  - name: com.unity.test-framework
+    version: 1.4.5
+  - name: com.unity.ext.nunit
+    version: 2.0.5
+  - name: com.unity.modules.imgui
+    version: 1.0.0
+  - name: com.unity.nuget.mono-cecil
+    version: 1.11.4
+  - name: com.unity.test-framework.performance
+    version: 3.0.3
   keywords:
   - Burst
   - Triangulation
@@ -103,12 +107,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: d071913d146136a8ecb7bebe7c7ae113c26af413
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 
+    minimumUnityVersion: 2022.2.1f1
 - packageId: com.unity.ai.navigation@2.0.5
   testable: 0
   isDirectDependency: 1
   version: 2.0.5
   source: 1
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.ai.navigation@2.0.5
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.ai.navigation
   assetPath: Packages/com.unity.ai.navigation
   name: com.unity.ai.navigation
   displayName: AI Navigation
@@ -126,7 +135,6 @@ m_ResolvedPackages:
   errors: []
   versions:
     all:
-    - 1.0.0-exp.1
     - 1.0.0-exp.2
     - 1.0.0-exp.3
     - 1.0.0-exp.4
@@ -143,9 +151,6 @@ m_ResolvedPackages:
     - 2.0.4
     - 2.0.5
     compatible:
-    - 2.0.0
-    - 2.0.3
-    - 2.0.4
     - 2.0.5
     recommended: 2.0.5
     deprecated: []
@@ -195,7 +200,7 @@ m_ResolvedPackages:
     revision: 110941630e19b3574f9f81fd6fe3c28e867a9321
     path: 
   unityLifecycle:
-    version: 2.0.0
+    version: 2.0.5
     nextVersion: 
     recommendedVersion: 
     isDeprecated: 0
@@ -210,12 +215,17 @@ m_ResolvedPackages:
     (NAVB-87)\n* A few documentation paragraphs and links were not accurate."}'
   assetStore:
     productId: 
-- packageId: com.unity.cinemachine@2.9.7
+  fingerprint: 9f76b145f0a8dd734ff2a4877f7f7edb83b7f62c
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 2.0.5
+    minimumUnityVersion: 2023.2.0a18
+- packageId: com.unity.cinemachine@2.10.3
   testable: 0
   isDirectDependency: 1
-  version: 2.9.7
+  version: 2.10.3
   source: 1
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.cinemachine@2.9.7
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.cinemachine
   assetPath: Packages/com.unity.cinemachine
   name: com.unity.cinemachine
   displayName: Cinemachine
@@ -224,7 +234,7 @@ m_ResolvedPackages:
     email: 
     url: 
   category: cinematography
-  type: asset
+  type: 
   description: "Smart camera tools for passionate creators. \n\nNew starting from
     2.7.1: Are you looking for the Cinemachine menu? It has moved to the GameObject
     menu.\n\nIMPORTANT NOTE: If you are upgrading from the legacy Asset Store version
@@ -314,11 +324,6 @@ m_ResolvedPackages:
     - 3.1.1
     - 3.1.2
     compatible:
-    - 2.9.5
-    - 2.9.7
-    - 2.10.0
-    - 2.10.1
-    - 2.10.2
     - 2.10.3
     - 3.0.0-pre.3
     - 3.0.0-pre.4
@@ -331,14 +336,14 @@ m_ResolvedPackages:
     - 3.1.0
     - 3.1.1
     - 3.1.2
-    recommended: 2.9.7
+    recommended: 3.1.2
     deprecated: []
   dependencies:
   - name: com.unity.test-framework
     version: 1.1.31
   resolvedDependencies:
   - name: com.unity.test-framework
-    version: 1.3.9
+    version: 1.4.5
   - name: com.unity.ext.nunit
     version: 2.0.5
   - name: com.unity.modules.imgui
@@ -380,18 +385,18 @@ m_ResolvedPackages:
   entitlements:
     licensingModel: 1
   isAssetStorePackage: 0
-  datePublishedTicks: 638191355130000000
-  documentationUrl: https://docs.unity3d.com/Packages/com.unity.cinemachine@2.9/manual/index.html
+  datePublishedTicks: 638666077203430000
+  documentationUrl: https://docs.unity3d.com/Packages/com.unity.cinemachine@2.10/manual/index.html
   hasRepository: 1
   repository:
     type: git
     url: https://github.com/Unity-Technologies/com.unity.cinemachine.git
-    revision: 46485ca80113434766f2b256525bb98def548fb9
+    revision: fa616229e5cf36a8c640e862aff6eb686dbef444
     path: 
   unityLifecycle:
-    version: 2.9.5
-    nextVersion: 3.0.0-pre.3
-    recommendedVersion: 
+    version: 2.10.3
+    nextVersion: 
+    recommendedVersion: 3.1.0
     isDeprecated: 0
     deprecationMessage: 
   isDeprecated: 0
@@ -399,21 +404,21 @@ m_ResolvedPackages:
   git:
     hash: 
     revision: 
-  upmReserved: '{"changelog":"- Bugfix: AxisState was not respecting timescale ==
-    0.\n- Bugfix: Very occasional axis drift in SimpleFollow when viewing angle is
-    +-90 degrees.\n- URP: add temporal effects reset on camera cut for URP 14.0.4
-    and up.\n- Bugfix: MixingCamera calls OnTransitionFromCamera correctly for all
-    its children.\n- Bugfix: Passive vcams with noise were not respecting transform''s
-    z rotation during blends.\n- Regression fix: CinemachineSmoothPath.GetLocalOrientation
-    was returning global orientations."}'
+  upmReserved: '{"changelog":"- Regression fix: Small changes to camera position
+    and rotation were being filtered out."}'
   assetStore:
     productId: 
-- packageId: com.unity.collab-proxy@2.4.4
+  fingerprint: dcc61ebd6655e32f2b7f8ebca32ca02be455e2d9
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 2.10.3
+    minimumUnityVersion: 2019.4.0a1
+- packageId: com.unity.collab-proxy@2.6.0
   testable: 0
   isDirectDependency: 1
-  version: 2.4.4
+  version: 2.6.0
   source: 1
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.collab-proxy@2.4.4
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.collab-proxy
   assetPath: Packages/com.unity.collab-proxy
   name: com.unity.collab-proxy
   displayName: Version Control
@@ -422,7 +427,7 @@ m_ResolvedPackages:
     email: 
     url: 
   category: Editor
-  type: assets
+  type: 
   description: The package gives you the ability to use Unity Version Control in
     the Unity editor. To use Unity Version Control, a subscription is required. Learn
     more about how you can get started for free by visiting https://unity.com/solutions/version-control
@@ -504,14 +509,10 @@ m_ResolvedPackages:
     - 2.4.4
     - 2.5.1
     - 2.5.2
+    - 2.6.0
     compatible:
-    - 2.2.0
-    - 2.3.1
-    - 2.4.3
-    - 2.4.4
-    - 2.5.1
-    - 2.5.2
-    recommended: 2.2.0
+    - 2.6.0
+    recommended: 2.6.0
     deprecated: []
   dependencies: []
   resolvedDependencies: []
@@ -530,6 +531,7 @@ m_ResolvedPackages:
   - teams
   - version
   - vcs
+  - uvcs
   registry:
     id: main
     name: 
@@ -542,16 +544,16 @@ m_ResolvedPackages:
   entitlements:
     licensingModel: 1
   isAssetStorePackage: 0
-  datePublishedTicks: 638573492230000000
-  documentationUrl: https://docs.unity3d.com/Packages/com.unity.collab-proxy@2.4/manual/index.html
+  datePublishedTicks: 638684801569990000
+  documentationUrl: https://docs.unity3d.com/Packages/com.unity.collab-proxy@2.6/manual/index.html
   hasRepository: 1
   repository:
     type: git
     url: https://github.cds.internal.unity3d.com/unity/com.unity.cloud.collaborate.git
-    revision: 03b1de8d838eb1e427cb1b1d8bf9157f33377542
+    revision: b7effc6b40a40af218ae30084906471699330ac9
     path: 
   unityLifecycle:
-    version: 2.2.0
+    version: 2.6.0
     nextVersion: 
     recommendedVersion: 
     isDeprecated: 0
@@ -561,16 +563,50 @@ m_ResolvedPackages:
   git:
     hash: 
     revision: 
-  upmReserved: '{"changelog":"### Fixed\n\n- Fixed the Unity Editor stuck on \"Creating
-    workspace\" when \"Use Unity Version Control\" was selected from the Hub"}'
+  upmReserved: "{\"changelog\":\"### Added\\n\\n- Added the ability to merge a branch
+    or a changeset, using a new context menu actions\\n- Added file conflict & dir
+    conflict context menu actions to the merge view\\n- Added diff and merge settings
+    in Project Settings -> Version Control -> Unity Version Control Settings\\n-
+    Added merge options dialog to the merge view\\n- Added copy path & history context
+    menu actions in all menus where they apply\\n- Added an menu entry to 'Open in
+    Unity Cloud' showing the repository in the Unity Dashboard\\n\\n### Changed\\n\\n-
+    Updated the minimum supported version to Unity 2021.3.0f1\\n- Removed support
+    for migrating old Collaborate workspaces to Unity Version Control\\n- Hide from
+    the public documentation all internal APIs that were previously visible by mistake\\n-
+    Optimized switching operations to only triggers the Package Manager to reinstall
+    packages when needed\\n- Optimized incoming changes to only reload the Package
+    Manager when needed (Gluon/partial workspace only for now)\\n- Automatically
+    add UnityDirMonSyncFile rule for existing ignore.conf to avoid triggering unnecessary
+    finding changes operation\\n- Improved the \u201Csearch\u201D edit box so it
+    can resize when there is not enough space in the toolbar\\n- Replaced the \\\"D\\\"
+    DevOps icon by the branching icon used in the Hub\\n- Replaced the logo of Unity
+    in the Sign in to Unity VCS window\\n\\n### Fixed\\n\\n- Fixed files getting
+    checked out even though they are in hidden_changes.conf\\n- Fixed manual login
+    to Cloud that didn't work with an Enterprise installation\\n- Fixed resolve conflicts
+    not informing about lack of UVCS installation\\n- Fixed the Invite users to cloud
+    organization when using an Enterprise installation\\n- Fixed new child branch
+    not created from HEAD after update\\n- Fixed the learn more (here) link that
+    showed the hex color value in Unity 6\\n- Fixed link to invite members in Unity
+    Cloud.\\n- Fixed a crash in the create workspace window when unable to resolve
+    a @unity organization\\n- Fixed incoming changes view that was not kept as selected
+    after resolving some conflicts\\n- Fixed workspace name that was not refreshed
+    after repository manual creation or selection\\n- Added a warning message to
+    inform users about mismatching cloud project.\\n- Removed from the Create Workspace
+    window the Local server that was present with no installation of UVCS\\n- Replaced
+    hardcoded urls pointing to plasticscm.com\"}"
   assetStore:
     productId: 
+  fingerprint: 001b54a8988a14785c8e209d6c788bb15f9e58cf
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 2.6.0
+    minimumUnityVersion: 2021.3.0f1
 - packageId: com.unity.feature.development@1.0.2
   testable: 0
   isDirectDependency: 1
   version: 1.0.2
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.feature.development@1.0.2
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.feature.development
   assetPath: Packages/com.unity.feature.development
   name: com.unity.feature.development
   displayName: Engineering
@@ -609,7 +645,7 @@ m_ResolvedPackages:
   - name: com.unity.ide.visualstudio
     version: 2.0.22
   - name: com.unity.test-framework
-    version: 1.3.9
+    version: 1.4.5
   - name: com.unity.ext.nunit
     version: 2.0.5
   - name: com.unity.modules.imgui
@@ -617,13 +653,13 @@ m_ResolvedPackages:
   - name: com.unity.modules.jsonserialize
     version: 1.0.0
   - name: com.unity.ide.rider
-    version: 3.0.26
+    version: 3.0.31
   - name: com.unity.editorcoroutines
     version: 1.0.0
   - name: com.unity.performance.profile-analyzer
-    version: 1.2.2
+    version: 1.2.3
   - name: com.unity.testtools.codecoverage
-    version: 1.2.4
+    version: 1.2.6
   - name: com.unity.settings-manager
     version: 2.0.1
   keywords: []
@@ -658,15 +694,20 @@ m_ResolvedPackages:
   git:
     hash: 
     revision: 
-  upmReserved: '{"quickstart":"https://docs.unity3d.com/2021.2/Documentation/Manual/DeveloperToolsFeature.html"}'
+  upmReserved: '{"quickstart":"https://docs.unity3d.com/Documentation/Manual/DeveloperToolsFeature.html"}'
   assetStore:
     productId: 
-- packageId: com.unity.inputsystem@1.7.0
+  fingerprint: 767aadbc6eb72681a4ca807c8fa248e0230a0cef
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.2
+    minimumUnityVersion: 
+- packageId: com.unity.inputsystem@1.11.2
   testable: 0
   isDirectDependency: 1
-  version: 1.7.0
+  version: 1.11.2
   source: 1
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.inputsystem@1.7.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.inputsystem
   assetPath: Packages/com.unity.inputsystem
   name: com.unity.inputsystem
   displayName: Input System
@@ -675,7 +716,7 @@ m_ResolvedPackages:
     email: 
     url: 
   category: 
-  type: assets
+  type: 
   description: A new input system which can be used as a more extensible and customizable
     alternative to Unity's classic input system in UnityEngine.Input.
   errors: []
@@ -732,19 +773,11 @@ m_ResolvedPackages:
     - 1.11.0
     - 1.11.1
     - 1.11.2
+    - 1.12.0
     compatible:
-    - 1.7.0
-    - 1.8.0-pre.1
-    - 1.8.0-pre.2
-    - 1.8.0
-    - 1.8.1
-    - 1.8.2
-    - 1.9.0
-    - 1.10.0
-    - 1.11.0
-    - 1.11.1
     - 1.11.2
-    recommended: 1.7.0
+    - 1.12.0
+    recommended: 1.11.2
     deprecated: []
   dependencies:
   - name: com.unity.modules.uielements
@@ -781,17 +814,17 @@ m_ResolvedPackages:
   entitlements:
     licensingModel: 1
   isAssetStorePackage: 0
-  datePublishedTicks: 638277060810000000
-  documentationUrl: https://docs.unity3d.com/Packages/com.unity.inputsystem@1.7/manual/index.html
+  datePublishedTicks: 638648557315530000
+  documentationUrl: https://docs.unity3d.com/Packages/com.unity.inputsystem@1.11/manual/index.html
   hasRepository: 1
   repository:
     type: git
     url: https://github.com/Unity-Technologies/InputSystem.git
-    revision: e29989176f3a8473ba30854e4bfae953083eba28
+    revision: c8518694c7fdd2c755755e028e2ec19cdceda19b
     path: 
   unityLifecycle:
-    version: 1.7.0
-    nextVersion: 1.8.0-pre.1
+    version: 1.11.2
+    nextVersion: 
     recommendedVersion: 
     isDeprecated: 0
     deprecationMessage: 
@@ -800,36 +833,124 @@ m_ResolvedPackages:
   git:
     hash: 
     revision: 
-  upmReserved: '{"changelog":"### Added\n- Preliminary support for visionOS.\n- Show
-    a list of `Derived Bindings` underneath the Binding Path editor to show all controls
-    that matched.\n\n### Changed\n- Changed the `InputAction` constructors so it
-    generates an ID for the action and the optional binding parameter. This is intended
-    to improve the serialization of input actions on behaviors when created through
-    API when the property drawer in the Inspector window does not have a chance to
-    generate an ID.\n\n### Fixed\n- Fixed missing prefab errors in InputDeviceTester
-    project ([case ISXB-420](https://issuetracker.unity3d.com/product/unity/issues/guid/ISXB-420)).\n-
-    Fixed serialization migration in the Tracked Pose Driver component causing bindings
-    to clear when prefabs are used in some cases ([case ISXB-512](https://issuetracker.unity3d.com/product/unity/issues/guid/ISXB-512),
-    [case ISXB-521](https://issuetracker.unity3d.com/product/unity/issues/guid/ISXB-521)).\n-
-    Fixed Tracked Pose Driver to use `Transform.SetLocalPositionAndRotation` when
-    available to improve performance. Based on the user contribution from [DevDunk](https://forum.unity.com/members/devdunk.4432119/)
-    in a [forum post](https://forum.unity.com/threads/more-performant-tracked-pose-driver-solution-included.1462691).\n-
-    Fixed the `Clone` methods of `InputAction` and `InputActionMap` so it copies
-    the Initial State Check flag (`InputAction.wantsInitialStateCheck`) of input
-    actions.\n- Fixed the \"Release tests throws exception in InputSystem\" bug ([case
-    ISXB-581](https://issuetracker.unity3d.com/issues/release-tests-fail-when-input-system-package-is-installed)).\n-
-    Fixed issues with generating Precompiled Layouts for devices which are not defined
-    in a namespace\n- Fixed an issue where some controls like `QuaternionControl`
-    could not be included in a Precompiled Layout because the generated code could
-    not access a setter on child control properties."}'
+  upmReserved: '{"changelog":"### Fixed\n- Fixed touch pointers being released twice
+    causing an index out of bounds error. [ISXB-687](https://issuetracker.unity3d.com/product/unity/issues/guid/ISXB-687)\n-
+    Fixed `NullReferenceException` from disconnecting and reconnecting a GXDKGamepad.\n-
+    Fixed wrong mapping of Xbox Series S|X and Xbox One wireless controllers \"View\"
+    button on macOS.[ISXB-385](https://issuetracker.unity3d.com/product/unity/issues/guid/ISXB-385)\n-
+    Fixed \"AnalyticsResult\" errors on consoles [ISXB-1107]\n- Fixed wrong `Display
+    Index` value for touchscreen events.[ISXB-1101](https://issuetracker.unity3d.com/product/unity/issues/guid/ISXB-1101)\n-
+    Fixed event handling when using Fixed Update processing where WasPressedThisFrame
+    could appear to true for consecutive frames [ISXB-1006](https://issuetracker.unity3d.com/product/unity/issues/guid/ISXB-1006)\n\n###
+    Added\n- Added the display of the device flag `CanRunInBackground` in device
+    debug view.\n- Added analytics for programmatic `InputAction` setup via `InputActionSetupExtensions`
+    when exiting play-mode.\n\n### Fixed\n- Removed a redundant warning when using
+    fallback code to parse a HID descriptor. (UUM-71260)\n\n### Changed\n- Removed
+    the InputManager to InputSystem project-wide asset migration code for performance
+    improvement (ISX-2086)"}'
   assetStore:
     productId: 
-- packageId: com.unity.shadergraph@16.0.4
+  fingerprint: 3c4a97c3950fef77960981e0fe90613de6e512ee
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.11.2
+    minimumUnityVersion: 2019.4.0a1
+- packageId: com.unity.multiplayer.center@1.0.0
   testable: 0
   isDirectDependency: 1
-  version: 16.0.4
+  version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.shadergraph@16.0.4
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.multiplayer.center
+  assetPath: Packages/com.unity.multiplayer.center
+  name: com.unity.multiplayer.center
+  displayName: Multiplayer Center
+  author:
+    name: 
+    email: 
+    url: 
+  category: 
+  type: 
+  description: The multiplayer center provides a starting point to create multiplayer
+    games. It will recommend specific packages and enable you to easily access integrations,
+    samples and documentation.
+  errors: []
+  versions:
+    all:
+    - 0.2.1
+    - 0.3.0
+    - 0.4.0
+    - 1.0.0-pre.1
+    - 1.0.0-pre.2
+    - 1.0.0-pre.3
+    - 1.0.0
+    compatible:
+    - 1.0.0
+    recommended: 1.0.0
+    deprecated: []
+  dependencies:
+  - name: com.unity.modules.uielements
+    version: 1.0.0
+  resolvedDependencies:
+  - name: com.unity.modules.uielements
+    version: 1.0.0
+  - name: com.unity.modules.ui
+    version: 1.0.0
+  - name: com.unity.modules.imgui
+    version: 1.0.0
+  - name: com.unity.modules.jsonserialize
+    version: 1.0.0
+  - name: com.unity.modules.hierarchycore
+    version: 1.0.0
+  keywords:
+  - Multiplayer
+  - Netcode
+  - Services
+  - Tools
+  registry:
+    id: main
+    name: 
+    url: https://packages.unity.com
+    scopes: []
+    isDefault: 1
+    capabilities: 7
+    configSource: 0
+  hideInEditor: 1
+  entitlements:
+    licensingModel: 0
+  isAssetStorePackage: 0
+  datePublishedTicks: 0
+  documentationUrl: 
+  hasRepository: 0
+  repository:
+    type: 
+    url: 
+    revision: 
+    path: 
+  unityLifecycle:
+    version: 1.0.0
+    nextVersion: 
+    recommendedVersion: 
+    isDeprecated: 0
+    deprecationMessage: 
+  isDeprecated: 0
+  deprecationMessage: 
+  git:
+    hash: 
+    revision: 
+  upmReserved: 
+  assetStore:
+    productId: 
+  fingerprint: f502d8ac613fa076192423e73892fbd89eb4049b
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 6000.0.0a1
+- packageId: com.unity.shadergraph@17.0.3
+  testable: 0
+  isDirectDependency: 1
+  version: 17.0.3
+  source: 2
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.shadergraph
   assetPath: Packages/com.unity.shadergraph
   name: com.unity.shadergraph
   displayName: Shader Graph
@@ -944,45 +1065,47 @@ m_ResolvedPackages:
     - 10.9.0
     - 10.10.0
     - 10.10.1
-    - 16.0.4
+    - 17.0.3
     compatible:
-    - 16.0.4
-    recommended: 16.0.4
+    - 17.0.3
+    recommended: 17.0.3
     deprecated: []
   dependencies:
   - name: com.unity.render-pipelines.core
-    version: 16.0.4
+    version: 17.0.3
   - name: com.unity.searcher
     version: 4.9.2
   resolvedDependencies:
   - name: com.unity.render-pipelines.core
-    version: 16.0.4
+    version: 17.0.3
+  - name: com.unity.burst
+    version: 1.8.18
   - name: com.unity.mathematics
-    version: 1.2.6
+    version: 1.3.2
+  - name: com.unity.modules.jsonserialize
+    version: 1.0.0
   - name: com.unity.ugui
     version: 2.0.0
   - name: com.unity.modules.ui
     version: 1.0.0
   - name: com.unity.modules.imgui
     version: 1.0.0
+  - name: com.unity.collections
+    version: 2.5.1
+  - name: com.unity.test-framework
+    version: 1.4.5
+  - name: com.unity.ext.nunit
+    version: 2.0.5
+  - name: com.unity.nuget.mono-cecil
+    version: 1.11.4
+  - name: com.unity.test-framework.performance
+    version: 3.0.3
   - name: com.unity.modules.physics
     version: 1.0.0
   - name: com.unity.modules.terrain
     version: 1.0.0
-  - name: com.unity.modules.jsonserialize
-    version: 1.0.0
   - name: com.unity.rendering.light-transport
-    version: 1.0.0
-  - name: com.unity.collections
-    version: 2.2.0
-  - name: com.unity.burst
-    version: 1.8.10
-  - name: com.unity.nuget.mono-cecil
-    version: 1.11.4
-  - name: com.unity.modules.unityanalytics
-    version: 1.0.0
-  - name: com.unity.modules.unitywebrequest
-    version: 1.0.0
+    version: 1.0.1
   - name: com.unity.searcher
     version: 4.9.2
   keywords: []
@@ -1007,7 +1130,7 @@ m_ResolvedPackages:
     revision: 
     path: 
   unityLifecycle:
-    version: 16.0.4
+    version: 17.0.3
     nextVersion: 
     recommendedVersion: 
     isDeprecated: 0
@@ -1020,12 +1143,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
-- packageId: com.unity.timeline@1.8.6
+  fingerprint: 9111176982208cf007caa931c3cf2716ceec4632
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 17.0.3
+    minimumUnityVersion: 6000.0.0a1
+- packageId: com.unity.timeline@1.8.7
   testable: 0
   isDirectDependency: 1
-  version: 1.8.6
+  version: 1.8.7
   source: 1
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.timeline@1.8.6
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.timeline
   assetPath: Packages/com.unity.timeline
   name: com.unity.timeline
   displayName: Timeline
@@ -1127,7 +1255,6 @@ m_ResolvedPackages:
     - 1.8.6
     - 1.8.7
     compatible:
-    - 1.8.6
     - 1.8.7
     recommended: 1.8.7
     deprecated: []
@@ -1167,16 +1294,16 @@ m_ResolvedPackages:
   entitlements:
     licensingModel: 1
   isAssetStorePackage: 0
-  datePublishedTicks: 638326112870000000
+  datePublishedTicks: 638524833900000000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.timeline@1.8/manual/index.html
   hasRepository: 1
   repository:
     type: git
     url: https://github.cds.internal.unity3d.com/unity/com.unity.timeline.git
-    revision: 9b8cc7590b7d733181284f1a846a02406b5524d8
+    revision: d6432ca638481c3d0e4c01f87f9cdbe3c4b1d529
     path: 
   unityLifecycle:
-    version: 1.8.6
+    version: 1.8.7
     nextVersion: 
     recommendedVersion: 
     isDeprecated: 0
@@ -1186,22 +1313,30 @@ m_ResolvedPackages:
   git:
     hash: 
     revision: 
-  upmReserved: '{"changelog":"### Changed\n\n- In the `Create Asset` menu, the `Signal`
-    and `Timeline` items have been moved to the `Timeline` submenu.\n\n### Fixed\n\n-
-    Fixed issue where changing the name of a group track was not undoable ([TB-218](https://issuetracker.unity3d.com/issues/timeline-track-group-renaming-doesnt-go-into-the-undo-history)).\n-
-    Fixed issue where a warning would be logged in the console for `TrackAsset` ([TB-229](https://issuetracker.unity3d.com/product/unity/issues/guid/TB-229)).\n-
-    Fixed performance regression when rebuilding the playable graph.\n- Fixed a `MissingReferenceException`
-    when editing a Timeline that is an instance of a prefab and a bound `Animator`
-    is destroyed ([TB-222](https://issuetracker.unity3d.com/issues/timeline-missingreferenceexceptions-when-undoing-add-animator-from-timeline))\n-
-    Removed warnings due to obsolete analytics API."}'
+  upmReserved: '{"changelog":"### Added\n\n- Released ronl-workflow-custom-marker.md
+    Added a new workflow to the Timeline Workflows documentation:\n- Released ronl-workflow-custom-marker.md
+    The `Create a custom Notes marker` workflow demonstrates how to create a custom
+    marker for adding notes to Timeline instances. This workflow also demonstrates
+    how to change the default appearance of a custom marker with scripting and a
+    Unity Style Sheet (USS).\n\n### Fixed\n\n- Fixed bug where using , and . (<>)
+    to step frames in the Animation Window while the Timeline Window was linked would
+    sometimes not work. [IN-56667](https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-56667)\n-
+    When the Timeline and Animation windows are linked and the Timeline Window is
+    active, moving the playhead in the Timeline Window will cause the animation window
+    to repaint immediately."}'
   assetStore:
     productId: 
+  fingerprint: c58b4ee65782ad38338e29f7ee67787cb6998f04
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.8.7
+    minimumUnityVersion: 2019.3.0a1
 - packageId: com.unity.ugui@2.0.0
   testable: 0
   isDirectDependency: 1
   version: 2.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.ugui@2.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.ugui
   assetPath: Packages/com.unity.ugui
   name: com.unity.ugui
   displayName: Unity UI
@@ -1226,6 +1361,7 @@ m_ResolvedPackages:
     - 2.0.0
     - 3.0.0-exp.1
     - 3.0.0-exp.3
+    - 3.0.0-exp.4
     recommended: 2.0.0
     deprecated: []
   dependencies:
@@ -1282,12 +1418,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
-- packageId: com.unity.visualscripting@1.8.0
+  fingerprint: fd5da3b4bec8d043b01c30177bd62059c5fa36d0
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 2.0.0
+    minimumUnityVersion: 2019.2.0a1
+- packageId: com.unity.visualscripting@1.9.5
   testable: 0
   isDirectDependency: 1
-  version: 1.8.0
+  version: 1.9.5
   source: 1
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.visualscripting@1.8.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.visualscripting
   assetPath: Packages/com.unity.visualscripting
   name: com.unity.visualscripting
   displayName: Visual Scripting
@@ -1327,7 +1468,6 @@ m_ResolvedPackages:
     - 1.7.6
     - 1.7.7
     - 1.7.8
-    - 1.8.0-pre.1
     - 1.8.0
     - 1.9.0
     - 1.9.1
@@ -1335,15 +1475,9 @@ m_ResolvedPackages:
     - 1.9.4
     - 1.9.5
     compatible:
-    - 1.8.0
-    - 1.9.0
-    - 1.9.1
-    - 1.9.2
-    - 1.9.4
     - 1.9.5
-    recommended: 1.8.0
-    deprecated:
-    - 1.8.0-pre.1
+    recommended: 1.9.5
+    deprecated: []
   dependencies:
   - name: com.unity.ugui
     version: 1.0.0
@@ -1371,16 +1505,16 @@ m_ResolvedPackages:
   entitlements:
     licensingModel: 1
   isAssetStorePackage: 0
-  datePublishedTicks: 638060044680000000
+  datePublishedTicks: 638659692270900000
   documentationUrl: 
   hasRepository: 1
   repository:
     type: git
     url: https://github.cds.internal.unity3d.com/unity/com.unity.visualscripting.git
-    revision: 0de66378b19e990494d98f39ecc2b6aa5ac65351
+    revision: 3621ef0207747a605f195118ba99d1a8bdb19433
     path: 
   unityLifecycle:
-    version: 1.8.0
+    version: 1.9.5
     nextVersion: 
     recommendedVersion: 
     isDeprecated: 0
@@ -1390,15 +1524,26 @@ m_ResolvedPackages:
   git:
     hash: 
     revision: 
-  upmReserved: 
+  upmReserved: '{"changelog":"### Fixed\n- Fixed \"NullReferenceException\" error
+    when returning to the State Graph from the Script Graph. [UVSB-1905](https://issuetracker.unity3d.com/product/unity/issues/guid/UVSB-1905)\n-
+    Fixed compilation error when a graph contains a reference to a method with an
+    \"in\" parameter. [UVSB-2544](https://issuetracker.unity3d.com/product/unity/issues/guid/UVSB-2487)\n-
+    Added missing truncate function to Formula node [UVSB-2526](https://issuetracker.unity3d.com/product/unity/issues/guid/UVSB-2525)\n-
+    Fixed an error when creating a Script Graph asset in an empty project\n\n###
+    Changed\n- Updated deprecated EditorAnalytics APIs to new ones"}'
   assetStore:
     productId: 
+  fingerprint: 1b53f46e931bea668e53f1feb0ac9138170c9455
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.9.5
+    minimumUnityVersion: 2021.3.0a1
 - packageId: com.unity.modules.accessibility@1.0.0
   testable: 0
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.accessibility@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.accessibility
   assetPath: Packages/com.unity.modules.accessibility
   name: com.unity.modules.accessibility
   displayName: Accessibility
@@ -1455,12 +1600,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
 - packageId: com.unity.modules.ai@1.0.0
   testable: 0
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.ai@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.ai
   assetPath: Packages/com.unity.modules.ai
   name: com.unity.modules.ai
   displayName: AI
@@ -1517,12 +1667,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
 - packageId: com.unity.modules.androidjni@1.0.0
   testable: 0
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.androidjni@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.androidjni
   assetPath: Packages/com.unity.modules.androidjni
   name: com.unity.modules.androidjni
   displayName: Android JNI
@@ -1578,12 +1733,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
 - packageId: com.unity.modules.animation@1.0.0
   testable: 0
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.animation@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.animation
   assetPath: Packages/com.unity.modules.animation
   name: com.unity.modules.animation
   displayName: Animation
@@ -1640,12 +1800,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
 - packageId: com.unity.modules.assetbundle@1.0.0
   testable: 0
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.assetbundle@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.assetbundle
   assetPath: Packages/com.unity.modules.assetbundle
   name: com.unity.modules.assetbundle
   displayName: Asset Bundle
@@ -1702,12 +1867,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
 - packageId: com.unity.modules.audio@1.0.0
   testable: 0
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.audio@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.audio
   assetPath: Packages/com.unity.modules.audio
   name: com.unity.modules.audio
   displayName: Audio
@@ -1764,12 +1934,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
 - packageId: com.unity.modules.cloth@1.0.0
   testable: 0
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.cloth@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.cloth
   assetPath: Packages/com.unity.modules.cloth
   name: com.unity.modules.cloth
   displayName: Cloth
@@ -1830,12 +2005,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
 - packageId: com.unity.modules.director@1.0.0
   testable: 0
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.director@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.director
   assetPath: Packages/com.unity.modules.director
   name: com.unity.modules.director
   displayName: Director
@@ -1900,12 +2080,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
 - packageId: com.unity.modules.imageconversion@1.0.0
   testable: 0
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.imageconversion@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.imageconversion
   assetPath: Packages/com.unity.modules.imageconversion
   name: com.unity.modules.imageconversion
   displayName: Image Conversion
@@ -1962,12 +2147,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
 - packageId: com.unity.modules.imgui@1.0.0
   testable: 0
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.imgui@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.imgui
   assetPath: Packages/com.unity.modules.imgui
   name: com.unity.modules.imgui
   displayName: IMGUI
@@ -2024,12 +2214,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
 - packageId: com.unity.modules.jsonserialize@1.0.0
   testable: 0
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.jsonserialize@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.jsonserialize
   assetPath: Packages/com.unity.modules.jsonserialize
   name: com.unity.modules.jsonserialize
   displayName: JSONSerialize
@@ -2086,12 +2281,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
 - packageId: com.unity.modules.particlesystem@1.0.0
   testable: 0
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.particlesystem@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.particlesystem
   assetPath: Packages/com.unity.modules.particlesystem
   name: com.unity.modules.particlesystem
   displayName: Particle System
@@ -2148,12 +2348,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
 - packageId: com.unity.modules.physics@1.0.0
   testable: 0
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.physics@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.physics
   assetPath: Packages/com.unity.modules.physics
   name: com.unity.modules.physics
   displayName: Physics
@@ -2210,12 +2415,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
 - packageId: com.unity.modules.physics2d@1.0.0
   testable: 0
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.physics2d@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.physics2d
   assetPath: Packages/com.unity.modules.physics2d
   name: com.unity.modules.physics2d
   displayName: Physics 2D
@@ -2272,12 +2482,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
 - packageId: com.unity.modules.screencapture@1.0.0
   testable: 0
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.screencapture@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.screencapture
   assetPath: Packages/com.unity.modules.screencapture
   name: com.unity.modules.screencapture
   displayName: Screen Capture
@@ -2338,12 +2553,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
 - packageId: com.unity.modules.terrain@1.0.0
   testable: 0
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.terrain@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.terrain
   assetPath: Packages/com.unity.modules.terrain
   name: com.unity.modules.terrain
   displayName: Terrain
@@ -2400,12 +2620,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
 - packageId: com.unity.modules.terrainphysics@1.0.0
   testable: 0
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.terrainphysics@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.terrainphysics
   assetPath: Packages/com.unity.modules.terrainphysics
   name: com.unity.modules.terrainphysics
   displayName: Terrain Physics
@@ -2470,12 +2695,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
 - packageId: com.unity.modules.tilemap@1.0.0
   testable: 0
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.tilemap@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.tilemap
   assetPath: Packages/com.unity.modules.tilemap
   name: com.unity.modules.tilemap
   displayName: Tilemap
@@ -2535,12 +2765,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
 - packageId: com.unity.modules.ui@1.0.0
   testable: 0
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.ui@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.ui
   assetPath: Packages/com.unity.modules.ui
   name: com.unity.modules.ui
   displayName: UI
@@ -2597,12 +2832,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
 - packageId: com.unity.modules.uielements@1.0.0
   testable: 0
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.uielements@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.uielements
   assetPath: Packages/com.unity.modules.uielements
   name: com.unity.modules.uielements
   displayName: UIElements
@@ -2675,12 +2915,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
 - packageId: com.unity.modules.umbra@1.0.0
   testable: 0
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.umbra@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.umbra
   assetPath: Packages/com.unity.modules.umbra
   name: com.unity.modules.umbra
   displayName: Umbra
@@ -2737,12 +2982,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
 - packageId: com.unity.modules.unityanalytics@1.0.0
   testable: 0
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.unityanalytics@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.unityanalytics
   assetPath: Packages/com.unity.modules.unityanalytics
   name: com.unity.modules.unityanalytics
   displayName: Unity Analytics
@@ -2752,8 +3002,7 @@ m_ResolvedPackages:
     url: 
   category: 
   type: module
-  description: 'The UnityAnalytics module implements APIs required to use Unity Analytics.
-    Scripting API: https://docs.unity3d.com/ScriptReference/UnityEngine.UnityAnalyticsModule.html'
+  description: 
   errors: []
   versions:
     all:
@@ -2807,12 +3056,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
 - packageId: com.unity.modules.unitywebrequest@1.0.0
   testable: 0
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.unitywebrequest@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.unitywebrequest
   assetPath: Packages/com.unity.modules.unitywebrequest
   name: com.unity.modules.unitywebrequest
   displayName: Unity Web Request
@@ -2869,12 +3123,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
 - packageId: com.unity.modules.unitywebrequestassetbundle@1.0.0
   testable: 0
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.unitywebrequestassetbundle@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.unitywebrequestassetbundle
   assetPath: Packages/com.unity.modules.unitywebrequestassetbundle
   name: com.unity.modules.unitywebrequestassetbundle
   displayName: Unity Web Request Asset Bundle
@@ -2939,12 +3198,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
 - packageId: com.unity.modules.unitywebrequestaudio@1.0.0
   testable: 0
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.unitywebrequestaudio@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.unitywebrequestaudio
   assetPath: Packages/com.unity.modules.unitywebrequestaudio
   name: com.unity.modules.unitywebrequestaudio
   displayName: Unity Web Request Audio
@@ -3009,12 +3273,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
 - packageId: com.unity.modules.unitywebrequesttexture@1.0.0
   testable: 0
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.unitywebrequesttexture@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.unitywebrequesttexture
   assetPath: Packages/com.unity.modules.unitywebrequesttexture
   name: com.unity.modules.unitywebrequesttexture
   displayName: Unity Web Request Texture
@@ -3079,12 +3348,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
 - packageId: com.unity.modules.unitywebrequestwww@1.0.0
   testable: 0
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.unitywebrequestwww@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.unitywebrequestwww
   assetPath: Packages/com.unity.modules.unitywebrequestwww
   name: com.unity.modules.unitywebrequestwww
   displayName: Unity Web Request WWW
@@ -3165,12 +3439,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
 - packageId: com.unity.modules.vehicles@1.0.0
   testable: 0
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.vehicles@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.vehicles
   assetPath: Packages/com.unity.modules.vehicles
   name: com.unity.modules.vehicles
   displayName: Vehicles
@@ -3231,12 +3510,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
 - packageId: com.unity.modules.video@1.0.0
   testable: 0
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.video@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.video
   assetPath: Packages/com.unity.modules.video
   name: com.unity.modules.video
   displayName: Video
@@ -3305,12 +3589,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
 - packageId: com.unity.modules.vr@1.0.0
   testable: 0
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.vr@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.vr
   assetPath: Packages/com.unity.modules.vr
   name: com.unity.modules.vr
   displayName: VR
@@ -3381,12 +3670,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
 - packageId: com.unity.modules.wind@1.0.0
   testable: 0
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.wind@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.wind
   assetPath: Packages/com.unity.modules.wind
   name: com.unity.modules.wind
   displayName: Wind
@@ -3443,12 +3737,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
 - packageId: com.unity.modules.xr@1.0.0
   testable: 0
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.xr@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.xr
   assetPath: Packages/com.unity.modules.xr
   name: com.unity.modules.xr
   displayName: XR
@@ -3517,12 +3816,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
 - packageId: com.unity.modules.subsystems@1.0.0
   testable: 0
   isDirectDependency: 0
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.subsystems@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.subsystems
   assetPath: Packages/com.unity.modules.subsystems
   name: com.unity.modules.subsystems
   displayName: Subsystems
@@ -3583,12 +3887,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
 - packageId: com.unity.modules.hierarchycore@1.0.0
   testable: 0
   isDirectDependency: 0
   version: 1.0.0
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.hierarchycore@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.modules.hierarchycore
   assetPath: Packages/com.unity.modules.hierarchycore
   name: com.unity.modules.hierarchycore
   displayName: Hierarchy Core
@@ -3645,12 +3954,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
-- packageId: com.unity.render-pipelines.core@16.0.4
+  fingerprint: 
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 
+- packageId: com.unity.render-pipelines.core@17.0.3
   testable: 0
   isDirectDependency: 0
-  version: 16.0.4
+  version: 17.0.3
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.render-pipelines.core@16.0.4
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.render-pipelines.core
   assetPath: Packages/com.unity.render-pipelines.core
   name: com.unity.render-pipelines.core
   displayName: Core RP Library
@@ -3768,16 +4082,20 @@ m_ResolvedPackages:
     - 10.9.0
     - 10.10.0
     - 10.10.1
-    - 16.0.4
+    - 17.0.3
     compatible:
-    - 16.0.4
-    recommended: 16.0.4
+    - 17.0.3
+    recommended: 17.0.3
     deprecated: []
   dependencies:
+  - name: com.unity.burst
+    version: 1.8.14
   - name: com.unity.mathematics
-    version: 1.2.4
+    version: 1.3.2
   - name: com.unity.ugui
     version: 2.0.0
+  - name: com.unity.collections
+    version: 2.4.3
   - name: com.unity.modules.physics
     version: 1.0.0
   - name: com.unity.modules.terrain
@@ -3785,34 +4103,36 @@ m_ResolvedPackages:
   - name: com.unity.modules.jsonserialize
     version: 1.0.0
   - name: com.unity.rendering.light-transport
-    version: 1.0.0
+    version: 1.0.1
   resolvedDependencies:
+  - name: com.unity.burst
+    version: 1.8.18
   - name: com.unity.mathematics
-    version: 1.2.6
+    version: 1.3.2
+  - name: com.unity.modules.jsonserialize
+    version: 1.0.0
   - name: com.unity.ugui
     version: 2.0.0
   - name: com.unity.modules.ui
     version: 1.0.0
   - name: com.unity.modules.imgui
     version: 1.0.0
+  - name: com.unity.collections
+    version: 2.5.1
+  - name: com.unity.test-framework
+    version: 1.4.5
+  - name: com.unity.ext.nunit
+    version: 2.0.5
+  - name: com.unity.nuget.mono-cecil
+    version: 1.11.4
+  - name: com.unity.test-framework.performance
+    version: 3.0.3
   - name: com.unity.modules.physics
     version: 1.0.0
   - name: com.unity.modules.terrain
     version: 1.0.0
-  - name: com.unity.modules.jsonserialize
-    version: 1.0.0
   - name: com.unity.rendering.light-transport
-    version: 1.0.0
-  - name: com.unity.collections
-    version: 2.2.0
-  - name: com.unity.burst
-    version: 1.8.10
-  - name: com.unity.nuget.mono-cecil
-    version: 1.11.4
-  - name: com.unity.modules.unityanalytics
-    version: 1.0.0
-  - name: com.unity.modules.unitywebrequest
-    version: 1.0.0
+    version: 1.0.1
   keywords: []
   registry:
     id: main
@@ -3835,7 +4155,7 @@ m_ResolvedPackages:
     revision: 
     path: 
   unityLifecycle:
-    version: 16.0.4
+    version: 17.0.3
     nextVersion: 
     recommendedVersion: 
     isDeprecated: 0
@@ -3848,12 +4168,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 668d69e61fc4f03c821b6a3e669d05e3cf380460
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 17.0.3
+    minimumUnityVersion: 6000.0.0a1
 - packageId: com.unity.searcher@4.9.2
   testable: 0
   isDirectDependency: 0
   version: 4.9.2
   source: 1
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.searcher@4.9.2
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.searcher
   assetPath: Packages/com.unity.searcher
   name: com.unity.searcher
   displayName: Searcher
@@ -3927,12 +4252,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 90d011a70418fd5b0f4b8e86df39444d2af228dd
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 4.9.2
+    minimumUnityVersion: 2019.1.0a1
 - packageId: com.unity.ide.visualstudio@2.0.22
   testable: 0
   isDirectDependency: 0
   version: 2.0.22
   source: 1
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.ide.visualstudio@2.0.22
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.ide.visualstudio
   assetPath: Packages/com.unity.ide.visualstudio
   name: com.unity.ide.visualstudio
   displayName: Visual Studio Editor
@@ -3981,7 +4311,7 @@ m_ResolvedPackages:
     version: 1.1.9
   resolvedDependencies:
   - name: com.unity.test-framework
-    version: 1.3.9
+    version: 1.4.5
   - name: com.unity.ext.nunit
     version: 2.0.5
   - name: com.unity.modules.imgui
@@ -4028,12 +4358,17 @@ m_ResolvedPackages:
     Prevent circular dependency errors with SDK-Style projects."}'
   assetStore:
     productId: 
-- packageId: com.unity.ide.rider@3.0.26
+  fingerprint: 8140e851d83e922ca2021b04a89519de94ebe38c
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 2.0.22
+    minimumUnityVersion: 2019.4.25f1
+- packageId: com.unity.ide.rider@3.0.31
   testable: 0
   isDirectDependency: 0
-  version: 3.0.26
+  version: 3.0.31
   source: 1
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.ide.rider@3.0.26
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.ide.rider
   assetPath: Packages/com.unity.ide.rider
   name: com.unity.ide.rider
   displayName: JetBrains Rider Editor
@@ -4094,9 +4429,6 @@ m_ResolvedPackages:
     - 3.0.31
     - 3.0.34
     compatible:
-    - 3.0.26
-    - 3.0.27
-    - 3.0.28
     - 3.0.31
     - 3.0.34
     recommended: 3.0.34
@@ -4120,16 +4452,16 @@ m_ResolvedPackages:
   entitlements:
     licensingModel: 1
   isAssetStorePackage: 0
-  datePublishedTicks: 638326061920000000
+  datePublishedTicks: 638548308080000000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.ide.rider@3.0/manual/index.html
   hasRepository: 1
   repository:
     type: git
     url: https://github.cds.internal.unity3d.com/unity/com.unity.ide.rider.git
-    revision: 2b29b1152946c13d1ecebf6fc681a59cd8b4d399
+    revision: ccd778a2275ff09f1a83bc924cfb2fb4d5b63566
     path: 
   unityLifecycle:
-    version: 3.0.26
+    version: 3.0.31
     nextVersion: 
     recommendedVersion: 
     isDeprecated: 0
@@ -4139,16 +4471,23 @@ m_ResolvedPackages:
   git:
     hash: 
     revision: 
-  upmReserved: '{"changelog":"- https://github.com/JetBrains/resharper-unity/issues/2421\n-
-    https://github.com/JetBrains/resharper-unity/issues/2422"}'
+  upmReserved: '{"changelog":"fix RIDER-104519 Rider is reporting errors in scripts
+    that work fine in Unity when utilizing DOTS - when Player project, by generating
+    projects for all assemblies in \"com.unity.entities\", \"com.unity.collections\"\nfix
+    RIDER-111622 Unity Rider package is not compatible with Rider Dev builds"}'
   assetStore:
     productId: 
+  fingerprint: 7921be93db40ec070fcb01ed82d1c3df1bbdddcd
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 3.0.31
+    minimumUnityVersion: 2019.2.6f1
 - packageId: com.unity.editorcoroutines@1.0.0
   testable: 0
   isDirectDependency: 0
   version: 1.0.0
   source: 1
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.editorcoroutines@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.editorcoroutines
   assetPath: Packages/com.unity.editorcoroutines
   name: com.unity.editorcoroutines
   displayName: Editor Coroutines
@@ -4215,12 +4554,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
-- packageId: com.unity.performance.profile-analyzer@1.2.2
+  fingerprint: 7d48783e7b8cfcee5f8ef9ba787ed0d9dad4ebca
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 2018.1.0a1
+- packageId: com.unity.performance.profile-analyzer@1.2.3
   testable: 0
   isDirectDependency: 0
-  version: 1.2.2
+  version: 1.2.3
   source: 1
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.performance.profile-analyzer@1.2.2
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.performance.profile-analyzer
   assetPath: Packages/com.unity.performance.profile-analyzer
   name: com.unity.performance.profile-analyzer
   displayName: Profile Analyzer
@@ -4229,7 +4573,7 @@ m_ResolvedPackages:
     email: 
     url: 
   category: 
-  type: asset
+  type: 
   description: "The Profile Analyzer tool supports the standard Unity Profiler. You
     can use it to analyze multiple frames and multiple data sets of the CPU data
     in the Profiler.\n\nMain features: \n\u25AA Multi-frame analysis of a single
@@ -4252,9 +4596,10 @@ m_ResolvedPackages:
     - 1.1.0
     - 1.1.1
     - 1.2.2
+    - 1.2.3
     compatible:
-    - 1.2.2
-    recommended: 1.2.2
+    - 1.2.3
+    recommended: 1.2.3
     deprecated: []
   dependencies: []
   resolvedDependencies: []
@@ -4271,16 +4616,16 @@ m_ResolvedPackages:
   entitlements:
     licensingModel: 1
   isAssetStorePackage: 0
-  datePublishedTicks: 638108624620000000
+  datePublishedTicks: 638699545898200000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.performance.profile-analyzer@1.2/manual/index.html
   hasRepository: 1
   repository:
     type: git
     url: https://github.cds.internal.unity3d.com/unity/com.unity.performance.profile-analyzer.git
-    revision: 2c63f931588caa60a1fef33b1b250b20d952dc58
+    revision: 835e61d94bd201d0dea5763dff75e86b6b61de29
     path: 
   unityLifecycle:
-    version: 1.2.2
+    version: 1.2.3
     nextVersion: 
     recommendedVersion: 
     isDeprecated: 0
@@ -4290,16 +4635,21 @@ m_ResolvedPackages:
   git:
     hash: 
     revision: 
-  upmReserved: '{"changelog":"### Fixed\n\n* Fixed exception thrown when removing
-    marker."}'
+  upmReserved: '{"changelog":"### Fixed\n\n* Fixed minimum supported version in documentation.\n*
+    Fixed PROFB-199; Unchecking ''Hide Removed Markers'' doesn''t work."}'
   assetStore:
     productId: 
-- packageId: com.unity.test-framework@1.3.9
+  fingerprint: a68e7bc849973d943853204178d08a2bc7656ffe
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.2.3
+    minimumUnityVersion: 2020.3.0a1
+- packageId: com.unity.test-framework@1.4.5
   testable: 0
   isDirectDependency: 0
-  version: 1.3.9
+  version: 1.4.5
   source: 1
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.test-framework@1.3.9
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.test-framework
   assetPath: Packages/com.unity.test-framework
   name: com.unity.test-framework
   displayName: Test Framework
@@ -4367,18 +4717,12 @@ m_ResolvedPackages:
     - 2.0.1-pre.12
     - 2.0.1-pre.18
     compatible:
-    - 1.3.9
-    - 1.4.0
-    - 1.4.1
-    - 1.4.2
-    - 1.4.3
-    - 1.4.4
     - 1.4.5
     - 2.0.1-exp.1
     - 2.0.1-exp.2
     - 2.0.1-pre.12
     - 2.0.1-pre.18
-    recommended: 1.3.9
+    recommended: 1.4.5
     deprecated: []
   dependencies:
   - name: com.unity.ext.nunit
@@ -4409,16 +4753,16 @@ m_ResolvedPackages:
   entitlements:
     licensingModel: 1
   isAssetStorePackage: 0
-  datePublishedTicks: 638283169810000000
-  documentationUrl: https://docs.unity3d.com/Packages/com.unity.test-framework@1.3/manual/index.html
+  datePublishedTicks: 638575054880000000
+  documentationUrl: https://docs.unity3d.com/Packages/com.unity.test-framework@1.4/manual/index.html
   hasRepository: 1
   repository:
     type: git
     url: https://github.com/Unity-Technologies/com.unity.test-framework.git
-    revision: 5c8a1448cee4d7607be0d60dceb66703b0cfe016
+    revision: e50747c90fb18ab9f4f350b60d0fcdcae19bdebc
     path: 
   unityLifecycle:
-    version: 1.3.9
+    version: 1.4.5
     nextVersion: 
     recommendedVersion: 
     isDeprecated: 0
@@ -4428,21 +4772,47 @@ m_ResolvedPackages:
   git:
     hash: 
     revision: 
-  upmReserved: '{"changelog":"- By using the editor command line new argument `-randomOrderSeed
-    x` you can run the tests in a randomized order, where x is an integer different
-    from 0. If a new test is added in the project the random order passing the same
-    seed will be kept, and the new test will be placed in the random list accordigly.\n-
-    Fix for WebGL platform target to close the browser tab when the run is completed.
-    \n- Added TestFileReferences.json to be generated on build step of the player,
-    so can be consumed later by Test runners to enrich data for run part."}'
+  upmReserved: '{"changelog":"- Fixed an issue where batchmode test runs would never
+    finish if a test yielded WaitForEndOfFrame (DSTR-1009).\n- Fixed an issue where
+    the location prompt was required when using the Install all tests in ''build''
+    folder option during test builds.\n- Canceling a PlayMode test run now correctly
+    restores the scene setup, instead of leaving the editor in the test scene.\n-
+    Fixed an issue where UnitySetUp did not fail when nested coroutines threw an
+    exception (DSTR-1007).\n- When selecting multiple tests and running them, the
+    test runner now correctly updates the details of the first selected test (UTF-602).\n-
+    The interaction mode and application idle time settings is now being changes
+    when running tests, resulting in faster test runs if not already in use (applies
+    to 2020.3 and later) (DSTR-690).\n- Fixed an issue where some NUnit attributes
+    caused errors and stopped async test runs (DSTR-1040).\n- Added support for the
+    MaxTime attribute on async and UnityTest methods (DSTR-1040).\n- Fixed a memory
+    leak issue where a large number of domain reloads within the same test could
+    crash the editor (DSTR-1023).\n- Changed to use a progress bar inside the test
+    runner window when running tests. This ensures that the progress bar is not fighting
+    to display when e.g. compiling scripts and also makes it easier to cancel a run.
+    This progress bar is displayed for all types of runs (EditMode, PlayMode and
+    Player). (UTF-596).\n- Fixed an issue where ignored tests with an attributes
+    did not display the ignore reason in the test runner UI.\n- Having multiple tests
+    with the same unique id no longer gives a error with ''An item with the same
+    key has already been added'', but instead logs an warning about the duplicate
+    id.\n- The result icons for test suites should no longer flicker when running
+    tests.\n- Ensured that test results ignored in the editor but run on a player
+    are not overwritten with ignore status when shown in the UI (DSTR-1042).\n- Fixed
+    an issue where the RunStarted event was not invoked correctly during a test run
+    (DSTR-1046).\n- Fixed an issue where TestStarted and TestFinished events were
+    repeated for ignored test fixtures after a domain reload (DSTR-986)."}'
   assetStore:
     productId: 
-- packageId: com.unity.testtools.codecoverage@1.2.4
+  fingerprint: 0a21eb82d95cd331643a1e0ce4e8e9a5f18954c8
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.4.5
+    minimumUnityVersion: 2019.4.0a10
+- packageId: com.unity.testtools.codecoverage@1.2.6
   testable: 0
   isDirectDependency: 0
-  version: 1.2.4
+  version: 1.2.6
   source: 1
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.testtools.codecoverage@1.2.4
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.testtools.codecoverage
   assetPath: Packages/com.unity.testtools.codecoverage
   name: com.unity.testtools.codecoverage
   displayName: Code Coverage
@@ -4451,7 +4821,7 @@ m_ResolvedPackages:
     email: 
     url: 
   category: 
-  type: asset
+  type: assets
   description: Use this package to export code coverage data and reports from your
     automated tests. Additionally, the Code Coverage package offers a Coverage Recording
     feature which allows capturing coverage data on demand, for manual testing or
@@ -4492,8 +4862,6 @@ m_ResolvedPackages:
     - 1.2.5
     - 1.2.6
     compatible:
-    - 1.2.4
-    - 1.2.5
     - 1.2.6
     recommended: 1.2.6
     deprecated: []
@@ -4504,7 +4872,7 @@ m_ResolvedPackages:
     version: 1.0.1
   resolvedDependencies:
   - name: com.unity.test-framework
-    version: 1.3.9
+    version: 1.4.5
   - name: com.unity.ext.nunit
     version: 2.0.5
   - name: com.unity.modules.imgui
@@ -4530,16 +4898,16 @@ m_ResolvedPackages:
   entitlements:
     licensingModel: 1
   isAssetStorePackage: 0
-  datePublishedTicks: 638212235100000000
+  datePublishedTicks: 638575857900000000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.testtools.codecoverage@1.2/manual/index.html
   hasRepository: 1
   repository:
     type: git
     url: https://github.cds.internal.unity3d.com/unity/com.unity.testtools.codecoverage.git
-    revision: a7dd0751db55cd55e3b336723fb51433c1de7244
+    revision: 959db8ff97eedf9b211ad5cf320b87ac01f1e90f
     path: 
   unityLifecycle:
-    version: 1.2.4
+    version: 1.2.6
     nextVersion: 
     recommendedVersion: 
     isDeprecated: 0
@@ -4549,20 +4917,25 @@ m_ResolvedPackages:
   git:
     hash: 
     revision: 
-  upmReserved: '{"changelog":"### Fixes\n- Fixed failing to gather code coverage
-    for normal methods in generic classes (case [COV-27](https://issuetracker.unity3d.com/issues/non-generic-methods-in-generic-classes-always-show-no-coverage)).\n-
-    Documentation: Corrected *Settings.json* path in `useProjectSettings` section
-    in *-coverageOptions* (case [COV-26](https://issuetracker.unity3d.com/issues/documentation-for-useprojectsettings-references-incorrect-settings-dot-json-path)).\n-
-    Make sure *Auto Generate Report* defaults to true when running from the command
-    line (case [COV-25](https://issuetracker.unity3d.com/issues/useprojectsettings-does-not-generate-report-until-auto-generate-report-is-toggled-off-and-on-again))."}'
+  upmReserved: '{"changelog":"### Fixes\n- Documentation: Fixed formatting in [Using
+    Code Coverage in batchmode](https://docs.unity3d.com/Packages/com.unity.testtools.codecoverage@1.2/manual/CoverageBatchmode.html)
+    page (case [COV-40](https://issuetracker.unity3d.com/issues/docs-formatting-in-using-code-coverage-in-batchmode-docs-page-is-incorrect)).\n-
+    Removed the references to the deprecated FindObjectOfType method in the *Asteroids
+    sample project* (case [COV-42](https://issuetracker.unity3d.com/issues/sample-project-is-using-obsolete-findobjectoftype-method-which-causes-multiple-warnings-in-console-when-it-is-imported)).\n-
+    Added missing logs for the ReportGenerator (case [COV-46](https://issuetracker.unity3d.com/issues/code-coverage-package-does-not-report-some-of-the-internal-reportgenerator-errors))."}'
   assetStore:
     productId: 
-- packageId: com.unity.burst@1.8.10
+  fingerprint: 205a02cbcb39584f20b51c49b853047aceb3a3a7
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.2.6
+    minimumUnityVersion: 2019.3.0a1
+- packageId: com.unity.burst@1.8.18
   testable: 0
   isDirectDependency: 0
-  version: 1.8.10
+  version: 1.8.18
   source: 1
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.burst@1.8.10
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.burst
   assetPath: Packages/com.unity.burst
   name: com.unity.burst
   displayName: Burst
@@ -4571,7 +4944,7 @@ m_ResolvedPackages:
     email: 
     url: 
   category: 
-  type: assets
+  type: 
   description: Burst is a compiler that translates from IL/.NET bytecode to highly
     optimized native code using LLVM.
   errors: []
@@ -4711,23 +5084,19 @@ m_ResolvedPackages:
     - 1.8.17
     - 1.8.18
     compatible:
-    - 1.8.10
-    - 1.8.11
-    - 1.8.12
-    - 1.8.13
-    - 1.8.14
-    - 1.8.15
-    - 1.8.16
-    - 1.8.17
     - 1.8.18
     recommended: 1.8.18
     deprecated: []
   dependencies:
   - name: com.unity.mathematics
     version: 1.2.1
+  - name: com.unity.modules.jsonserialize
+    version: 1.0.0
   resolvedDependencies:
   - name: com.unity.mathematics
-    version: 1.2.6
+    version: 1.3.2
+  - name: com.unity.modules.jsonserialize
+    version: 1.0.0
   keywords: []
   registry:
     id: main
@@ -4741,16 +5110,16 @@ m_ResolvedPackages:
   entitlements:
     licensingModel: 1
   isAssetStorePackage: 0
-  datePublishedTicks: 638350315750000000
+  datePublishedTicks: 638622972693870000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.burst@1.8/manual/index.html
   hasRepository: 1
   repository:
     type: git
-    url: git@github.cds.internal.unity3d.com:unity/burst
-    revision: 5c15eb0286bb61ca0ab006d4db90460d7304c8f3
+    url: https://github.cds.internal.unity3d.com/unity/burst.git
+    revision: 594a8d8794083be96fa510b2deea0954f971ecc9
     path: 
   unityLifecycle:
-    version: 1.8.10
+    version: 1.8.18
     nextVersion: 
     recommendedVersion: 
     isDeprecated: 0
@@ -4760,30 +5129,31 @@ m_ResolvedPackages:
   git:
     hash: 
     revision: 
-  upmReserved: '{"changelog":"### Fixed\n- Fixed the Burst Inspector not displaying
-    target methods if namespace/class contained the method name.\n- Linking libstdc++/libc++
-    statically on HMI platforms\n- Fixed an issue that caused an empty variable to
-    be returned if it is between a zero initializer\n- Native debug information would
-    fail to reflect the contents of parameters to functions.\n- For native debug
-    information, type symbols can now be referenced using :: separator between namespaces
-    (C++ style) - E.g. Example.Type  becomes Example::Type.\n- Fixed that changing
-    certain player build platform settings (like SDK version) would not trigger Burst
-    to recompile\n- Fixed invalid burst string formats leading to internal compiler
-    error.\n- Fixed QNX player builds on 32-bit ARM\n- Fixed an error thrown by the
-    Burst Inspector when opening a non-static job with special characters in its
-    name\n\n### Added\n- Added support for System.Math functions Acosh, Asinh, Atanh,
-    Cbrt, CopySign, Log2, SinCos, FusedMultiplyAdd, and ILogB\n\n### Removed\n- Remove
-    all code specific to DOTS Runtime\n\n### Changed\n- Use mimalloc as our native
-    allocator on Windows to speed up concurrently executing LLVM work\n\n### Known
-    Issues"}'
+  upmReserved: '{"changelog":"### Added\n- Added the `UNITY_BURST_DISABLE_COMPILATION`
+    environment variable as an alternative to the `--burst-disable-compilation` command-line
+    argument\n\n### Removed\n\n### Changed\n\n### Fixed\n- Static fields used in
+    static constructors were sometimes incorrectly set to read only, despite being
+    written.\n- Fixed a case of the editor getting stuck loading during a domain
+    reload if Burst was set to synchronous compilation\n- Fixed hashing bug that
+    could occur when method signatures differed only by generic parameter count\n-
+    Branches within if (cpufeaturesupported) blocks could cause the transform pass
+    to miss identify which blocks are supporting which features, leading to errors
+    at compile time about intrinsics not being in matching blocks.\n- Fixed ''cannot
+    open input file ucrt.lib'' error when building for Universal Windows Platform
+    and targeting SDK 10.0.26100.0\n\n### Known Issues"}'
   assetStore:
     productId: 
-- packageId: com.unity.collections@2.2.0
+  fingerprint: 616862665d8c8ffe643d505aebb5de2ee73b0ab0
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.8.18
+    minimumUnityVersion: 2020.3.0a1
+- packageId: com.unity.collections@2.5.1
   testable: 0
   isDirectDependency: 0
-  version: 2.2.0
+  version: 2.5.1
   source: 1
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.collections@2.2.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.collections
   assetPath: Packages/com.unity.collections
   name: com.unity.collections
   displayName: Collections
@@ -4792,7 +5162,7 @@ m_ResolvedPackages:
     email: 
     url: 
   category: 
-  type: assets
+  type: 
   description: A C# collections library providing data structures that can be used
     in jobs, and optimized by Burst compiler.
   errors: []
@@ -4869,53 +5239,35 @@ m_ResolvedPackages:
     - 2.5.0-pre.2
     - 2.5.1
     compatible:
-    - 1.2.4
-    - 1.3.1
-    - 1.4.0
-    - 1.5.1
-    - 2.1.0-exp.4
-    - 2.1.0-pre.2
-    - 2.1.0-pre.6
-    - 2.1.0-pre.11
-    - 2.1.0-pre.18
-    - 2.1.1
-    - 2.1.4
-    - 2.2.0
-    - 2.2.1
-    - 2.3.0-exp.1
-    - 2.3.0-pre.3
-    - 2.4.0-exp.2
-    - 2.4.0-pre.2
-    - 2.4.0-pre.5
-    - 2.4.0
-    - 2.4.1
-    - 2.4.2
-    - 2.4.3
-    - 2.5.0-exp.1
-    - 2.5.0-pre.2
     - 2.5.1
-    recommended: 1.2.4
+    recommended: 2.5.1
     deprecated: []
   dependencies:
   - name: com.unity.burst
-    version: 1.8.4
+    version: 1.8.17
+  - name: com.unity.test-framework
+    version: 1.4.5
   - name: com.unity.nuget.mono-cecil
     version: 1.11.4
-  - name: com.unity.modules.unityanalytics
-    version: 1.0.0
+  - name: com.unity.test-framework.performance
+    version: 3.0.3
   resolvedDependencies:
   - name: com.unity.burst
-    version: 1.8.10
+    version: 1.8.18
   - name: com.unity.mathematics
-    version: 1.2.6
-  - name: com.unity.nuget.mono-cecil
-    version: 1.11.4
-  - name: com.unity.modules.unityanalytics
-    version: 1.0.0
-  - name: com.unity.modules.unitywebrequest
-    version: 1.0.0
+    version: 1.3.2
   - name: com.unity.modules.jsonserialize
     version: 1.0.0
+  - name: com.unity.test-framework
+    version: 1.4.5
+  - name: com.unity.ext.nunit
+    version: 2.0.5
+  - name: com.unity.modules.imgui
+    version: 1.0.0
+  - name: com.unity.nuget.mono-cecil
+    version: 1.11.4
+  - name: com.unity.test-framework.performance
+    version: 3.0.3
   keywords:
   - dots
   - collections
@@ -4932,17 +5284,17 @@ m_ResolvedPackages:
   entitlements:
     licensingModel: 1
   isAssetStorePackage: 0
-  datePublishedTicks: 638230159910000000
-  documentationUrl: https://docs.unity3d.com/Packages/com.unity.collections@2.2/manual/index.html
+  datePublishedTicks: 638621282722800000
+  documentationUrl: https://docs.unity3d.com/Packages/com.unity.collections@2.5/manual/index.html
   hasRepository: 1
   repository:
     type: git
     url: https://github.cds.internal.unity3d.com/unity/dots.git
-    revision: 4d6114f4b7f3318a17fa7173dbfb3f3091418631
+    revision: 5b0dea6b455f5df005c19fa984ddfa237d6cd707
     path: 
   unityLifecycle:
-    version: 1.2.4
-    nextVersion: 2.1.0-pre.6
+    version: 2.5.1
+    nextVersion: 
     recommendedVersion: 
     isDeprecated: 0
     deprecationMessage: 
@@ -4951,19 +5303,23 @@ m_ResolvedPackages:
   git:
     hash: 
     revision: 
-  upmReserved: '{"changelog":"### Changed\n* Made `SegmentSort` and `SegmentSortMerge`
-    public to allow generic job type registration.\n\n\n### Fixed\n\n* Previously
-    it was possible to change the length of a `NativeList` via the `Length` property
-    setter while the NativeList is being used inside of a job without an InvalidOperationExcpetion
-    being thrown for the unsafe access."}'
+  upmReserved: '{"changelog":"### Changed\n* Updated Burst dependency to version
+    1.8.17\n* Updated Unity Test Framework dependency to version 1.4.5\n* Updated
+    entities packages dependencies\n\n### Fixed\n* Certain cases would cause an ILPostProcessor
+    to fail, blocking compilation, but no more."}'
   assetStore:
     productId: 
-- packageId: com.unity.mathematics@1.2.6
+  fingerprint: 56bff8827a7ef6d44fcee4f36e558a74da89c1a0
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 2.5.1
+    minimumUnityVersion: 2022.3.11f1
+- packageId: com.unity.mathematics@1.3.2
   testable: 0
   isDirectDependency: 0
-  version: 1.2.6
+  version: 1.3.2
   source: 1
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.mathematics@1.2.6
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.mathematics
   assetPath: Packages/com.unity.mathematics
   name: com.unity.mathematics
   displayName: Mathematics
@@ -4972,7 +5328,7 @@ m_ResolvedPackages:
     email: 
     url: 
   category: 
-  type: asset
+  type: assets
   description: Unity's C# SIMD math library providing vector types and math functions
     with a shader like syntax.
   errors: []
@@ -4998,10 +5354,8 @@ m_ResolvedPackages:
     - 1.3.1
     - 1.3.2
     compatible:
-    - 1.2.6
-    - 1.3.1
     - 1.3.2
-    recommended: 1.2.6
+    recommended: 1.3.2
     deprecated: []
   dependencies: []
   resolvedDependencies: []
@@ -5019,16 +5373,16 @@ m_ResolvedPackages:
   entitlements:
     licensingModel: 1
   isAssetStorePackage: 0
-  datePublishedTicks: 637841876140000000
-  documentationUrl: 
+  datePublishedTicks: 638409134840000000
+  documentationUrl: https://docs.unity3d.com/Packages/com.unity.mathematics@1.3/manual/index.html
   hasRepository: 1
   repository:
     type: git
     url: https://github.com/Unity-Technologies/Unity.Mathematics.git
-    revision: f110c8c230d253654afed153569030a587cc7557
+    revision: 1695a8503482a3131be78cc26308a93f82c05b04
     path: 
   unityLifecycle:
-    version: 1.2.6
+    version: 1.3.2
     nextVersion: 
     recommendedVersion: 
     isDeprecated: 0
@@ -5038,15 +5392,23 @@ m_ResolvedPackages:
   git:
     hash: 
     revision: 
-  upmReserved: 
+  upmReserved: '{"changelog":"### Fixed\n* Fixed `math.hash` crash when using IL2CPP
+    builds on Arm 32 bit devices.\n* Fixed obsolete method usage warnings for `MatrixDrawer.CanCacheInspectorGUI`
+    and `PrimitiveVectorDrawer.CanCacheInspectorGUI` in UNITY_2023_2_OR_NEWER.\n*
+    Updated minimum editor version to 2021.3"}'
   assetStore:
     productId: 
-- packageId: com.unity.rendering.light-transport@1.0.0
+  fingerprint: 8017b507cc74bf0a1dd14b18aa860569f807314d
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.3.2
+    minimumUnityVersion: 2021.3.0a1
+- packageId: com.unity.rendering.light-transport@1.0.1
   testable: 0
   isDirectDependency: 0
-  version: 1.0.0
+  version: 1.0.1
   source: 2
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.rendering.light-transport@1.0.0
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.rendering.light-transport
   assetPath: Packages/com.unity.rendering.light-transport
   name: com.unity.rendering.light-transport
   displayName: Unity Light Transport Library
@@ -5061,43 +5423,37 @@ m_ResolvedPackages:
   errors: []
   versions:
     all:
-    - 1.0.0
+    - 1.0.1
     compatible:
-    - 1.0.0
-    recommended: 1.0.0
+    - 1.0.1
+    recommended: 1.0.1
     deprecated: []
   dependencies:
   - name: com.unity.collections
-    version: 1.4.0
+    version: 2.2.0
   - name: com.unity.mathematics
     version: 1.2.4
-  - name: com.unity.render-pipelines.core
-    version: 16.0.1
+  - name: com.unity.modules.terrain
+    version: 1.0.0
   resolvedDependencies:
   - name: com.unity.collections
-    version: 2.2.0
+    version: 2.5.1
   - name: com.unity.burst
-    version: 1.8.10
+    version: 1.8.18
   - name: com.unity.mathematics
-    version: 1.2.6
-  - name: com.unity.nuget.mono-cecil
-    version: 1.11.4
-  - name: com.unity.modules.unityanalytics
-    version: 1.0.0
-  - name: com.unity.modules.unitywebrequest
-    version: 1.0.0
+    version: 1.3.2
   - name: com.unity.modules.jsonserialize
     version: 1.0.0
-  - name: com.unity.render-pipelines.core
-    version: 16.0.4
-  - name: com.unity.ugui
-    version: 2.0.0
-  - name: com.unity.modules.ui
-    version: 1.0.0
+  - name: com.unity.test-framework
+    version: 1.4.5
+  - name: com.unity.ext.nunit
+    version: 2.0.5
   - name: com.unity.modules.imgui
     version: 1.0.0
-  - name: com.unity.modules.physics
-    version: 1.0.0
+  - name: com.unity.nuget.mono-cecil
+    version: 1.11.4
+  - name: com.unity.test-framework.performance
+    version: 3.0.3
   - name: com.unity.modules.terrain
     version: 1.0.0
   keywords:
@@ -5125,7 +5481,7 @@ m_ResolvedPackages:
     revision: 
     path: 
   unityLifecycle:
-    version: 1.0.0
+    version: 1.0.1
     nextVersion: 
     recommendedVersion: 
     isDeprecated: 0
@@ -5138,12 +5494,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 307bc27a498fc9cd409bbd426c85d8dc7f140bc1
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.1
+    minimumUnityVersion: 2023.3.0b1
 - packageId: com.unity.settings-manager@2.0.1
   testable: 0
   isDirectDependency: 0
   version: 2.0.1
   source: 1
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.settings-manager@2.0.1
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.settings-manager
   assetPath: Packages/com.unity.settings-manager
   name: com.unity.settings-manager
   displayName: Settings Manager
@@ -5207,12 +5568,17 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: 56a930affa1e4462d3595b5c19a1c2a4bf2015d2
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 2.0.1
+    minimumUnityVersion: 2018.4.0a1
 - packageId: com.unity.ext.nunit@2.0.5
   testable: 0
   isDirectDependency: 0
   version: 2.0.5
   source: 1
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.ext.nunit@2.0.5
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.ext.nunit
   assetPath: Packages/com.unity.ext.nunit
   name: com.unity.ext.nunit
   displayName: Custom NUnit
@@ -5281,12 +5647,17 @@ m_ResolvedPackages:
   upmReserved: '{"changelog":"- Fixing bug for InstanceID as struct changes"}'
   assetStore:
     productId: 
+  fingerprint: 60ef35ffd3cd5e2f5c8887a4a4ca6148854cd092
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 2.0.5
+    minimumUnityVersion: 2019.4.0a1
 - packageId: com.unity.nuget.mono-cecil@1.11.4
   testable: 0
   isDirectDependency: 0
   version: 1.11.4
   source: 1
-  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.nuget.mono-cecil@1.11.4
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.nuget.mono-cecil
   assetPath: Packages/com.unity.nuget.mono-cecil
   name: com.unity.nuget.mono-cecil
   displayName: Mono Cecil
@@ -5315,9 +5686,11 @@ m_ResolvedPackages:
     - 1.10.1
     - 1.10.2
     - 1.11.4
+    - 1.11.5
     compatible:
     - 1.11.4
-    recommended: 1.11.4
+    - 1.11.5
+    recommended: 1.11.5
     deprecated: []
   dependencies: []
   resolvedDependencies: []
@@ -5356,3 +5729,144 @@ m_ResolvedPackages:
   upmReserved: 
   assetStore:
     productId: 
+  fingerprint: d6f9955a5d5f84d45442ff1ad0fb694cc6e2fd62
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.11.4
+    minimumUnityVersion: 2018.4.0a1
+- packageId: com.unity.test-framework.performance@3.0.3
+  testable: 0
+  isDirectDependency: 0
+  version: 3.0.3
+  source: 1
+  resolvedPath: D:\Github\MageRunnerTGH\TGH_MageGame\Library\PackageCache\com.unity.test-framework.performance
+  assetPath: Packages/com.unity.test-framework.performance
+  name: com.unity.test-framework.performance
+  displayName: Performance testing API
+  author:
+    name: 
+    email: 
+    url: 
+  category: 
+  type: assets
+  description: Package that extends Unity Test Framework package. Adds performance
+    testing capabilities and collects configuration metadata.
+  errors: []
+  versions:
+    all:
+    - 0.1.27-preview
+    - 0.1.29-preview
+    - 0.1.31-preview
+    - 0.1.33-preview
+    - 0.1.34-preview
+    - 0.1.36-preview
+    - 0.1.37-preview
+    - 0.1.39-preview
+    - 0.1.40-preview
+    - 0.1.41-preview
+    - 0.1.42-preview
+    - 0.1.44-preview
+    - 0.1.45-preview
+    - 0.1.47-preview
+    - 0.1.48-preview
+    - 0.1.49-preview
+    - 0.1.50-preview
+    - 1.0.4-preview
+    - 1.0.6-preview
+    - 1.0.9-preview
+    - 1.1.2-preview
+    - 1.2.0-preview
+    - 1.2.1-preview
+    - 1.2.3-preview
+    - 1.2.5-preview
+    - 1.2.6-preview
+    - 1.3.0-preview
+    - 1.3.1-preview
+    - 1.3.2-preview
+    - 1.3.3-preview
+    - 2.0.1-preview
+    - 2.0.2-preview
+    - 2.0.3-preview
+    - 2.0.6-preview
+    - 2.0.7-preview
+    - 2.0.8-preview
+    - 2.0.9-preview
+    - 2.1.0-preview
+    - 2.2.0-preview
+    - 2.3.1-preview
+    - 2.4.1-preview
+    - 2.5.1-preview
+    - 2.6.0-preview
+    - 2.7.0-preview
+    - 2.8.0-preview
+    - 2.8.1-preview
+    - 3.0.0-pre.1
+    - 3.0.0-pre.2
+    - 3.0.1
+    - 3.0.2
+    - 3.0.3
+    compatible:
+    - 3.0.3
+    recommended: 3.0.3
+    deprecated: []
+  dependencies:
+  - name: com.unity.test-framework
+    version: 1.1.31
+  - name: com.unity.modules.jsonserialize
+    version: 1.0.0
+  resolvedDependencies:
+  - name: com.unity.test-framework
+    version: 1.4.5
+  - name: com.unity.ext.nunit
+    version: 2.0.5
+  - name: com.unity.modules.imgui
+    version: 1.0.0
+  - name: com.unity.modules.jsonserialize
+    version: 1.0.0
+  keywords:
+  - performance
+  - test
+  registry:
+    id: main
+    name: 
+    url: https://packages.unity.com
+    scopes: []
+    isDefault: 1
+    capabilities: 7
+    configSource: 0
+  hideInEditor: 1
+  entitlements:
+    licensingModel: 1
+  isAssetStorePackage: 0
+  datePublishedTicks: 638301960470000000
+  documentationUrl: https://docs.unity3d.com/Packages/com.unity.test-framework.performance@3.0/manual/index.html
+  hasRepository: 1
+  repository:
+    type: git
+    url: https://github.cds.internal.unity3d.com/unity/com.unity.test-framework.performance.git
+    revision: 10b82691b2d9f4e4aa8385c8d797c7e544bac548
+    path: 
+  unityLifecycle:
+    version: 3.0.3
+    nextVersion: 
+    recommendedVersion: 
+    isDeprecated: 0
+    deprecationMessage: 
+  isDeprecated: 0
+  deprecationMessage: 
+  git:
+    hash: 
+    revision: 
+  upmReserved: '{"changelog":"## Fixed \n- Fixed issue where exception in OnTestEnded
+    callback would result in EndTest method not finalising properly\n### Changed\n-
+    Temporarily removed \"Open Script\" from Performance Benchmark Window\n- Some
+    clarifications in documentation were added (\"Extension\" naming changed to \"Package\",
+    Package limitations clarified)"}'
+  assetStore:
+    productId: 
+  fingerprint: fb0dc592af8b524f1a06c50d7caf95552f1bcd2f
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 3.0.3
+    minimumUnityVersion: 2020.3.0a1
+m_BuiltInPackagesHash: 4cede7dc3c62c0ecb7c01d560270343cdcbdf8f3

@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-//using UnityEngine.InputSystem;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {

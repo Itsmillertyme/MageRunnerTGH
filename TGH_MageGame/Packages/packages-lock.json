@@ -1,15 +1,5 @@
 {
   "dependencies": {
-    "com.andywiecko.burst.triangulator": {
-      "version": "https://github.com/andywiecko/BurstTriangulator.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {
-        "com.unity.burst": "1.8.7",
-        "com.unity.collections": "2.2.0"
-      },
-      "hash": "d071913d146136a8ecb7bebe7c7ae113c26af413"
-    },
     "com.unity.ai.navigation": {
       "version": "2.0.5",
       "depth": 0,
@@ -21,7 +11,7 @@
     },
     "com.unity.burst": {
       "version": "1.8.18",
-      "depth": 1,
+      "depth": 2,
       "source": "registry",
       "dependencies": {
         "com.unity.mathematics": "1.2.1",
@@ -47,7 +37,7 @@
     },
     "com.unity.collections": {
       "version": "2.5.1",
-      "depth": 1,
+      "depth": 2,
       "source": "registry",
       "dependencies": {
         "com.unity.burst": "1.8.17",
@@ -128,7 +118,7 @@
     },
     "com.unity.nuget.mono-cecil": {
       "version": "1.11.4",
-      "depth": 2,
+      "depth": 3,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
@@ -219,7 +209,7 @@
     },
     "com.unity.test-framework.performance": {
       "version": "3.0.3",
-      "depth": 2,
+      "depth": 3,
       "source": "registry",
       "dependencies": {
         "com.unity.test-framework": "1.1.31",

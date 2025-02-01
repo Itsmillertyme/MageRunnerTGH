@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e252da011820ce4782d9d31067cddbf, type: 3}
-  m_Name: Fireball - Tier 0 - Projectile Size 2
+  m_Name: Skill 1 - FE
   m_EditorClassIdentifier: 
   isOwned: 0
   canPurchase: 1

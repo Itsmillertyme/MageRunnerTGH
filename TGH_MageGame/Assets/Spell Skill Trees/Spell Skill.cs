@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu]
 
@@ -31,5 +32,15 @@ public class SpellSkill : ScriptableObject
     public void SetCanPurchase()
     {
         canPurchase = true;
+    }
+
+    public void SetCantPurchase()
+    {
+        canPurchase = false;
+    }
+
+    public void SetNotOwned()
+    {
+        isOwned = false;
     }
 }

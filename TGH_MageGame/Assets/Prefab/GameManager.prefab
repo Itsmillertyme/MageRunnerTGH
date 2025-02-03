@@ -47,15 +47,14 @@ MonoBehaviour:
   hud: {fileID: 0}
   projectileSpawn: {fileID: 0}
   player: {fileID: 0}
+  introOverlayPanel: {fileID: 0}
+  outroOverlayPanel: {fileID: 0}
+  fireFX: {fileID: 8300000, guid: b58074bdabe9fb94bab8f8041c00262d, type: 3}
+  levelSound: {fileID: 8300000, guid: 6ddcea481a6a0dc41bd10c75f3ed47a2, type: 3}
+  playOutro: 0
   knownBugs:
   - 'There''s no way to get current health without having a serialized field. Each
     projectile has a hard reference to player stats. '
-  - 
+  - Bullets are noticeably rotated in runtime when aiming up and firing Rays.
   - 'If you move mouse left/right back and forth rapidly the player becomes movement
     locked. '
-  - Bullets are noticeably rotated in runtime when aiming up and firing Rays.
-  - We need the animations to not play if cannot cast. I added a getter for that.
-    it's not settable.
-  - 
-  - 
-  - 

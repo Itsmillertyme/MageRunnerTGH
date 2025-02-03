@@ -16,6 +16,10 @@ public class GameManager : MonoBehaviour {
     [SerializeField] AudioClip fireFX;
     [SerializeField] AudioClip levelSound;
 
+    [SerializeField] LevelEnemies levelEnemies;
+    [SerializeField] LevelDecorations levelDecorations;
+
+    public bool playIntro;
     public bool playOutro;
     bool outroPlayed = false;
 
@@ -29,6 +33,9 @@ public class GameManager : MonoBehaviour {
     [Header("Bugs / Issues")]
     [SerializeField] private List<string> knownBugs = new List<string>();
 
+    public LevelEnemies LevelEnemies { get => levelEnemies; }
+    public LevelDecorations LevelDecorations { get => levelDecorations; }
+
     private void Awake() {
         //DEV ONLY - REMOVE BEFORE BUILD - setup debug object
         mousePositionObject = new GameObject().transform;
@@ -41,23 +48,27 @@ public class GameManager : MonoBehaviour {
         }
 
         //DEMO OVERLAY CODE
-        //set sound
-        Camera cam = Camera.main;
-        cam.GetComponent<AudioSource>().resource = fireFX;
-        cam.GetComponent<AudioSource>().Play();
 
-        //get tmp assets
-        TextMeshProUGUI[] introTMPs = introOverlayPanel.GetComponentsInChildren<TextMeshProUGUI>();
+        if (playIntro) {
+            //set sound
+            Camera cam = Camera.main;
+            cam.GetComponent<AudioSource>().resource = fireFX;
+            cam.GetComponent<AudioSource>().Play();
 
-        //set intro panel pos
-        introOverlayPanel.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
+            //get tmp assets
+            TextMeshProUGUI[] introTMPs = introOverlayPanel.GetComponentsInChildren<TextMeshProUGUI>();
 
-        //hide text
-        for (int i = 0; i < introTMPs.Length; i++) {
-            introTMPs[i].color = new Color(1, 1, 1, 0);
+            //set intro panel pos
+            introOverlayPanel.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
+
+            //hide text
+            for (int i = 0; i < introTMPs.Length; i++) {
+                introTMPs[i].color = new Color(1, 1, 1, 0);
+            }
+
+            StartCoroutine(PlayIntroOverlay(introTMPs));
         }
 
-        StartCoroutine(PlayIntroOverlay(introTMPs));
 
     }
 

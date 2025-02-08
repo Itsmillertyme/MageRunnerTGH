@@ -123,15 +123,17 @@ public class DungeonCreator : MonoBehaviour {
             GenerateWallPositions(listOfCorridors[i], corridorMaterial, corridorParent);
         }
 
+        //Create walls
         CreateWalls(wallParent);
 
-        List<Transform> walls = new List<Transform>();
 
+        List<Transform> walls = new List<Transform>();
         for (int i = 0; i < wallParent.childCount; i++) {
 
             walls.Add(wallParent.GetChild(i));
         }
 
+        //Create backmask for level
         CreateMasks(listOfRooms, listOfCorridors);
 
         //*END DUNGEON GENERATION*
@@ -207,9 +209,6 @@ public class DungeonCreator : MonoBehaviour {
         //*PLACE FLOOR DECORATIONS*
         DecorationItemSpawner dis = GetComponent<DecorationItemSpawner>();
         dis.SpawnDecorationItems(decorationItemLocations, decorationParent);
-        //foreach (Vector3 spawnPos in decorationItemLocations) {
-        //    dis.SpawnDecorationItem(spawnPos);
-        //}
 
         //*PLACE PLAYER*
         PlacePlayer(pf.StartPoint);

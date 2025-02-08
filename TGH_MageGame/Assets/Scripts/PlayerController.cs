@@ -1,11 +1,13 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
 
-    //Component references
+    //**PROPERTIES**
+    [Header("Component References")]
     ActionAsset actionAsset;
     CharacterController characterController;
     Animator animator;
@@ -13,6 +15,8 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] MousePositionTracking mousePositionTracker;
     [SerializeField] GameObject playerModel;
     [SerializeField] Transform projectileSpawn;
+    [SerializeField] GameManager gameManager;
+    [SerializeField] RectTransform crosshairRect;
 
     //Player variables
     float currentMovementInput;
@@ -31,21 +35,19 @@ public class PlayerController : MonoBehaviour {
     bool topCollided = false;
     bool freezePhysics = false;
 
+    [Header("Player Settings")]
     //Jump Varbiables
     [SerializeField] float maxJumpHeight; //SII
     [SerializeField] float maxJumpTime; //SII
     float initJumpVelocity;
     bool isJumping = false;
-
     //Movement Varbiables
     [SerializeField] float movementSpeed;
     [SerializeField] float sprintMultiplier;
     [SerializeField] float dashForce;
-
     //Gravity Variables
     [SerializeField][Range(-0.1f, -20f)] float gravity = -9.8f; //SII
     float groundedGravity = -0.05f;
-
     //Animation Variables
     int isWalkingHash;
     int isRunningHash;
@@ -68,10 +70,14 @@ public class PlayerController : MonoBehaviour {
     Coroutine dashAnimation;
     Coroutine castAnimation;
 
+    [Header("Miscellaneous References")]
+    [SerializeField] UnityEvent SpellMenuInputPressed;
+
+    //**FIELDS**
     public bool IsFacingLeft { get => isFacingLeft; set => isFacingLeft = value; }
     public bool FreezePhysics { get => freezePhysics; set => freezePhysics = value; }
 
-    //**Unity Methods**
+    //**UNITY METHODS**
     void Awake() {
         //Initialize
         actionAsset = new ActionAsset();
@@ -131,6 +137,10 @@ public class PlayerController : MonoBehaviour {
         actionAsset.Player.MoveCamera.performed += Camera.main.GetComponent<CameraController>().CycleCameraPosition;
         //
         actionAsset.Player.DEVBREAK.performed += Devbreak;
+        //
+        actionAsset.Player.OpenSpellMenu.performed += OnSpellMenuInput;
+        //
+        actionAsset.Player.HotSwitch.performed += OnHotSwitch;
 
 
         SetupJumpVariables();
@@ -230,7 +240,7 @@ public class PlayerController : MonoBehaviour {
         actionAsset.Player.Disable();
     }
 
-    //**Utility Methods**
+    //**UTILITY METHODS**
     void SetupJumpVariables() {
         float timeToApex = maxJumpTime / 2;
         gravity = (-2 * maxJumpHeight) / Mathf.Pow(timeToApex, 2);
@@ -270,15 +280,15 @@ public class PlayerController : MonoBehaviour {
     public void OnJump(InputAction.CallbackContext context) {
         isJumpPressed = context.ReadValueAsButton();
     }
-    //
+    //Wrapper for block input callbacks
     public void OnBlock(InputAction.CallbackContext context) {
         isBlockPressed = context.ReadValueAsButton();
     }
-    //
+    //Wrapper for melee input callbacks
     public void OnMelee(InputAction.CallbackContext context) {
         animator.CrossFade(meleeHash, 0.01f);
     }
-    //
+    //Wrapper for dash input callbacks
     public void OnDash(InputAction.CallbackContext context) {
 
         if (dashAnimation == null) {
@@ -286,13 +296,23 @@ public class PlayerController : MonoBehaviour {
         }
 
     }
-    //
+    //Wrapper for cast input callbacks
     public void OnCast(InputAction.CallbackContext context) {
 
         if (castAnimation == null) {
             castAnimation = StartCoroutine(CastAnim());
         }
 
+    }
+    //Wrapper for spell menu input callbacks
+    public void OnSpellMenuInput(InputAction.CallbackContext context) {
+        SpellMenuInputPressed.Invoke();
+    }
+    //Wrapper for hot switch input callbacks
+    public void OnHotSwitch(InputAction.CallbackContext context) {
+
+        Debug.Log("hotswitch");
+        GetComponent<SpellBook>().HotSwitchSpell();
     }
     //
     void HandleAnimation() {
@@ -434,13 +454,27 @@ public class PlayerController : MonoBehaviour {
     }
     //    
     private void HandlePlayerDirection() {
-        if ((!isFacingLeft && Input.mousePosition.x < Screen.width / 2f) || (isFacingLeft && Input.mousePosition.x > Screen.width / 2f)) {
+        if (gameManager.CurrentScheme == ControlScheme.KEYBOARDMOUSE) {
+            if ((!isFacingLeft && Input.mousePosition.x < Screen.width / 2f) || (isFacingLeft && Input.mousePosition.x > Screen.width / 2f)) {
 
-            if (turnAnimation == null) {
-                turnAnimation = StartCoroutine(TurnAnim());
-                wasFlippedLastFrame = true;
+                if (turnAnimation == null) {
+                    turnAnimation = StartCoroutine(TurnAnim());
+                    wasFlippedLastFrame = true;
+                }
             }
         }
+        else if (gameManager.CurrentScheme == ControlScheme.GAMEPAD) {
+
+            //Debug.Log(crosshairRect.anchoredPosition.x);
+            //Debug.Log(Screen.width / 2f);
+            if ((!isFacingLeft && crosshairRect.anchoredPosition.x < 0) || (isFacingLeft && crosshairRect.anchoredPosition.x >= 0)) {
+                if (turnAnimation == null) {
+                    turnAnimation = StartCoroutine(TurnAnim());
+                    wasFlippedLastFrame = true;
+                }
+            }
+        }
+
     }
     //DEV ONLY - DELETE BEFORE FINAL BUILD
     void Devbreak(InputAction.CallbackContext context) {
@@ -467,7 +501,7 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    //**Coroutines**
+    //**COROUTINES**
     IEnumerator TurnAnim() {
 
         //set new rotation
@@ -636,10 +670,10 @@ public class PlayerController : MonoBehaviour {
         yield return new WaitForSeconds(delay);
 
         //FIRE FROM SPELL BOOK
-        GameManager gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        //GameManager gm = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         //test if cursor is not between player and spawn point
-        if (Vector3.Distance(gm.GetPlayerPivot(), gm.GetMousePositionInWorldSpace()) > Vector3.Distance(gm.GetPlayerPivot(), projectileSpawn.position)) {
+        if (Vector3.Distance(gameManager.GetPlayerPivot(), gameManager.GetMousePositionInWorldSpace()) > Vector3.Distance(gameManager.GetPlayerPivot(), projectileSpawn.position)) {
             spellBook.Cast();
         }
 

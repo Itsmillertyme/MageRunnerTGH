@@ -37,8 +37,8 @@ public class GameManager : MonoBehaviour {
     [Header("DEV ONLY")]
     Transform cursorPositionObject;
     Transform playerPositionObject;
-    [SerializeField] Mesh debugObjectMesh;
-    [SerializeField] Material debugMaterial;
+    public Mesh debugObjectMesh;
+    public Material debugMaterial;
     [Header("Bugs / Issues")]
     [SerializeField] private List<string> knownBugs = new List<string>();
 
@@ -52,11 +52,13 @@ public class GameManager : MonoBehaviour {
     private void Awake() {
         //DEV ONLY - REMOVE BEFORE BUILD - setup debug object
         cursorPositionObject = new GameObject("CursorPosObject").transform;
+        cursorPositionObject.transform.parent = GameObject.FindWithTag("Player").transform;
         //cursorPositionObject = new GameObject("MousePosObject", typeof(MeshFilter), typeof(MeshRenderer)).transform;
         //cursorPositionObject.GetComponent<MeshFilter>().mesh = debugObjectMesh;
         //cursorPositionObject.GetComponent<MeshRenderer>().material = debugMaterial;
 
         playerPositionObject = new GameObject("PlayerPosObject").transform;
+        playerPositionObject.transform.parent = GameObject.FindWithTag("Player").transform;
         //playerPositionObject = new GameObject("PlayerPosObject", typeof(MeshFilter), typeof(MeshRenderer)).transform;
         //playerPositionObject.GetComponent<MeshFilter>().mesh = debugObjectMesh;
         //playerPositionObject.GetComponent<MeshRenderer>().material = debugMaterial;

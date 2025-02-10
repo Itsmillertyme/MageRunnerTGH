@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: 754bc3d26e9b0de47ad0cbd5b6c90267
+AssetOrigin:
+  serializedVersion: 1
+  productId: 56491
+  packageName: Toon Loot and Props Pack
+  packageVersion: 1.2
+  assetPath: Assets/Toon Loot and Props Pack/New FBX/Chest.FBX
+  uploadId: 687586
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable:
@@ -91,8 +98,6 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -317,10 +322,3 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 56491
-  packageName: Toon Loot and Props Pack
-  packageVersion: 1.2
-  assetPath: Assets/Toon Loot and Props Pack/New FBX/Chest.FBX
-  uploadId: 687586

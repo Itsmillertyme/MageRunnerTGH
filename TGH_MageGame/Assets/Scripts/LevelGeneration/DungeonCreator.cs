@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Unity.AI.Navigation;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class DungeonCreator : MonoBehaviour {
 
@@ -62,7 +63,7 @@ public class DungeonCreator : MonoBehaviour {
     public Material pathNodeEndMaterial;
     public LevelDecorations levelDecorations;
     //public LevelEnemies levelEnemies;
-    public NavMeshSurface navMeshSurface;
+    //public NavMeshSurface navMeshSurface;
 
     List<WallData> possibleDoorHorizontalPosition;
     List<WallData> possibleDoorVerticalPosition;
@@ -145,7 +146,6 @@ public class DungeonCreator : MonoBehaviour {
         }
         pf.StartPoint.GetComponent<MeshRenderer>().sharedMaterial = pathNodeStartMaterial;
 
-
         //*PLACE ROOM SPECIFIC OBJECTS*     
         foreach (PathNode node in pf.PathNodes) {
             //Create platforms
@@ -223,13 +223,29 @@ public class DungeonCreator : MonoBehaviour {
         }
         //Boss
         PathNode bossNode = pf.EndPoints[pf.EndPoints.Count - 1];
-        es.SpawnBoss(bossNode, bossPrefab, (bossNode.RoomTopLeftCorner.y - bossNode.RoomDimensions.y / 2) > (dungeonWidth / 2) ? true : false);
+        es.SpawnBoss(bossNode, (bossNode.RoomTopLeftCorner.y - bossNode.RoomDimensions.y / 2) > (dungeonWidth / 2) ? true : false, enemiesParent);
 
         //*ROTATE TO PROPER PERSPECTIVE*
         if (!dungeonFlatMode) {
             //DEV - rotate parent to show vertically
             dungeonParent.rotation = Quaternion.Euler(0, 90, 90);
             dungeonParent.position = new Vector3(0, 0, -0.5f);
+        }
+
+        //*BAKE NAVMESH
+        NavMeshSurface nms = GetComponent<NavMeshSurface>();
+        nms.BuildNavMesh();
+
+        //*TURN ON NAVMESH AGENTS FOR ALL ENEMIES AND INIT BEHAVIORS*
+        for (int i = 0; i < enemiesParent.childCount; i++) {
+            GameObject enemy = enemiesParent.GetChild(i).gameObject;
+            enemy.GetComponent<NavMeshAgent>().enabled = true;
+
+            //DEV ONLY - SKIP BOSS
+            if (i != 0) {
+                enemy.GetComponent<EnemyPatrol>().Initialize();
+            }
+
         }
 
         //DEV ONLY
@@ -317,16 +333,8 @@ public class DungeonCreator : MonoBehaviour {
         else {
             //Walls facing North or South (Horizontal walls)
             GameObject go = Instantiate(wallPrefabIn, new Vector3(wallPositionIn.position.x, wallPositionIn.position.y - 0.01f, wallPositionIn.position.z), Quaternion.Euler(90, 90, 0), wallParentIn);
+            go.layer = 9;//Ground layer
         }
-
-
-        //GameObject go = Instantiate(wallPrefabIn, new Vector3(wallPositionIn.position.x, wallPositionIn.position.y - .01f, wallPositionIn.position.z), Quaternion.Euler(90, 90, 0), wallParentIn);
-
-        //float newRotation = (int) wallPositionIn.direction * 90f;
-
-        //GameObject rotationobject = go.transform.GetChild(0).gameObject;
-        //Quaternion rotation = go.transform.rotation;
-        //rotationobject.transform.rotation = Quaternion.Euler(rotation.x, rotation.y + newRotation, rotation.z);
     }
 
     private void CreateMasks(List<RoomNode> roomsIn, List<CorridorNode> corridorsIn) { //Generate masking meshes
@@ -824,6 +832,7 @@ public class DungeonCreator : MonoBehaviour {
 
             GameObject platform = Instantiate(platformPrefab, spawnPos, Quaternion.Euler(0, 0, 0));
             platform.transform.parent = platformParent;
+            platform.layer = 9; //Ground layer
 
             //spawn decoration
             float roll = UnityEngine.Random.value;

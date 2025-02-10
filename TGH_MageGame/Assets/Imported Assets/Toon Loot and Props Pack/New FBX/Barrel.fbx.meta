@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: 40b32f8b2dbee27438b53e39be41e6ff
+AssetOrigin:
+  serializedVersion: 1
+  productId: 56491
+  packageName: Toon Loot and Props Pack
+  packageVersion: 1.2
+  assetPath: Assets/Toon Loot and Props Pack/New FBX/Barrel.fbx
+  uploadId: 687586
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -16,8 +23,6 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -32,7 +37,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1
@@ -107,10 +112,3 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 56491
-  packageName: Toon Loot and Props Pack
-  packageVersion: 1.2
-  assetPath: Assets/Toon Loot and Props Pack/New FBX/Barrel.fbx
-  uploadId: 687586

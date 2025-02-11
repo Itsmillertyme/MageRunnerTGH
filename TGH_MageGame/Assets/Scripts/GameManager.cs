@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour {
     public LevelDecorations LevelDecorations { get => levelDecorations; }
     public ControlScheme CurrentScheme { get => currentScheme; }
     public Vector3 CrosshairPositionIn3DSpace { get => cursorPositionObject.transform.position; }
+    public Transform Player { get => player; }
 
     //**UNITY METHODS**
     private void Awake() {

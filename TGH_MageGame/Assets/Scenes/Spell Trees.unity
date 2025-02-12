@@ -134,7 +134,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &133439418
 Transform:
   m_ObjectHideFlags: 0
@@ -148,11 +148,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1437925496}
   - {fileID: 1249202287}
-  - {fileID: 1750139034}
   - {fileID: 921283157}
   - {fileID: 1823033583}
+  - {fileID: 1437925496}
+  - {fileID: 1750139034}
   - {fileID: 333528896}
   - {fileID: 176025627}
   m_Father: {fileID: 0}
@@ -474,6 +474,63 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!1001 &1544072303
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7051244704415324069, guid: 6b733e3c159cd5b4186e602485853255, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 108.99999
+      objectReference: {fileID: 0}
+    - target: {fileID: 7051244704415324069, guid: 6b733e3c159cd5b4186e602485853255, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7051244704415324069, guid: 6b733e3c159cd5b4186e602485853255, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.9999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 7051244704415324069, guid: 6b733e3c159cd5b4186e602485853255, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7051244704415324069, guid: 6b733e3c159cd5b4186e602485853255, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7051244704415324069, guid: 6b733e3c159cd5b4186e602485853255, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7051244704415324069, guid: 6b733e3c159cd5b4186e602485853255, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7051244704415324069, guid: 6b733e3c159cd5b4186e602485853255, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7051244704415324069, guid: 6b733e3c159cd5b4186e602485853255, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7051244704415324069, guid: 6b733e3c159cd5b4186e602485853255, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7052650495375158606, guid: 6b733e3c159cd5b4186e602485853255, type: 3}
+      propertyPath: m_Name
+      value: Cory Player Mods
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6b733e3c159cd5b4186e602485853255, type: 3}
 --- !u!224 &1750139034 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3350535528343182628, guid: b7e4d15a0385ea0429b477d3e42e007d, type: 3}
@@ -494,7 +551,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6141125883169294732, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
       propertyPath: m_Name
-      value: Lightning Crash Tree
+      value: Thunderlord's Cascade Tree
+      objectReference: {fileID: 0}
+    - target: {fileID: 6141125883169294732, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8422896854874078351, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
       propertyPath: m_Pivot.x
@@ -673,6 +734,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Abilities
       objectReference: {fileID: 0}
+    - target: {fileID: 5047966578151699707, guid: 4ffea77e20f94c745a33e7aa96cbf875, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -768,7 +833,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6181102839225815612, guid: b7e4d15a0385ea0429b477d3e42e007d, type: 3}
       propertyPath: m_Name
-      value: Fragmented Earth Tree
+      value: Shatterstone Barrage Tree
+      objectReference: {fileID: 0}
+    - target: {fileID: 6181102839225815612, guid: b7e4d15a0385ea0429b477d3e42e007d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -865,7 +934,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5185380739391220917, guid: 034c507e58932284984411e648151918, type: 3}
       propertyPath: m_Name
-      value: Fire Bomb Tree
+      value: Winter's Wrath Tree
+      objectReference: {fileID: 0}
+    - target: {fileID: 5185380739391220917, guid: 034c507e58932284984411e648151918, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -882,7 +955,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5654415678697391507, guid: d732d6243375faf47a65f20362cc7775, type: 3}
       propertyPath: m_Name
-      value: Immolation Tree
+      value: Infernal Embrace Tree
+      objectReference: {fileID: 0}
+    - target: {fileID: 5654415678697391507, guid: d732d6243375faf47a65f20362cc7775, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5755578607971059628, guid: d732d6243375faf47a65f20362cc7775, type: 3}
       propertyPath: m_Pivot.x
@@ -979,7 +1056,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1405328071457586770, guid: 41e8aa0c47b4f5846919002bb5d2f1cf, type: 3}
       propertyPath: m_Name
-      value: Piercing Light
+      value: Heaven's Lament Tree
+      objectReference: {fileID: 0}
+    - target: {fileID: 1405328071457586770, guid: 41e8aa0c47b4f5846919002bb5d2f1cf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2449777025571839093, guid: 41e8aa0c47b4f5846919002bb5d2f1cf, type: 3}
       propertyPath: m_Pivot.x
@@ -1156,7 +1237,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1493979314417871212, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
       propertyPath: m_Name
-      value: Nether Rays Tree
+      value: Abyssal Fang Tree
+      objectReference: {fileID: 0}
+    - target: {fileID: 1493979314417871212, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1171,3 +1256,4 @@ SceneRoots:
   - {fileID: 873897111}
   - {fileID: 1474187719}
   - {fileID: 133439418}
+  - {fileID: 1544072303}

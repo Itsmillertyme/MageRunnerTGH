@@ -1498,7 +1498,7 @@ MonoBehaviour:
   movementSpeed: 3
   sprintMultiplier: 2
   dashForce: 10
-  gravity: 9.8
+  gravity: -0.1
 --- !u!114 &8870210333477321073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1512,13 +1512,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spellBook:
-  - {fileID: 11400000, guid: 23d516d05a48a794cabc4ffbf906b161, type: 2}
-  - {fileID: 11400000, guid: a06248178f60d2c4c89c16cc60d05fdf, type: 2}
-  - {fileID: 11400000, guid: 3bb85874ded6f7d4396b49431e8f9591, type: 2}
-  - {fileID: 11400000, guid: 4084a4766f018cb448c71bf87b99f489, type: 2}
-  - {fileID: 11400000, guid: 121add7ee3933d54f93fce173ee5796f, type: 2}
-  - {fileID: 11400000, guid: 021a2b3320c51b54187bbd5e0d620d32, type: 2}
-  spawnPosition: {fileID: 351126521477295493}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  spellSpawnPoints: []
   ActiveSpellSwitched:
     m_PersistentCalls:
       m_Calls:

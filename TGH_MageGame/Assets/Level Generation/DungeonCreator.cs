@@ -767,6 +767,8 @@ public class DungeonCreator : MonoBehaviour {
                 platformData += count % 2 == 1 ? "0" : "1";
             }
 
+            //01110 -> 10001 -> 
+
             //add or remove random
             System.Random rand = new System.Random();
             int randomIndex = rand.Next(1, platformData.Length - 1);

@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour {
     public bool IsFacingLeft { get => isFacingLeft; set => isFacingLeft = value; }
     public bool FreezePhysics { get => freezePhysics; set => freezePhysics = value; }
 
-    //**Unity Methods**
+    //**Unity Methods    
     void Awake() {
         //Initialize
         actionAsset = new ActionAsset();
@@ -219,6 +219,17 @@ public class PlayerController : MonoBehaviour {
 
 
     }
+
+    private void HandlePlayerDirection() {
+        if ((!isFacingLeft && Input.mousePosition.x < Screen.width / 2f) || (isFacingLeft && Input.mousePosition.x > Screen.width / 2f)) {
+
+            if (turnAnimation == null) {
+                turnAnimation = StartCoroutine(TurnAnim());
+                wasFlippedLastFrame = true;
+            }
+        }
+    }
+
     //
     private void OnEnable() {
         //Turn on action assets
@@ -230,12 +241,7 @@ public class PlayerController : MonoBehaviour {
         actionAsset.Player.Disable();
     }
 
-    //**Utility Methods**
-    void SetupJumpVariables() {
-        float timeToApex = maxJumpTime / 2;
-        gravity = (-2 * maxJumpHeight) / Mathf.Pow(timeToApex, 2);
-        initJumpVelocity = (2 * maxJumpHeight) / timeToApex;
-    }
+    //**Utility Methods
     //Wrapper for movement input callbacks
     public void OnMovementInput(InputAction.CallbackContext context) {
 
@@ -258,14 +264,17 @@ public class PlayerController : MonoBehaviour {
         isMovementPressed = currentMovementInput != 0;
 
     }
+    //
     //Wrapper for run input callbacks
     public void OnRun(InputAction.CallbackContext context) {
         isRunPressed = context.ReadValueAsButton();
     }
+    //
     //Wrapper for crouch input callbacks
     public void OnCrouch(InputAction.CallbackContext context) {
         isCrouchPressed = context.ReadValueAsButton();
     }
+    //   
     //Wrapper for jump input callbacks
     public void OnJump(InputAction.CallbackContext context) {
         isJumpPressed = context.ReadValueAsButton();
@@ -413,6 +422,12 @@ public class PlayerController : MonoBehaviour {
         }
     }
     //
+    void SetupJumpVariables() {
+        float timeToApex = maxJumpTime / 2;
+        gravity = (-2 * maxJumpHeight) / Mathf.Pow(timeToApex, 2);
+        initJumpVelocity = (2 * maxJumpHeight) / timeToApex;
+    }
+    //
     void HandleJump() {
         //unlimited jumps in level testing
         string temp = SceneManager.GetActiveScene().name;
@@ -432,16 +447,7 @@ public class PlayerController : MonoBehaviour {
             }
         }
     }
-    //    
-    private void HandlePlayerDirection() {
-        if ((!isFacingLeft && Input.mousePosition.x < Screen.width / 2f) || (isFacingLeft && Input.mousePosition.x > Screen.width / 2f)) {
-
-            if (turnAnimation == null) {
-                turnAnimation = StartCoroutine(TurnAnim());
-                wasFlippedLastFrame = true;
-            }
-        }
-    }
+    //
     //DEV ONLY - DELETE BEFORE FINAL BUILD
     void Devbreak(InputAction.CallbackContext context) {
         isPaused = !isPaused;

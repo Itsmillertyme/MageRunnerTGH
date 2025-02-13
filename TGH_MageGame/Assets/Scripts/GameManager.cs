@@ -8,8 +8,6 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
-    //**PROPERTIES**
-    [Header("Component References")]
     [SerializeField] Canvas hud;
     [SerializeField] Transform projectileSpawn;
     [SerializeField] Transform player;
@@ -17,52 +15,24 @@ public class GameManager : MonoBehaviour {
     [SerializeField] GameObject outroOverlayPanel;
     [SerializeField] AudioClip fireFX;
     [SerializeField] AudioClip levelSound;
-    [SerializeField] RectTransform crosshairRect;
-    [Header("Scritable Object References")]
-    [SerializeField] LevelEnemies levelEnemies;
-    [SerializeField] LevelDecorations levelDecorations;
-    [Header("Demo Settings")]
-    [SerializeField] bool playIntro;
-    [SerializeField] bool playOutro;
-    //
-    bool outroPlayed = false;
-    //
-    Vector3 playerPivot;
-    //
-    ControlScheme currentScheme = ControlScheme.KEYBOARDMOUSE;
 
-    //DEV ONLY - REMOVE BEFORE BUILD
-    [Header("DEV ONLY")]
-    Transform cursorPositionObject;
-    Transform playerPositionObject;
-    public Mesh debugObjectMesh;
-    public Material debugMaterial;
+    public bool playOutro;
+    bool outroPlayed = false;
+
+    Vector3 playerPivot;
     Vector3 introOverlayPanelHiddenPos = new Vector3(0, -500, 0);
     Vector3 outroOverlayPanelHiddenPos = new Vector3(0, -1500, 0);
+
+
+    //DEV ONLY - REMOVE BEFORE BUILD
+    Transform mousePositionObject;
     [Header("Bugs / Issues")]
     [SerializeField] private List<string> knownBugs = new List<string>();
 
-    //**FIELDS**
-    public LevelEnemies LevelEnemies { get => levelEnemies; }
-    public LevelDecorations LevelDecorations { get => levelDecorations; }
-    public ControlScheme CurrentScheme { get => currentScheme; }
-    public Vector3 CrosshairPositionIn3DSpace { get => cursorPositionObject.transform.position; }
-    public Transform Player { get => player; }
-
-    //**UNITY METHODS**
     private void Awake() {
         //DEV ONLY - REMOVE BEFORE BUILD - setup debug object
-        cursorPositionObject = new GameObject("CursorPosObject").transform;
-        cursorPositionObject.transform.parent = GameObject.FindWithTag("Player").transform;
-        //cursorPositionObject = new GameObject("MousePosObject", typeof(MeshFilter), typeof(MeshRenderer)).transform;
-        //cursorPositionObject.GetComponent<MeshFilter>().mesh = debugObjectMesh;
-        //cursorPositionObject.GetComponent<MeshRenderer>().material = debugMaterial;
-
-        playerPositionObject = new GameObject("PlayerPosObject").transform;
-        playerPositionObject.transform.parent = GameObject.FindWithTag("Player").transform;
-        //playerPositionObject = new GameObject("PlayerPosObject", typeof(MeshFilter), typeof(MeshRenderer)).transform;
-        //playerPositionObject.GetComponent<MeshFilter>().mesh = debugObjectMesh;
-        //playerPositionObject.GetComponent<MeshRenderer>().material = debugMaterial;
+        mousePositionObject = new GameObject().transform;
+        mousePositionObject.name = "MousePosObject";
 
         foreach (string bug in knownBugs) {
             if (bug != "") {
@@ -71,33 +41,26 @@ public class GameManager : MonoBehaviour {
         }
 
         //DEMO OVERLAY CODE
+        //set sound
+        Camera cam = Camera.main;
+        cam.GetComponent<AudioSource>().resource = fireFX;
+        cam.GetComponent<AudioSource>().Play();
 
-        if (playIntro) {
-            //set sound
-            Camera cam = Camera.main;
-            cam.GetComponent<AudioSource>().resource = fireFX;
-            cam.GetComponent<AudioSource>().Play();
+        //get tmp assets
+        TextMeshProUGUI[] introTMPs = introOverlayPanel.GetComponentsInChildren<TextMeshProUGUI>();
 
-            //get tmp assets
-            TextMeshProUGUI[] introTMPs = introOverlayPanel.GetComponentsInChildren<TextMeshProUGUI>();
+        //set intro panel pos
+        introOverlayPanel.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
 
-            //set intro panel pos
-            introOverlayPanel.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
-
-            //hide text
-            for (int i = 0; i < introTMPs.Length; i++) {
-                introTMPs[i].color = new Color(1, 1, 1, 0);
-            }
-
-            StartCoroutine(PlayIntroOverlay(introTMPs));
+        //hide text
+        for (int i = 0; i < introTMPs.Length; i++) {
+            introTMPs[i].color = new Color(1, 1, 1, 0);
         }
 
-        //Enable HUD is disabled
-        hud.gameObject.SetActive(true);
-
+        StartCoroutine(PlayIntroOverlay(introTMPs));
 
     }
-    //
+
     private void Update() {
         MoveProjectileSpawn();
 
@@ -107,83 +70,56 @@ public class GameManager : MonoBehaviour {
                 StartCoroutine(PlayOutroOverlay());
             }
         }
-
-        //Determine Input Scheme
-        string controlScheme = player.GetComponent<PlayerInput>().currentControlScheme;
-        if (controlScheme == "Keyboard and Mouse") {
-            currentScheme = ControlScheme.KEYBOARDMOUSE;
-        }
-        else if (controlScheme == "Gamepad") {
-            currentScheme = ControlScheme.GAMEPAD;
-        }
     }
-    //
+
     private void OnApplicationFocus(bool focus) {
         Cursor.visible = false;
     }
 
-    //**UTILITY METHODS**
     void MoveProjectileSpawn() {
 
         //get mouse input position
-        Vector3 screenPos = Vector3.zero;
-
-        if (currentScheme == ControlScheme.KEYBOARDMOUSE) {
-            screenPos = Mouse.current.position.ReadValue();
-        }
-        else if (currentScheme == ControlScheme.GAMEPAD) {
-
-            //800x450 base canvas resolution, mult 2.4
-
-            float canvasWidth = crosshairRect.parent.GetComponent<RectTransform>().rect.width;
-            float canvasheight = crosshairRect.parent.GetComponent<RectTransform>().rect.height;
-
-            screenPos = new Vector3((crosshairRect.anchoredPosition.x + canvasWidth / 2f) * 2.4f, (crosshairRect.anchoredPosition.y + canvasheight / 2f) * 2.4f, 0);
-        }
-
-        //Debug.Log($"Projectile Spawn screen position: {screenPos}");
+        Vector3 mousePos = Mouse.current.position.ReadValue();
 
         //convert mouse input to point in world 
-        Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, Mathf.Abs(Camera.main.transform.position.z)));
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Mathf.Abs(Camera.main.transform.position.z)));
 
         //get position in center of player model
-        playerPivot = new Vector3(player.position.x, player.position.y + 1.162f, 2.5f);
-
-        //Set debug object positions
-        playerPositionObject.position = playerPivot;
-        cursorPositionObject.position = new Vector3(worldPos.x, worldPos.y, 2.5f);
+        playerPivot = new Vector3(player.position.x, player.position.y + 1.162f, 0);
 
         //setup ray 
-        Ray ray = new Ray(playerPivot, (cursorPositionObject.position - playerPivot).normalized);
+        Ray ray = new Ray(playerPivot, new Vector3(worldPos.x, worldPos.y, 0) - playerPivot);
 
         //spell spawn point offset from centermass of player        
         float offset = 1.25f;//DEFAULT IS .783f ONCE SPELL COLLISION DONE
 
         //move projectile spawn point
-        Vector3 newPoint = ray.GetPoint(offset);
-        projectileSpawn.transform.position = new Vector3(newPoint.x, newPoint.y, newPoint.z);
+        projectileSpawn.transform.position = ray.GetPoint(offset);
+
+        //set debug object to world pos of mouse
+        mousePositionObject.position = new Vector3(worldPos.x, worldPos.y, 0);
 
         //DEV ONLY - REMOVE BEFORE BUILD - draw ray
         //Debug.DrawRay(centerMass, debugObject.position - centerMass, Color.red);
     }
-    //
+
+
     public Vector3 GetMousePositionInWorldSpace() {
-        return cursorPositionObject.position;
+        return mousePositionObject.position;
     }
-    //
+
     public Vector3 GetPlayerPivot() {
         return playerPivot;
     }
-    //
+
     public void Quit() {
         Application.Quit();
     }
-    //
+
     public void LoadMainMenu() {
         SceneManager.LoadScene("Splash");
     }
 
-    //**COROUTINES**
     IEnumerator PlayIntroOverlay(TextMeshProUGUI[] TMPs) {
         //stop player input
         PlayerController pc = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
@@ -225,7 +161,7 @@ public class GameManager : MonoBehaviour {
         pc.FreezePhysics = false;
         introOverlayPanel.GetComponent<RectTransform>().anchoredPosition = introOverlayPanelHiddenPos;
     }
-    //
+
     IEnumerator PlayOutroOverlay() {
         //stop player input
         PlayerController pc = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
@@ -266,10 +202,5 @@ public class GameManager : MonoBehaviour {
             yield return null;
         }
     }
-}
-
-public enum ControlScheme {
-    KEYBOARDMOUSE = 0,
-    GAMEPAD = 1
 }
 

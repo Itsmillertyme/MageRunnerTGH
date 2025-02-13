@@ -10,9 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e49bca7170c59e844a4078f391ed04a4, type: 3}
-  m_Name: DungeonEnemies
+  m_Name: CastleEnemies
   m_EditorClassIdentifier: 
   enemies:
-  - {fileID: 6969136263848371978, guid: 13b61134d0a3411ebea69a98547f2559, type: 3}
-  - {fileID: 2164510317257436141, guid: babd5fd8b0564e898602d31e29677f4e, type: 3}
-  - {fileID: 7695083982941622397, guid: e808098db9b442bbbd3afc8885ab12a6, type: 3}
+  - {fileID: 5222568307164741218, guid: a8afc0f7a7741e64883b6b89e0da086f, type: 3}

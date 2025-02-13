@@ -1,31 +1,21 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PathFinder {
-
-    //**PROPERTIES**
     List<PathNode> pathNodes;
     PathNode startPoint;
     List<PathNode> endPoints;
     List<PathNode> path;
-
-    //**FIELDS**
     public PathNode StartPoint { get => startPoint; }
     public List<PathNode> EndPoints { get => endPoints; }
     public List<PathNode> Path { get => path; }
     public List<PathNode> PathNodes { get => pathNodes; set => pathNodes = value; }
 
-    //**CONSTRUCTORS**
-    public PathFinder(List<GameObject> pathNodesIn) {
-        //pathNodes = GameObject.Find("PathNodes").GetComponentsInChildren<PathNode>().ToList();
-        pathNodes = new List<PathNode>();
+    public PathFinder() {
+        pathNodes = GameObject.Find("PathNodes").GetComponentsInChildren<PathNode>().ToList();
         endPoints = new List<PathNode>();
         path = new List<PathNode>();
-
-        //Setup nodes
-        foreach (var node in pathNodesIn) {
-            pathNodes.Add(node.GetComponent<PathNode>());
-        }
 
         for (int i = 0; i < pathNodes.Count; i++) {
             if (pathNodes[i].neighbors.Count == 1) {
@@ -44,7 +34,6 @@ public class PathFinder {
         CalculatePath();
     }
 
-    //**UTILITY METHODS**
     public void CalculatePath() {
         path.Add(startPoint);
         path.Add(startPoint.neighbors[0].GetComponent<PathNode>());
@@ -65,7 +54,7 @@ public class PathFinder {
             }
         }
     }
-    //
+
     public float Distance2D(Vector2Int pos1, Vector2Int pos2) {
         float dist;
 

@@ -1,12 +1,5 @@
 fileFormatVersion: 2
 guid: 7dd2b66e6162d80489bc095bb96f01f7
-AssetOrigin:
-  serializedVersion: 1
-  productId: 56491
-  packageName: Toon Loot and Props Pack
-  packageVersion: 1.2
-  assetPath: Assets/Toon Loot and Props Pack/New FBX/Urn 04.fbx
-  uploadId: 687586
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -23,6 +16,8 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -37,7 +32,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1
@@ -112,3 +107,10 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 56491
+  packageName: Toon Loot and Props Pack
+  packageVersion: 1.2
+  assetPath: Assets/Toon Loot and Props Pack/New FBX/Urn 04.fbx
+  uploadId: 687586

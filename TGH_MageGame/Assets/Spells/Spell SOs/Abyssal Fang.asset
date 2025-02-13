@@ -18,7 +18,7 @@ MonoBehaviour:
   defaultManaCost: 2
   defaultDamage: 5
   defaultLifeSpan: 1
-  defaultCastDelayTime: 0.05
+  defaultCastDelayTime: 0.3666667
   defaultCastCooldownTime: 0.2
   defaultMoveSpeed: 20
   defaultProjectileSize: {x: 1, y: 0.2, z: 0.2}
@@ -36,4 +36,19 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 4029a9cfeb86f134c9c5af05993eaac8, type: 3}
   reticle: {fileID: 21300000, guid: 12437f522baabf744ae290bba6780b6d, type: 3}
   isUnlocked: 1
-  castAltHandCooldownTime: 0.2
+  castAltHandCooldownTime: 1
+  spellCasted:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: a3156c450a504324b96533b595c41b70, type: 2}
+        m_TargetAssemblyTypeName: GameEvent, Assembly-CSharp
+        m_MethodName: Raise
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

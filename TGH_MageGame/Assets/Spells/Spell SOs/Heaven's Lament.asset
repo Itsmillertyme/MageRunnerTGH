@@ -18,7 +18,7 @@ MonoBehaviour:
   defaultManaCost: 10
   defaultDamage: 20
   defaultLifeSpan: 1
-  defaultCastDelayTime: 0.4
+  defaultCastDelayTime: 0.3
   defaultCastCooldownTime: 1
   defaultMoveSpeed: 0
   defaultProjectileSize: {x: 14, y: 0.25, z: 0.25}

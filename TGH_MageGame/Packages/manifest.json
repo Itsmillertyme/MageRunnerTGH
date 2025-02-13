@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "com.andywiecko.burst.triangulator": "https://github.com/andywiecko/BurstTriangulator.git",
     "com.unity.ai.navigation": "2.0.5",
     "com.unity.cinemachine": "2.10.3",
     "com.unity.collab-proxy": "2.6.0",

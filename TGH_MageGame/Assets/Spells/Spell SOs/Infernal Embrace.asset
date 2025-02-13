@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c61621daeeeb4d244a901ae7054269ea, type: 3}
+  m_Name: Infernal Embrace
+  m_EditorClassIdentifier: 
+  name: Infernal Embrace
+  description: 
+  loreText: 
+  defaultManaCost: 3
+  defaultDamage: 5
+  defaultLifeSpan: 5
+  defaultCastDelayTime: 0.2
+  defaultCastCooldownTime: 0.4
+  defaultMoveSpeed: 0
+  defaultProjectileSize: {x: 1, y: 1, z: 1}
+  manaCost: 3
+  damage: 5
+  lifeSpan: 5
+  castDelayTime: 0.2
+  castCooldownTime: 0.4
+  moveSpeed: 0
+  projectileSize: {x: 1, y: 1, z: 1}
+  projectile: {fileID: 8383778108806972086, guid: b67e365d91b5bab45872532a9547412c, type: 3}
+  spawnSFX: {fileID: 8300000, guid: 9bbae88310133d84b9c9c66629669775, type: 3}
+  hitSFX: {fileID: 8300000, guid: 4897caa60f417444b972bca550a8a76a, type: 3}
+  castAnimation: {fileID: 7400000, guid: 70946658bb3dfdd4a86d93329aba96a7, type: 2}
+  icon: {fileID: 21300000, guid: dd3885098198d104888439be4c590aba, type: 3}
+  reticle: {fileID: 21300000, guid: 5623df08cb5764f4e93fb78f2feef145, type: 3}
+  isUnlocked: 1
+  continousCastingSFX: {fileID: 8300000, guid: 62da461523d972f4f9db322a5e84bec5, type: 3}

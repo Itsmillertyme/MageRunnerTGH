@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class SpellBook : MonoBehaviour
-{
+public class SpellBook : MonoBehaviour {
     [Header("Spell List")]
     [SerializeField] private List<Spell> spellBook;
 
@@ -17,8 +16,10 @@ public class SpellBook : MonoBehaviour
     [Header("Player Stats")]
     [SerializeField] PlayerStats playerStats;
 
-    [Header("Mouse Position Tracker")]
-    [SerializeField] MousePositionTracking mousePositionTracker;
+    //[Header("Cursor Position Tracker")]
+    //[SerializeField] MousePositionTracking mousePositionTracker;
+    [Header("Game Manager")]
+    [SerializeField] GameManager gameManager;
 
     // GETTERS
     public int ActiveSpell => activeSpell;
@@ -31,25 +32,22 @@ public class SpellBook : MonoBehaviour
     private Coroutine castDelay;
     private bool isReadyToCast = true;
     private int activeSpell;
+    private int lastActiveSpell;
     #endregion
 
-    void Update()
-    {
+    void Update() {
         scrollValue = Input.mouseScrollDelta.y;
 
+
         // TEMP WORKAROUND UNTIL INPUT SYSTEM METHOD IS PRESENT
-        if (scrollValue != 0)
-        {
+        if (scrollValue != 0) {
             SetSpell();
         }
     }
 
-    public void Cast()
-    {
-        if (isReadyToCast && playerStats.getCurrentMana() >= spellBook[activeSpell].ManaCost)
-        {
-            switch (spellBook[activeSpell].SpellIdentifier)
-            {
+    public void Cast() {
+        if (isReadyToCast && playerStats.getCurrentMana() >= spellBook[activeSpell].ManaCost) {
+            switch (spellBook[activeSpell].SpellIdentifier) {
                 case Spell.SpellName.Fireball:
                     CastSpawnProjectileAtPoint();
                     break;
@@ -69,8 +67,7 @@ public class SpellBook : MonoBehaviour
                     CastSpawnProjectileAtPoint(4);
                     break;
             }
-            if (activeSpell == 1)
-            {
+            if (activeSpell == 1) {
                 StartCoroutine(FireSecondRay());
             }
 
@@ -80,39 +77,33 @@ public class SpellBook : MonoBehaviour
     }
 
     // HANDLES DELAY IN ABILITY TO CAST AGAIN
-    public IEnumerator CastDelay()
-    {
+    public IEnumerator CastDelay() {
         isReadyToCast = false;
         yield return new WaitForSeconds(spellBook[ActiveSpell].CastDelayTime);
         isReadyToCast = true;
     }
 
     // SPELL INVENTORY CYCLING
-    private void SetSpell()
-    {
+    private void SetSpell() {
         // if 
-        if (scrollValue < 0f)
-        {
-            do
-            {
+        if (scrollValue < 0f) {
+            do {
+                lastActiveSpell = activeSpell;
                 activeSpell++;
 
-                if (activeSpell >= spellBook.Count)
-                {
+                if (activeSpell >= spellBook.Count) {
                     activeSpell = 0;
                 }
             }
             while (!spellBook[activeSpell].IsUnlocked);
         }
 
-        else if (scrollValue > 0f)
-        {
-            do
-            {
+        else if (scrollValue > 0f) {
+            do {
+                lastActiveSpell = activeSpell;
                 activeSpell--;
 
-                if (activeSpell < 0)
-                {
+                if (activeSpell < 0) {
                     activeSpell = spellBook.Count - 1;
                 }
             }
@@ -123,70 +114,78 @@ public class SpellBook : MonoBehaviour
         ActiveSpellSwitched.Invoke();
     }
 
+    // SET SPELL DIRECTLY
+    public void SetSpellByIndex(int newSpellIndex) {
+        //Validate input
+        if (newSpellIndex < 0 || newSpellIndex > spellBook.Count) {
+            return;
+        }
+
+        lastActiveSpell = activeSpell;
+        activeSpell = newSpellIndex;
+
+        // RAISE AN EVENT THAT THE SPELL SELECTION HAS CHANGED
+        ActiveSpellSwitched.Invoke();
+    }
+
+    public void HotSwitchSpell() {
+        SetSpellByIndex(lastActiveSpell);
+    }
+
     // GETS ACTIVE SPELL TO USE IN UI TEXT
-    public string GetSpellUIData()
-    {
+    public string GetSpellUIData() {
         return $"{spellBook[activeSpell].Name}\nLevel {spellBook[activeSpell].CurrentLevel}";
     }
 
     // GETS ACTIVE SPELL ICON TO USE IN UI
-    public Sprite GetSpellIconData()
-    {
+    public Sprite GetSpellIconData() {
         return spellBook[activeSpell].SpellIcon;
     }
 
     // GETS ACTIVE SPELL RETICLE TO USE IN UI
-    public Sprite GetSpellReticleData()
-    {
+    public Sprite GetSpellReticleData() {
         return spellBook[activeSpell].Reticle;
     }
 
     // GETTER FOR ACTIVE SPELL ANIMATION
-    public AnimationClip GetSpellAnimation()
-    {
+    public AnimationClip GetSpellAnimation() {
         return spellBook[activeSpell].CastAnimation;
     }
 
     // GETTER FOR ACTIVE SPELL SPAWN SOUND
-    public AudioClip GetSpellSpawnSound()
-    {
+    public AudioClip GetSpellSpawnSound() {
         return spellBook[activeSpell].SpawnSFX;
     }
-    public void LevelUpActiveSpell()
-    {
+    public void LevelUpActiveSpell() {
         spellBook[activeSpell].LevelUp();
     }
-    public void LevelDownActiveSpell()
-    {
+    public void LevelDownActiveSpell() {
         spellBook[activeSpell].LevelDown();
     }
 
 
     //Coroutine for 'Rays' Spell
-    IEnumerator FireSecondRay()
-    {
+    IEnumerator FireSecondRay() {
         GameObject ray2;
 
         yield return new WaitForSeconds(6f / 30f);
 
         ray2 = Instantiate(spellBook[activeSpell].CurrentProjectile, spawnPosition.position, spawnPosition.rotation);
-        ray2.GetComponent<ProjectileMover>().SetAttributes(spellBook[activeSpell].Damage, spellBook[activeSpell].LifeSpan, spellBook[activeSpell].MoveSpeed, spellBook[activeSpell].ProjectileSize, mousePositionTracker.CurrentPosition);
+        ray2.GetComponent<ProjectileMover>().SetAttributes(spellBook[activeSpell].Damage, spellBook[activeSpell].LifeSpan, spellBook[activeSpell].MoveSpeed, spellBook[activeSpell].ProjectileSize, gameManager.CrosshairPositionIn3DSpace);
     }
 
-    private void CastSpawnProjectileAtPoint()
-    {
+    private void CastSpawnProjectileAtPoint() {
         GameObject projectile = Instantiate(spellBook[activeSpell].CurrentProjectile, spawnPosition.position, spawnPosition.rotation);
-        projectile.GetComponent<ProjectileMover>().SetAttributes(spellBook[activeSpell].Damage, spellBook[activeSpell].LifeSpan, spellBook[activeSpell].MoveSpeed, spellBook[activeSpell].ProjectileSize, mousePositionTracker.CurrentPosition);
+        projectile.GetComponent<ProjectileMover>().SetAttributes(spellBook[activeSpell].Damage, spellBook[activeSpell].LifeSpan, spellBook[activeSpell].MoveSpeed, spellBook[activeSpell].ProjectileSize, gameManager.CrosshairPositionIn3DSpace);
     }
 
-    private void CastSpawnProjectileAtPoint(float offsetAlongPathValue)
-    {
-        Vector3 direction = mousePositionTracker.CurrentPosition - spawnPosition.position;
+    private void CastSpawnProjectileAtPoint(float offsetAlongPathValue) {
+        Vector3 direction = gameManager.CrosshairPositionIn3DSpace - spawnPosition.position;
         Vector3 directionNormalized = direction.normalized;
 
         Vector3 offsetPosition = spawnPosition.position + directionNormalized * offsetAlongPathValue;
 
         GameObject projectile = Instantiate(spellBook[activeSpell].CurrentProjectile, offsetPosition, Quaternion.LookRotation(direction));
-        projectile.GetComponent<ProjectileMover>().SetAttributes(spellBook[activeSpell].Damage, spellBook[activeSpell].LifeSpan, spellBook[activeSpell].MoveSpeed, spellBook[activeSpell].ProjectileSize, mousePositionTracker.CurrentPosition);
+        projectile.GetComponent<ProjectileMover>().SetAttributes(spellBook[activeSpell].Damage, spellBook[activeSpell].LifeSpan, spellBook[activeSpell].MoveSpeed, spellBook[activeSpell].ProjectileSize, gameManager.CrosshairPositionIn3DSpace);
     }
 }

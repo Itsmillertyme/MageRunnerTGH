@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5883179275173fa49b4ce2e5522d2c87, type: 3}
-  m_Name: CastleDecorations
+  m_Name: DungeonDecorations
   m_EditorClassIdentifier: 
   decorationPrefabs:
   - {fileID: 191302, guid: 66abd90d52203bd4ebd8113618ccb187, type: 3}

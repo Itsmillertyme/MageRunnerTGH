@@ -262,7 +262,7 @@ public class DungeonCreator : MonoBehaviour {
             }
         }
     }
-
+    //
     public void RetryGeneration() {
 
         ClearDungeon();
@@ -335,7 +335,7 @@ public class DungeonCreator : MonoBehaviour {
         }
 
     }
-
+    //
     private void CreateWalls(Transform wallParent) { //generate all walls
         foreach (WallData wallPosition in possibleWallPosition) {
             CreateWall(wallParent, wallPosition, wallVertical);
@@ -345,7 +345,7 @@ public class DungeonCreator : MonoBehaviour {
             CreateWall(wallParent, wallPosition, wallHorizontal);
         }
     }
-
+    //
     private void CreateWall(Transform wallParentIn, WallData wallDataIn, GameObject wallPrefabIn) { //generate a single wall
 
         if (wallDataIn.direction == WallDirection.LEFT || wallDataIn.direction == WallDirection.RIGHT) {
@@ -360,7 +360,7 @@ public class DungeonCreator : MonoBehaviour {
             go.layer = wallDataIn.isCorridor ? 0 : 9;
         }
     }
-
+    //
     private void CreateMasks(List<RoomNode> roomsIn, List<CorridorNode> corridorsIn) { //Generate masking meshes
 
         MaskGenerator mg = GetComponent<MaskGenerator>();
@@ -368,7 +368,7 @@ public class DungeonCreator : MonoBehaviour {
         mg.GenerateMaskMesh(roomsIn, corridorsIn, dungeonWidth, dungeonHeight);
 
     }
-
+    //
     void CreateRoomBackground(RoomNode roomNode, Material materialIn, Transform newObjectParent) {
 
         //Create mesh vertices
@@ -503,7 +503,7 @@ public class DungeonCreator : MonoBehaviour {
         //}
 
     }
-
+    //
     void CreateCorridorBackground(CorridorNode corridorNode, Material materialIn, Transform newObjectParent) {
 
         //Create mesh vertices
@@ -553,7 +553,7 @@ public class DungeonCreator : MonoBehaviour {
         corridorNode.bottomRightCornerObject.transform.parent = corridorParent.transform;
 
     }
-
+    //
     void GenerateWallPositions(Node node, Material materialIn, Transform newObjectParent) { //Generate wall positions
 
         //Helpers
@@ -588,7 +588,7 @@ public class DungeonCreator : MonoBehaviour {
         }
 
     }
-
+    //
     private List<GameObject> CreatePathNodes(List<RoomNode> listOfRooms, List<CorridorNode> listOfCorridors) {
 
         List<GameObject> pathNodesObjectsOut = new List<GameObject>();
@@ -670,7 +670,7 @@ public class DungeonCreator : MonoBehaviour {
 
         return pathNodesObjectsOut;
     }
-
+    //
     private void AddWallPositionToList(Vector3 wallPositionIn, List<WallData> wallListIn, List<WallData> doorListIn, WallDirection directionIn, bool isCorridorIn) { //sets positions of walls to proper list
         //get point from wall position
         Vector3Int point = Vector3Int.CeilToInt(wallPositionIn);
@@ -695,7 +695,7 @@ public class DungeonCreator : MonoBehaviour {
             wallListIn.Add(temp);
         }
     }
-
+    //
     public void PlacePlayer(PathNode spawnRoomPathNode) {
         Vector3 spawnPos = Vector3.zero;
 
@@ -732,7 +732,7 @@ public class DungeonCreator : MonoBehaviour {
         playerPrefab.transform.position = new Vector3(playerPrefab.transform.position.x + 1, spawnPos.x, playerPrefab.transform.position.z + 1);
 
     }
-
+    //
     public List<Vector3> PlacePlatforms(PathNode room) {
 
         List<Vector3> decorationItemLocationsOut = new List<Vector3>();
@@ -785,7 +785,7 @@ public class DungeonCreator : MonoBehaviour {
 
         return decorationItemLocationsOut;
     }
-
+    //
     public void SpawnDoorAtPlayerStart() {
 
         //Debug.Log("Player Pos: " + playerPrefab.transform.position);
@@ -814,7 +814,7 @@ public class DungeonCreator : MonoBehaviour {
         door.transform.rotation = Quaternion.Euler(90, 90, 0);
         closestGO.SetActive(false);
     }
-
+    //
     List<Vector3> SpawnLineOfPlatforms(string lineData, int x, PathNode room, int platformWidth) {
 
         List<Vector3> decorationItemLocationsOut = new List<Vector3>();
@@ -874,7 +874,7 @@ public class DungeonCreator : MonoBehaviour {
 
         return decorationItemLocationsOut;
     }
-
+    //
     void SetAllChildrenToLayer(GameObject objIn, int layerIndexIn) {
         //Set layer
         objIn.layer = layerIndexIn;

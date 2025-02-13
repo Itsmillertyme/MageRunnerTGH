@@ -28,8 +28,6 @@ public class GameManager : MonoBehaviour {
     bool outroPlayed = false;
     //
     Vector3 playerPivot;
-    Vector3 introOverlayPanelHiddenPos = new Vector3(0, -500, 0);
-    Vector3 outroOverlayPanelHiddenPos = new Vector3(0, -1500, 0);
     //
     ControlScheme currentScheme = ControlScheme.KEYBOARDMOUSE;
 
@@ -39,6 +37,8 @@ public class GameManager : MonoBehaviour {
     Transform playerPositionObject;
     public Mesh debugObjectMesh;
     public Material debugMaterial;
+    Vector3 introOverlayPanelHiddenPos = new Vector3(0, -500, 0);
+    Vector3 outroOverlayPanelHiddenPos = new Vector3(0, -1500, 0);
     [Header("Bugs / Issues")]
     [SerializeField] private List<string> knownBugs = new List<string>();
 
@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour {
 
 
     }
-
+    //
     private void Update() {
         MoveProjectileSpawn();
 
@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviour {
             currentScheme = ControlScheme.GAMEPAD;
         }
     }
-
+    //
     private void OnApplicationFocus(bool focus) {
         Cursor.visible = false;
     }
@@ -166,7 +166,7 @@ public class GameManager : MonoBehaviour {
         //DEV ONLY - REMOVE BEFORE BUILD - draw ray
         //Debug.DrawRay(centerMass, debugObject.position - centerMass, Color.red);
     }
-
+    //
     public Vector3 GetMousePositionInWorldSpace() {
         return cursorPositionObject.position;
     }

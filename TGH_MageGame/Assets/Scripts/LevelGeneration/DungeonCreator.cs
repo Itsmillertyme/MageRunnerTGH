@@ -236,7 +236,7 @@ public class DungeonCreator : MonoBehaviour {
         }
 
     }
-
+    //
     public void RetryGeneration() {
 
         ClearDungeon();
@@ -295,8 +295,8 @@ public class DungeonCreator : MonoBehaviour {
         }
     }
 
-    //generate all walls
-    private void CreateWalls(Transform wallParent) {
+    //
+    private void CreateWalls(Transform wallParent) { //generate all walls
         foreach (WallData wallPosition in possibleWallPosition) {
             CreateWall(wallParent, wallPosition, wallVertical);
         }
@@ -306,8 +306,8 @@ public class DungeonCreator : MonoBehaviour {
         }
     }
 
-    //generate a single wall
-    private void CreateWall(Transform wallParentIn, WallData wallPositionIn, GameObject wallPrefabIn) {
+    //
+    private void CreateWall(Transform wallParentIn, WallData wallDataIn, GameObject wallPrefabIn) { //generate a single wall
 
         if (wallPositionIn.direction == WallDirection.LEFT || wallPositionIn.direction == WallDirection.RIGHT) {
             //Walls facing East or West (Vertical walls)
@@ -328,9 +328,8 @@ public class DungeonCreator : MonoBehaviour {
         //rotationobject.transform.rotation = Quaternion.Euler(rotation.x, rotation.y + newRotation, rotation.z);
     }
 
-
-    //Generate masking meshes
-    private void CreateMasks(List<RoomNode> roomsIn, List<CorridorNode> corridorsIn) {
+    //
+    private void CreateMasks(List<RoomNode> roomsIn, List<CorridorNode> corridorsIn) { //Generate masking meshes
 
         MaskGenerator mg = GetComponent<MaskGenerator>();
 
@@ -338,7 +337,7 @@ public class DungeonCreator : MonoBehaviour {
 
     }
 
-    //creates ---
+    //
     void CreateRoomBackground(RoomNode roomNode, Material materialIn, Transform newObjectParent) {
 
         //Create mesh vertices
@@ -473,7 +472,7 @@ public class DungeonCreator : MonoBehaviour {
         //}
 
     }
-
+    //
     void CreateCorridorBackground(CorridorNode corridorNode, Material materialIn, Transform newObjectParent) {
 
         //Create mesh vertices
@@ -524,6 +523,11 @@ public class DungeonCreator : MonoBehaviour {
 
     }
 
+    //
+    void GenerateWallPositions(Node node, Material materialIn, Transform newObjectParent) { //Generate wall positions
+
+        //Helpers
+        bool isCorridor = node is CorridorNode;
 
     //Generate wall positions
     void GenerateWallPositions(Node node, Material materialIn, Transform newObjectParent) {
@@ -557,7 +561,11 @@ public class DungeonCreator : MonoBehaviour {
 
     }
 
-    private void CreatePathNodes(List<RoomNode> listOfRooms, List<CorridorNode> listOfCorridors) {
+    //
+    private List<GameObject> CreatePathNodes(List<RoomNode> listOfRooms, List<CorridorNode> listOfCorridors) {
+
+        List<GameObject> pathNodesObjectsOut = new List<GameObject>();
+
         for (int i = 0; i < listOfRooms.Count; i++) {
             Vector2Int centerPoint = (listOfRooms[i].TopLeftAreaCorner + listOfRooms[i].BottomRightAreaCorner) / 2;
 
@@ -629,8 +637,9 @@ public class DungeonCreator : MonoBehaviour {
         }
     }
 
-    //sets positions of walls to proper list
-    private void AddWallPositionToList(Vector3 wallPosition, List<WallData> wallList, List<WallData> doorList, WallDirection direction) {
+    //
+    private void AddWallPositionToList(Vector3 wallPositionIn, List<WallData> wallListIn, List<WallData> doorListIn, WallDirection directionIn, bool isCorridorIn) { //sets positions of walls to proper list
+
         //get point from wall position
         Vector3Int point = Vector3Int.CeilToInt(wallPosition);
         WallData temp = new WallData(point, direction);
@@ -654,7 +663,7 @@ public class DungeonCreator : MonoBehaviour {
             wallList.Add(temp);
         }
     }
-
+    //
     public void PlacePlayer(PathNode spawnRoomPathNode) {
         Vector3 spawnPos = Vector3.zero;
 
@@ -692,7 +701,9 @@ public class DungeonCreator : MonoBehaviour {
 
     }
 
-    private void PlaceEnemies(PathNode room) {
+    //
+    public List<Vector3> PlacePlatforms(PathNode room) {
+
 
         List<Vector3> spawnLocations = new List<Vector3>();
         int roomArea = room.RoomDimensions.x * room.RoomDimensions.y;
@@ -841,7 +852,7 @@ public class DungeonCreator : MonoBehaviour {
             count++;
         }
     }
-
+    //
     public void SpawnDoorAtPlayerStart() {
 
         //Debug.Log("Player Pos: " + playerPrefab.transform.position);
@@ -870,8 +881,11 @@ public class DungeonCreator : MonoBehaviour {
         door.transform.rotation = Quaternion.Euler(90, 90, 0);
         closestGO.SetActive(false);
     }
+    //
+    List<Vector3> SpawnLineOfPlatforms(string lineData, int x, PathNode room, int platformWidth) {
 
-    void SpawnLineOfPlatforms(string lineData, int x, PathNode room, int platformWidth) {
+        List<Vector3> decorationItemLocationsOut = new List<Vector3>();
+
 
         //Helper
         int numSpaces = 0;
@@ -924,8 +938,10 @@ public class DungeonCreator : MonoBehaviour {
         }
     }
 
-    void SpawnDecorationItem(Vector3 platformSpawnPos) {
-        //get random item from SO
+    //
+    void SetAllChildrenToLayer(GameObject objIn, int layerIndexIn) {
+        //Set layer
+        objIn.layer = layerIndexIn;
 
         GameObject decoration = levelDecorations.DecorationPrefabs[UnityEngine.Random.Range(0, levelDecorations.DecorationPrefabs.Count)];
 

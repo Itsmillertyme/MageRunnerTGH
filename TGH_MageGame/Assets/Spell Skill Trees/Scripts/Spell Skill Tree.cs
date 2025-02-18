@@ -1,82 +1,93 @@
-using UnityEngine;
-using UnityEngine.UI;
+//using System;
+//using UnityEngine;
+//using UnityEngine.UI;
 
-public class SpellSkillTree : MonoBehaviour
-{
-    [SerializeField] private SpellSkill[] skillTree;
-    [SerializeField] private Button[] buttons;
-    [SerializeField] private int currentTier = 0;
+//public class SpellSkillTree : MonoBehaviour
+//{
+//    [Header("References")]
+//    [SerializeField] private Spell spell;
+//    [SerializeField] private SpellSkill[] skills;
+//    [SerializeField] private Button[] buttons;
+//    [SerializeField] private int currentSkillTier = 0; // SERIALIZED FOR DEBUGGING
 
-    private void Start()
-    {
-        ResetSkillTrees(); // TEMP UNTIL WE HAVE A SAVE SYSTEM IN PLACE
-    }
+//    private void Start()
+//    {
+//        ResetSkillTrees(); // TEMP UNTIL WE HAVE A SAVE SYSTEM IN PLACE
+//    }
 
-    public void Purchase(int index)
-    {
-        skillTree[index].Purchase();
-        SetCurrentTier();
-    }
+//    public void Purchase(int index)
+//    {
+//        skills[index].Purchase(index);
+//        SetCurrentTier();
+//    }
 
-    public void SetCurrentTier()
-    {
-        bool areAllOwned = true;
-        int highestTier = 0;
+//    //public void Purchase()
+//    //{
+//    //    foreach (Button button in buttons)
+//    //    {
+            
+//    //    }
+//    //}
 
-        // CHECK CURRENT TIER TO SEE IF ALL SKILLS ARE OWNED
-        foreach (SpellSkill skill in skillTree)
-        {
-            if (skill.SkillTier == currentTier && !skill.IsOwned)
-            {
-                areAllOwned = false;
-                break;
-            }
+//    public void SetCurrentTier()
+//    {
+//        bool areAllOwned = true;
+//        int highestTier = 0;
 
-            highestTier = skill.SkillTier;
-        }
+//        // CHECK CURRENT TIER TO SEE IF ALL SKILLS ARE OWNED
+//        foreach (SpellSkill skill in skills)
+//        {
+//            if (skill.SkillTier == currentSkillTier && !skill.IsOwned)
+//            {
+//                areAllOwned = false;
+//                break;
+//            }
 
-        // INCREMENT THE TIER IF ALL ARE OWNED
-        if (areAllOwned)
-        {
-            if (currentTier != highestTier)
-            {
-                currentTier++;
-            }       
-        }
+//            highestTier = skill.SkillTier;
+//        }
 
-        // MAKE NEW TIER PURCHASABLE
-        for (int i = 0; i < skillTree.Length; i++)
-        {
-            if (skillTree[i].SkillTier == currentTier)
-            {
-                skillTree[i].SetCanPurchase();
+//        // INCREMENT THE TIER IF ALL ARE OWNED
+//        if (areAllOwned)
+//        {
+//            if (currentSkillTier != highestTier)
+//            {
+//                currentSkillTier++;
+//            }       
+//        }
 
-                if (!skillTree[i].IsOwned)
-                {
-                    buttons[i].interactable = true;
-                }
-            }
-        }
+//        // MAKE NEW TIER PURCHASABLE
+//        for (int i = 0; i < skills.Length; i++)
+//        {
+//            if (skills[i].SkillTier == currentSkillTier)
+//            {
+//                skills[i].SetCanPurchase();
 
-    }
+//                if (!skills[i].IsOwned)
+//                {
+//                    buttons[i].interactable = true;
+//                }
+//            }
+//        }
 
-    public void ResetSkillTrees()
-    {
-        currentTier = 0;
+//    }
 
-        foreach (SpellSkill skill in skillTree)
-        {
-            if (skill.SkillTier == currentTier)
-            {
-                skill.SetCanPurchase();
+//    public void ResetSkillTrees()
+//    {
+//        currentSkillTier = 0;
+
+//        foreach (SpellSkill skill in skills)
+//        {
+//            if (skill.SkillTier == currentSkillTier)
+//            {
+//                skill.SetCanPurchase();
                 
-            }
-            else
-            {
-                skill.SetCannotPurchase();
-            }
+//            }
+//            else
+//            {
+//                skill.SetCannotPurchase();
+//            }
 
-            skill.SetNotOwned();
-        }
-    }
-} 
+//            skill.SetNotOwned();
+//        }
+//    }
+//} 

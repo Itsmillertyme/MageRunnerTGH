@@ -10,7 +10,7 @@ public class PlayerHealthUIController : MonoBehaviour
 
     public void UpdateUI()
     {
-        Debug.Log("Updating ui");
+        //Debug.Log("Updating ui");
         currentHealthText.text = "HP:\n" + health.CurrentHealth;
         healthBar.fillAmount = (float)health.CurrentHealth / health.MaxHealth;
     }

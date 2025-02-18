@@ -82,7 +82,7 @@ public abstract class Spell : ScriptableObject
     //public Vector3 TargetPosition => targetPosition;
     #endregion
 
-    public void SetDefaultValues()
+    public void Initialize()
     {
         manaCost = defaultManaCost;
         damage = defaultDamage;
@@ -94,4 +94,13 @@ public abstract class Spell : ScriptableObject
     }    
     
     public abstract void Cast(Vector3 position, Vector3 direction);
+
+    public void SetProjectileSize(Vector3 newValue) => projectileSize = newValue;
+
+    public void SetMoveSpeed(float newValue) => moveSpeed = newValue;
+
+    public bool isAuto;
+    public void SetAutomaticFireRate(bool newValue) => isAuto = newValue;
+
+    public void SetCastCooldownTime(float newValue) => castCooldownTime = newValue;
 }

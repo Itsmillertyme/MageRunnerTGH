@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8564d021c955ab64baa6b90353371c99, type: 3}
-  m_Name: Abyssal Fang Skill 0
+  m_Script: {fileID: 11500000, guid: da41735c0ee9675479a78c0960651c91, type: 3}
+  m_Name: AB 4 Upgrade Automatic Fire
   m_EditorClassIdentifier: 
-  isOwned: 0
-  canPurchase: 0
-  skillTier: 0
+  autoFire: 0

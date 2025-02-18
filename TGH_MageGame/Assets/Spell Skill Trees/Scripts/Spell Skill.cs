@@ -1,8 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu] // REMOVE AFTER REPLACE OF ASSETS IN INSPECTOR
-
-public class SpellSkill : ScriptableObject
+public abstract class SpellSkillOld : ScriptableObject
 {
     [SerializeField] private bool isOwned = false;
     [SerializeField] private bool canPurchase = false;
@@ -12,13 +10,16 @@ public class SpellSkill : ScriptableObject
     public bool CanPurchase => canPurchase;
     public int SkillTier => skillTier;
 
-    public void Purchase()
+    public void Purchase(int index)
     {
         if (canPurchase)
         {
             isOwned = true;
+            ApplyUpgrade(index);
         }
     }
+
+    public abstract void ApplyUpgrade(int index);
 
     public void SetCanPurchase()
     {

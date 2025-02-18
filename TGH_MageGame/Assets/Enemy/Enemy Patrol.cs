@@ -5,6 +5,7 @@ using UnityEngine.AI;
 public class EnemyPatrol : MonoBehaviour, IBehave {
     [SerializeField] int maxSearchDistance;
     [SerializeField] float edgeOffset;
+    [SerializeField] float extraTurnSpeed;
 
     List<Vector3> waypointPositions = new List<Vector3>();
     NavMeshAgent agent;
@@ -25,8 +26,12 @@ public class EnemyPatrol : MonoBehaviour, IBehave {
                 agent.SetDestination(waypointPositions[currentWaypoint]);
             }
         }
+
+        Vector3 lookRot = agent.steeringTarget - transform.position;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookRot), extraTurnSpeed * Time.deltaTime);
     }
     public void Initialize() {
+
 
         //Helpers
         agent = GetComponent<NavMeshAgent>();
@@ -47,13 +52,13 @@ public class EnemyPatrol : MonoBehaviour, IBehave {
                 waypointPositions.Add(checkHit.position);
             }
             else {
-                Debug.Log($"FAILED TO LOCATE LEFT PATROL WAYPOINT FOR {gameObject.name} FROM POSITION {transform.position}");
+                //Debug.Log($"FAILED TO LOCATE LEFT PATROL WAYPOINT FOR {gameObject.name} FROM POSITION {transform.position}");
                 return;
             }
         }
         else {
             //No boundary in range
-            Debug.Log($"LEFT CHECK FAILED TO FIND END OF NAVMESH, PLACING AT MAX SEARCH RANGE");
+            //Debug.Log($"LEFT CHECK FAILED TO FIND END OF NAVMESH, PLACING AT MAX SEARCH RANGE");
             waypointPositions.Add(targetLPosition);
         }
         //*RIGHT*
@@ -70,14 +75,14 @@ public class EnemyPatrol : MonoBehaviour, IBehave {
                 waypointPositions.Add(checkHit.position);
             }
             else {
-                Debug.Log($"FAILED TO LOCATE RIGHT PATROL WAYPOINT FOR {gameObject.name} FROM POSITION {transform.position}");
+                //Debug.Log($"FAILED TO LOCATE RIGHT PATROL WAYPOINT FOR {gameObject.name} FROM POSITION {transform.position}");
                 return;
             }
         }
         else {
             //No boundary in range
 
-            Debug.Log($"RIGHT CHECK FAILED TO FIND END OF NAVMESH, PLACING AT MAX SEARCH RANGE");
+            //Debug.Log($"RIGHT CHECK FAILED TO FIND END OF NAVMESH, PLACING AT MAX SEARCH RANGE");
             waypointPositions.Add(targetRPosition);
         }
 

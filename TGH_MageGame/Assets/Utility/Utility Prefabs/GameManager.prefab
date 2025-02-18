@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 2411331737335692735}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53,29 +53,22 @@ MonoBehaviour:
   hud: {fileID: 0}
   projectileSpawn: {fileID: 0}
   player: {fileID: 0}
-  introOverlayPanel: {fileID: 0}
-  outroOverlayPanel: {fileID: 0}
-  fireFX: {fileID: 0}
-  levelSound: {fileID: 0}
   crosshairRect: {fileID: 0}
   levelEnemies: {fileID: 11400000, guid: 4473d51d731d4ab418f1cc637ca8e06e, type: 2}
   levelDecorations: {fileID: 11400000, guid: 708476ab180c87c44a6a48aa1ab04b18, type: 2}
-  playIntro: 0
-  playOutro: 0
+  debugMode: 1
+  generateLevelOnLoad: 1
   debugObjectMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   debugMaterial: {fileID: 2100000, guid: 9957a56b95ddd0e468392818e58da742, type: 2}
+  playerRoomMaterial: {fileID: 2100000, guid: a4c43a8ff01db574586fecf34242026d, type: 2}
   knownBugs:
   - 'There''s no way to get current health without having a serialized field. Each
     projectile has a hard reference to player stats. '
-  - 
   - 'If you move mouse left/right back and forth rapidly the player becomes movement
     locked. '
   - Bullets are noticeably rotated in runtime when aiming up and firing Rays.
   - We need the animations to not play if cannot cast. I added a getter for that.
     it's not settable.
-  - 
-  - 
-  - 
 --- !u!114 &4242984033191643486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,8 +86,6 @@ MonoBehaviour:
   roomHeightMin: 25
   roomWidthMin: 35
   corridorSize: 5
-  generateOnLoad: 1
-  debugMode: 0
   dungeonFlatMode: 0
   maxIterations: 10
   roomBottomCornerModifier: 0.1
@@ -131,6 +122,7 @@ MonoBehaviour:
   pathNodeStartMaterial: {fileID: 2100000, guid: cfb8654c8959d604f908a02a9a32bfa6, type: 2}
   pathNodeEndMaterial: {fileID: 2100000, guid: 88681372e65db8e42ad8e8883e9a049b, type: 2}
   levelDecorations: {fileID: 11400000, guid: 708476ab180c87c44a6a48aa1ab04b18, type: 2}
+  gameManager: {fileID: 6934601227346008653}
 --- !u!114 &5677334814634081852
 MonoBehaviour:
   m_ObjectHideFlags: 0

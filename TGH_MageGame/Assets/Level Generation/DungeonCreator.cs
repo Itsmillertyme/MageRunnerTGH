@@ -14,8 +14,8 @@ public class DungeonCreator : MonoBehaviour {
     public int corridorSize;
 
     [Header("Generator Settings")]
-    public bool generateOnLoad;
-    public bool debugMode;
+    //public bool generateOnLoad;
+    //public bool debugMode;
     public bool dungeonFlatMode;
     public int maxIterations;
     [Range(0.0f, 0.3f)]
@@ -63,6 +63,8 @@ public class DungeonCreator : MonoBehaviour {
     public Material pathNodeStartMaterial;
     public Material pathNodeEndMaterial;
     public LevelDecorations levelDecorations;
+    [SerializeField] GameManager gameManager;
+
     //public LevelEnemies levelEnemies;
     //public NavMeshSurface navMeshSurface;
 
@@ -77,13 +79,14 @@ public class DungeonCreator : MonoBehaviour {
 
     //**Unity Methods*
     void Start() {
-        if (generateOnLoad) {
+        if (gameManager.GenerateLevelOnLoad) {
             RetryGeneration();
         }
     }
 
     //**Generation Methods**
     private void CreateDungeon() { //Main method for making dungeon
+
 
         //*BEGIN DUNGEON GENERATION*
 
@@ -146,6 +149,7 @@ public class DungeonCreator : MonoBehaviour {
             pf.EndPoints[i].GetComponent<MeshRenderer>().sharedMaterial = pathNodeEndMaterial;
         }
         pf.StartPoint.GetComponent<MeshRenderer>().sharedMaterial = pathNodeStartMaterial;
+        GetComponent<GameManager>().SetCurrentPathNode(pf.StartPoint, true); //set current player pathnodep
 
         //*PLACE ROOM SPECIFIC OBJECTS*     
         foreach (PathNode node in pf.PathNodes) {
@@ -158,6 +162,13 @@ public class DungeonCreator : MonoBehaviour {
             if (node.Type == PathNodeType.CORRIDOR) {
                 GameObject effect = Instantiate(corridorEffect, corridorParent);
                 CorridorEffectController cec = effect.GetComponent<CorridorEffectController>();
+
+                cec.CorridorPathNode = node;
+                node.CorridorEffectController = cec;
+                if (!gameManager.UnlockAllPaths) {
+                    cec.SetCorridorState(false);
+                }
+
 
                 if (node.Direction == Direction.VERTICAL) {
                     effect.transform.position = new Vector3(node.RoomTopLeftCorner.x + (corridorSize / 2) + .5f, 2.5f, node.RoomTopLeftCorner.y - 1f);
@@ -195,7 +206,7 @@ public class DungeonCreator : MonoBehaviour {
                     platform.name = "SAFETY PLATFORM";
                 }
 
-                if (debugMode && dungeonFlatMode) {
+                if (gameManager.DebugLevelGeneration && dungeonFlatMode) {
                     GameObject test = new GameObject("Just Testing");
                     test.transform.position = checkOrigin;
                     test.transform.parent = corridorParent;
@@ -250,21 +261,23 @@ public class DungeonCreator : MonoBehaviour {
 
             //DEV ONLY - SKIP BOSS
             if (i != 0) {
+
+                Debug.Log(enemy.name);
                 enemy.GetComponent<EnemyPatrol>().Initialize();
             }
 
         }
 
         //DEV ONLY
-        if (debugMode) {
+        if (gameManager.DebugLevelGeneration) {
             for (int i = 0; i < pf.Path.Count - 1; i++) {
-                Debug.DrawLine(pf.Path[i].transform.position, pf.Path[i + 1].transform.position, Color.green, 60);
+                Debug.DrawLine(pf.Path[i].transform.position, pf.Path[i + 1].transform.position, Color.green, 20);
             }
         }
     }
     //
     public void RetryGeneration() {
-
+        //Clear
         ClearDungeon();
 
         //create new dungeon
@@ -281,7 +294,6 @@ public class DungeonCreator : MonoBehaviour {
         //        DestroyImmediate(subChildren[i].gameObject);
         //    }
         //}
-
 
         Transform[] roomchildren = roomParent.GetComponentsInChildren<Transform>(true);
         Transform[] corridorchildren = corridorParent.GetComponentsInChildren<Transform>(true);
@@ -333,6 +345,9 @@ public class DungeonCreator : MonoBehaviour {
         for (int i = waypointsChildren.Length - 1; i > 0; i--) {
             DestroyImmediate(waypointsChildren[i].gameObject);
         }
+
+        //clear navmesh
+        GetComponent<NavMeshSurface>().RemoveData();
 
     }
     //
@@ -600,7 +615,7 @@ public class DungeonCreator : MonoBehaviour {
             GameObject pathNodeObject = new GameObject("PathNode - room " + i, typeof(MeshFilter), typeof(MeshRenderer));
 
 
-            if (debugMode) {
+            if (gameManager.DebugLevelGeneration) {
                 pathNodeObject.GetComponent<MeshFilter>().mesh = pathNodeMesh;
                 pathNodeObject.GetComponent<MeshRenderer>().material = pathNodeBaseMaterial;
             }
@@ -611,7 +626,6 @@ public class DungeonCreator : MonoBehaviour {
             pathNode.Direction = Direction.VERTICAL;
             pathNode.RoomDimensions = new Vector2Int(listOfRooms[i].Width, listOfRooms[i].Length);
             pathNode.RoomTopLeftCorner = listOfRooms[i].TopLeftAreaCorner;
-
 
             pathNodeObject.transform.parent = pathNodeParent;
 
@@ -630,7 +644,7 @@ public class DungeonCreator : MonoBehaviour {
             GameObject pathNodeObject = new GameObject("PathNode - corridor " + i, typeof(MeshFilter), typeof(MeshRenderer));
 
 
-            if (debugMode) {
+            if (gameManager.DebugLevelGeneration) {
                 pathNodeObject.GetComponent<MeshFilter>().mesh = pathNodeMesh;
                 pathNodeObject.GetComponent<MeshRenderer>().material = pathNodeBaseMaterial;
             }
@@ -641,6 +655,7 @@ public class DungeonCreator : MonoBehaviour {
             pathNode.Direction = listOfCorridors[i].Direction;
             pathNode.RoomDimensions = new Vector2Int(listOfCorridors[i].Width, listOfCorridors[i].Length);
             pathNode.RoomTopLeftCorner = listOfCorridors[i].TopLeftAreaCorner;
+
 
             pathNodeObject.transform.parent = pathNodeParent;
             pathNodeObject.transform.position = new Vector3(centerPoint.x, 5, centerPoint.y);

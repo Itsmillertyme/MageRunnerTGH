@@ -104,20 +104,20 @@ public class EnemySpawner : MonoBehaviour {
 
     public void SpawnBoss(PathNode bossRoomPathNode, bool isOnLeft, Transform enemiesParentIn, bool debugMode = false) {
         Vector3 spawnPos = Vector3.zero;
+        float xRot = 0;
         GameObject bossPrefab = GameObject.Find("GameManager").GetComponent<GameManager>().LevelEnemies.bossPrefab;
 
         if (isOnLeft) {
             //Spawn on "left" side of room
             spawnPos = new Vector3(bossRoomPathNode.RoomTopLeftCorner.x + .1f, 2.5f, bossRoomPathNode.RoomTopLeftCorner.y - 2);
-
+            xRot = 180;
         }
         else {
             //spawn on "right" side of room
             spawnPos = new Vector3(bossRoomPathNode.RoomTopLeftCorner.x + .1f, 2.5f, bossRoomPathNode.RoomTopLeftCorner.y - bossRoomPathNode.RoomDimensions.y + 2);
-
         }
 
-        GameObject boss = Instantiate(bossPrefab, spawnPos, Quaternion.Euler(0, 0, 0), enemiesParentIn);
+        GameObject boss = Instantiate(bossPrefab, spawnPos, Quaternion.Euler(xRot, 0, -90), enemiesParentIn);
 
         boss.transform.SetSiblingIndex(0);
 

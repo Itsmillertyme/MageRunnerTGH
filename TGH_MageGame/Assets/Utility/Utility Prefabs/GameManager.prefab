@@ -56,8 +56,10 @@ MonoBehaviour:
   crosshairRect: {fileID: 0}
   levelEnemies: {fileID: 11400000, guid: 4473d51d731d4ab418f1cc637ca8e06e, type: 2}
   levelDecorations: {fileID: 11400000, guid: 708476ab180c87c44a6a48aa1ab04b18, type: 2}
-  debugMode: 1
+  debugLevelGeneration: 0
+  debugInput: 0
   generateLevelOnLoad: 1
+  unlockAllPaths: 1
   debugObjectMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   debugMaterial: {fileID: 2100000, guid: 9957a56b95ddd0e468392818e58da742, type: 2}
   playerRoomMaterial: {fileID: 2100000, guid: a4c43a8ff01db574586fecf34242026d, type: 2}
@@ -91,8 +93,6 @@ MonoBehaviour:
   roomBottomCornerModifier: 0.1
   roomTopCornerModifier: 0.7
   roomOffset: 1
-  wallDecorationFrequency: 0.15
-  floorDecorationFrequency: 0.367
   roomParent: {fileID: 0}
   corridorParent: {fileID: 0}
   levelParent: {fileID: 0}
@@ -112,9 +112,6 @@ MonoBehaviour:
   platformPrefab: {fileID: 1672980919741387504, guid: 85b8572a4c5f85148929bfe299d15829, type: 3}
   castleWall5x5Prefab: {fileID: 1069983557862476, guid: 1f542c033163c6646a00bbee82b93999, type: 3}
   castleWall1x5Prefab: {fileID: 1898645381966348, guid: 2dd98ce2b3decc6459d1c0305fc9f9e7, type: 3}
-  castleWall5x5WindowPrefab: {fileID: 1172911467984758, guid: ad8ed185cefb89f42a395d02e120a38b, type: 3}
-  castleWall5x5DrainPrefab: {fileID: 1964970002308410, guid: 05a8597b79b00554d9f2722ac46026ec, type: 3}
-  castleWall5x5DoorPrefab: {fileID: 1696747588066754, guid: c91835a049a87be46842946a618d37ec, type: 3}
   roomMaterial: {fileID: 2100000, guid: a1170929716894048aa6bcee5ad718ce, type: 2}
   corridorMaterial: {fileID: 2100000, guid: 8ca93fc0d8ba24547bbd2eacd32a5811, type: 2}
   pathNodeMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
@@ -123,6 +120,7 @@ MonoBehaviour:
   pathNodeEndMaterial: {fileID: 2100000, guid: 88681372e65db8e42ad8e8883e9a049b, type: 2}
   levelDecorations: {fileID: 11400000, guid: 708476ab180c87c44a6a48aa1ab04b18, type: 2}
   gameManager: {fileID: 6934601227346008653}
+  levelDecorator: {fileID: 5677334814634081852}
 --- !u!114 &5677334814634081852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,6 +133,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5882f0cf32028a347baeff46de3db029, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  floorDecorationFrequency: 0.2
+  wallDecorationFrequency: 0.15
+  castleWall5x5WindowPrefab: {fileID: 1172911467984758, guid: ad8ed185cefb89f42a395d02e120a38b, type: 3}
+  castleWall5x5DrainPrefab: {fileID: 1964970002308410, guid: 05a8597b79b00554d9f2722ac46026ec, type: 3}
+  castleWall5x5DoorPrefab: {fileID: 1696747588066754, guid: c91835a049a87be46842946a618d37ec, type: 3}
 --- !u!114 &804772723334797445
 MonoBehaviour:
   m_ObjectHideFlags: 0

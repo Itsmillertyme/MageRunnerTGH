@@ -5,11 +5,13 @@ TagManager:
   serializedVersion: 3
   tags:
   - Ground
-  - Enemy
   - Player Projectile
   - Enemy Projectile
   - Environment
   - Enemy Melee
+  - Level
+  - Mob Enemy
+  - Boss Enemy
   layers:
   - Default
   - TransparentFX

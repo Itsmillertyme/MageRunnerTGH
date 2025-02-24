@@ -418,9 +418,10 @@ GameObject:
   - component: {fileID: 7053382613734492950}
   - component: {fileID: 107912119515038101}
   - component: {fileID: 87195906878156026}
+  - component: {fileID: 1624416202334243243}
   m_Layer: 0
   m_Name: Slime_NO_AI
-  m_TagString: Enemy
+  m_TagString: Mob Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -501,7 +502,54 @@ MonoBehaviour:
   maxSearchDistance: 25
   edgeOffset: 0.5
   extraTurnSpeed: 3
-  debugMode: 0
+  numWaypoints: 0
+  debugOrb: {fileID: 5886576140093531377, guid: 46d93abd248c27f469701082065d70c8, type: 3}
+--- !u!114 &1624416202334243243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6969136263848371978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85957875391281d4b89c9f73fab00392, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Method: 3
+  m_Curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.018161774
+      value: 0.95448303
+      inSlope: 0.1900368
+      outSlope: 0.1900368
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5096154
+      value: 1.0478773
+      inSlope: -0.0036202744
+      outSlope: -0.0036202744
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.0021362
+      value: 0.9507141
+      inSlope: -0.19727735
+      outSlope: -0.19727735
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &6969283729008570918
 GameObject:
   m_ObjectHideFlags: 0

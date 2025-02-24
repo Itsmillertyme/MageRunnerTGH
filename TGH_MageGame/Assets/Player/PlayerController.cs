@@ -142,6 +142,14 @@ public class PlayerController : MonoBehaviour {
         //
         actionAsset.Player.HotSwitch.performed += OnHotSwitch;
 
+        //DEV ONLY - DEBUG projectile spawn
+        if (gameManager.DebugInput) {
+            projectileSpawn.GetComponent<MeshRenderer>().enabled = true;
+        }
+        else {
+            projectileSpawn.GetComponent<MeshRenderer>().enabled = false;
+        }
+
 
         SetupJumpVariables();
         HandlePlayerDirection();

@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour {
     //DEV ONLY - REMOVE BEFORE BUILD
     [Header("DEV ONLY")]
     [SerializeField] bool debugLevelGeneration;
+    [SerializeField] bool debugEnemySpawning;
     [SerializeField] bool debugInput;
     [SerializeField] bool generateLevelOnLoad;
     [SerializeField] bool unlockAllPaths;
@@ -46,19 +47,22 @@ public class GameManager : MonoBehaviour {
     public bool UnlockAllPaths { get => unlockAllPaths; set => unlockAllPaths = value; }
     public bool DebugLevelGeneration { get => debugLevelGeneration; set => debugLevelGeneration = value; }
     public bool DebugInput { get => debugInput; set => debugInput = value; }
+    public bool DebugEnemySpawning { get => debugEnemySpawning; set => debugEnemySpawning = value; }
 
     //**UNITY METHODS**
     private void Awake() {
         //DEV ONLY - REMOVE BEFORE BUILD - setup debug object
         cursorPositionObject = new GameObject("CursorPosObject", typeof(MeshFilter), typeof(MeshRenderer)).transform;
         cursorPositionObject.transform.parent = GameObject.FindWithTag("Player").transform;
-        cursorPositionObject.GetComponent<MeshFilter>().mesh = debugObjectMesh;
-        cursorPositionObject.GetComponent<MeshRenderer>().material = debugMaterial;
-
         playerPositionObject = new GameObject("PlayerPosObject", typeof(MeshFilter), typeof(MeshRenderer)).transform;
         playerPositionObject.transform.parent = GameObject.FindWithTag("Player").transform;
-        playerPositionObject.GetComponent<MeshFilter>().mesh = debugObjectMesh;
-        playerPositionObject.GetComponent<MeshRenderer>().material = debugMaterial;
+
+        if (DebugInput) {
+            cursorPositionObject.GetComponent<MeshFilter>().mesh = debugObjectMesh;
+            cursorPositionObject.GetComponent<MeshRenderer>().material = debugMaterial;
+            playerPositionObject.GetComponent<MeshFilter>().mesh = debugObjectMesh;
+            playerPositionObject.GetComponent<MeshRenderer>().material = debugMaterial;
+        }
 
         //foreach (string bug in knownBugs) {
         //    if (bug != "") {

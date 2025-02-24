@@ -1,3 +1,4 @@
 public interface IBehave {
-    void Initialize();
+    void Initialize(PathNode roomIn, bool debugMode = false);
+
 }

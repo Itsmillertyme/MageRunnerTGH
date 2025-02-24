@@ -4,10 +4,11 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour {
     [SerializeField] Transform waypoint;
 
-    public void SpawnMobEnemies(PathNode roomIn, Transform enemiesParentIn, bool debugMode = false, bool startRoom = false) {
+    public List<GameObject> SpawnMobEnemies(PathNode roomIn, Transform enemiesParentIn, bool debugMode = false, bool startRoom = false) {
         //Helpers
         LevelEnemies levelEnemies = GameObject.Find("GameManager").GetComponent<GameManager>().LevelEnemies;
         List<Vector3> spawnLocations = new List<Vector3>();
+        List<GameObject> enemiesOut = new List<GameObject>();
         int roomArea = roomIn.RoomDimensions.x * roomIn.RoomDimensions.y;
         int numEnemySpawns = 0;
 
@@ -37,7 +38,7 @@ public class EnemySpawner : MonoBehaviour {
         List<int> xLevels = new List<int>();
         for (int i = 0; i < numEnemySpawns; i++) {
             //find x values(Start room ignores bottom floor)
-            for (int j = startRoom ? roomIn.RoomTopLeftCorner.x + 4 : roomIn.RoomTopLeftCorner.x; j < roomIn.RoomTopLeftCorner.x + roomIn.RoomDimensions.x - 3; j += 4) {
+            for (int j = startRoom ? roomIn.RoomTopLeftCorner.x + 4 : roomIn.RoomTopLeftCorner.x; j < roomIn.RoomTopLeftCorner.x + roomIn.RoomDimensions.x - 3; j += 5) {
                 xLevels.Add(j);
             }
 
@@ -99,10 +100,14 @@ public class EnemySpawner : MonoBehaviour {
             GameObject enemy = levelEnemies.mobEnemiesprefabs[Random.Range(0, levelEnemies.mobEnemiesprefabs.Count)];
 
             enemy = Instantiate(enemy, spawnPos, Quaternion.Euler(0, 0, -90), enemiesParentIn);
+
+            enemiesOut.Add(enemy);
         }
+
+        return enemiesOut;
     }
 
-    public void SpawnBoss(PathNode bossRoomPathNode, bool isOnLeft, Transform enemiesParentIn, bool debugMode = false) {
+    public GameObject SpawnBoss(PathNode bossRoomPathNode, bool isOnLeft, Transform enemiesParentIn, bool debugMode = false) {
         Vector3 spawnPos = Vector3.zero;
         float xRot = 0;
         GameObject bossPrefab = GameObject.Find("GameManager").GetComponent<GameManager>().LevelEnemies.bossPrefab;
@@ -120,6 +125,8 @@ public class EnemySpawner : MonoBehaviour {
         GameObject boss = Instantiate(bossPrefab, spawnPos, Quaternion.Euler(xRot, 0, -90), enemiesParentIn);
 
         boss.transform.SetSiblingIndex(0);
+
+        return boss;
 
         //place boss
         //bossPrefab.transform.position = spawnPos;

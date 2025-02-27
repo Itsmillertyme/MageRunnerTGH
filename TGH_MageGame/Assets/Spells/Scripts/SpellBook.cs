@@ -14,6 +14,7 @@ public class SpellBook : MonoBehaviour
 
     [Header("Unity Events")]
     [SerializeField] private UnityEvent ActiveSpellSwitched;
+    [SerializeField] private UnityEvent SpellCasted;
 
     [Header("Player Stats")]
     [SerializeField] PlayerStats playerStats;
@@ -66,15 +67,61 @@ public class SpellBook : MonoBehaviour
         }
     }
 
+    public Transform GetSpellSpawnPosition()
+    {
+        // POSITIONS: 0 IS RH, 1 IS LH, 2 IS GROUND, 3 IS SKY
+        switch (spellBook[currentSpellIndex])
+        {
+            case AbyssalFang:
+                currentSpawnPoint = spellSpawnPoints[0];
+                break;
+            case HeavensLament:
+                currentSpawnPoint = spellSpawnPoints[0];
+                break;
+            case InfernalEmbrace:
+                currentSpawnPoint = spellSpawnPoints[0];
+                break;
+            case ShatterstoneBarrage:
+                currentSpawnPoint = spellSpawnPoints[2];
+                break;
+            case ThunderlordsCascade:
+                currentSpawnPoint = spellSpawnPoints[3];
+                break;
+            case WintersWrath:
+                currentSpawnPoint = spellSpawnPoints[2];
+                break;
+        }
+
+        return currentSpawnPoint;
+    }
+
     public void Cast()
     {
         if (isReadyToCast && playerStats.getCurrentMana() >= spellBook[currentSpellIndex].ManaCost)
         {
             spellBook[currentSpellIndex].Cast(currentSpawnPoint.position, gameManager.CrosshairPositionIn3DSpace);
+
+            //if (spellBook[currentSpellIndex] is AbyssalFang)
+            //{
+            //    CastAlthHand();
+            //}
+
+            SpellCasted.Invoke();
             playerStats.updateCurrentMana(-spellBook[currentSpellIndex].ManaCost);
             castCooldown = StartCoroutine(CastCooldown());
         }
     }
+
+    public void CastAlthHand()
+    {
+        // add corotutine start for the slight delay between shots.
+        spellBook[currentSpellIndex].Cast(spellSpawnPoints[1].position, gameManager.CrosshairPositionIn3DSpace);
+    }
+
+    //public IEnumerator CastDelay()
+    //{
+
+    //}
 
     // REVIEW THIS
     // HANDLES DELAY IN ABILITY TO CAST AGAIN
@@ -160,13 +207,4 @@ public class SpellBook : MonoBehaviour
     {
         SetSpellByIndex(lastActiveSpell);
     }
-
-
-
-
-    //private void CastSpawnProjectileAtPoint()
-    //{
-    //    GameObject projectile = Instantiate(spellBook[activeSpell].Projectile, spawnPosition.position, spawnPosition.rotation);
-    //    projectile.GetComponent<ProjectileMover>().SetAttributes(spellBook[activeSpell].Damage, spellBook[activeSpell].LifeSpan, spellBook[activeSpell].MoveSpeed, spellBook[activeSpell].ProjectileSize, mousePositionTracker.CurrentPosition);
-    //}
 }

@@ -1,93 +1,41 @@
-//using System;
-//using UnityEngine;
-//using UnityEngine.UI;
+using System.Collections.Generic;
+using UnityEngine;
 
-//public class SpellSkillTree : MonoBehaviour
-//{
-//    [Header("References")]
-//    [SerializeField] private Spell spell;
-//    [SerializeField] private SpellSkill[] skills;
-//    [SerializeField] private Button[] buttons;
-//    [SerializeField] private int currentSkillTier = 0; // SERIALIZED FOR DEBUGGING
+public class SpellSkillTree : MonoBehaviour
+{
+    [SerializeField] private Spell spell;
 
-//    private void Start()
-//    {
-//        ResetSkillTrees(); // TEMP UNTIL WE HAVE A SAVE SYSTEM IN PLACE
-//    }
+    private readonly HashSet<SpellSkillNode> ownedUpgrades = new();
 
-//    public void Purchase(int index)
-//    {
-//        skills[index].Purchase(index);
-//        SetCurrentTier();
-//    }
+    // CHECK IF UPGRADE IS ALREADY OWNED
+    public bool UpgradeOwned(SpellSkillNode upgrade)
+    {
+        return ownedUpgrades.Contains(upgrade);
+    }   
 
-//    //public void Purchase()
-//    //{
-//    //    foreach (Button button in buttons)
-//    //    {
-            
-//    //    }
-//    //}
+    // CHECK IF ELIGIBLE TO UPGRADE
+    public bool CanUpgrade(SpellSkillNode upgrade)
+    {
+        return upgrade.CanUpgrade(ownedUpgrades);
+    }
 
-//    public void SetCurrentTier()
-//    {
-//        bool areAllOwned = true;
-//        int highestTier = 0;
+    // PERFORM THE UPGRADE
+    public void ApplyUpgrade(SpellSkillNode upgrade)
+    {
+        // IF SHOULD NOT UPGRADE, RETURN
+        if (UpgradeOwned(upgrade) || !CanUpgrade(upgrade))
+        {
+            return;
+        }
 
-//        // CHECK CURRENT TIER TO SEE IF ALL SKILLS ARE OWNED
-//        foreach (SpellSkill skill in skills)
-//        {
-//            if (skill.SkillTier == currentSkillTier && !skill.IsOwned)
-//            {
-//                areAllOwned = false;
-//                break;
-//            }
+        // UPGRADE
+        ownedUpgrades.Add(upgrade);
+        upgrade.ApplyUpgrade(spell);
 
-//            highestTier = skill.SkillTier;
-//        }
-
-//        // INCREMENT THE TIER IF ALL ARE OWNED
-//        if (areAllOwned)
-//        {
-//            if (currentSkillTier != highestTier)
-//            {
-//                currentSkillTier++;
-//            }       
-//        }
-
-//        // MAKE NEW TIER PURCHASABLE
-//        for (int i = 0; i < skills.Length; i++)
-//        {
-//            if (skills[i].SkillTier == currentSkillTier)
-//            {
-//                skills[i].SetCanPurchase();
-
-//                if (!skills[i].IsOwned)
-//                {
-//                    buttons[i].interactable = true;
-//                }
-//            }
-//        }
-
-//    }
-
-//    public void ResetSkillTrees()
-//    {
-//        currentSkillTier = 0;
-
-//        foreach (SpellSkill skill in skills)
-//        {
-//            if (skill.SkillTier == currentSkillTier)
-//            {
-//                skill.SetCanPurchase();
-                
-//            }
-//            else
-//            {
-//                skill.SetCannotPurchase();
-//            }
-
-//            skill.SetNotOwned();
-//        }
-//    }
-//} 
+        // UPDATE BUTTON TEXT AND INTERACTABILITY
+        foreach (var button in FindObjectsByType<SpellSkillUpgradeButton>(FindObjectsSortMode.None))
+        {
+            button.UpdateButtonState();
+        }
+    }
+}

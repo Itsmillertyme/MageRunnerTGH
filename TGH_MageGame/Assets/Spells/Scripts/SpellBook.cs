@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -22,13 +21,13 @@ public class SpellBook : MonoBehaviour
     [Header("Game Manager")]
     [SerializeField] GameManager gameManager;
 
-    #region GETTERS
+    #region // GETTERS
     // VARIABLES
     public int ActiveSpell => currentSpellIndex;
     public bool IsReadyToCast => isReadyToCast;
 
     // METHODS
-    public Transform GetSpellSpawnPoint() => spellSpawnPoints[currentSpellIndex]; // GETTER FOR ACTIVE SPELL SPAWN POINT FOR CAST
+    //public Transform GetSpellSpawnPoint() => spellSpawnPoints[currentSpellIndex]; // GETTER FOR ACTIVE SPELL SPAWN POINT FOR CAST
     public string GetSpellUIData() => spellBook[currentSpellIndex].Name; // GETTER FOR ACTIVE SPELL TO USE IN UI TEXT
     public Sprite GetSpellIconData() => spellBook[currentSpellIndex].SpellIcon; // GETTER FOR ACTIVE SPELL ICON TO USE IN UI
     public Sprite GetSpellReticleData() => spellBook[currentSpellIndex].Reticle; // GETTER FOR ACTIVE SPELL RETICLE TO USE IN UI
@@ -37,13 +36,12 @@ public class SpellBook : MonoBehaviour
     public AudioClip GetSpellSpawnSound() => spellBook[currentSpellIndex].SpawnSFX; // GETTER FOR ACTIVE SPELL SPAWN SOUND
     #endregion
 
-    #region DRIVEN
-    private Transform currentSpawnPoint;
+    #region // DRIVEN
+    /*[SerializeField] */private Transform currentSpawnPoint;
     private float scrollValue;
     private Coroutine castCooldown; // later implenent coroutine stopping for interrupted delay when cycling away (if desired)
     private int currentSpellIndex = 0;
     private bool isReadyToCast = true;
-    private bool castInterrupt = false;
     private int lastActiveSpell;
     #endregion
 
@@ -53,12 +51,13 @@ public class SpellBook : MonoBehaviour
         {
             spell.Initialize();
         }
-        currentSpawnPoint = GetSpellSpawnPoint();
+
+        currentSpawnPoint = GetSpellSpawnPosition();
     }
 
     private void Update() // DID WE GET AN INPUT SYSTEM INPUT FOR THIS?
     {
-        scrollValue = Input.mouseScrollDelta.y; // REFACTOR TO NEW INPUT WHEN MERGED
+         scrollValue = Input.mouseScrollDelta.y; // REFACTOR TO NEW INPUT WHEN MERGED
 
         // TEMP WORKAROUND UNTIL INPUT SYSTEM METHOD IS PRESENT
         if (scrollValue != 0)
@@ -69,26 +68,26 @@ public class SpellBook : MonoBehaviour
 
     public Transform GetSpellSpawnPosition()
     {
-        // POSITIONS: 0 IS RH, 1 IS LH, 2 IS GROUND, 3 IS SKY
+        // POSITIONS: 0 IS RH, 1 IS LH, 2 IS CHEST, 3 IS GROUND, 4 IS SKY
         switch (spellBook[currentSpellIndex])
         {
             case AbyssalFang:
                 currentSpawnPoint = spellSpawnPoints[0];
                 break;
             case HeavensLament:
-                currentSpawnPoint = spellSpawnPoints[0];
+                currentSpawnPoint = spellSpawnPoints[2];
                 break;
             case InfernalEmbrace:
                 currentSpawnPoint = spellSpawnPoints[0];
                 break;
             case ShatterstoneBarrage:
-                currentSpawnPoint = spellSpawnPoints[2];
-                break;
-            case ThunderlordsCascade:
                 currentSpawnPoint = spellSpawnPoints[3];
                 break;
+            case ThunderlordsCascade:
+                currentSpawnPoint = spellSpawnPoints[4];
+                break;
             case WintersWrath:
-                currentSpawnPoint = spellSpawnPoints[2];
+                currentSpawnPoint = spellSpawnPoints[3];
                 break;
         }
 
@@ -101,44 +100,46 @@ public class SpellBook : MonoBehaviour
         {
             spellBook[currentSpellIndex].Cast(currentSpawnPoint.position, gameManager.CrosshairPositionIn3DSpace);
 
-            //if (spellBook[currentSpellIndex] is AbyssalFang)
-            //{
-            //    CastAlthHand();
-            //}
+            // ADDITIONAL CASTING LOGIC FOR ABYSSAL FANG SPELL
+            if (spellBook[currentSpellIndex] is AbyssalFang spell)
+            {
+                StartCoroutine(CastAltHandAfterCooldown(spell.CastAltHandCooldownTime));
+            }
 
+            castCooldown = StartCoroutine(CastCooldown(spellBook[ActiveSpell].CastCooldownTime));
             SpellCasted.Invoke();
             playerStats.updateCurrentMana(-spellBook[currentSpellIndex].ManaCost);
-            castCooldown = StartCoroutine(CastCooldown());
         }
     }
 
-    public void CastAlthHand()
+    public IEnumerator CastAltHandAfterCooldown(float waitTime)
     {
-        // add corotutine start for the slight delay between shots.
-        spellBook[currentSpellIndex].Cast(spellSpawnPoints[1].position, gameManager.CrosshairPositionIn3DSpace);
+        yield return new WaitForSeconds(waitTime);
+        CastAltHand();
     }
 
-    //public IEnumerator CastDelay()
-    //{
+    public void CastAltHand()
+    {
+        if (spellBook[currentSpellIndex] is AbyssalFang spell)
+        {
+            spell.Cast(spellSpawnPoints[1].position, gameManager.CrosshairPositionIn3DSpace);
+        }
+    }
 
-    //}
-
-    // REVIEW THIS
-    // HANDLES DELAY IN ABILITY TO CAST AGAIN
-    public IEnumerator CastCooldown()
+    // TEST TO SEE HOW THIS WORKS WITH SWITCHING SPELLS. HARD TO TEST WITH TOUCHPAD.
+    public IEnumerator CastCooldown(float waitTime)
     {
         isReadyToCast = false;
-
-        float currentTime = Time.time;
-        float endDelayTime = currentTime + spellBook[ActiveSpell].CastCooldownTime;
-
-        while (Time.time < endDelayTime && !castInterrupt)
-        {
-            yield return new WaitForEndOfFrameUnit();
-        }
-        castInterrupt = false;
+        yield return new WaitForSeconds(waitTime);
         isReadyToCast = true;
     }
+
+    // SEE IF JACOB NEEDS THIS. 
+    //public IEnumerator CastDelay(float waitTime)
+    //{
+    //    yield return new WaitForSeconds(waitTime);
+    //}
+
 
     // REVIEW THIS
     // SPELL INVENTORY CYCLING
@@ -176,7 +177,7 @@ public class SpellBook : MonoBehaviour
         }
 
         // SET SPELL SPAWN POINT
-        currentSpawnPoint = GetSpellSpawnPoint();
+        currentSpawnPoint = GetSpellSpawnPosition();
 
         // RAISE AN EVENT THAT THE SPELL SELECTION HAS CHANGED
         ActiveSpellSwitched.Invoke();
@@ -196,7 +197,7 @@ public class SpellBook : MonoBehaviour
         currentSpellIndex = newSpellIndex;
 
         // SET SPELL SPAWN POINT
-        currentSpawnPoint = GetSpellSpawnPoint();
+        currentSpawnPoint = GetSpellSpawnPosition();
 
         // RAISE AN EVENT THAT THE SPELL SELECTION HAS CHANGED
         ActiveSpellSwitched.Invoke();

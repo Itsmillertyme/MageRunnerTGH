@@ -127,7 +127,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2258814277097795294}
   m_Layer: 0
-  m_Name: VFX Beam
+  m_Name: old VFX Beam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

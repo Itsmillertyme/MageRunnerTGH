@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5445f262901f76b4ea69a5087b2b5c82, type: 3}
-  m_Name: AB 0 Upgrade Projectile Size
+  m_Script: {fileID: 11500000, guid: da41735c0ee9675479a78c0960651c91, type: 3}
+  m_Name: Upgrade 4 Automatic Fire - AF
   m_EditorClassIdentifier: 
-  sizeIncrease: {x: 1, y: 1, z: 1}
+  autoFire: 0

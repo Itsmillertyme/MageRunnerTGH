@@ -57,6 +57,7 @@ MonoBehaviour:
   levelEnemies: {fileID: 11400000, guid: 4473d51d731d4ab418f1cc637ca8e06e, type: 2}
   levelDecorations: {fileID: 11400000, guid: 708476ab180c87c44a6a48aa1ab04b18, type: 2}
   debugLevelGeneration: 0
+  debugEnemySpawning: 0
   debugInput: 0
   generateLevelOnLoad: 1
   unlockAllPaths: 1
@@ -93,6 +94,7 @@ MonoBehaviour:
   roomBottomCornerModifier: 0.1
   roomTopCornerModifier: 0.7
   roomOffset: 1
+  NavMeshLinkJumpDistance: 15
   roomParent: {fileID: 0}
   corridorParent: {fileID: 0}
   levelParent: {fileID: 0}
@@ -190,7 +192,7 @@ MonoBehaviour:
     m_Bits: 512
   m_UseGeometry: 0
   m_DefaultArea: 0
-  m_GenerateLinks: 0
+  m_GenerateLinks: 1
   m_IgnoreNavMeshAgent: 1
   m_IgnoreNavMeshObstacle: 1
   m_OverrideTileSize: 0

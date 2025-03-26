@@ -4,7 +4,7 @@ using UnityEngine;
 
 [CreateAssetMenu]
 public class LevelEnemies : ScriptableObject {
-    public List<GameObject> mobEnemiesprefabs = new List<GameObject>();
+    public List<GameObject> mobEnemyPrefabs = new List<GameObject>();
 
     public GameObject bossPrefab;
 

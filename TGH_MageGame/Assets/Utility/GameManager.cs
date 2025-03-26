@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour {
     //
     ControlScheme currentScheme = ControlScheme.KEYBOARDMOUSE;
     PathNode currentPathNode;
+    //
+    int currentLevel = 1;
 
     //DEV ONLY - REMOVE BEFORE BUILD
     [Header("DEV ONLY")]
@@ -48,6 +50,7 @@ public class GameManager : MonoBehaviour {
     public bool DebugLevelGeneration { get => debugLevelGeneration; set => debugLevelGeneration = value; }
     public bool DebugInput { get => debugInput; set => debugInput = value; }
     public bool DebugEnemySpawning { get => debugEnemySpawning; set => debugEnemySpawning = value; }
+    public int CurrentLevel { get => currentLevel; }
 
     //**UNITY METHODS**
     private void Awake() {
@@ -72,8 +75,6 @@ public class GameManager : MonoBehaviour {
 
         //Enable HUD is disabled
         hud.gameObject.SetActive(true);
-
-
     }
     //
     private void Update() {

@@ -1,0 +1,82 @@
+using UnityEngine;
+using UnityEngine.AI;
+
+public class EnemyGuardChase : MonoBehaviour, IBehave {
+
+    //**PROPERTIES**    
+    [SerializeField] float extraTurnSpeed;
+    [SerializeField] float playerSearchRadius;
+
+    [SerializeField] Vector3 guardPosition;
+
+    NavMeshAgent agent;
+    Animator animator;
+    GameObject player;
+
+    bool initialized = false;
+    bool playerInRange = false;
+
+    //**UNITY METHODS**
+    private void Awake() {
+        agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
+        player = GameObject.FindWithTag("Player");
+    }
+
+    private void Update() {
+
+        //Update Animations
+        if (agent.velocity.magnitude > 0.1f && !agent.isStopped) {
+            animator.SetBool("isWalking", true);
+        }
+        else {
+            animator.SetBool("isWalking", false);
+        }
+
+        if (initialized) {
+            //Look for player
+            if (Vector3.Distance(player.transform.position, transform.position) < playerSearchRadius) {
+                playerInRange = true;
+            }
+            else {
+                playerInRange = false;
+            }
+
+            //Set destination
+            if (playerInRange) {
+                //Chase
+                if (agent.destination != player.transform.position) {
+                    agent.SetDestination(player.transform.position);
+                }
+            }
+            else {
+                //Move go to guard position
+                if (agent.destination != guardPosition) {
+                    agent.SetDestination(guardPosition);
+                }
+            }
+        }
+    }
+
+
+    //**UTILITY METHODS**
+    public void Initialize(PathNode roomIn, bool debugMode = false) {
+
+        //Add POIs retrieval from GameManager in future, get navmesh point closest to center of the room        
+
+        //Helpers
+        Vector3 guardPosition = new Vector3(roomIn.transform.position.x, roomIn.transform.position.y, 1.5f);
+
+        //Sample Navmesh
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(guardPosition, out hit, 1.0f, NavMesh.AllAreas)) {
+            guardPosition = hit.position;
+        }
+
+        //Set property
+        this.guardPosition = guardPosition;
+
+        //Flag
+        initialized = true;
+    }
+}

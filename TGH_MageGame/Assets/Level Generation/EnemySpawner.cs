@@ -10,29 +10,30 @@ public class EnemySpawner : MonoBehaviour {
         List<Vector3> spawnLocations = new List<Vector3>();
         List<GameObject> enemiesOut = new List<GameObject>();
         int roomArea = roomIn.RoomDimensions.x * roomIn.RoomDimensions.y;
-        int numEnemySpawns = 0;
+        //int numEnemySpawns = 0;
 
-        if (roomArea < 250) {
-            numEnemySpawns = 1;
-        }
-        else if (roomArea < 500) {
-            numEnemySpawns = 2;
-        }
-        else if (roomArea < 750) {
-            numEnemySpawns = 3;
-        }
-        else if (roomArea < 1000) {
-            numEnemySpawns = 4;
-        }
-        else if (roomArea < 1250) {
-            numEnemySpawns = 5;
-        }
-        else if (roomArea < 1500) {
-            numEnemySpawns = 6;
-        }
-        else {
-            numEnemySpawns = 7;
-        }
+        //if (roomArea < 250) {
+        //    numEnemySpawns = 1;
+        //}
+        //else if (roomArea < 500) {
+        //    numEnemySpawns = 2;
+        //}
+        //else if (roomArea < 750) {
+        //    numEnemySpawns = 3;
+        //}
+        //else if (roomArea < 1000) {
+        //    numEnemySpawns = 4;
+        //}
+        //else if (roomArea < 1250) {
+        //    numEnemySpawns = 5;
+        //}
+        //else if (roomArea < 1500) {
+        //    numEnemySpawns = 6;
+        //}
+        //else {
+        //    numEnemySpawns = 7;
+        //}
+        int numEnemySpawns = 1;
 
         //get random enemy spawn points
         List<int> xLevels = new List<int>();
@@ -97,7 +98,7 @@ public class EnemySpawner : MonoBehaviour {
 
         foreach (Vector3 spawnPos in spawnLocations) {
             //get random enemy
-            GameObject enemy = levelEnemies.mobEnemiesprefabs[Random.Range(0, levelEnemies.mobEnemiesprefabs.Count)];
+            GameObject enemy = levelEnemies.mobEnemyPrefabs[Random.Range(0, levelEnemies.mobEnemyPrefabs.Count)];
 
             enemy = Instantiate(enemy, spawnPos, Quaternion.Euler(0, 0, -90), enemiesParentIn);
 

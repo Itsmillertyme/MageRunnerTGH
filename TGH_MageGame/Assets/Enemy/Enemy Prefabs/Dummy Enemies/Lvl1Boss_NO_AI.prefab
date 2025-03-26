@@ -1752,6 +1752,8 @@ GameObject:
   - component: {fileID: 1802286859456520337}
   - component: {fileID: 7227422544254592007}
   - component: {fileID: 3842347094961187605}
+  - component: {fileID: -988875717844924560}
+  - component: {fileID: -5933918835280057684}
   m_Layer: 0
   m_Name: Lvl1Boss_NO_AI
   m_TagString: Boss Enemy
@@ -1816,7 +1818,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.52
   m_Height: 3
@@ -1844,6 +1846,69 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &-988875717844924560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802286859466036053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7de77ffeddfa4a944b50165ef87738f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  extraTurnSpeed: 0
+  playerSearchRadius: 0
+  guardPosition: {x: 0, y: 0, z: 0}
+--- !u!114 &-5933918835280057684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802286859466036053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85957875391281d4b89c9f73fab00392, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Method: 2
+  m_Curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.018161774
+      value: 0.95448303
+      inSlope: 0.1900368
+      outSlope: 0.1900368
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5096154
+      value: 1.0478773
+      inSlope: -0.0036202744
+      outSlope: -0.0036202744
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.0021362
+      value: 0.9507141
+      inSlope: -0.19727735
+      outSlope: -0.19727735
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  parabolicHeight: 2
+  parabolicTime: 1
 --- !u!1 &1802286859466036055
 GameObject:
   m_ObjectHideFlags: 0

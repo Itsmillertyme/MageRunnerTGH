@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UIElements;
 
 public class SpellBook : MonoBehaviour
 {
@@ -18,8 +21,7 @@ public class SpellBook : MonoBehaviour
     [Header("Player Stats")]
     [SerializeField] PlayerStats playerStats;
 
-    [Header("Game Manager")]
-    [SerializeField] GameManager gameManager;
+    private GameManager gameManager;
 
     #region // GETTERS
     // VARIABLES
@@ -37,7 +39,7 @@ public class SpellBook : MonoBehaviour
     #endregion
 
     #region // DRIVEN
-    /*[SerializeField] */private Transform currentSpawnPoint;
+    private Transform currentSpawnPoint;
     private float scrollValue;
     private Coroutine castCooldown; // later implenent coroutine stopping for interrupted delay when cycling away (if desired)
     private int currentSpellIndex = 0;
@@ -47,6 +49,8 @@ public class SpellBook : MonoBehaviour
 
     private void Awake()
     {
+        gameManager = FindFirstObjectByType<GameManager>();
+
         foreach (Spell spell in spellBook)
         {
             spell.Initialize();
@@ -98,13 +102,15 @@ public class SpellBook : MonoBehaviour
     {
         if (isReadyToCast && playerStats.getCurrentMana() >= spellBook[currentSpellIndex].ManaCost)
         {
-            spellBook[currentSpellIndex].Cast(currentSpawnPoint.position, gameManager.CrosshairPositionIn3DSpace);
+            HandleSpellLogic();
 
-            // ADDITIONAL CASTING LOGIC FOR ABYSSAL FANG SPELL
-            if (spellBook[currentSpellIndex] is AbyssalFang spell)
-            {
-                StartCoroutine(CastAltHandAfterCooldown(spell.CastAltHandCooldownTime));
-            }
+            //spellBook[currentSpellIndex].Cast(currentSpawnPoint.position, gameManager.CrosshairPositionIn3DSpace);
+
+            //// ADDITIONAL CASTING LOGIC FOR ABYSSAL FANG SPELL
+            //if (spellBook[currentSpellIndex] is AbyssalFang spell)
+            //{
+            //    StartCoroutine(CastAltHandAfterCooldown(spell.CastAltHandCooldownTime));
+            //}
 
             castCooldown = StartCoroutine(CastCooldown(spellBook[ActiveSpell].CastCooldownTime));
             SpellCasted.Invoke();
@@ -112,7 +118,41 @@ public class SpellBook : MonoBehaviour
         }
     }
 
-    public IEnumerator CastAltHandAfterCooldown(float waitTime)
+    private void HandleSpellLogic()
+    {
+        switch (spellBook[currentSpellIndex])
+        {
+            case AbyssalFang abf:
+                //
+                CastAbyssalFang(currentSpawnPoint.position, gameManager.CrosshairPositionIn3DSpace);
+                StartCoroutine(CooldownThenCastAltHandAbyssalFang(abf.CastAltHandCooldownTime));
+                break;
+            case HeavensLament hl:
+                //
+                break;
+            case InfernalEmbrace ie:
+                //
+                break;
+            case ShatterstoneBarrage sb:
+                //
+                break;
+            case ThunderlordsCascade tc:
+                //
+                break;
+            case WintersWrath ww:
+                //
+                break;
+        }
+    }
+
+    #region ABYSSAL FANG
+    public void CastAbyssalFang(Vector3 position, Vector3 direction)
+    {
+        GameObject newProjectile = Instantiate(spellBook[currentSpellIndex].Projectile, position, Quaternion.identity);
+        newProjectile.GetComponent<ProjectileMover>().SetAttributes(spellBook[currentSpellIndex].Damage, spellBook[currentSpellIndex].LifeSpan, spellBook[currentSpellIndex].MoveSpeed, spellBook[currentSpellIndex].ProjectileSize, direction);
+    }
+
+    public IEnumerator CooldownThenCastAltHandAbyssalFang(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
         CastAltHand();
@@ -120,11 +160,24 @@ public class SpellBook : MonoBehaviour
 
     public void CastAltHand()
     {
-        if (spellBook[currentSpellIndex] is AbyssalFang spell)
-        {
-            spell.Cast(spellSpawnPoints[1].position, gameManager.CrosshairPositionIn3DSpace);
-        }
+        CastAbyssalFang(spellSpawnPoints[1].position, gameManager.CrosshairPositionIn3DSpace);
     }
+    #endregion
+
+    #region HEAVEN'S LAMENT
+    #endregion
+
+    #region INFERNAL EMBRACE
+    #endregion
+
+    #region SHATTERSTONE BARRAGE
+    #endregion
+
+    #region THUNDERLORD'S CASCADE
+    #endregion
+
+    #region WINTER'S WRATH
+    #endregion
 
     // TEST TO SEE HOW THIS WORKS WITH SWITCHING SPELLS. HARD TO TEST WITH TOUCHPAD.
     public IEnumerator CastCooldown(float waitTime)

@@ -74,8 +74,6 @@ public abstract class Spell : ScriptableObject
         moveSpeed = defaultMoveSpeed;
         projectileSize = defaultProjectileSize;
     }    
-    
-    public abstract void Cast(Vector3 position, Vector3 direction);
 
     public void SetProjectileSize(Vector3 newValue) => projectileSize = newValue;
 

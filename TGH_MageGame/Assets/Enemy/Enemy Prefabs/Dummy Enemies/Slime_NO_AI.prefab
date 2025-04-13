@@ -475,12 +475,12 @@ NavMeshAgent:
   m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 1.5
+  m_Speed: 5.94
   m_Acceleration: 3
   avoidancePriority: 50
   m_AngularSpeed: 720
   m_StoppingDistance: 0.2
-  m_AutoTraverseOffMeshLink: 1
+  m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 1
@@ -503,6 +503,8 @@ MonoBehaviour:
   edgeOffset: 0.5
   extraTurnSpeed: 3
   numWaypoints: 0
+  waypointPositions: []
+  currentWaypoint: 0
   debugOrb: {fileID: 5886576140093531377, guid: 46d93abd248c27f469701082065d70c8, type: 3}
 --- !u!114 &1624416202334243243
 MonoBehaviour:
@@ -516,7 +518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85957875391281d4b89c9f73fab00392, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Method: 3
+  m_Method: 2
   m_Curve:
     serializedVersion: 2
     m_Curve:
@@ -550,6 +552,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  parabolicHeight: 2
+  parabolicTime: 1
 --- !u!1 &6969283729008570918
 GameObject:
   m_ObjectHideFlags: 0

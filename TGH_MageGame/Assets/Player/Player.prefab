@@ -1328,6 +1328,7 @@ GameObject:
   - component: {fileID: 8870210333477321073}
   - component: {fileID: 6492926076646446371}
   - component: {fileID: 833808198341650746}
+  - component: {fileID: 278087572725529908}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1491,15 +1492,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 106905b87dd402443b53913d71b1f4a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mousePositionTracker: {fileID: 11400000, guid: 5ac736863d4e7334481b10c040001176, type: 2}
   playerModel: {fileID: 3590727144175388074}
   projectileSpawn: {fileID: 351126521477295493}
+  gameManager: {fileID: 0}
+  crosshairRect: {fileID: 0}
   maxJumpHeight: 6
   maxJumpTime: 1.5
   movementSpeed: 3
   sprintMultiplier: 2
   dashForce: 10
   gravity: -0.1
+  SpellMenuInputPressed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &8870210333477321073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1646,6 +1651,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &278087572725529908
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1563637665092759220}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.1, y: 0.1, z: 0.1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1569372974814226413
 GameObject:
   m_ObjectHideFlags: 0

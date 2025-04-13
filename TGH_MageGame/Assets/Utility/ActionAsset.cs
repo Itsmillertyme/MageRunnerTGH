@@ -76,7 +76,7 @@ public partial class @ActionAsset: IInputActionCollection2, IDisposable
                     ""name"": ""Cast"",
                     ""type"": ""Button"",
                     ""id"": ""c047e85a-3ac8-4425-80e5-e7842c805da2"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false

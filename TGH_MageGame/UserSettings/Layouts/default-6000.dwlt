@@ -120,7 +120,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 130
+  controlID: 125
   draggingID: 0
 --- !u!114 &6
 MonoBehaviour:
@@ -247,8 +247,8 @@ MonoBehaviour:
     y: 0
     width: 575
     height: 432
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 226}
+  m_MaxSize: {x: 4002, y: 4026}
   m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
@@ -301,8 +301,8 @@ MonoBehaviour:
     y: 0
     width: 408
     height: 941
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 76}
+  m_MaxSize: {x: 4001, y: 4026}
   m_ActualView: {fileID: 21}
   m_Panes:
   - {fileID: 21}
@@ -896,7 +896,7 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: -0.00092644827, y: 0.99605113, z: -0.089887165, w: -0.0029600882}
     speed: 2
-    m_Value: {x: -0.0009263523, y: 0.99594796, z: -0.08987785, w: -0.0029597816}
+    m_Value: {x: -0.00092644827, y: 0.99605113, z: -0.089887165, w: -0.0029600882}
   m_Size:
     m_Target: 16.904112
     speed: 2
@@ -1300,23 +1300,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: fc100100
+      m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 76efd8ffd6e4eaff027df5ff2a7df5ff2e7df5ff327df5ff7e7df5ff827df5ff867df5ff8e7df5ff9a7df5ff2a81fdff00fbffff
+      m_ExpandedIDs: 00fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: Cube
-        m_OriginalName: Cube
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: -2169110
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_TrimLeadingAndTrailingWhitespace: 0
         m_ClientGUIView: {fileID: 10}
@@ -1374,7 +1374,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Enemy/Enemy Prefabs/Level 1
+    - Assets
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1384,16 +1384,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Enemy/Enemy Prefabs/Level 1
+  - Assets
   m_LastFoldersGridSize: 16
-  m_LastProjectPath: D:\Github\MageRunnerTGH\TGH_MageGame
+  m_LastProjectPath: F:\Github\MageRunnerTGH\TGH_MageGame
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 58be0000
-    m_LastClickedID: 48728
-    m_ExpandedIDs: 0000000046bc000048bc00004abc00004cbc00004ebc000052be000052c2000000ca9a3b
+    m_SelectedIDs: dcbc0000
+    m_LastClickedID: 48348
+    m_ExpandedIDs: 00000000dcbc0000debc0000e0bc0000e2bc0000e4bc0000e6bc000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1422,7 +1422,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000046bc000048bc00004abc00004cbc00004ebc0000
+    m_ExpandedIDs: 00000000dcbc0000debc0000e0bc0000e2bc0000e4bc0000e6bc0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1450,22 +1450,22 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: 8cc5000068fe000034bc000084e00100e4df0100a4de0100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Bat
-      m_OriginalName: Bat
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 120866
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_TrimLeadingAndTrailingWhitespace: 0
       m_ClientGUIView: {fileID: 11}
@@ -1582,7 +1582,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 193}
     m_SelectedIDs: 6cc20000
     m_LastClickedID: 49772
-    m_ExpandedIDs: 0000000046bc000048bc00004abc00004cbc00004ebc00004ebe000050c2000052c2000054c200006ac2000082c2000094e20000ee030100f4030100fa0301000404010000ca9a3b
+    m_ExpandedIDs: 00000000dcbc0000debc0000e0bc0000e2bc0000e4bc0000e6bc0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1611,7 +1611,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000046bc000048bc00004abc00004cbc00004ebc0000
+    m_ExpandedIDs: 00000000dcbc0000debc0000e0bc0000e2bc0000e4bc0000e6bc0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1643,18 +1643,18 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: a6c2000000c30000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: BatPADefault
-      m_OriginalName: BatPADefault
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 68146
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 4
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_TrimLeadingAndTrailingWhitespace: 0
       m_ClientGUIView: {fileID: 11}

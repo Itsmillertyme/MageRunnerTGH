@@ -15,21 +15,21 @@ MonoBehaviour:
   name: Shatterstone Barrage
   description: Attributes tbd
   loreText: 
-  defaultManaCost: 5
+  defaultManaCost: 25
   defaultDamage: 5
   defaultLifeSpan: 5
-  defaultCastDelayTime: 5
+  defaultCastDelayTime: 1.3
   defaultCastCooldownTime: 5
   defaultMoveSpeed: 5
   defaultProjectileSize: {x: 1, y: 1, z: 1}
-  manaCost: 5
+  manaCost: 25
   damage: 5
   lifeSpan: 5
-  castDelayTime: 5
+  castDelayTime: 1.3
   castCooldownTime: 5
   moveSpeed: 5
   projectileSize: {x: 1, y: 1, z: 1}
-  projectile: {fileID: 5209031492519659586, guid: 8fe6fceb71f95cf4e9196a408dc5ebdc, type: 3}
+  projectile: {fileID: 0}
   spawnSFX: {fileID: 8300000, guid: b99c3b8b3053ff5489ffb9a8d8c51286, type: 3}
   hitSFX: {fileID: 8300000, guid: d5af729c639e9a0438716881df40bd1c, type: 3}
   castAnimation: {fileID: 7400000, guid: 42655518abd596849af4805a991c6153, type: 2}
@@ -37,3 +37,16 @@ MonoBehaviour:
   reticle: {fileID: 21300000, guid: 24e774678ccc4c2498483de1155380d6, type: 3}
   isUnlocked: 1
   isAuto: 0
+  projectileCount: 10
+  spawnRadius: 3
+  riseHeight: 5.5
+  riseSpeed: 1.3
+  attackSpeed: 32
+  delayBetweenSpawns: 0.15
+  riseMaxTime: 1.25
+  pauseBetweenPhases: 1.1
+  riseHeightVariation: 1.25
+  prefabs:
+  - {fileID: 1685167156214884924, guid: cf926812ddf65f84f8768903231a4a40, type: 3}
+  - {fileID: 1619420229689418061, guid: ea227922dec08a24bbe3ec5c1da55873, type: 3}
+  - {fileID: 1887437700769091368, guid: f8c5de420593d264785af1f3e81d382f, type: 3}

@@ -1,9 +1,7 @@
-using System;
 using System.Collections;
-using UnityEditor.Experimental.GraphView;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UIElements;
 
 public class SpellBook : MonoBehaviour
 {
@@ -104,14 +102,6 @@ public class SpellBook : MonoBehaviour
         {
             HandleSpellLogic();
 
-            //spellBook[currentSpellIndex].Cast(currentSpawnPoint.position, gameManager.CrosshairPositionIn3DSpace);
-
-            //// ADDITIONAL CASTING LOGIC FOR ABYSSAL FANG SPELL
-            //if (spellBook[currentSpellIndex] is AbyssalFang spell)
-            //{
-            //    StartCoroutine(CastAltHandAfterCooldown(spell.CastAltHandCooldownTime));
-            //}
-
             castCooldown = StartCoroutine(CastCooldown(spellBook[ActiveSpell].CastCooldownTime));
             SpellCasted.Invoke();
             playerStats.updateCurrentMana(-spellBook[currentSpellIndex].ManaCost);
@@ -122,45 +112,40 @@ public class SpellBook : MonoBehaviour
     {
         switch (spellBook[currentSpellIndex])
         {
-            case AbyssalFang abf:
-                //
-                CastAbyssalFang(currentSpawnPoint.position, gameManager.CrosshairPositionIn3DSpace);
-                StartCoroutine(CooldownThenCastAltHandAbyssalFang(abf.CastAltHandCooldownTime));
+            case AbyssalFang af:
+                CastAbyssalFang(af, currentSpawnPoint.position, gameManager.CrosshairPositionIn3DSpace);
+                StartCoroutine(CooldownThenCastAltHandAbyssalFang(af, af.CastAltHandCooldownTime));
                 break;
-            case HeavensLament hl:
-                //
-                break;
-            case InfernalEmbrace ie:
-                //
-                break;
+            //case HeavensLament hl:
+            //    //
+            //    break;
+            //case InfernalEmbrace ie:
+            //    //
+            //    break;
             case ShatterstoneBarrage sb:
-                //
+                StartCoroutine(ShatterstoneSpawnProjectiles(sb));
                 break;
-            case ThunderlordsCascade tc:
-                //
-                break;
-            case WintersWrath ww:
-                //
-                break;
+            //case ThunderlordsCascade tc:
+            //    //
+            //    break;
+            //case WintersWrath ww:
+            //    //
+            //    break;
         }
     }
 
     #region ABYSSAL FANG
-    public void CastAbyssalFang(Vector3 position, Vector3 direction)
+    public void CastAbyssalFang(AbyssalFang af, Vector3 position, Vector3 direction)
     {
         GameObject newProjectile = Instantiate(spellBook[currentSpellIndex].Projectile, position, Quaternion.identity);
-        newProjectile.GetComponent<ProjectileMover>().SetAttributes(spellBook[currentSpellIndex].Damage, spellBook[currentSpellIndex].LifeSpan, spellBook[currentSpellIndex].MoveSpeed, spellBook[currentSpellIndex].ProjectileSize, direction);
+        newProjectile.GetComponent<AbyssalFangProjectileMovement>().SetAttributes(spellBook[currentSpellIndex].MoveSpeed, spellBook[currentSpellIndex].ProjectileSize, direction);
+        newProjectile.GetComponent<EnemyDamager>().SetAttributes(af.Damage, af.LifeSpan);
     }
 
-    public IEnumerator CooldownThenCastAltHandAbyssalFang(float waitTime)
+    public IEnumerator CooldownThenCastAltHandAbyssalFang(AbyssalFang af, float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
-        CastAltHand();
-    }
-
-    public void CastAltHand()
-    {
-        CastAbyssalFang(spellSpawnPoints[1].position, gameManager.CrosshairPositionIn3DSpace);
+        CastAbyssalFang(af, spellSpawnPoints[1].position, gameManager.CrosshairPositionIn3DSpace);
     }
     #endregion
 
@@ -171,6 +156,25 @@ public class SpellBook : MonoBehaviour
     #endregion
 
     #region SHATTERSTONE BARRAGE
+    private IEnumerator ShatterstoneSpawnProjectiles(ShatterstoneBarrage sb)
+    {
+        for (int i = 0; i < sb.ProjectileCount; i++)
+        {
+            // CREATE RANDOM OFFSET FROM BASE SPAWN POSITION
+            Vector3 spawnOffset = Random.insideUnitSphere * sb.SpawnRadius; // RANDOM OFFSET POSITION AROUND THE SPAWN CENTER
+            //spawnOffset.y = 0; // CLAMP TO 0 TO REMOVE RANDOMNESS OF VERTICAL SPAWN POSITION
+            Vector3 spawnPosition = currentSpawnPoint.position + spawnOffset; // SPAWN POSITION PLUS RANDOMNESS ON X
+
+            // CREATE RANDOM TYPE OF PROJECTILE WITH RANDOM ROTATIONS
+            GameObject projectile = Instantiate(sb.Prefabs[Random.Range(0, sb.Prefabs.Length)], spawnPosition, Quaternion.Euler(Random.Range(0f, 360f), Random.Range(0f, 360f), Random.Range(0f, 360f))); // RANDOM ROTATIONS
+            
+            // INVOKE MOVEMENT LOGIC
+            StartCoroutine(projectile.GetComponent<ShatterstoneBarrageProjectileMovement>().ShatterstoneMoveProjectile(sb, spawnOffset));
+            
+            // WAIT BETWEEN EACH PROJECTILE SPAWN
+            yield return new WaitForSeconds(sb.DelayBetweenSpawns); 
+        }
+    }
     #endregion
 
     #region THUNDERLORD'S CASCADE

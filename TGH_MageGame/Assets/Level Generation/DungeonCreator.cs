@@ -1,10 +1,17 @@
 using System;
 using System.Collections.Generic;
 using Unity.AI.Navigation;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class DungeonCreator : MonoBehaviour {
+
+    [Header("Dungeon Seed Settings")]
+    [ReadOnly]
+    public int levelSeed;
+    [Tooltip("Keep current seed during dungeon clear?")]
+    public bool keepSeed;
 
     [Header("Dungeon Size Settings")]
     public int dungeonHeight;
@@ -14,9 +21,8 @@ public class DungeonCreator : MonoBehaviour {
     public int corridorSize;
 
     [Header("Generator Settings")]
-    //public bool generateOnLoad;
-    //public bool debugMode;
     public bool dungeonFlatMode;
+
     public int maxIterations;
     [Range(0.0f, 0.3f)]
     public float roomBottomCornerModifier;
@@ -37,7 +43,7 @@ public class DungeonCreator : MonoBehaviour {
     public Transform platformParent;
     public Transform decorationParent;
     public Transform enemiesParent;
-    public Transform waypointsParent;
+    public Transform devParent;
 
     [Header("Prefab References")]
     public GameObject wallHorizontal;
@@ -81,13 +87,27 @@ public class DungeonCreator : MonoBehaviour {
             RetryGeneration();
         }
     }
+    //
+    private void OnApplicationQuit() {
+        NavMeshSurface nms = GetComponent<NavMeshSurface>();
+        nms.RemoveData();
+    }
 
     //**Generation Methods**
     private void CreateDungeon() { //Main method for making dungeon
 
+        //*PRIME PSEUDO RANDOM NUMBER GENERATOR*
+        //RandomSeedManager.DebugLevelSeeds();
+
+        if (levelSeed == 0) {
+            levelSeed = RandomSeedManager.SetRandomSeed();
+        }
+        else {
+            RandomSeedManager.SetSeed(levelSeed);
+        }
+
 
         //*BEGIN DUNGEON GENERATION*
-
         //Create instance of generator script
         DungeonGenerator generator = new DungeonGenerator(dungeonHeight, dungeonWidth);
         //Generate list of rooms
@@ -217,7 +237,6 @@ public class DungeonCreator : MonoBehaviour {
             }
         }
 
-
         //*PLACE LEVEL DECORATIONS*
         //Floor
         List<Vector3> itemLocations = levelDecorator.GenerateFloorItemLocations(platformLocations);
@@ -259,42 +278,38 @@ public class DungeonCreator : MonoBehaviour {
             levelParent.position = new Vector3(0, 0, -0.5f);
         }
 
-
-
-        //*BAKE NAVMESH - init
+        //*BAKE NAVMESH
         NavMeshSurface nms = GetComponent<NavMeshSurface>();
         nms.BuildNavMesh();
 
+        //*ENSURE PROPER LINK PLACEMENT*
+        NavMeshLink[] links = FindObjectsByType<NavMeshLink>(FindObjectsSortMode.None);
+        for (int i = 0; i < links.Length; i++) {
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(links[i].startPoint, out hit, .5f, NavMesh.AllAreas)) {
+                links[i].startPoint = hit.position;
+            }
+            hit = new NavMeshHit();
+            if (NavMesh.SamplePosition(links[i].endPoint, out hit, .5f, NavMesh.AllAreas)) {
+                links[i].endPoint = hit.position;
+            }
+        }
 
         //*TURN ON NAVMESH AGENTS FOR ALL ENEMIES AND INIT BEHAVIORS*
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < pf.PathNodes.Count; i++) {
             PathNode room = pf.PathNodes[i];
-            Debug.Log(room.name);
-            Debug.Log(room.Enemies.Count);
+            //Debug.Log(room.name);
+            //Debug.Log(room.Enemies.Count);
             foreach (GameObject enemy in room.Enemies) {
                 //Debug.Log(enemy.name);
                 if (enemy.CompareTag("Mob Enemy")) {
                     //Debug.Log(enemy.name);
                     enemy.GetComponent<NavMeshAgent>().enabled = true;
                     //Debug.Log("Is mob");
-                    enemy.GetComponent<EnemyPatrol>().Initialize(room, gameManager.DebugEnemySpawning);
+                    enemy.GetComponent<IBehave>().Initialize(room, gameManager.DebugEnemySpawning);
                 }
             }
         }
-
-
-        //for (int i = 0; i < enemiesParent.childCount; i++) {
-        //    GameObject enemy = enemiesParent.GetChild(i).gameObject;
-        //    enemy.GetComponent<NavMeshAgent>().enabled = true;
-
-        //    //DEV ONLY - SKIP BOSS
-        //    if (i != 0) {
-
-        //        //Debug.Log(enemy.name);
-        //        enemy.GetComponent<EnemyPatrol>().Initialize(gameManager.DebugEnemySpawning);
-        //    }
-
-        //}
 
         //DEV ONLY
         if (gameManager.DebugLevelGeneration) {
@@ -331,7 +346,7 @@ public class DungeonCreator : MonoBehaviour {
         Transform[] platformChildren = platformParent.GetComponentsInChildren<Transform>(true);
         Transform[] decorationChildren = decorationParent.GetComponentsInChildren<Transform>(true);
         Transform[] enemiesChildren = enemiesParent.GetComponentsInChildren<Transform>(true);
-        Transform[] waypointsChildren = waypointsParent.GetComponentsInChildren<Transform>(true);
+        Transform[] devChildren = devParent.GetComponentsInChildren<Transform>(true);
 
         //reset dungeon parent rotation
         levelParent.rotation = Quaternion.Euler(0, 0, 0);
@@ -370,12 +385,15 @@ public class DungeonCreator : MonoBehaviour {
             DestroyImmediate(enemiesChildren[i].gameObject);
         }
         //Destroy DEV waypoint objects
-        for (int i = waypointsChildren.Length - 1; i > 0; i--) {
-            DestroyImmediate(waypointsChildren[i].gameObject);
+        for (int i = devChildren.Length - 1; i > 0; i--) {
+            DestroyImmediate(devChildren[i].gameObject);
         }
 
         //clear navmesh
         GetComponent<NavMeshSurface>().RemoveData();
+
+        //clear seed field
+        levelSeed = keepSeed ? levelSeed : 0;
 
     }
     //
@@ -712,7 +730,7 @@ public class DungeonCreator : MonoBehaviour {
     public List<Vector3> CalculatePlatforms(PathNode room) {
 
         List<Vector3> platformLocationsOut = new List<Vector3>();
-        List<List<GameObject>> roomPlatforms = new List<List<GameObject>>();
+        List<List<GameObject>> roomPlatformRows = new List<List<GameObject>>();
 
         int verticalPlatformDistance = 5;
         int platformWidth = 5;
@@ -723,6 +741,7 @@ public class DungeonCreator : MonoBehaviour {
         int platformSpace = roomHeight - 2 * wallSpace;
 
         int count = 1;
+
         for (int i = groundLevel + verticalPlatformDistance; i < groundLevel + roomWidth - 3; i += verticalPlatformDistance) {
 
             int middleSpace = platformSpace / platformWidth;
@@ -759,50 +778,28 @@ public class DungeonCreator : MonoBehaviour {
             }
             List<GameObject> lineOfPlatforms = new List<GameObject>();
 
-            platformLocationsOut.AddRange(SpawnLineOfPlatforms(platformData, i, room, platformWidth));
+            platformLocationsOut.AddRange(SpawnLineOfPlatforms(platformData, i, room, platformWidth, out lineOfPlatforms));
+
             count++;
+
+            roomPlatformRows.Add(lineOfPlatforms);
         }
+
+        LinkPlatformRows(roomPlatformRows);
 
         return platformLocationsOut;
     }
     //
-    //public void SpawnDoorAtPlayerStart() {
+    List<Vector3> SpawnLineOfPlatforms(string lineData, int x, PathNode room, int platformWidth, out List<GameObject> lineOfPlatformsOut) {
 
-    //    //Debug.Log("Player Pos: " + playerPrefab.transform.position);
-
-    //    Collider[] hits = Physics.OverlapSphere(playerPrefab.transform.position, 15f);
-    //    GameObject closestGO = null;
-    //    float closestDistance = Mathf.Infinity;
-
-    //    foreach (Collider collider in hits) {
-    //        GameObject go = collider.gameObject;
-    //        if (go.name == "CastleWall_5x5(Clone)") {
-    //            float distance = Vector3.Distance(playerPrefab.transform.position, go.transform.position);
-    //            if (distance < closestDistance) {
-    //                closestDistance = distance;
-    //                closestGO = go;
-    //            }
-    //        }
-    //    }
-
-    //    //Debug.Log("Closest Distance: " + closestDistance);
-    //    //Debug.Log("Closest wall: " + closestGO.transform.position);
-
-    //    GameObject door = Instantiate(castleWall5x5DoorPrefab, closestGO.transform.parent);
-    //    door.name = "door";
-    //    door.transform.position = closestGO.transform.localPosition;
-    //    door.transform.rotation = Quaternion.Euler(90, 90, 0);
-    //    closestGO.SetActive(false);
-    //}
-    //
-    List<Vector3> SpawnLineOfPlatforms(string lineData, int x, PathNode room, int platformWidth) {
-
-        List<Vector3> platformLocationsOut = new List<Vector3>();
-
-        //Helper
+        //Helpers
         int numSpaces = 0;
+        List<Vector3> platformLocationsOut = new List<Vector3>();
+        lineOfPlatformsOut = new List<GameObject>();
+        Vector3 spawnPos = new Vector3();
+        float totalOffset = 0;
 
-        //Validate linedata *******Necessary??
+        //Validate linedata 
         foreach (char c in lineData.ToCharArray()) {
             if (c != '0' && c != '1') {
                 return platformLocationsOut;
@@ -828,179 +825,234 @@ public class DungeonCreator : MonoBehaviour {
         //Debug.Log("/Cell offset " + spaceOffsetPerCell);
         //Debug.Log("=============================================");
 
-        Vector3 spawnPos = new Vector3();
-
-        float totalOffset = 0;
+        //Loop through line data
         for (int i = 0; i < lineData.Length; i++) {
+            //Skips spaces (represented by '0')
             if (lineData[i] == '0') {
                 totalOffset += spaceOffsetPerCell;
                 continue;
             }
+
+            //Set spawn position
             spawnPos = new Vector3(x, -0.5f, room.RoomTopLeftCorner.y - (i * platformWidth) - totalOffset - platformWidth / 2f);
 
+            //Instantiate and setup
             GameObject platform = Instantiate(platformPrefab, spawnPos, Quaternion.Euler(0, 0, 0));
             platform.transform.parent = platformParent;
-            // Set to Ground layer
-            SetAllChildrenToLayer(platform, 9);
+            SetAllChildrenToLayer(platform, 9);// Set to Ground layer
 
+            //Add to output variables
             platformLocationsOut.Add(spawnPos);
+            lineOfPlatformsOut.Add(platform);
         }
 
-        //LinkPlatformLine(lineOfPlatforms);
+        //Link Navmeshes on line of platforms
+        LinkPlatformLine(lineOfPlatformsOut);
 
         return platformLocationsOut;
     }
     //
-    //void LinkPlatformLine(List<GameObject> platformLine) {
-
-    //    for (int i = 0; i < platformLine.Count - 1; i++) {
-    //        //Helpers
-    //        float dist = Vector3.Distance(platformLine[i].transform.position, platformLine[i + 1].transform.position);
-    //        if (dist > 5 && dist < 15) { //5 is platform width
-    //            GameObject startPlatform = platformLine[i].transform.GetChild(0).gameObject;
-    //            GameObject endPlatform = platformLine[i + 1].transform.GetChild(0).gameObject;
-    //            //add navmesh link component
-    //            NavMeshLink link = startPlatform.AddComponent<NavMeshLink>();
-
-
-    //            Vector3 p1Point = new Vector3(startPlatform.transform.localPosition.z + 2, startPlatform.transform.localPosition.x, startPlatform.transform.localPosition.y / 2);//convert to local and then X->Y, Y/2->Z, Z-> X
-    //            Vector3 p2Point = new Vector3(endPlatform.transform.localPosition.z + dist - 2, endPlatform.transform.localPosition.x, endPlatform.transform.localPosition.y / 2);//convert to local and then X->Y, Y/2->Z, Z-> X
-
-    //            //Setup link points
-    //            NavMeshHit hit;
-    //            float maxdistance = 2f;
-
-    //            if (NavMesh.SamplePosition(p1Point, out hit, maxdistance, NavMesh.AllAreas)) {
-    //                p1Point = hit.position;
-    //            }
-    //            else {
-    //                Debug.LogWarning("Start point is not on NavMesh, using default position.");
-    //            }
-
-    //            if (NavMesh.SamplePosition(p2Point, out hit, maxdistance, NavMesh.AllAreas)) {
-    //                p2Point = hit.position;
-    //            }
-    //            else {
-    //                Debug.LogWarning("End point is not on NavMesh, using default position.");
-    //            }
-
-
-    //            //link from current to next platform
-    //            link.startPoint = startPlatform.transform.InverseTransformPoint(p1Point);
-    //            link.endPoint = startPlatform.transform.InverseTransformPoint(p2Point);
-    //            link.bidirectional = true;
-    //            link.autoUpdate = true;
-    //            link.width = 4f;
-
-    //            link.enabled = false;
-    //            link.enabled = true;
-    //        }
-    //    }
-    //}
-    //void LinkPlatformLine(List<GameObject> platformLine) {
-    //    for (int i = 0; i < platformLine.Count - 1; i++) {
-    //        // Calculate the distance between platforms
-    //        float dist = Vector3.Distance(platformLine[i].transform.position, platformLine[i + 1].transform.position);
-    //        if (dist > 5 && dist < 15) { // 5 is the width of the platform
-    //            GameObject startPlatform = platformLine[i].transform.GetChild(0).gameObject;
-    //            GameObject endPlatform = platformLine[i + 1].transform.GetChild(0).gameObject;
-
-    //            // Add NavMeshLink component
-    //            NavMeshLink link = startPlatform.AddComponent<NavMeshLink>();
-
-    //            // Calculate world positions for the link's start and end points
-    //            // We use the local bounds to get the platform edges and add an offset
-    //            Vector3 p1Point = startPlatform.transform.position + new Vector3(2f, 0f, 0f); // Right edge of start platform (offset by 2 units)
-    //            Vector3 p2Point = endPlatform.transform.position + new Vector3(-2f, 0f, 0f);   // Left edge of end platform (offset by -2 units)
-
-    //            // Sample positions to ensure the points are on the NavMesh
-    //            NavMeshHit hit;
-    //            float maxdistance = 2f;
-
-    //            if (NavMesh.SamplePosition(p1Point, out hit, maxdistance, NavMesh.AllAreas)) {
-    //                p1Point = hit.position; // Adjust start point to be on the NavMesh
-    //            }
-    //            else {
-    //                Debug.LogWarning("Start point is not on NavMesh, using default position.");
-    //            }
-
-    //            if (NavMesh.SamplePosition(p2Point, out hit, maxdistance, NavMesh.AllAreas)) {
-    //                p2Point = hit.position; // Adjust end point to be on the NavMesh
-    //            }
-    //            else {
-    //                Debug.LogWarning("End point is not on NavMesh, using default position.");
-    //            }
-
-    //            // Debugging output to check the sampled positions
-    //            Debug.Log($"Start point: {p1Point}, End point: {p2Point}");
-
-    //            // Link the start and end positions to the NavMeshLink
-    //            link.startPoint = startPlatform.transform.InverseTransformPoint(p1Point); // Convert start point to local space of the start platform
-    //            link.endPoint = startPlatform.transform.InverseTransformPoint(p2Point);   // Convert end point to local space of the start platform
-    //            link.bidirectional = true;
-    //            link.autoUpdate = true;
-    //            link.width = 4f;
-
-    //            // Enable and apply the link
-    //            link.enabled = false;
-    //            link.enabled = true;
-    //        }
-    //    }
-    //}
     void LinkPlatformLine(List<GameObject> platformLine) {
+
         for (int i = 0; i < platformLine.Count - 1; i++) {
             // Calculate the distance between platforms
             float dist = Vector3.Distance(platformLine[i].transform.position, platformLine[i + 1].transform.position);
-            if (dist > 5 && dist < NavMeshLinkJumpDistance) { // 5 is the width of the platform
+
+            //Ensure check is only running if there is a gap with neighbor
+            if (dist > 5.5 && dist < NavMeshLinkJumpDistance) { // 5 is the width of the platform
                 GameObject startPlatform = platformLine[i].transform.GetChild(0).gameObject;
                 GameObject endPlatform = platformLine[i + 1].transform.GetChild(0).gameObject;
 
                 // Add NavMeshLink component
                 NavMeshLink link = startPlatform.AddComponent<NavMeshLink>();
 
-                // Calculate world positions for the link's start and end points
-                Vector3 p1Point = startPlatform.transform.position + new Vector3(0f, 0f, -2.5f); // Right edge of start platform (offset by 2 units)
-                Vector3 p2Point = endPlatform.transform.position + new Vector3(5f, 0f, -2.5f);   // Left edge of end platform (offset by -2 units)
-
-                // Sample positions to ensure the points are on the NavMesh
-                NavMeshHit hit;
-                float maxdistance = 2f;
-
-                if (NavMesh.SamplePosition(p1Point, out hit, maxdistance, NavMesh.AllAreas)) {
-                    p1Point = hit.position; // Adjust start point to be on the NavMesh
-                }
-                else {
-                    Debug.LogWarning("Start point is not on NavMesh, using default position.");
-                }
-
-                if (NavMesh.SamplePosition(p2Point, out hit, maxdistance, NavMesh.AllAreas)) {
-                    p2Point = hit.position; // Adjust end point to be on the NavMesh
-                }
-                else {
-                    Debug.LogWarning("End point is not on NavMesh, using default position.");
-                }
-
-                // Debugging output to check the sampled positions
-                //Debug.Log($"Start point: {p1Point}, End point: {p2Point}");
-
-                // Convert the world space positions to local space of the child platform
-                // Take into account the rotation of the parent
-                Vector3 localP1 = startPlatform.transform.InverseTransformPoint(p1Point);
-                Vector3 localP2 = startPlatform.transform.InverseTransformPoint(p2Point);
-
-                // Debugging the local positions after conversion
-                //Debug.Log($"Local Start: {localP1}, Local End: {localP2}");
+                //Set up link points (RELATIVE TO GAMEOBJECT WORLD POSITION)
+                Vector3 localP1 = new Vector3(-0.5f, 0.1f, 2.5f);
+                Vector3 localP2 = new Vector3(dist - 4, 0.1f, 2.5f);
 
                 // Link the start and end positions to the NavMeshLink
                 link.startPoint = localP1;
                 link.endPoint = localP2;
                 link.bidirectional = true;
                 link.autoUpdate = true;
-                link.width = 4f;
 
                 // Enable and apply the link
                 link.enabled = false;
                 link.enabled = true;
+            }
+        }
+    }
+    //
+    void LinkPlatformRows(List<List<GameObject>> roomPlatformRows) {
+        //Loop through all rows except bottom (lowest row on cam)
+        for (int i = roomPlatformRows.Count - 1; i >= 0; i--) {
+            //Loop through all platforms in row
+            for (int j = 0; j < roomPlatformRows[i].Count; j++) {
+
+                //Helpers
+                GameObject platform = roomPlatformRows[i][j];
+                Vector3 wallCheckOrigin = new Vector3(platform.transform.position.x + 0.5f, platform.transform.position.y + 2.5f, platform.transform.position.z);
+                bool doRightSideCheck = true;
+                bool doLeftSideCheck = true;
+
+
+                //DEV ONLY - DEBUG ORBS
+                //GameObject go = new GameObject("Testing platform locations", typeof(MeshFilter), typeof(MeshRenderer));
+                //go.GetComponent<MeshFilter>().mesh = gameManager.debugObjectMesh;
+                //go.GetComponent<MeshRenderer>().material = gameManager.debugMaterial;
+                //go.transform.position = wallCheckOrigin;
+                //go.transform.parent = devParent;
+
+                //Test if against right wall
+                if (j == roomPlatformRows[i].Count - 1) {
+                    //Right wall check
+                    Vector3 wallCheckEnd = new Vector3(0, 0, -3);
+
+                    Ray ray = new Ray(wallCheckOrigin, wallCheckEnd.normalized);
+                    RaycastHit hit;
+                    if (Physics.Raycast(ray, out hit, 3)) {
+                        //Flag
+                        doRightSideCheck = false;
+
+                        //DEV ONLY
+                        //go.GetComponent<MeshRenderer>().material.color = new Color(0, 0, 1);
+                        //Debug.DrawRay(wallCheckOrigin, wallCheckEnd, Color.blue, 25);
+                    }
+                }
+                //Test if against left wall
+                else if (j == 0) {
+                    //left wall check
+                    Vector3 wallCheckEnd = new Vector3(0, 0, 3);
+
+                    Ray ray = new Ray(wallCheckOrigin, wallCheckEnd.normalized);
+                    RaycastHit hit;
+                    if (Physics.Raycast(ray, out hit, 3)) {
+                        //Flag
+                        doLeftSideCheck = false;
+
+                        //DEV ONLY
+                        //go.GetComponent<MeshRenderer>().material.color = new Color(0, 0, 1);
+                        //Debug.DrawRay(wallCheckOrigin, wallCheckEnd, Color.blue, 25);
+                    }
+                }
+
+                //Check down right
+                if (doRightSideCheck) {
+                    //Flag
+                    bool doLink = true;
+
+                    //Ensure all platforms but last in row
+                    if (j != roomPlatformRows[i].Count - 1) {
+                        //Helpers
+                        GameObject rightNeighbor = roomPlatformRows[i][j + 1];
+                        float dist = Vector3.Distance(platform.transform.position, rightNeighbor.transform.position);
+
+                        //Ensure check is only running if there is a gap with neighbor
+                        if (dist <= 5.5f) {
+                            doLink = false;
+                        }
+                    }
+
+
+                    //If there is a gap, check for platforms below
+                    if (doLink) {
+
+                        //Helpers
+                        Vector3 rayOrigin = new Vector3(platform.transform.position.x - 1, platform.transform.position.y + 2.5f, platform.transform.position.z - 2.5f);
+                        Vector3 rayEnd = new Vector3(-4.5f, 0, -2f);
+                        Ray ray = new Ray(rayOrigin, rayEnd.normalized);
+                        RaycastHit hit;
+
+                        //DEV ONLY
+                        //GameObject testGO = new GameObject("Testing Right Ray Origin", typeof(MeshFilter), typeof(MeshRenderer));
+                        //testGO.GetComponent<MeshFilter>().mesh = gameManager.debugObjectMesh;
+                        //testGO.GetComponent<MeshRenderer>().material = gameManager.debugMaterial;
+                        //testGO.transform.position = rayOrigin;
+                        //testGO.transform.parent = devParent;
+
+                        if (Physics.Raycast(ray, out hit, 4.5f)) {
+                            //testGO.GetComponent<MeshRenderer>().material.color = new Color(0, 0, 1);
+
+                            //add link component
+                            NavMeshLink link = platform.transform.GetChild(0).gameObject.AddComponent<NavMeshLink>();
+
+                            //Setup up link points
+                            Vector3 localP1 = new Vector3(-0.5f, 0.1f, 2.5f);
+                            Vector3 localP2 = new Vector3(2.25f, -5.1f, 2.5f);
+
+                            // Link the start and end positions to the NavMeshLink
+                            link.startPoint = localP1;
+                            link.endPoint = localP2;
+                            link.bidirectional = true;
+                            link.autoUpdate = true;
+
+                            // Enable and apply the link
+                            link.enabled = false;
+                            link.enabled = true;
+
+                        }
+                        //Debug.DrawRay(rayOrigin, rayEnd, Color.red, 25);
+                    }
+                }
+
+                //Check down left
+                if (doLeftSideCheck) {
+                    //Flag
+                    bool doLink = true;
+                    //Ensure all platforms but first in row
+                    if (j != 0) {
+                        //Helpers
+                        GameObject LeftNeighbor = roomPlatformRows[i][j - 1];
+                        float dist = Vector3.Distance(platform.transform.position, LeftNeighbor.transform.position);
+
+                        //Ensure check is only running if there is a gap with neighbor
+                        if (dist <= 5.5f) {
+                            doLink = false;
+                        }
+                    }
+
+
+                    //If there is a gap, check for platforms below
+                    if (doLink) {
+
+                        //Helpers
+                        Vector3 rayOrigin = new Vector3(platform.transform.position.x - 1, platform.transform.position.y + 2.5f, platform.transform.position.z + 2.5f);
+                        Vector3 rayEnd = new Vector3(-4.5f, 0, 2f);
+                        Ray ray = new Ray(rayOrigin, rayEnd.normalized);
+                        RaycastHit hit;
+
+                        //DEV ONLY
+                        //GameObject testGO = new GameObject("Testing Left Ray Origin", typeof(MeshFilter), typeof(MeshRenderer));
+                        //testGO.GetComponent<MeshFilter>().mesh = gameManager.debugObjectMesh;
+                        //testGO.GetComponent<MeshRenderer>().material = gameManager.debugMaterial;
+                        //testGO.transform.position = rayOrigin;
+                        //testGO.transform.parent = devParent;
+
+
+                        if (Physics.Raycast(ray, out hit, 4.5f)) {
+                            //testGO.GetComponent<MeshRenderer>().material.color = new Color(0, 0, 1);
+
+                            //add link component
+                            NavMeshLink link = platform.transform.GetChild(0).gameObject.AddComponent<NavMeshLink>();
+
+                            //Setup up link points
+                            Vector3 localP1 = new Vector3(-4.5f, 0.1f, 2.5f);
+                            Vector3 localP2 = new Vector3(-7.25f, -5.1f, 2.5f); ;
+
+                            // Link the start and end positions to the NavMeshLink
+                            link.startPoint = localP1;
+                            link.endPoint = localP2;
+                            link.bidirectional = true;
+                            link.autoUpdate = true;
+
+
+                            // Enable and apply the link
+                            link.enabled = false;
+                            link.enabled = true;
+                        }
+                        //Debug.DrawRay(rayOrigin, rayEnd, Color.red, 25);
+                    }
+                }
             }
         }
     }
@@ -1013,6 +1065,12 @@ public class DungeonCreator : MonoBehaviour {
         foreach (Transform child in objIn.transform) {
             SetAllChildrenToLayer(child.gameObject, layerIndexIn);
         }
+    }
+    //
+    public void SaveSeed() {
+        //RandomSeedManager.SaveSeedToGoodList(gameManager.lvl1SeedFilePath, levelSeed);
+        //RandomSeedManager.SaveSeedToJSON(1, levelSeed, gameManager.levelSeedDataFilePath);
+        RandomSeedManager.SaveSeedToJSON(gameManager.CurrentLevel, levelSeed);
     }
 }
 

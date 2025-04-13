@@ -1,7 +1,6 @@
 using UnityEngine;
 
-public class ProjectileMover : MonoBehaviour
-{
+public class ProjectileMover : MonoBehaviour {
     [Header("Debugging")]
     [SerializeField] private float lifeSpan;
     [SerializeField] private float moveSpeed;
@@ -12,21 +11,18 @@ public class ProjectileMover : MonoBehaviour
     // 
     private Vector3 moveDirection;
 
-    private void Start()
-    {
+    private void Start() {
         moveDirection = (targetPosition - transform.position).normalized;
         Destroy(gameObject, lifeSpan);
     }
 
-    private void Update()
-    {
+    private void Update() {
         Move();
         //Snap z to 0
         //transform.position = new Vector3(transform.position.x, transform.position.y, 0);
     }
 
-    private void Move()
-    {
+    private void Move() {
         // MOVE TOWARD TARGET
         transform.position += moveSpeed * Time.deltaTime * moveDirection;
 
@@ -40,8 +36,7 @@ public class ProjectileMover : MonoBehaviour
         }
     }
 
-    public void SetAttributes(int damage, float lifeSpan, float moveSpeed, Vector3 size, Vector3 targetPosition)
-    {
+    public void SetAttributes(int damage, float lifeSpan, float moveSpeed, Vector3 size, Vector3 targetPosition) {
         this.damage = damage;
         this.lifeSpan = lifeSpan;
         this.moveSpeed = moveSpeed;
@@ -49,30 +44,24 @@ public class ProjectileMover : MonoBehaviour
         this.targetPosition = targetPosition;
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
+    private void OnCollisionEnter(Collision collision) {
+        if (collision.gameObject.CompareTag("Mob Enemy")) {
             collision.gameObject.GetComponent<EnemyHealth>().RemoveFromHealth(damage);
             Destroy(gameObject);
         }
 
-        else if (collision.gameObject.CompareTag("Player"))
-        {
+        else if (collision.gameObject.CompareTag("Player")) {
             collision.gameObject.GetComponent<PlayerHealth>().RemoveFromHealth(damage);
             Destroy(gameObject);
         }
-        else
-        {
+        else {
             Destroy(gameObject);
         }
     }
 
-    private void OnTriggerEnter(Collider collided)
-    {
+    private void OnTriggerEnter(Collider collided) {
 
-        if (collided.gameObject.CompareTag("Enemy"))
-        {
+        if (collided.gameObject.CompareTag("Enemy")) {
             collided.gameObject.GetComponent<EnemyHealth>().RemoveFromHealth(damage);
 
             Destroy(gameObject, lifeSpan);

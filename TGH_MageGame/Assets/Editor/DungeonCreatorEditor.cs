@@ -11,11 +11,14 @@ public class DungeonCreatorEditor : Editor {
         if (GUILayout.Button("Clear Dungeon")) {
             SceneView.RepaintAll();
             dungeonCreator.ClearDungeon();
-
         }
 
         if (GUILayout.Button("Create New Dungeon")) {
             dungeonCreator.RetryGeneration();
+        }
+
+        if (GUILayout.Button("Save Seed")) {
+            dungeonCreator.SaveSeed();
         }
     }
 }

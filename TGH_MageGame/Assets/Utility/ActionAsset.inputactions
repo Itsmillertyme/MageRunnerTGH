@@ -81,7 +81,7 @@
                     "name": "Dash",
                     "type": "Button",
                     "id": "845d6790-0121-4bf7-a953-880aaf6128ae",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -135,6 +135,15 @@
                     "name": "HotSwitch",
                     "type": "Button",
                     "id": "7a7af214-85a2-401f-a348-b2b928b80f51",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "OpenStatMenu",
+                    "type": "Button",
+                    "id": "e16b24d6-826b-42ff-a214-24d344743ce3",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -537,6 +546,17 @@
                     "action": "Aim",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "b00aff0c-3294-4d07-998f-6b0e1e5358b9",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenStatMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

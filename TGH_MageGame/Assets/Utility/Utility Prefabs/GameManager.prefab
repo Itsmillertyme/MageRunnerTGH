@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3029957774141505769}
   - component: {fileID: 2188308458630054604}
   - component: {fileID: 2411331737335692735}
+  - component: {fileID: 902093086850564225}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -54,7 +55,7 @@ MonoBehaviour:
   projectileSpawn: {fileID: 0}
   player: {fileID: 0}
   crosshairRect: {fileID: 0}
-  levelEnemies: {fileID: 11400000, guid: 4473d51d731d4ab418f1cc637ca8e06e, type: 2}
+  levelEnemies: {fileID: 11400000, guid: 6979f6b60b369ba48886a650d9c4e7e6, type: 2}
   levelDecorations: {fileID: 11400000, guid: 708476ab180c87c44a6a48aa1ab04b18, type: 2}
   debugLevelGeneration: 0
   debugEnemySpawning: 0
@@ -84,6 +85,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14472b65980f02a45a21bcbc314ec1ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelSeed: 1630200550
+  keepSeed: 0
   dungeonHeight: 75
   dungeonWidth: 125
   roomHeightMin: 25
@@ -104,7 +107,7 @@ MonoBehaviour:
   platformParent: {fileID: 0}
   decorationParent: {fileID: 0}
   enemiesParent: {fileID: 0}
-  waypointsParent: {fileID: 0}
+  devParent: {fileID: 0}
   wallHorizontal: {fileID: 1425470892372866, guid: 562f413b347060b46a3eb1c99c980ff3, type: 3}
   wallVertical: {fileID: 1898645381966348, guid: 2dd98ce2b3decc6459d1c0305fc9f9e7, type: 3}
   maskPrefab: {fileID: 6201183106024395409, guid: 3c7f20510053e0a489502f78facc17b6, type: 3}
@@ -192,16 +195,16 @@ MonoBehaviour:
     m_Bits: 512
   m_UseGeometry: 0
   m_DefaultArea: 0
-  m_GenerateLinks: 1
+  m_GenerateLinks: 0
   m_IgnoreNavMeshAgent: 1
   m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
+  m_OverrideTileSize: 1
+  m_TileSize: 32
+  m_OverrideVoxelSize: 1
+  m_VoxelSize: 0.05
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 0}
-  m_BuildHeightMesh: 0
+  m_BuildHeightMesh: 1
 --- !u!114 &2411331737335692735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,3 +217,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7dd4586b13a8fd48992c18ee4d2e161, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &902093086850564225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2020309084726206776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbb5691d499a4b740a094e4cd93c8335, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  runesRects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  statMenu: {fileID: 0}
+  isStatMenuOpen: 0
+  isSubMenuOpen: 0
+  isAnimationHappening: 0

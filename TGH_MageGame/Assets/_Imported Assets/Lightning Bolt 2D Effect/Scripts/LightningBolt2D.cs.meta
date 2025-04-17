@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: c38ffe61d4e86c14e9a30775f5f576f9
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 157499
+  packageName: Lightning Bolt 2D
+  packageVersion: 1.05
+  assetPath: Assets/Lightning Bolt 2D Effect/Scripts/LightningBolt2D.cs
+  uploadId: 660239

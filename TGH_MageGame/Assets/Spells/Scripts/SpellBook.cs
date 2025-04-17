@@ -1,9 +1,10 @@
 using System.Collections;
-using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class SpellBook : MonoBehaviour {
+public class SpellBook : MonoBehaviour
+{
     [Header("Spell List")]
     [SerializeField] private Spell[] spellBook;
 
@@ -13,87 +14,219 @@ public class SpellBook : MonoBehaviour {
 
     [Header("Unity Events")]
     [SerializeField] private UnityEvent ActiveSpellSwitched;
+    [SerializeField] private UnityEvent SpellCasted;
 
     [Header("Player Stats")]
     [SerializeField] PlayerStats playerStats;
 
-    [Header("Game Manager")]
-    [SerializeField] GameManager gameManager;
+    private GameManager gameManager;
 
-    #region GETTERS
+    #region // GETTERS
+    // VARIABLES
     public int ActiveSpell => currentSpellIndex;
     public bool IsReadyToCast => isReadyToCast;
+
+    // METHODS
+    //public Transform GetSpellSpawnPoint() => spellSpawnPoints[currentSpellIndex]; // GETTER FOR ACTIVE SPELL SPAWN POINT FOR CAST
+    public string GetSpellUIData() => spellBook[currentSpellIndex].Name; // GETTER FOR ACTIVE SPELL TO USE IN UI TEXT
+    public Sprite GetSpellIconData() => spellBook[currentSpellIndex].SpellIcon; // GETTER FOR ACTIVE SPELL ICON TO USE IN UI
+    public Sprite GetSpellReticleData() => spellBook[currentSpellIndex].Reticle; // GETTER FOR ACTIVE SPELL RETICLE TO USE IN UI
+    public AnimationClip GetSpellAnimation() => spellBook[currentSpellIndex].CastAnimation; // GETTER FOR ACTIVE SPELL ANIMATION
+    public float GetSpellCastDelayTime() => spellBook[currentSpellIndex].CastDelayTime; // GETTER FOR ACTIVE SPELL ANIMATION
+    public AudioClip GetSpellSpawnSound() => spellBook[currentSpellIndex].SpawnSFX; // GETTER FOR ACTIVE SPELL SPAWN SOUND
     #endregion
 
-    #region DRIVEN
+    #region // DRIVEN
     private Transform currentSpawnPoint;
     private float scrollValue;
     private Coroutine castCooldown; // later implenent coroutine stopping for interrupted delay when cycling away (if desired)
     private int currentSpellIndex = 0;
     private bool isReadyToCast = true;
-    private bool castInterrupt = false;
     private int lastActiveSpell;
     #endregion
 
-    private void Awake() {
-        foreach (Spell spell in spellBook) {
-            spell.SetDefaultValues();
+    private void Awake()
+    {
+        gameManager = FindFirstObjectByType<GameManager>();
+
+        foreach (Spell spell in spellBook)
+        {
+            spell.Initialize();
         }
-        currentSpawnPoint = GetSpellSpawnPoint();
+
+        currentSpawnPoint = GetSpellSpawnPosition();
     }
 
-    private void Update() {
-        scrollValue = Input.mouseScrollDelta.y; // REFACTOR TO NEW INPUT WHEN MERGED
+    private void Update() // DID WE GET AN INPUT SYSTEM INPUT FOR THIS?
+    {
+         scrollValue = Input.mouseScrollDelta.y; // REFACTOR TO NEW INPUT WHEN MERGED
 
         // TEMP WORKAROUND UNTIL INPUT SYSTEM METHOD IS PRESENT
-        if (scrollValue != 0) {
+        if (scrollValue != 0)
+        {
             SetSpell();
         }
     }
 
-    public void Cast() {
-        if (isReadyToCast && playerStats.getCurrentMana() >= spellBook[currentSpellIndex].ManaCost) {
-            spellBook[currentSpellIndex].Cast(currentSpawnPoint.position, gameManager.CrosshairPositionIn3DSpace);
+    public Transform GetSpellSpawnPosition()
+    {
+        // POSITIONS: 0 IS RH, 1 IS LH, 2 IS CHEST, 3 IS GROUND, 4 IS SKY
+        switch (spellBook[currentSpellIndex])
+        {
+            case AbyssalFang:
+                currentSpawnPoint = spellSpawnPoints[0];
+                break;
+            case HeavensLament:
+                currentSpawnPoint = spellSpawnPoints[2];
+                break;
+            case InfernalEmbrace:
+                currentSpawnPoint = spellSpawnPoints[0];
+                break;
+            case ShatterstoneBarrage:
+                currentSpawnPoint = spellSpawnPoints[3];
+                break;
+            case ThunderlordsCascade:
+                currentSpawnPoint = spellSpawnPoints[4];
+                break;
+            case WintersWrath:
+                currentSpawnPoint = spellSpawnPoints[3];
+                break;
+        }
+
+        return currentSpawnPoint;
+    }
+
+    public void Cast()
+    {
+        if (isReadyToCast && playerStats.getCurrentMana() >= spellBook[currentSpellIndex].ManaCost)
+        {
+            HandleSpellLogic();
+
+            castCooldown = StartCoroutine(CastCooldown(spellBook[ActiveSpell].CastCooldownTime));
+            SpellCasted.Invoke();
             playerStats.updateCurrentMana(-spellBook[currentSpellIndex].ManaCost);
-            castCooldown = StartCoroutine(CastCooldown());
         }
     }
 
-    // HANDLES DELAY IN ABILITY TO CAST AGAIN
-    public IEnumerator CastCooldown() {
-        isReadyToCast = false;
-
-        float currentTime = Time.time;
-        float endDelayTime = currentTime + spellBook[ActiveSpell].CastCooldownTime;
-
-        while (Time.time < endDelayTime && !castInterrupt) {
-            yield return new WaitForEndOfFrameUnit();
+    private void HandleSpellLogic()
+    {
+        switch (spellBook[currentSpellIndex])
+        {
+            case AbyssalFang af:
+                CastAbyssalFang(af, currentSpawnPoint.position, gameManager.CrosshairPositionIn3DSpace);
+                StartCoroutine(CooldownThenCastAltHandAbyssalFang(af, af.CastAltHandCooldownTime));
+                break;
+            //case HeavensLament hl:
+            //    //
+            //    break;
+            //case InfernalEmbrace ie:
+            //    //
+            //    break;
+            case ShatterstoneBarrage sb:
+                StartCoroutine(ShatterstoneSpawnProjectiles(sb));
+                break;
+            //case ThunderlordsCascade tc:
+            //    //
+            //    break;
+            //case WintersWrath ww:
+            //    //
+            //    break;
         }
-        castInterrupt = false;
+    }
+
+    #region ABYSSAL FANG
+    public void CastAbyssalFang(AbyssalFang af, Vector3 position, Vector3 direction)
+    {
+        GameObject newProjectile = Instantiate(spellBook[currentSpellIndex].Projectile, position, Quaternion.identity);
+        newProjectile.GetComponent<AbyssalFangProjectileMovement>().SetAttributes(spellBook[currentSpellIndex].MoveSpeed, spellBook[currentSpellIndex].ProjectileSize, direction);
+        newProjectile.GetComponent<EnemyDamager>().SetAttributes(af.Damage, af.LifeSpan);
+    }
+
+    public IEnumerator CooldownThenCastAltHandAbyssalFang(AbyssalFang af, float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        CastAbyssalFang(af, spellSpawnPoints[1].position, gameManager.CrosshairPositionIn3DSpace);
+    }
+    #endregion
+
+    #region HEAVEN'S LAMENT
+    #endregion
+
+    #region INFERNAL EMBRACE
+    #endregion
+
+    #region SHATTERSTONE BARRAGE
+    private IEnumerator ShatterstoneSpawnProjectiles(ShatterstoneBarrage sb)
+    {
+        for (int i = 0; i < sb.ProjectileCount; i++)
+        {
+            // CREATE RANDOM OFFSET FROM BASE SPAWN POSITION
+            Vector3 spawnOffset = Random.insideUnitSphere * sb.SpawnRadius; // RANDOM OFFSET POSITION AROUND THE SPAWN CENTER
+            //spawnOffset.y = 0; // CLAMP TO 0 TO REMOVE RANDOMNESS OF VERTICAL SPAWN POSITION
+            Vector3 spawnPosition = currentSpawnPoint.position + spawnOffset; // SPAWN POSITION PLUS RANDOMNESS ON X
+
+            // CREATE RANDOM TYPE OF PROJECTILE WITH RANDOM ROTATIONS
+            GameObject projectile = Instantiate(sb.Prefabs[Random.Range(0, sb.Prefabs.Length)], spawnPosition, Quaternion.Euler(Random.Range(0f, 360f), Random.Range(0f, 360f), Random.Range(0f, 360f))); // RANDOM ROTATIONS
+            
+            // INVOKE MOVEMENT LOGIC
+            StartCoroutine(projectile.GetComponent<ShatterstoneBarrageProjectileMovement>().ShatterstoneMoveProjectile(sb, spawnOffset));
+            
+            // WAIT BETWEEN EACH PROJECTILE SPAWN
+            yield return new WaitForSeconds(sb.DelayBetweenSpawns); 
+        }
+    }
+    #endregion
+
+    #region THUNDERLORD'S CASCADE
+    #endregion
+
+    #region WINTER'S WRATH
+    #endregion
+
+    // TEST TO SEE HOW THIS WORKS WITH SWITCHING SPELLS. HARD TO TEST WITH TOUCHPAD.
+    public IEnumerator CastCooldown(float waitTime)
+    {
+        isReadyToCast = false;
+        yield return new WaitForSeconds(waitTime);
         isReadyToCast = true;
     }
 
+    // SEE IF JACOB NEEDS THIS. 
+    //public IEnumerator CastDelay(float waitTime)
+    //{
+    //    yield return new WaitForSeconds(waitTime);
+    //}
+
+
+    // REVIEW THIS
     // SPELL INVENTORY CYCLING
-    private void SetSpell() {
+    private void SetSpell()
+    {
         // IF SCROLLING THE MOUSE WHEEL
-        if (scrollValue < 0f) {
-            do {
+        if (scrollValue < 0f)
+        {
+            do
+            {
                 lastActiveSpell = currentSpellIndex;
                 currentSpellIndex++;
 
-                if (currentSpellIndex >= spellBook.Length) {
+                if (currentSpellIndex >= spellBook.Length)
+                {
                     currentSpellIndex = 0;
                 }
             }
             while (!spellBook[currentSpellIndex].IsUnlocked);
         }
 
-        else if (scrollValue > 0f) {
-            do {
+        else if (scrollValue > 0f)
+        {
+            do
+            {
                 lastActiveSpell = currentSpellIndex;
                 currentSpellIndex--;
 
-                if (currentSpellIndex < 0) {
+                if (currentSpellIndex < 0)
+                {
                     currentSpellIndex = spellBook.Length - 1;
                 }
             }
@@ -101,15 +234,19 @@ public class SpellBook : MonoBehaviour {
         }
 
         // SET SPELL SPAWN POINT
-        currentSpawnPoint = GetSpellSpawnPoint();
+        currentSpawnPoint = GetSpellSpawnPosition();
 
         // RAISE AN EVENT THAT THE SPELL SELECTION HAS CHANGED
         ActiveSpellSwitched.Invoke();
     }
+    
+    // REVIEW THIS
     // SET SPELL DIRECTLY
-    public void SetSpellByIndex(int newSpellIndex) {
+    public void SetSpellByIndex(int newSpellIndex)
+    {
         //Validate input
-        if (newSpellIndex < 0 || newSpellIndex > spellBook.Length) {
+        if (newSpellIndex < 0 || newSpellIndex > spellBook.Length)
+        {
             return;
         }
 
@@ -117,27 +254,15 @@ public class SpellBook : MonoBehaviour {
         currentSpellIndex = newSpellIndex;
 
         // SET SPELL SPAWN POINT
-        currentSpawnPoint = GetSpellSpawnPoint();
+        currentSpawnPoint = GetSpellSpawnPosition();
 
         // RAISE AN EVENT THAT THE SPELL SELECTION HAS CHANGED
         ActiveSpellSwitched.Invoke();
     }
-    public void HotSwitchSpell() {
+
+    // REVIEW THIS.
+    public void HotSwitchSpell()
+    {
         SetSpellByIndex(lastActiveSpell);
     }
-
-    public Transform GetSpellSpawnPoint() => spellSpawnPoints[currentSpellIndex];
-    public string GetSpellUIData() => spellBook[currentSpellIndex].Name; // GETS ACTIVE SPELL TO USE IN UI TEXT
-    public Sprite GetSpellIconData() => spellBook[currentSpellIndex].SpellIcon; // GETS ACTIVE SPELL ICON TO USE IN UI
-    public Sprite GetSpellReticleData() => spellBook[currentSpellIndex].Reticle; // GETS ACTIVE SPELL RETICLE TO USE IN UI
-    public AnimationClip GetSpellAnimation() => spellBook[currentSpellIndex].CastAnimation; // GETTER FOR ACTIVE SPELL ANIMATION
-    public float GetSpellCastDelayTime() => spellBook[currentSpellIndex].CastDelayTime; // GETTER FOR ACTIVE SPELL ANIMATION
-    public AudioClip GetSpellSpawnSound() => spellBook[currentSpellIndex].SpawnSFX; // GETTER FOR ACTIVE SPELL SPAWN SOUND
-
-
-    //private void CastSpawnProjectileAtPoint()
-    //{
-    //    GameObject projectile = Instantiate(spellBook[activeSpell].Projectile, spawnPosition.position, spawnPosition.rotation);
-    //    projectile.GetComponent<ProjectileMover>().SetAttributes(spellBook[activeSpell].Damage, spellBook[activeSpell].LifeSpan, spellBook[activeSpell].MoveSpeed, spellBook[activeSpell].ProjectileSize, mousePositionTracker.CurrentPosition);
-    //}
 }

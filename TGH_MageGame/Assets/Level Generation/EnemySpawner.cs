@@ -4,40 +4,42 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour {
     [SerializeField] Transform waypoint;
 
-    public void SpawnMobEnemies(PathNode roomIn, Transform enemiesParentIn, bool debugMode = false, bool startRoom = false) {
+    public List<GameObject> SpawnMobEnemies(PathNode roomIn, Transform enemiesParentIn, bool debugMode = false, bool startRoom = false) {
         //Helpers
         LevelEnemies levelEnemies = GameObject.Find("GameManager").GetComponent<GameManager>().LevelEnemies;
         List<Vector3> spawnLocations = new List<Vector3>();
+        List<GameObject> enemiesOut = new List<GameObject>();
         int roomArea = roomIn.RoomDimensions.x * roomIn.RoomDimensions.y;
-        int numEnemySpawns = 0;
+        //int numEnemySpawns = 0;
 
-        if (roomArea < 250) {
-            numEnemySpawns = 1;
-        }
-        else if (roomArea < 500) {
-            numEnemySpawns = 2;
-        }
-        else if (roomArea < 750) {
-            numEnemySpawns = 3;
-        }
-        else if (roomArea < 1000) {
-            numEnemySpawns = 4;
-        }
-        else if (roomArea < 1250) {
-            numEnemySpawns = 5;
-        }
-        else if (roomArea < 1500) {
-            numEnemySpawns = 6;
-        }
-        else {
-            numEnemySpawns = 7;
-        }
+        //if (roomArea < 250) {
+        //    numEnemySpawns = 1;
+        //}
+        //else if (roomArea < 500) {
+        //    numEnemySpawns = 2;
+        //}
+        //else if (roomArea < 750) {
+        //    numEnemySpawns = 3;
+        //}
+        //else if (roomArea < 1000) {
+        //    numEnemySpawns = 4;
+        //}
+        //else if (roomArea < 1250) {
+        //    numEnemySpawns = 5;
+        //}
+        //else if (roomArea < 1500) {
+        //    numEnemySpawns = 6;
+        //}
+        //else {
+        //    numEnemySpawns = 7;
+        //}
+        int numEnemySpawns = 1;
 
         //get random enemy spawn points
         List<int> xLevels = new List<int>();
         for (int i = 0; i < numEnemySpawns; i++) {
             //find x values(Start room ignores bottom floor)
-            for (int j = startRoom ? roomIn.RoomTopLeftCorner.x + 4 : roomIn.RoomTopLeftCorner.x; j < roomIn.RoomTopLeftCorner.x + roomIn.RoomDimensions.x - 3; j += 4) {
+            for (int j = startRoom ? roomIn.RoomTopLeftCorner.x + 4 : roomIn.RoomTopLeftCorner.x; j < roomIn.RoomTopLeftCorner.x + roomIn.RoomDimensions.x - 3; j += 5) {
                 xLevels.Add(j);
             }
 
@@ -96,30 +98,36 @@ public class EnemySpawner : MonoBehaviour {
 
         foreach (Vector3 spawnPos in spawnLocations) {
             //get random enemy
-            GameObject enemy = levelEnemies.mobEnemiesprefabs[Random.Range(0, levelEnemies.mobEnemiesprefabs.Count)];
+            GameObject enemy = levelEnemies.mobEnemyPrefabs[Random.Range(0, levelEnemies.mobEnemyPrefabs.Count)];
 
             enemy = Instantiate(enemy, spawnPos, Quaternion.Euler(0, 0, -90), enemiesParentIn);
+
+            enemiesOut.Add(enemy);
         }
+
+        return enemiesOut;
     }
 
-    public void SpawnBoss(PathNode bossRoomPathNode, bool isOnLeft, Transform enemiesParentIn, bool debugMode = false) {
+    public GameObject SpawnBoss(PathNode bossRoomPathNode, bool isOnLeft, Transform enemiesParentIn, bool debugMode = false) {
         Vector3 spawnPos = Vector3.zero;
+        float xRot = 0;
         GameObject bossPrefab = GameObject.Find("GameManager").GetComponent<GameManager>().LevelEnemies.bossPrefab;
 
         if (isOnLeft) {
             //Spawn on "left" side of room
             spawnPos = new Vector3(bossRoomPathNode.RoomTopLeftCorner.x + .1f, 2.5f, bossRoomPathNode.RoomTopLeftCorner.y - 2);
-
+            xRot = 180;
         }
         else {
             //spawn on "right" side of room
             spawnPos = new Vector3(bossRoomPathNode.RoomTopLeftCorner.x + .1f, 2.5f, bossRoomPathNode.RoomTopLeftCorner.y - bossRoomPathNode.RoomDimensions.y + 2);
-
         }
 
-        GameObject boss = Instantiate(bossPrefab, spawnPos, Quaternion.Euler(0, 0, 0), enemiesParentIn);
+        GameObject boss = Instantiate(bossPrefab, spawnPos, Quaternion.Euler(xRot, 0, -90), enemiesParentIn);
 
         boss.transform.SetSiblingIndex(0);
+
+        return boss;
 
         //place boss
         //bossPrefab.transform.position = spawnPos;

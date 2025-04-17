@@ -1,10 +1,17 @@
 using System;
 using System.Collections.Generic;
 using Unity.AI.Navigation;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class DungeonCreator : MonoBehaviour {
+
+    [Header("Dungeon Seed Settings")]
+    [ReadOnly]
+    public int levelSeed;
+    [Tooltip("Keep current seed during dungeon clear?")]
+    public bool keepSeed;
 
     [Header("Dungeon Size Settings")]
     public int dungeonHeight;
@@ -14,9 +21,8 @@ public class DungeonCreator : MonoBehaviour {
     public int corridorSize;
 
     [Header("Generator Settings")]
-    public bool generateOnLoad;
-    public bool debugMode;
     public bool dungeonFlatMode;
+
     public int maxIterations;
     [Range(0.0f, 0.3f)]
     public float roomBottomCornerModifier;
@@ -24,10 +30,8 @@ public class DungeonCreator : MonoBehaviour {
     public float roomTopCornerModifier;
     [Range(0, 2)]
     public int roomOffset;
-    [Range(0.0f, 1.0f)]
-    public float wallDecorationFrequency;
-    [Range(0.0f, 1.0f)]
-    public float floorDecorationFrequency;
+    [Range(0, 25)]
+    public int NavMeshLinkJumpDistance;
 
     [Header("Parent References")]
     public Transform roomParent;
@@ -39,7 +43,7 @@ public class DungeonCreator : MonoBehaviour {
     public Transform platformParent;
     public Transform decorationParent;
     public Transform enemiesParent;
-    public Transform waypointsParent;
+    public Transform devParent;
 
     [Header("Prefab References")]
     public GameObject wallHorizontal;
@@ -51,9 +55,7 @@ public class DungeonCreator : MonoBehaviour {
     public GameObject platformPrefab;
     public GameObject castleWall5x5Prefab;
     public GameObject castleWall1x5Prefab;
-    public GameObject castleWall5x5WindowPrefab;
-    public GameObject castleWall5x5DrainPrefab;
-    public GameObject castleWall5x5DoorPrefab;
+
 
     [Header("Misc References")]
     public Material roomMaterial;
@@ -63,6 +65,9 @@ public class DungeonCreator : MonoBehaviour {
     public Material pathNodeStartMaterial;
     public Material pathNodeEndMaterial;
     public LevelDecorations levelDecorations;
+    [SerializeField] GameManager gameManager;
+    [SerializeField] LevelDecorator levelDecorator;
+
     //public LevelEnemies levelEnemies;
     //public NavMeshSurface navMeshSurface;
 
@@ -71,22 +76,38 @@ public class DungeonCreator : MonoBehaviour {
     List<WallData> possibleWallPosition;
     List<WallData> possibleFloorCeilingPosition;
 
-    List<Vector3> decorationItemLocations;
+    List<Vector3> platformLocations;
+    List<GameObject> backgroundWalls;
     List<GameObject> pathNodeObjects;
 
 
     //**Unity Methods*
     void Start() {
-        if (generateOnLoad) {
+        if (gameManager.GenerateLevelOnLoad) {
             RetryGeneration();
         }
+    }
+    //
+    private void OnApplicationQuit() {
+        NavMeshSurface nms = GetComponent<NavMeshSurface>();
+        nms.RemoveData();
     }
 
     //**Generation Methods**
     private void CreateDungeon() { //Main method for making dungeon
 
-        //*BEGIN DUNGEON GENERATION*
+        //*PRIME PSEUDO RANDOM NUMBER GENERATOR*
+        //RandomSeedManager.DebugLevelSeeds();
 
+        if (levelSeed == 0) {
+            levelSeed = RandomSeedManager.SetRandomSeed();
+        }
+        else {
+            RandomSeedManager.SetSeed(levelSeed);
+        }
+
+
+        //*BEGIN DUNGEON GENERATION*
         //Create instance of generator script
         DungeonGenerator generator = new DungeonGenerator(dungeonHeight, dungeonWidth);
         //Generate list of rooms
@@ -115,7 +136,7 @@ public class DungeonCreator : MonoBehaviour {
         //Create mesh and object from list of rooms
         for (int i = 0; i < listOfRooms.Count; i++) {
 
-            CreateRoomBackground(listOfRooms[i], roomMaterial, roomParent);
+            backgroundWalls = CreateRoomBackground(listOfRooms[i], roomMaterial, roomParent);
             GenerateWallPositions(listOfRooms[i], roomMaterial, roomParent);
         }
         //Create mesh and object from list of corridors
@@ -146,18 +167,26 @@ public class DungeonCreator : MonoBehaviour {
             pf.EndPoints[i].GetComponent<MeshRenderer>().sharedMaterial = pathNodeEndMaterial;
         }
         pf.StartPoint.GetComponent<MeshRenderer>().sharedMaterial = pathNodeStartMaterial;
+        GetComponent<GameManager>().SetCurrentPathNode(pf.StartPoint, true); //set current player pathnodep
 
         //*PLACE ROOM SPECIFIC OBJECTS*     
         foreach (PathNode node in pf.PathNodes) {
             //Create platforms
             if (node.Type == PathNodeType.ROOM) {
-                decorationItemLocations = PlacePlatforms(node);
+                platformLocations = CalculatePlatforms(node);
             }
 
             //Create corridor effects
             if (node.Type == PathNodeType.CORRIDOR) {
                 GameObject effect = Instantiate(corridorEffect, corridorParent);
                 CorridorEffectController cec = effect.GetComponent<CorridorEffectController>();
+
+                cec.CorridorPathNode = node;
+                node.CorridorEffectController = cec;
+                if (!gameManager.UnlockAllPaths) {
+                    cec.SetCorridorState(false);
+                }
+
 
                 if (node.Direction == Direction.VERTICAL) {
                     effect.transform.position = new Vector3(node.RoomTopLeftCorner.x + (corridorSize / 2) + .5f, 2.5f, node.RoomTopLeftCorner.y - 1f);
@@ -193,9 +222,10 @@ public class DungeonCreator : MonoBehaviour {
                 if (!hitLeft && !hitCenter && !hitRight) {
                     GameObject platform = Instantiate(platformPrefab, new Vector3(node.RoomTopLeftCorner.x - 5, -0.5f, node.RoomTopLeftCorner.y), Quaternion.Euler(0, 0, 0), platformParent);
                     platform.name = "SAFETY PLATFORM";
+                    platform.layer = 9; //navmesh ground
                 }
 
-                if (debugMode && dungeonFlatMode) {
+                if (gameManager.DebugLevelGeneration && dungeonFlatMode) {
                     GameObject test = new GameObject("Just Testing");
                     test.transform.position = checkOrigin;
                     test.transform.parent = corridorParent;
@@ -207,9 +237,14 @@ public class DungeonCreator : MonoBehaviour {
             }
         }
 
-        //*PLACE FLOOR DECORATIONS*
-        DecorationItemSpawner dis = GetComponent<DecorationItemSpawner>();
-        dis.SpawnDecorationItems(decorationItemLocations, decorationParent);
+        //*PLACE LEVEL DECORATIONS*
+        //Floor
+        List<Vector3> itemLocations = levelDecorator.GenerateFloorItemLocations(platformLocations);
+        levelDecorator.SpawnFloorDecorationItems(itemLocations, decorationParent);
+        //Walls
+        levelDecorator.DecorateLevelWalls(backgroundWalls, wallParent);
+        //Player door
+        //levelDecorator.PlacePlayerDoorDecoration(playerPrefab.transform.position);
 
         //*PLACE PLAYER*
         PlacePlayer(pf.StartPoint);
@@ -220,17 +255,21 @@ public class DungeonCreator : MonoBehaviour {
         foreach (PathNode room in pf.PathNodes) {
             if (room.Type == PathNodeType.ROOM && room != pf.EndPoints[pf.EndPoints.Count - 1]) {
                 if (room == pf.StartPoint) {
-                    es.SpawnMobEnemies(room, enemiesParent, startRoom: true);
+                    room.Enemies = es.SpawnMobEnemies(room, enemiesParent, startRoom: true);
                 }
                 else {
-                    es.SpawnMobEnemies(room, enemiesParent);
+                    room.Enemies = es.SpawnMobEnemies(room, enemiesParent);
                 }
 
+            }
+            else if (room.Type == PathNodeType.CORRIDOR) {
+                room.Enemies = new List<GameObject>();
             }
         }
         //Boss
         PathNode bossNode = pf.EndPoints[pf.EndPoints.Count - 1];
-        es.SpawnBoss(bossNode, (bossNode.RoomTopLeftCorner.y - bossNode.RoomDimensions.y / 2) > (dungeonWidth / 2) ? true : false, enemiesParent);
+        GameObject bossObj = es.SpawnBoss(bossNode, (bossNode.RoomTopLeftCorner.y - bossNode.RoomDimensions.y / 2) > (dungeonWidth / 2) ? true : false, enemiesParent);
+        bossNode.Enemies = new List<GameObject> { bossObj };
 
         //*ROTATE TO PROPER PERSPECTIVE*
         if (!dungeonFlatMode) {
@@ -243,28 +282,45 @@ public class DungeonCreator : MonoBehaviour {
         NavMeshSurface nms = GetComponent<NavMeshSurface>();
         nms.BuildNavMesh();
 
-        //*TURN ON NAVMESH AGENTS FOR ALL ENEMIES AND INIT BEHAVIORS*
-        for (int i = 0; i < enemiesParent.childCount; i++) {
-            GameObject enemy = enemiesParent.GetChild(i).gameObject;
-            enemy.GetComponent<NavMeshAgent>().enabled = true;
-
-            //DEV ONLY - SKIP BOSS
-            if (i != 0) {
-                enemy.GetComponent<EnemyPatrol>().Initialize();
+        //*ENSURE PROPER LINK PLACEMENT*
+        NavMeshLink[] links = FindObjectsByType<NavMeshLink>(FindObjectsSortMode.None);
+        for (int i = 0; i < links.Length; i++) {
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(links[i].startPoint, out hit, .5f, NavMesh.AllAreas)) {
+                links[i].startPoint = hit.position;
             }
+            hit = new NavMeshHit();
+            if (NavMesh.SamplePosition(links[i].endPoint, out hit, .5f, NavMesh.AllAreas)) {
+                links[i].endPoint = hit.position;
+            }
+        }
 
+        //*TURN ON NAVMESH AGENTS FOR ALL ENEMIES AND INIT BEHAVIORS*
+        for (int i = 0; i < pf.PathNodes.Count; i++) {
+            PathNode room = pf.PathNodes[i];
+            //Debug.Log(room.name);
+            //Debug.Log(room.Enemies.Count);
+            foreach (GameObject enemy in room.Enemies) {
+                //Debug.Log(enemy.name);
+                if (enemy.CompareTag("Mob Enemy")) {
+                    //Debug.Log(enemy.name);
+                    enemy.GetComponent<NavMeshAgent>().enabled = true;
+                    //Debug.Log("Is mob");
+                    enemy.GetComponent<IBehave>().Initialize(room, gameManager.DebugEnemySpawning);
+                }
+            }
         }
 
         //DEV ONLY
-        if (debugMode) {
+        if (gameManager.DebugLevelGeneration) {
             for (int i = 0; i < pf.Path.Count - 1; i++) {
-                Debug.DrawLine(pf.Path[i].transform.position, pf.Path[i + 1].transform.position, Color.green, 60);
+                Debug.DrawLine(pf.Path[i].transform.position, pf.Path[i + 1].transform.position, Color.green, 20);
             }
         }
     }
     //
     public void RetryGeneration() {
-
+        //Clear
         ClearDungeon();
 
         //create new dungeon
@@ -280,8 +336,7 @@ public class DungeonCreator : MonoBehaviour {
         //    for (int j = subChildren.Length - 1; i > 0; i--) {
         //        DestroyImmediate(subChildren[i].gameObject);
         //    }
-        //}
-
+        //}        
 
         Transform[] roomchildren = roomParent.GetComponentsInChildren<Transform>(true);
         Transform[] corridorchildren = corridorParent.GetComponentsInChildren<Transform>(true);
@@ -291,7 +346,7 @@ public class DungeonCreator : MonoBehaviour {
         Transform[] platformChildren = platformParent.GetComponentsInChildren<Transform>(true);
         Transform[] decorationChildren = decorationParent.GetComponentsInChildren<Transform>(true);
         Transform[] enemiesChildren = enemiesParent.GetComponentsInChildren<Transform>(true);
-        Transform[] waypointsChildren = waypointsParent.GetComponentsInChildren<Transform>(true);
+        Transform[] devChildren = devParent.GetComponentsInChildren<Transform>(true);
 
         //reset dungeon parent rotation
         levelParent.rotation = Quaternion.Euler(0, 0, 0);
@@ -330,9 +385,15 @@ public class DungeonCreator : MonoBehaviour {
             DestroyImmediate(enemiesChildren[i].gameObject);
         }
         //Destroy DEV waypoint objects
-        for (int i = waypointsChildren.Length - 1; i > 0; i--) {
-            DestroyImmediate(waypointsChildren[i].gameObject);
+        for (int i = devChildren.Length - 1; i > 0; i--) {
+            DestroyImmediate(devChildren[i].gameObject);
         }
+
+        //clear navmesh
+        GetComponent<NavMeshSurface>().RemoveData();
+
+        //clear seed field
+        levelSeed = keepSeed ? levelSeed : 0;
 
     }
     //
@@ -357,7 +418,10 @@ public class DungeonCreator : MonoBehaviour {
             GameObject go = Instantiate(wallPrefabIn, new Vector3(wallDataIn.position.x, wallDataIn.position.y - 0.01f, wallDataIn.position.z), Quaternion.Euler(90, 90, 0), wallParentIn);
 
             //Set non corridors on ground layer for Navmesh
-            go.layer = wallDataIn.isCorridor ? 0 : 9;
+            //go.layer = wallDataIn.isCorridor ? 0 : 9;
+            if (wallDataIn.direction == WallDirection.DOWN && !wallDataIn.isCorridor) {
+                go.layer = 9;
+            }
         }
     }
     //
@@ -369,7 +433,8 @@ public class DungeonCreator : MonoBehaviour {
 
     }
     //
-    void CreateRoomBackground(RoomNode roomNode, Material materialIn, Transform newObjectParent) {
+    List<GameObject> CreateRoomBackground(RoomNode roomNode, Material materialIn, Transform allRoomParentIn) {
+        List<GameObject> fullWallsOut = new List<GameObject>();
 
         //Create mesh vertices
         Vector3 bottomLeftVertice = new Vector3(roomNode.BottomLeftAreaCorner.x, 0, roomNode.BottomLeftAreaCorner.y);
@@ -377,7 +442,7 @@ public class DungeonCreator : MonoBehaviour {
         Vector3 topLeftVertice = new Vector3(roomNode.BottomLeftAreaCorner.x, 0, roomNode.TopRightAreaCorner.y);
         Vector3 topRightVertice = new Vector3(roomNode.TopRightAreaCorner.x, 0, roomNode.TopRightAreaCorner.y);
 
-        GameObject roomParent = new GameObject("Room (" + topLeftVertice.x + ", " + topLeftVertice.z + ")");
+        GameObject thisRoomParent = new GameObject("Room (" + topLeftVertice.x + ", " + topLeftVertice.z + ")");
 
 
 
@@ -386,20 +451,21 @@ public class DungeonCreator : MonoBehaviour {
 
                 GameObject prefab = castleWall5x5Prefab;
 
-                float randomFloat = UnityEngine.Random.value;
+                //float randomFloat = UnityEngine.Random.value;
 
-                if (randomFloat < wallDecorationFrequency) {
-                    int choice = UnityEngine.Random.Range(0, 2);
-                    if (choice == 0) {
-                        prefab = castleWall5x5DrainPrefab;
-                    }
-                    else {
-                        prefab = castleWall5x5WindowPrefab;
-                    }
-                }
+                //if (randomFloat < wallDecorationFrequency) {
+                //    int choice = UnityEngine.Random.Range(0, 2);
+                //    if (choice == 0) {
+                //        prefab = castleWall5x5DrainPrefab;
+                //    }
+                //    else {
+                //        prefab = castleWall5x5WindowPrefab;
+                //    }
+                //}
 
                 Vector3 wallPos = new Vector3(j, -0.25f, i);
-                GameObject wallPiece = Instantiate(prefab, wallPos, Quaternion.Euler(90, 90, 0), roomParent.transform);
+                GameObject wallPiece = Instantiate(prefab, wallPos, Quaternion.Euler(90, 90, 0), thisRoomParent.transform);
+                fullWallsOut.Add(wallPiece);
             }
 
             int roomWidth = (int) Math.Abs(bottomLeftVertice.x - bottomRightVertice.x);
@@ -407,7 +473,7 @@ public class DungeonCreator : MonoBehaviour {
             if ((roomWidth % 5) != 0) {
                 for (int j = (int) i; j < i + 5; j++) {
                     Vector3 wallPos = new Vector3(bottomRightVertice.x - (roomWidth % 5), -0.25f, j);
-                    GameObject wallPiece = Instantiate(castleWall1x5Prefab, wallPos, Quaternion.Euler(90, 90, 0), roomParent.transform);
+                    GameObject wallPiece = Instantiate(castleWall1x5Prefab, wallPos, Quaternion.Euler(90, 90, 0), thisRoomParent.transform);
                 }
             }
         }
@@ -416,92 +482,18 @@ public class DungeonCreator : MonoBehaviour {
             for (int i = (int) (topLeftVertice.z - (roomHeight % 5)); i < topLeftVertice.z; i++) {
                 for (int j = (int) topLeftVertice.x; j < topRightVertice.x; j += 5) {
                     Vector3 wallPos = new Vector3(j, -0.25f, i);
-                    GameObject wallPiece = Instantiate(castleWall1x5Prefab, wallPos, Quaternion.Euler(90, 90, 0), roomParent.transform);
+                    GameObject wallPiece = Instantiate(castleWall1x5Prefab, wallPos, Quaternion.Euler(90, 90, 0), thisRoomParent.transform);
                 }
             }
         }
 
-
-
-
-        roomParent.transform.parent = newObjectParent;
-
-
-        //Vector3[] vertices = new Vector3[] {
-        //        //ORDER IMPORTANT HERE FOR UNITY
-        //        topLeftVertice,
-        //        topRightVertice,
-        //        bottomLeftVertice,
-        //        bottomRightVertice
-        //    };
-
-        ////create uv's for mesh
-        //Vector2[] uvs = new Vector2[vertices.Length];
-        //for (int i = 0; i < uvs.Length; i++) {
-        //    uvs[i] = new Vector2(vertices[i].x, vertices[i].z);
-        //}
-
-        ////create triangles
-        //int[] triangles = new int[] {
-        //        //ORDER MATTERS HERE FOR UNITY
-        //        0,
-        //        1,
-        //        2,
-        //        2,
-        //        1,
-        //        3
-        //    };
-
-        ////create mesh
-        //Mesh mesh = new Mesh();
-        ////set attributes
-        //mesh.vertices = vertices;
-        //mesh.uv = uvs;
-        //mesh.triangles = triangles;
-
-        ////create new gameObject with a given name and components
-        //GameObject dungeonFloor = new GameObject("Mesh" + node.distanceFromOrigin, typeof(MeshFilter), typeof(MeshRenderer));
-
-
-
-
-        ////set transforms
-        //dungeonFloor.transform.position = Vector3.zero;
-        //dungeonFloor.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-        //dungeonFloor.transform.localScale = Vector3.one;
-        ////set other components
-        //dungeonFloor.GetComponent<MeshFilter>().mesh = mesh;
-        //dungeonFloor.GetComponent<MeshRenderer>().material = materialIn;
-        ////set parent object
-        //dungeonFloor.transform.parent = newObjectParent;
+        //Set this room as child of parent
+        thisRoomParent.transform.parent = allRoomParentIn;
 
         //set bottom left corner gameobject as child of mesh
-        roomNode.bottomRightCornerObject.transform.parent = roomParent.transform;
+        roomNode.bottomRightCornerObject.transform.parent = thisRoomParent.transform;
 
-
-
-        ////GENERATE WALL POSITIONS
-        ////Right side of room
-        //for (int row = (int) bottomLeftVertice.x; row < (int) bottomRightVertice.x; row++) {
-        //    var wallPosition = new Vector3(row, 0, bottomLeftVertice.z);
-        //    AddWallPositionToList(wallPosition, possibleWallPosition, possibleDoorHorizontalPosition, WallDirection.RIGHT);
-        //}
-        ////Left side of room
-        //for (int row = (int) topLeftVertice.x; row < (int) node.TopRightAreaCorner.x; row++) {
-        //    var wallPosition = new Vector3(row, 0, topRightVertice.z);
-        //    AddWallPositionToList(wallPosition, possibleWallPosition, possibleDoorHorizontalPosition, WallDirection.LEFT);
-        //}
-        ////Bottom of Room
-        //for (int col = (int) bottomLeftVertice.z; col < (int) topLeftVertice.z; col++) {
-        //    var wallPosition = new Vector3(bottomLeftVertice.x, 0, col);
-        //    AddWallPositionToList(wallPosition, possibleFloorCeilingPosition, possibleDoorVerticalPosition, WallDirection.DOWN);
-        //}
-        ////top of room
-        //for (int col = (int) bottomRightVertice.z; col < (int) topRightVertice.z; col++) {
-        //    var wallPosition = new Vector3(bottomRightVertice.x, 0, col);
-        //    AddWallPositionToList(wallPosition, possibleFloorCeilingPosition, possibleDoorVerticalPosition, WallDirection.UP);
-        //}
-
+        return fullWallsOut;
     }
     //
     void CreateCorridorBackground(CorridorNode corridorNode, Material materialIn, Transform newObjectParent) {
@@ -600,7 +592,7 @@ public class DungeonCreator : MonoBehaviour {
             GameObject pathNodeObject = new GameObject("PathNode - room " + i, typeof(MeshFilter), typeof(MeshRenderer));
 
 
-            if (debugMode) {
+            if (gameManager.DebugLevelGeneration) {
                 pathNodeObject.GetComponent<MeshFilter>().mesh = pathNodeMesh;
                 pathNodeObject.GetComponent<MeshRenderer>().material = pathNodeBaseMaterial;
             }
@@ -611,7 +603,6 @@ public class DungeonCreator : MonoBehaviour {
             pathNode.Direction = Direction.VERTICAL;
             pathNode.RoomDimensions = new Vector2Int(listOfRooms[i].Width, listOfRooms[i].Length);
             pathNode.RoomTopLeftCorner = listOfRooms[i].TopLeftAreaCorner;
-
 
             pathNodeObject.transform.parent = pathNodeParent;
 
@@ -630,7 +621,7 @@ public class DungeonCreator : MonoBehaviour {
             GameObject pathNodeObject = new GameObject("PathNode - corridor " + i, typeof(MeshFilter), typeof(MeshRenderer));
 
 
-            if (debugMode) {
+            if (gameManager.DebugLevelGeneration) {
                 pathNodeObject.GetComponent<MeshFilter>().mesh = pathNodeMesh;
                 pathNodeObject.GetComponent<MeshRenderer>().material = pathNodeBaseMaterial;
             }
@@ -641,6 +632,7 @@ public class DungeonCreator : MonoBehaviour {
             pathNode.Direction = listOfCorridors[i].Direction;
             pathNode.RoomDimensions = new Vector2Int(listOfCorridors[i].Width, listOfCorridors[i].Length);
             pathNode.RoomTopLeftCorner = listOfCorridors[i].TopLeftAreaCorner;
+
 
             pathNodeObject.transform.parent = pathNodeParent;
             pathNodeObject.transform.position = new Vector3(centerPoint.x, 5, centerPoint.y);
@@ -721,7 +713,7 @@ public class DungeonCreator : MonoBehaviour {
         //places player
         playerPrefab.transform.position = spawnPos;
 
-        SpawnDoorAtPlayerStart();
+        levelDecorator.PlacePlayerDoorDecoration(playerPrefab.transform.position, gameManager.DebugLevelGeneration);
         if (!dungeonFlatMode) {
             //rotates player around origin to account for level rotation
             playerPrefab.transform.RotateAround(Vector3.zero, Vector3.up, 90);
@@ -731,13 +723,16 @@ public class DungeonCreator : MonoBehaviour {
         playerPrefab.transform.rotation = Quaternion.Euler(0, 0, 0);
         playerPrefab.transform.position = new Vector3(playerPrefab.transform.position.x + 1, spawnPos.x, playerPrefab.transform.position.z + 1);
 
+
+
     }
     //
-    public List<Vector3> PlacePlatforms(PathNode room) {
+    public List<Vector3> CalculatePlatforms(PathNode room) {
 
-        List<Vector3> decorationItemLocationsOut = new List<Vector3>();
+        List<Vector3> platformLocationsOut = new List<Vector3>();
+        List<List<GameObject>> roomPlatformRows = new List<List<GameObject>>();
 
-        int verticalPlatformDistance = 4;
+        int verticalPlatformDistance = 5;
         int platformWidth = 5;
         int roomHeight = room.RoomDimensions.y;
         int roomWidth = room.RoomDimensions.x;
@@ -746,6 +741,7 @@ public class DungeonCreator : MonoBehaviour {
         int platformSpace = roomHeight - 2 * wallSpace;
 
         int count = 1;
+
         for (int i = groundLevel + verticalPlatformDistance; i < groundLevel + roomWidth - 3; i += verticalPlatformDistance) {
 
             int middleSpace = platformSpace / platformWidth;
@@ -780,54 +776,33 @@ public class DungeonCreator : MonoBehaviour {
                 newPlatformData += platformData.Substring(randomIndex + 1);
                 platformData = newPlatformData;
             }
+            List<GameObject> lineOfPlatforms = new List<GameObject>();
 
-            decorationItemLocationsOut.AddRange(SpawnLineOfPlatforms(platformData, i, room, platformWidth));
+            platformLocationsOut.AddRange(SpawnLineOfPlatforms(platformData, i, room, platformWidth, out lineOfPlatforms));
+
             count++;
+
+            roomPlatformRows.Add(lineOfPlatforms);
         }
 
-        return decorationItemLocationsOut;
+        LinkPlatformRows(roomPlatformRows);
+
+        return platformLocationsOut;
     }
     //
-    public void SpawnDoorAtPlayerStart() {
+    List<Vector3> SpawnLineOfPlatforms(string lineData, int x, PathNode room, int platformWidth, out List<GameObject> lineOfPlatformsOut) {
 
-        //Debug.Log("Player Pos: " + playerPrefab.transform.position);
-
-        Collider[] hits = Physics.OverlapSphere(playerPrefab.transform.position, 15f);
-        GameObject closestGO = null;
-        float closestDistance = Mathf.Infinity;
-
-        foreach (Collider collider in hits) {
-            GameObject go = collider.gameObject;
-            if (go.name == "CastleWall_5x5(Clone)") {
-                float distance = Vector3.Distance(playerPrefab.transform.position, go.transform.position);
-                if (distance < closestDistance) {
-                    closestDistance = distance;
-                    closestGO = go;
-                }
-            }
-        }
-
-        //Debug.Log("Closest Distance: " + closestDistance);
-        //Debug.Log("Closest wall: " + closestGO.transform.position);
-
-        GameObject door = Instantiate(castleWall5x5DoorPrefab, closestGO.transform.parent);
-        door.name = "door";
-        door.transform.position = closestGO.transform.localPosition;
-        door.transform.rotation = Quaternion.Euler(90, 90, 0);
-        closestGO.SetActive(false);
-    }
-    //
-    List<Vector3> SpawnLineOfPlatforms(string lineData, int x, PathNode room, int platformWidth) {
-
-        List<Vector3> decorationItemLocationsOut = new List<Vector3>();
-
-        //Helper
+        //Helpers
         int numSpaces = 0;
+        List<Vector3> platformLocationsOut = new List<Vector3>();
+        lineOfPlatformsOut = new List<GameObject>();
+        Vector3 spawnPos = new Vector3();
+        float totalOffset = 0;
 
-        //Validate linedata *******Necessary??
+        //Validate linedata 
         foreach (char c in lineData.ToCharArray()) {
             if (c != '0' && c != '1') {
-                return decorationItemLocationsOut;
+                return platformLocationsOut;
             }
             if (c == '0') {
 
@@ -850,31 +825,236 @@ public class DungeonCreator : MonoBehaviour {
         //Debug.Log("/Cell offset " + spaceOffsetPerCell);
         //Debug.Log("=============================================");
 
-        Vector3 spawnPos = new Vector3();
-
-        float totalOffset = 0;
+        //Loop through line data
         for (int i = 0; i < lineData.Length; i++) {
+            //Skips spaces (represented by '0')
             if (lineData[i] == '0') {
                 totalOffset += spaceOffsetPerCell;
                 continue;
             }
+
+            //Set spawn position
             spawnPos = new Vector3(x, -0.5f, room.RoomTopLeftCorner.y - (i * platformWidth) - totalOffset - platformWidth / 2f);
 
+            //Instantiate and setup
             GameObject platform = Instantiate(platformPrefab, spawnPos, Quaternion.Euler(0, 0, 0));
             platform.transform.parent = platformParent;
-            // Set to Ground layer
-            SetAllChildrenToLayer(platform, 9);
+            SetAllChildrenToLayer(platform, 9);// Set to Ground layer
 
-            //spawn decoration
-            float roll = UnityEngine.Random.value;
-
-            if (roll < floorDecorationFrequency) {
-                //SpawnDecorationItem(spawnPos);
-                decorationItemLocationsOut.Add(spawnPos);
-            }
+            //Add to output variables
+            platformLocationsOut.Add(spawnPos);
+            lineOfPlatformsOut.Add(platform);
         }
 
-        return decorationItemLocationsOut;
+        //Link Navmeshes on line of platforms
+        LinkPlatformLine(lineOfPlatformsOut);
+
+        return platformLocationsOut;
+    }
+    //
+    void LinkPlatformLine(List<GameObject> platformLine) {
+
+        for (int i = 0; i < platformLine.Count - 1; i++) {
+            // Calculate the distance between platforms
+            float dist = Vector3.Distance(platformLine[i].transform.position, platformLine[i + 1].transform.position);
+
+            //Ensure check is only running if there is a gap with neighbor
+            if (dist > 5.5 && dist < NavMeshLinkJumpDistance) { // 5 is the width of the platform
+                GameObject startPlatform = platformLine[i].transform.GetChild(0).gameObject;
+                GameObject endPlatform = platformLine[i + 1].transform.GetChild(0).gameObject;
+
+                // Add NavMeshLink component
+                NavMeshLink link = startPlatform.AddComponent<NavMeshLink>();
+
+                //Set up link points (RELATIVE TO GAMEOBJECT WORLD POSITION)
+                Vector3 localP1 = new Vector3(-0.5f, 0.1f, 2.5f);
+                Vector3 localP2 = new Vector3(dist - 4, 0.1f, 2.5f);
+
+                // Link the start and end positions to the NavMeshLink
+                link.startPoint = localP1;
+                link.endPoint = localP2;
+                link.bidirectional = true;
+                link.autoUpdate = true;
+
+                // Enable and apply the link
+                link.enabled = false;
+                link.enabled = true;
+            }
+        }
+    }
+    //
+    void LinkPlatformRows(List<List<GameObject>> roomPlatformRows) {
+        //Loop through all rows except bottom (lowest row on cam)
+        for (int i = roomPlatformRows.Count - 1; i >= 0; i--) {
+            //Loop through all platforms in row
+            for (int j = 0; j < roomPlatformRows[i].Count; j++) {
+
+                //Helpers
+                GameObject platform = roomPlatformRows[i][j];
+                Vector3 wallCheckOrigin = new Vector3(platform.transform.position.x + 0.5f, platform.transform.position.y + 2.5f, platform.transform.position.z);
+                bool doRightSideCheck = true;
+                bool doLeftSideCheck = true;
+
+
+                //DEV ONLY - DEBUG ORBS
+                //GameObject go = new GameObject("Testing platform locations", typeof(MeshFilter), typeof(MeshRenderer));
+                //go.GetComponent<MeshFilter>().mesh = gameManager.debugObjectMesh;
+                //go.GetComponent<MeshRenderer>().material = gameManager.debugMaterial;
+                //go.transform.position = wallCheckOrigin;
+                //go.transform.parent = devParent;
+
+                //Test if against right wall
+                if (j == roomPlatformRows[i].Count - 1) {
+                    //Right wall check
+                    Vector3 wallCheckEnd = new Vector3(0, 0, -3);
+
+                    Ray ray = new Ray(wallCheckOrigin, wallCheckEnd.normalized);
+                    RaycastHit hit;
+                    if (Physics.Raycast(ray, out hit, 3)) {
+                        //Flag
+                        doRightSideCheck = false;
+
+                        //DEV ONLY
+                        //go.GetComponent<MeshRenderer>().material.color = new Color(0, 0, 1);
+                        //Debug.DrawRay(wallCheckOrigin, wallCheckEnd, Color.blue, 25);
+                    }
+                }
+                //Test if against left wall
+                else if (j == 0) {
+                    //left wall check
+                    Vector3 wallCheckEnd = new Vector3(0, 0, 3);
+
+                    Ray ray = new Ray(wallCheckOrigin, wallCheckEnd.normalized);
+                    RaycastHit hit;
+                    if (Physics.Raycast(ray, out hit, 3)) {
+                        //Flag
+                        doLeftSideCheck = false;
+
+                        //DEV ONLY
+                        //go.GetComponent<MeshRenderer>().material.color = new Color(0, 0, 1);
+                        //Debug.DrawRay(wallCheckOrigin, wallCheckEnd, Color.blue, 25);
+                    }
+                }
+
+                //Check down right
+                if (doRightSideCheck) {
+                    //Flag
+                    bool doLink = true;
+
+                    //Ensure all platforms but last in row
+                    if (j != roomPlatformRows[i].Count - 1) {
+                        //Helpers
+                        GameObject rightNeighbor = roomPlatformRows[i][j + 1];
+                        float dist = Vector3.Distance(platform.transform.position, rightNeighbor.transform.position);
+
+                        //Ensure check is only running if there is a gap with neighbor
+                        if (dist <= 5.5f) {
+                            doLink = false;
+                        }
+                    }
+
+
+                    //If there is a gap, check for platforms below
+                    if (doLink) {
+
+                        //Helpers
+                        Vector3 rayOrigin = new Vector3(platform.transform.position.x - 1, platform.transform.position.y + 2.5f, platform.transform.position.z - 2.5f);
+                        Vector3 rayEnd = new Vector3(-4.5f, 0, -2f);
+                        Ray ray = new Ray(rayOrigin, rayEnd.normalized);
+                        RaycastHit hit;
+
+                        //DEV ONLY
+                        //GameObject testGO = new GameObject("Testing Right Ray Origin", typeof(MeshFilter), typeof(MeshRenderer));
+                        //testGO.GetComponent<MeshFilter>().mesh = gameManager.debugObjectMesh;
+                        //testGO.GetComponent<MeshRenderer>().material = gameManager.debugMaterial;
+                        //testGO.transform.position = rayOrigin;
+                        //testGO.transform.parent = devParent;
+
+                        if (Physics.Raycast(ray, out hit, 4.5f)) {
+                            //testGO.GetComponent<MeshRenderer>().material.color = new Color(0, 0, 1);
+
+                            //add link component
+                            NavMeshLink link = platform.transform.GetChild(0).gameObject.AddComponent<NavMeshLink>();
+
+                            //Setup up link points
+                            Vector3 localP1 = new Vector3(-0.5f, 0.1f, 2.5f);
+                            Vector3 localP2 = new Vector3(2.25f, -5.1f, 2.5f);
+
+                            // Link the start and end positions to the NavMeshLink
+                            link.startPoint = localP1;
+                            link.endPoint = localP2;
+                            link.bidirectional = true;
+                            link.autoUpdate = true;
+
+                            // Enable and apply the link
+                            link.enabled = false;
+                            link.enabled = true;
+
+                        }
+                        //Debug.DrawRay(rayOrigin, rayEnd, Color.red, 25);
+                    }
+                }
+
+                //Check down left
+                if (doLeftSideCheck) {
+                    //Flag
+                    bool doLink = true;
+                    //Ensure all platforms but first in row
+                    if (j != 0) {
+                        //Helpers
+                        GameObject LeftNeighbor = roomPlatformRows[i][j - 1];
+                        float dist = Vector3.Distance(platform.transform.position, LeftNeighbor.transform.position);
+
+                        //Ensure check is only running if there is a gap with neighbor
+                        if (dist <= 5.5f) {
+                            doLink = false;
+                        }
+                    }
+
+
+                    //If there is a gap, check for platforms below
+                    if (doLink) {
+
+                        //Helpers
+                        Vector3 rayOrigin = new Vector3(platform.transform.position.x - 1, platform.transform.position.y + 2.5f, platform.transform.position.z + 2.5f);
+                        Vector3 rayEnd = new Vector3(-4.5f, 0, 2f);
+                        Ray ray = new Ray(rayOrigin, rayEnd.normalized);
+                        RaycastHit hit;
+
+                        //DEV ONLY
+                        //GameObject testGO = new GameObject("Testing Left Ray Origin", typeof(MeshFilter), typeof(MeshRenderer));
+                        //testGO.GetComponent<MeshFilter>().mesh = gameManager.debugObjectMesh;
+                        //testGO.GetComponent<MeshRenderer>().material = gameManager.debugMaterial;
+                        //testGO.transform.position = rayOrigin;
+                        //testGO.transform.parent = devParent;
+
+
+                        if (Physics.Raycast(ray, out hit, 4.5f)) {
+                            //testGO.GetComponent<MeshRenderer>().material.color = new Color(0, 0, 1);
+
+                            //add link component
+                            NavMeshLink link = platform.transform.GetChild(0).gameObject.AddComponent<NavMeshLink>();
+
+                            //Setup up link points
+                            Vector3 localP1 = new Vector3(-4.5f, 0.1f, 2.5f);
+                            Vector3 localP2 = new Vector3(-7.25f, -5.1f, 2.5f); ;
+
+                            // Link the start and end positions to the NavMeshLink
+                            link.startPoint = localP1;
+                            link.endPoint = localP2;
+                            link.bidirectional = true;
+                            link.autoUpdate = true;
+
+
+                            // Enable and apply the link
+                            link.enabled = false;
+                            link.enabled = true;
+                        }
+                        //Debug.DrawRay(rayOrigin, rayEnd, Color.red, 25);
+                    }
+                }
+            }
+        }
     }
     //
     void SetAllChildrenToLayer(GameObject objIn, int layerIndexIn) {
@@ -885,6 +1065,12 @@ public class DungeonCreator : MonoBehaviour {
         foreach (Transform child in objIn.transform) {
             SetAllChildrenToLayer(child.gameObject, layerIndexIn);
         }
+    }
+    //
+    public void SaveSeed() {
+        //RandomSeedManager.SaveSeedToGoodList(gameManager.lvl1SeedFilePath, levelSeed);
+        //RandomSeedManager.SaveSeedToJSON(1, levelSeed, gameManager.levelSeedDataFilePath);
+        RandomSeedManager.SaveSeedToJSON(gameManager.CurrentLevel, levelSeed);
     }
 }
 

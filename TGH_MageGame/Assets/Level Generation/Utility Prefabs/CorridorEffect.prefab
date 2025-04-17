@@ -4651,6 +4651,7 @@ MonoBehaviour:
   flippedPosition: {x: 0, y: 0, z: 0}
   roomMidPoint: {x: 0, y: 0, z: 0}
   isFlipped: 0
+  ps: {fileID: 7933008026542653003}
 --- !u!65 &2497891083290419246
 BoxCollider:
   m_ObjectHideFlags: 0

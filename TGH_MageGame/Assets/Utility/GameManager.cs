@@ -15,18 +15,26 @@ public class GameManager : MonoBehaviour {
     [SerializeField] LevelEnemies levelEnemies;
     [SerializeField] LevelDecorations levelDecorations;
     //
-    bool outroPlayed = false;
-    //
     Vector3 playerPivot;
     //
     ControlScheme currentScheme = ControlScheme.KEYBOARDMOUSE;
+    PathNode currentPathNode;
+    //
+    int currentLevel = 1;
 
     //DEV ONLY - REMOVE BEFORE BUILD
     [Header("DEV ONLY")]
+    [SerializeField] bool debugLevelGeneration;
+    [SerializeField] bool debugEnemySpawning;
+    [SerializeField] bool debugInput;
+    [SerializeField] bool generateLevelOnLoad;
+    [SerializeField] bool unlockAllPaths;
     Transform cursorPositionObject;
     Transform playerPositionObject;
     public Mesh debugObjectMesh;
     public Material debugMaterial;
+    Material currentPathNodeOriginalMaterial;
+    [SerializeField] Material playerRoomMaterial;
     [Header("Bugs / Issues")]
     [SerializeField] private List<string> knownBugs = new List<string>();
 
@@ -36,32 +44,37 @@ public class GameManager : MonoBehaviour {
     public ControlScheme CurrentScheme { get => currentScheme; }
     public Vector3 CrosshairPositionIn3DSpace { get => cursorPositionObject.transform.position; }
     public Transform Player { get => player; }
+    public PathNode CurrentPathNode { get => currentPathNode; set => SetCurrentPathNode(value); }
+    public bool GenerateLevelOnLoad { get => generateLevelOnLoad; set => generateLevelOnLoad = value; }
+    public bool UnlockAllPaths { get => unlockAllPaths; set => unlockAllPaths = value; }
+    public bool DebugLevelGeneration { get => debugLevelGeneration; set => debugLevelGeneration = value; }
+    public bool DebugInput { get => debugInput; set => debugInput = value; }
+    public bool DebugEnemySpawning { get => debugEnemySpawning; set => debugEnemySpawning = value; }
+    public int CurrentLevel { get => currentLevel; }
 
     //**UNITY METHODS**
     private void Awake() {
         //DEV ONLY - REMOVE BEFORE BUILD - setup debug object
-        cursorPositionObject = new GameObject("CursorPosObject").transform;
+        cursorPositionObject = new GameObject("CursorPosObject", typeof(MeshFilter), typeof(MeshRenderer)).transform;
         cursorPositionObject.transform.parent = GameObject.FindWithTag("Player").transform;
-        //cursorPositionObject = new GameObject("MousePosObject", typeof(MeshFilter), typeof(MeshRenderer)).transform;
-        //cursorPositionObject.GetComponent<MeshFilter>().mesh = debugObjectMesh;
-        //cursorPositionObject.GetComponent<MeshRenderer>().material = debugMaterial;
-
-        playerPositionObject = new GameObject("PlayerPosObject").transform;
+        playerPositionObject = new GameObject("PlayerPosObject", typeof(MeshFilter), typeof(MeshRenderer)).transform;
         playerPositionObject.transform.parent = GameObject.FindWithTag("Player").transform;
-        //playerPositionObject = new GameObject("PlayerPosObject", typeof(MeshFilter), typeof(MeshRenderer)).transform;
-        //playerPositionObject.GetComponent<MeshFilter>().mesh = debugObjectMesh;
-        //playerPositionObject.GetComponent<MeshRenderer>().material = debugMaterial;
 
-        foreach (string bug in knownBugs) {
-            if (bug != "") {
-                Debug.LogWarning(bug);
-            }
+        if (DebugInput) {
+            cursorPositionObject.GetComponent<MeshFilter>().mesh = debugObjectMesh;
+            cursorPositionObject.GetComponent<MeshRenderer>().material = debugMaterial;
+            playerPositionObject.GetComponent<MeshFilter>().mesh = debugObjectMesh;
+            playerPositionObject.GetComponent<MeshRenderer>().material = debugMaterial;
         }
+
+        //foreach (string bug in knownBugs) {
+        //    if (bug != "") {
+        //        Debug.LogWarning(bug);
+        //    }
+        //}
 
         //Enable HUD is disabled
         hud.gameObject.SetActive(true);
-
-
     }
     //
     private void Update() {
@@ -75,6 +88,7 @@ public class GameManager : MonoBehaviour {
         else if (controlScheme == "Gamepad") {
             currentScheme = ControlScheme.GAMEPAD;
         }
+
     }
     //
     private void OnApplicationFocus(bool focus) {
@@ -87,32 +101,41 @@ public class GameManager : MonoBehaviour {
         //get mouse input position
         Vector3 screenPos = Vector3.zero;
 
-        if (currentScheme == ControlScheme.KEYBOARDMOUSE) {
-            screenPos = Mouse.current.position.ReadValue();
-        }
-        else if (currentScheme == ControlScheme.GAMEPAD) {
+        //if (currentScheme == ControlScheme.KEYBOARDMOUSE) {
+        //    screenPos = Mouse.current.position.ReadValue();
+        //}
+        //else if (currentScheme == ControlScheme.GAMEPAD) {
 
-            //800x450 base canvas resolution, mult 2.4
+        //    //800x450 base canvas resolution, mult 2.4
 
-            float canvasWidth = crosshairRect.parent.GetComponent<RectTransform>().rect.width;
-            float canvasheight = crosshairRect.parent.GetComponent<RectTransform>().rect.height;
+        //    //float canvasWidth = crosshairRect.parent.GetComponent<RectTransform>().rect.width;
+        //    //float canvasheight = crosshairRect.parent.GetComponent<RectTransform>().rect.height;
 
-            screenPos = new Vector3((crosshairRect.anchoredPosition.x + canvasWidth / 2f) * 2.4f, (crosshairRect.anchoredPosition.y + canvasheight / 2f) * 2.4f, 0);
-        }
+        //    //screenPos = new Vector3((crosshairRect.anchoredPosition.x + canvasWidth / 2f) * 2.4f, (crosshairRect.anchoredPosition.y + canvasheight / 2f) * 2.4f, 0);
 
-        //Debug.Log($"Projectile Spawn screen position: {screenPos}");
+        //    screenPos = new Vector3(crosshairRect.anchoredPosition.x, crosshairRect.anchoredPosition.y, Mathf.Abs(Camera.main.transform.position.z));
+        //}
 
-        //convert mouse input to point in world 
-        Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, Mathf.Abs(Camera.main.transform.position.z)));
+        //screenPos = new Vector3(crosshairRect.anchoredPosition.x, crosshairRect.anchoredPosition.y, 0);
 
-        //get position in center of player model
+        //Debug.Log($"Crosshair screen position: {screenPos}");
+
+        //convert mouse input to point in world         
+        //Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(crosshairRect.anchoredPosition.x, crosshairRect.anchoredPosition.y, Mathf.Abs(Camera.main.transform.position.z)));
+
+
+        // Get position in center of player model
         playerPivot = new Vector3(player.position.x, player.position.y + 1.162f, 2.5f);
+        // Get position of crosshair in world
+        Vector3 screenPosition = RectTransformUtility.WorldToScreenPoint(null, crosshairRect.position);
+        Vector3 worldPosition = Camera.main.GetComponent<Camera>().ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, Mathf.Abs(Camera.main.GetComponent<Camera>().transform.position.z - 2.5f)));
+        worldPosition.z = 2.5f;
 
         //Set debug object positions
         playerPositionObject.position = playerPivot;
-        cursorPositionObject.position = new Vector3(worldPos.x, worldPos.y, 2.5f);
+        cursorPositionObject.position = new Vector3(worldPosition.x, worldPosition.y, 2.5f);
 
-        //setup ray 
+        //Setup ray 
         Ray ray = new Ray(playerPivot, (cursorPositionObject.position - playerPivot).normalized);
 
         //spell spawn point offset from centermass of player        
@@ -141,7 +164,22 @@ public class GameManager : MonoBehaviour {
     public void LoadMainMenu() {
         SceneManager.LoadScene("Splash");
     }
+    //
+    public void SetCurrentPathNode(PathNode nodeIn, bool isInit = false) {
+        //reset old pathnode color
+        if (!isInit) {
+            currentPathNode.GetComponent<MeshRenderer>().sharedMaterial = currentPathNodeOriginalMaterial;
+        }
 
+        //Set new node reference
+        currentPathNode = nodeIn;
+        //Cache renderer reference
+        MeshRenderer newNodeRenderer = currentPathNode.GetComponent<MeshRenderer>();
+        //Cache old Material reference
+        currentPathNodeOriginalMaterial = newNodeRenderer.sharedMaterial;
+        //Set new Mat as current room
+        newNodeRenderer.sharedMaterial = playerRoomMaterial;
+    }
 }
 
 public enum ControlScheme {

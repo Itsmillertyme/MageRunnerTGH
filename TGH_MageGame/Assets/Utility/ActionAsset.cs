@@ -103,7 +103,7 @@ public partial class @ActionAsset: IInputActionCollection2, IDisposable
                     ""name"": ""Dash"",
                     ""type"": ""Button"",
                     ""id"": ""845d6790-0121-4bf7-a953-880aaf6128ae"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -157,6 +157,15 @@ public partial class @ActionAsset: IInputActionCollection2, IDisposable
                     ""name"": ""HotSwitch"",
                     ""type"": ""Button"",
                     ""id"": ""7a7af214-85a2-401f-a348-b2b928b80f51"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenStatMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""e16b24d6-826b-42ff-a214-24d344743ce3"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -559,6 +568,17 @@ public partial class @ActionAsset: IInputActionCollection2, IDisposable
                     ""action"": ""Aim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b00aff0c-3294-4d07-998f-6b0e1e5358b9"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenStatMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -610,6 +630,7 @@ public partial class @ActionAsset: IInputActionCollection2, IDisposable
         m_Player_OpenPauseMenu = m_Player.FindAction("OpenPauseMenu", throwIfNotFound: true);
         m_Player_DEVBREAK = m_Player.FindAction("DEVBREAK", throwIfNotFound: true);
         m_Player_HotSwitch = m_Player.FindAction("HotSwitch", throwIfNotFound: true);
+        m_Player_OpenStatMenu = m_Player.FindAction("OpenStatMenu", throwIfNotFound: true);
     }
 
     ~@ActionAsset()
@@ -691,6 +712,7 @@ public partial class @ActionAsset: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_OpenPauseMenu;
     private readonly InputAction m_Player_DEVBREAK;
     private readonly InputAction m_Player_HotSwitch;
+    private readonly InputAction m_Player_OpenStatMenu;
     public struct PlayerActions
     {
         private @ActionAsset m_Wrapper;
@@ -710,6 +732,7 @@ public partial class @ActionAsset: IInputActionCollection2, IDisposable
         public InputAction @OpenPauseMenu => m_Wrapper.m_Player_OpenPauseMenu;
         public InputAction @DEVBREAK => m_Wrapper.m_Player_DEVBREAK;
         public InputAction @HotSwitch => m_Wrapper.m_Player_HotSwitch;
+        public InputAction @OpenStatMenu => m_Wrapper.m_Player_OpenStatMenu;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -764,6 +787,9 @@ public partial class @ActionAsset: IInputActionCollection2, IDisposable
             @HotSwitch.started += instance.OnHotSwitch;
             @HotSwitch.performed += instance.OnHotSwitch;
             @HotSwitch.canceled += instance.OnHotSwitch;
+            @OpenStatMenu.started += instance.OnOpenStatMenu;
+            @OpenStatMenu.performed += instance.OnOpenStatMenu;
+            @OpenStatMenu.canceled += instance.OnOpenStatMenu;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -813,6 +839,9 @@ public partial class @ActionAsset: IInputActionCollection2, IDisposable
             @HotSwitch.started -= instance.OnHotSwitch;
             @HotSwitch.performed -= instance.OnHotSwitch;
             @HotSwitch.canceled -= instance.OnHotSwitch;
+            @OpenStatMenu.started -= instance.OnOpenStatMenu;
+            @OpenStatMenu.performed -= instance.OnOpenStatMenu;
+            @OpenStatMenu.canceled -= instance.OnOpenStatMenu;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -865,5 +894,6 @@ public partial class @ActionAsset: IInputActionCollection2, IDisposable
         void OnOpenPauseMenu(InputAction.CallbackContext context);
         void OnDEVBREAK(InputAction.CallbackContext context);
         void OnHotSwitch(InputAction.CallbackContext context);
+        void OnOpenStatMenu(InputAction.CallbackContext context);
     }
 }

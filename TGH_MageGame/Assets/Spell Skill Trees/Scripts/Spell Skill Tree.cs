@@ -1,82 +1,41 @@
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class SpellSkillTree : MonoBehaviour
 {
-    [SerializeField] private SpellSkill[] skillTree;
-    [SerializeField] private Button[] buttons;
-    [SerializeField] private int currentTier = 0;
+    [SerializeField] private Spell spell;
 
-    private void Start()
+    private readonly HashSet<SpellSkillNode> ownedUpgrades = new();
+
+    // CHECK IF UPGRADE IS ALREADY OWNED
+    public bool UpgradeOwned(SpellSkillNode upgrade)
     {
-        ResetSkillTrees(); // TEMP UNTIL WE HAVE A SAVE SYSTEM IN PLACE
+        return ownedUpgrades.Contains(upgrade);
+    }   
+
+    // CHECK IF ELIGIBLE TO UPGRADE
+    public bool CanUpgrade(SpellSkillNode upgrade)
+    {
+        return upgrade.CanUpgrade(ownedUpgrades);
     }
 
-    public void Purchase(int index)
+    // PERFORM THE UPGRADE
+    public void ApplyUpgrade(SpellSkillNode upgrade)
     {
-        skillTree[index].Purchase();
-        SetCurrentTier();
-    }
-
-    public void SetCurrentTier()
-    {
-        bool areAllOwned = true;
-        int highestTier = 0;
-
-        // CHECK CURRENT TIER TO SEE IF ALL SKILLS ARE OWNED
-        foreach (SpellSkill skill in skillTree)
+        // IF SHOULD NOT UPGRADE, RETURN
+        if (UpgradeOwned(upgrade) || !CanUpgrade(upgrade))
         {
-            if (skill.SkillTier == currentTier && !skill.IsOwned)
-            {
-                areAllOwned = false;
-                break;
-            }
-
-            highestTier = skill.SkillTier;
+            return;
         }
 
-        // INCREMENT THE TIER IF ALL ARE OWNED
-        if (areAllOwned)
+        // UPGRADE
+        ownedUpgrades.Add(upgrade);
+        upgrade.ApplyUpgrade(spell);
+
+        // UPDATE BUTTON TEXT AND INTERACTABILITY
+        foreach (var button in FindObjectsByType<SpellSkillUpgradeButton>(FindObjectsSortMode.None))
         {
-            if (currentTier != highestTier)
-            {
-                currentTier++;
-            }       
-        }
-
-        // MAKE NEW TIER PURCHASABLE
-        for (int i = 0; i < skillTree.Length; i++)
-        {
-            if (skillTree[i].SkillTier == currentTier)
-            {
-                skillTree[i].SetCanPurchase();
-
-                if (!skillTree[i].IsOwned)
-                {
-                    buttons[i].interactable = true;
-                }
-            }
-        }
-
-    }
-
-    public void ResetSkillTrees()
-    {
-        currentTier = 0;
-
-        foreach (SpellSkill skill in skillTree)
-        {
-            if (skill.SkillTier == currentTier)
-            {
-                skill.SetCanPurchase();
-                
-            }
-            else
-            {
-                skill.SetCannotPurchase();
-            }
-
-            skill.SetNotOwned();
+            button.UpdateButtonState();
         }
     }
-} 
+}

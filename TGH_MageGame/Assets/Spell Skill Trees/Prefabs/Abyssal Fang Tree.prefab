@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4593034187104863289}
   - component: {fileID: 877703093326566183}
   - component: {fileID: 8498332313555573565}
+  - component: {fileID: 7983428171604000458}
   m_Layer: 5
   m_Name: 1
   m_TagString: Untagged
@@ -26,17 +27,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 290781686421150438}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5493722056098580563}
-  m_Father: {fileID: 761536464873703671}
+  m_Father: {fileID: 516840640279678955}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 120, y: 50}
+  m_AnchoredPosition: {x: 120, y: 112.5}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4593034187104863289
@@ -121,7 +122,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1083890766717817493}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SpellSkillTree, Assembly-CSharp
         m_MethodName: Purchase
         m_Mode: 3
@@ -145,6 +146,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7983428171604000458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 290781686421150438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 459955d59023dde4cb600b57f18f2e14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeNode: {fileID: 11400000, guid: 0afa7d7454da4d8469de563f6d40d30a, type: 2}
 --- !u!1 &1493979314417871212
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,7 +171,7 @@ GameObject:
   - component: {fileID: 129916357529216161}
   - component: {fileID: 2537382482171066637}
   - component: {fileID: 7551186330136653281}
-  - component: {fileID: 1083890766717817493}
+  - component: {fileID: 904298246773178306}
   m_Layer: 5
   m_Name: Abyssal Fang Tree
   m_TagString: Untagged
@@ -179,12 +193,7 @@ RectTransform:
   m_Children:
   - {fileID: 611806606604806014}
   - {fileID: 4519985832763277681}
-  - {fileID: 3500834937546280685}
-  - {fileID: 3271663104558829682}
-  - {fileID: 6209314096385886283}
-  - {fileID: 9083237328647700712}
-  - {fileID: 4503998293033632510}
-  - {fileID: 2574548233811860098}
+  - {fileID: 516840640279678955}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -255,7 +264,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &1083890766717817493
+--- !u!114 &904298246773178306
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -264,24 +273,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1493979314417871212}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16920951982f81e4a9bf6ab5b6010ebc, type: 3}
+  m_Script: {fileID: 11500000, guid: 9bff248cf4d7f774999e20cf6d932c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillTree:
-  - {fileID: 11400000, guid: 88e14910a4a8b7a4e82b2900ee691c86, type: 2}
-  - {fileID: 11400000, guid: 2d8eb1f22f3e0174f81da292c4ddc3b0, type: 2}
-  - {fileID: 11400000, guid: 95036526c9950d64dbfcd560e45c5943, type: 2}
-  - {fileID: 11400000, guid: bd7ecddce90ddcf4fa7c3b3ed50e0682, type: 2}
-  - {fileID: 11400000, guid: de1b9ca4c51814242a888a6011e1f718, type: 2}
-  - {fileID: 11400000, guid: e89df44dca6d4e543b33019282500ff9, type: 2}
-  buttons:
-  - {fileID: 3913402385510851290}
-  - {fileID: 8498332313555573565}
-  - {fileID: 4507686258411343988}
-  - {fileID: 8143078031923986215}
-  - {fileID: 143449243136797645}
-  - {fileID: 1302169528035369413}
-  currentTier: 0
+  spell: {fileID: 11400000, guid: f6966100e1ad25a4aa1ec3f18f316f28, type: 2}
 --- !u!1 &1667052063122673103
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,6 +289,7 @@ GameObject:
   - component: {fileID: 7399101407456667304}
   - component: {fileID: 6795904566860793203}
   - component: {fileID: 1302169528035369413}
+  - component: {fileID: 8725527979724364516}
   m_Layer: 5
   m_Name: 5
   m_TagString: Untagged
@@ -308,17 +304,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1667052063122673103}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8130590853626696283}
-  m_Father: {fileID: 761536464873703671}
+  m_Father: {fileID: 516840640279678955}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 120, y: -175}
+  m_AnchoredPosition: {x: 120, y: -112.5}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7399101407456667304
@@ -403,7 +399,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1083890766717817493}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SpellSkillTree, Assembly-CSharp
         m_MethodName: Purchase
         m_Mode: 3
@@ -427,6 +423,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8725527979724364516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667052063122673103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 459955d59023dde4cb600b57f18f2e14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeNode: {fileID: 11400000, guid: f34957df2815ebc4ba89970115182b03, type: 2}
 --- !u!1 &2769212104811574234
 GameObject:
   m_ObjectHideFlags: 0
@@ -514,6 +523,7 @@ GameObject:
   - component: {fileID: 6022235361871324863}
   - component: {fileID: 4558452803401317896}
   - component: {fileID: 143449243136797645}
+  - component: {fileID: 3727524555547208319}
   m_Layer: 5
   m_Name: 4
   m_TagString: Untagged
@@ -534,11 +544,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7155777094512188221}
-  m_Father: {fileID: 761536464873703671}
+  m_Father: {fileID: 516840640279678955}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -120, y: -175}
+  m_AnchoredPosition: {x: -120, y: -112.5}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6022235361871324863
@@ -623,7 +633,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1083890766717817493}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SpellSkillTree, Assembly-CSharp
         m_MethodName: Purchase
         m_Mode: 3
@@ -647,6 +657,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3727524555547208319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2962803959702854585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 459955d59023dde4cb600b57f18f2e14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeNode: {fileID: 11400000, guid: 6310e2caffd933a45a8302a275338012, type: 2}
 --- !u!1 &3394107267988097990
 GameObject:
   m_ObjectHideFlags: 0
@@ -659,6 +682,7 @@ GameObject:
   - component: {fileID: 5561605492740073058}
   - component: {fileID: 1189784022595829435}
   - component: {fileID: 8143078031923986215}
+  - component: {fileID: 6662141768007823561}
   m_Layer: 5
   m_Name: 3
   m_TagString: Untagged
@@ -673,17 +697,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3394107267988097990}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4617819731324547382}
-  m_Father: {fileID: 761536464873703671}
+  m_Father: {fileID: 516840640279678955}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -100}
+  m_AnchoredPosition: {x: 0, y: -37.5}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5561605492740073058
@@ -768,7 +792,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1083890766717817493}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SpellSkillTree, Assembly-CSharp
         m_MethodName: Purchase
         m_Mode: 3
@@ -792,6 +816,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &6662141768007823561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3394107267988097990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 459955d59023dde4cb600b57f18f2e14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeNode: {fileID: 11400000, guid: 0f975e836e7956341ac3a52c11c1c0b5, type: 2}
 --- !u!1 &3615243241555563476
 GameObject:
   m_ObjectHideFlags: 0
@@ -1076,6 +1113,7 @@ GameObject:
   - component: {fileID: 8569676241295828545}
   - component: {fileID: 3544946630402871424}
   - component: {fileID: 3913402385510851290}
+  - component: {fileID: 1869298554727981781}
   m_Layer: 5
   m_Name: 0
   m_TagString: Untagged
@@ -1090,17 +1128,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4392118498922913895}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 340452396498794841}
-  m_Father: {fileID: 761536464873703671}
+  m_Father: {fileID: 516840640279678955}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -120, y: 50}
+  m_AnchoredPosition: {x: -120, y: 112.5}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8569676241295828545
@@ -1185,18 +1223,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1083890766717817493}
-        m_TargetAssemblyTypeName: SpellSkillTree, Assembly-CSharp
-        m_MethodName: Purchase
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 3913402385510851290}
         m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
         m_MethodName: set_interactable
@@ -1209,6 +1235,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1869298554727981781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4392118498922913895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 459955d59023dde4cb600b57f18f2e14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeNode: {fileID: 11400000, guid: 188c380b7fcf4cd4392df9d799e7cf99, type: 2}
 --- !u!1 &6509207456402380106
 GameObject:
   m_ObjectHideFlags: 0
@@ -1221,6 +1260,7 @@ GameObject:
   - component: {fileID: 4972070292619431993}
   - component: {fileID: 912606769202974859}
   - component: {fileID: 4507686258411343988}
+  - component: {fileID: 6945922641503644052}
   m_Layer: 5
   m_Name: 2
   m_TagString: Untagged
@@ -1235,17 +1275,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6509207456402380106}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3453982763053691324}
-  m_Father: {fileID: 761536464873703671}
+  m_Father: {fileID: 516840640279678955}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -25}
+  m_AnchoredPosition: {x: 0, y: 37.5}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4972070292619431993
@@ -1330,7 +1370,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1083890766717817493}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SpellSkillTree, Assembly-CSharp
         m_MethodName: Purchase
         m_Mode: 3
@@ -1354,6 +1394,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &6945922641503644052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6509207456402380106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 459955d59023dde4cb600b57f18f2e14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeNode: {fileID: 11400000, guid: 5cc78686e2a504a46b8fcf4c1be47e6a, type: 2}
 --- !u!1 &7775868005953345197
 GameObject:
   m_ObjectHideFlags: 0
@@ -1701,6 +1754,47 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &8631571722760268218
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 516840640279678955}
+  m_Layer: 5
+  m_Name: Upgrade Buttons
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &516840640279678955
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8631571722760268218}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3500834937546280685}
+  - {fileID: 3271663104558829682}
+  - {fileID: 6209314096385886283}
+  - {fileID: 9083237328647700712}
+  - {fileID: 4503998293033632510}
+  - {fileID: 2574548233811860098}
+  m_Father: {fileID: 761536464873703671}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -62.5}
+  m_SizeDelta: {x: 400, y: 255}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8694883428409303137
 GameObject:
   m_ObjectHideFlags: 0

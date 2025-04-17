@@ -7,8 +7,9 @@ public class PlayerHealthUIController : MonoBehaviour {
     [SerializeField] public TextMeshProUGUI currentHealthText;
     [SerializeField] Image healthBar;
 
-    public void UpdateUI() {
-        Debug.Log("Updating ui");
+    public void UpdateUI()
+    {
+        //Debug.Log("Updating ui");
         currentHealthText.text = "HP:\n" + health.CurrentHealth;
         healthBar.fillAmount = (float) health.CurrentHealth / health.MaxHealth;
     }

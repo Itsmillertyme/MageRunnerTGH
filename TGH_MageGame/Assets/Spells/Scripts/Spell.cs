@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public abstract class Spell : ScriptableObject
@@ -46,14 +47,8 @@ public abstract class Spell : ScriptableObject
     [Header("Unlock Status")]
     [SerializeField] private bool isUnlocked;
 
-    //[Header("Debugging")]
-    //private Vector3 targetPosition;
-
     #region GETTERS
-    [Header("Metadata")]
     public string Name => name;
-
-    [Header("NO EDIT - Current Attributes")]
     public int ManaCost => manaCost;
     public int Damage => damage;
     public float LifeSpan => lifeSpan;
@@ -61,28 +56,15 @@ public abstract class Spell : ScriptableObject
     public float CastCooldownTime => castCooldownTime;
     public float MoveSpeed => moveSpeed;
     public Vector3 ProjectileSize => projectileSize;
-
-    [Header("Prefab")]
     public GameObject Projectile => projectile;
-
-    [Header("SFX")]
     public AudioClip SpawnSFX => spawnSFX;
-
-    [Header("Animation")]
     public AnimationClip CastAnimation => castAnimation;
-
-    [Header("UI")]
     public Sprite SpellIcon => icon;
     public Sprite Reticle => reticle;
-
-    [Header("Unlock Status")]
     public bool IsUnlocked => isUnlocked;
-
-    //[Header("Debugging")]
-    //public Vector3 TargetPosition => targetPosition;
     #endregion
 
-    public void SetDefaultValues()
+    public void Initialize()
     {
         manaCost = defaultManaCost;
         damage = defaultDamage;
@@ -92,6 +74,13 @@ public abstract class Spell : ScriptableObject
         moveSpeed = defaultMoveSpeed;
         projectileSize = defaultProjectileSize;
     }    
-    
-    public abstract void Cast(Vector3 position, Vector3 direction);
+
+    public void SetProjectileSize(Vector3 newValue) => projectileSize = newValue;
+
+    public void SetMoveSpeed(float newValue) => moveSpeed = newValue;
+
+    public bool isAuto;
+    public void SetAutomaticFireRate(bool newValue) => isAuto = newValue;
+
+    public void SetCastCooldownTime(float newValue) => castCooldownTime = newValue;
 }

@@ -1,10 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerHealth : MonoBehaviour
-{
+public class PlayerHealth : MonoBehaviour {
     [Header("Health Base Stats")]
     [SerializeField] private int currentHealth;
     [SerializeField] private int maxHealth;
@@ -16,6 +14,9 @@ public class PlayerHealth : MonoBehaviour
     [Header("Health Events")]
     [SerializeField] private UnityEvent healthChanged;
 
+    [Header("Misc")]
+    RuneMenuController statRune;
+
     #region DRIVEN
     private Coroutine healthRegen;
     private readonly int minHealth = 0;
@@ -26,45 +27,42 @@ public class PlayerHealth : MonoBehaviour
     public int MaxHealth => maxHealth;
     public int MinHealth => minHealth;
 
-    private void Start()
-    {
-        healthChanged.Invoke();
+    private void Start() {
+        //healthChanged.Invoke();
 
-        if (healthRegen == null && currentHealth < maxHealth)
-        {
+        statRune = GameObject.Find("Player").GetComponent<PlayerController>().PlayerStats["Health"];
+
+        // Initialize health
+        float healthStatValue = statRune != null ? statRune.StatValue : 0;
+        maxHealth += (int) healthStatValue;
+
+        if (healthRegen == null && currentHealth < maxHealth) {
             healthRegen = StartCoroutine(HealOverTime());
         }
     }
 
-    public void AddToHealth(int add)
-    {
-        if (add <= maxHealth - currentHealth)
-        {
+    public void AddToHealth(int add) {
+        if (add <= maxHealth - currentHealth) {
             currentHealth += add;
         }
-        else
-        {
+        else {
             currentHealth += maxHealth - currentHealth;
         }
 
         healthChanged.Invoke();
     }
 
-    public void RemoveFromHealth(int remove)
-    {
-        if (remove < currentHealth)
-        {
+    public void RemoveFromHealth(int remove) {
+        if (remove < currentHealth) {
             currentHealth -= remove;
 
-            if (healthRegen != null)
-            {
+            if (healthRegen != null) {
                 StopCoroutine(healthRegen);
             }
 
             healthRegen = StartCoroutine(HealOverTime());
         }
-        else
-        {
+        else {
             currentHealth = minHealth;
             Destroy(this);
             Time.timeScale = 0f;
@@ -74,19 +72,20 @@ public class PlayerHealth : MonoBehaviour
         healthChanged.Invoke();
     }
 
-    public IEnumerator HealOverTime()
-    {
-        while (currentHealth < maxHealth)
-        {
+    public IEnumerator HealOverTime() {
+        while (currentHealth < maxHealth) {
             yield return new WaitForSeconds(healthRegenFrequency);
             AddToHealth(healthRegenAmount);
         }
     }
 
-    public void IncreaseMaxHealth(int amount)
-    {
+    public void IncreaseMaxHealth(int amount) {
         maxHealth += amount;
         currentHealth += amount;
         healthChanged.Invoke();
+    }
+
+    public void IncreaseMaxHealthFromStatIncrease() {
+        IncreaseMaxHealth((int) statRune.StatStep);
     }
 }

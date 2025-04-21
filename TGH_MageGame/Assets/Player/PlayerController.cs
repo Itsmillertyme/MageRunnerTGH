@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -34,6 +35,8 @@ public class PlayerController : MonoBehaviour {
     //bool isPaused = false;
     bool topCollided = false;
     bool freezePhysics = false;
+    Dictionary<string, RuneMenuController> playerStats;
+
 
     [Header("Player Settings")]
     //Jump Varbiables
@@ -72,10 +75,12 @@ public class PlayerController : MonoBehaviour {
 
     [Header("Miscellaneous References")]
     [SerializeField] UnityEvent SpellMenuInputPressed;
+    [SerializeField] List<RuneMenuController> statRunes;
 
     //**FIELDS**
     public bool IsFacingLeft { get => isFacingLeft; set => isFacingLeft = value; }
     public bool FreezePhysics { get => freezePhysics; set => freezePhysics = value; }
+    public Dictionary<string, RuneMenuController> PlayerStats { get => playerStats; set => playerStats = value; }
 
     //**UNITY METHODS**
     void Awake() {
@@ -105,6 +110,11 @@ public class PlayerController : MonoBehaviour {
         //
         animator.SetBool(landedHash, true);
         //
+        playerStats = new Dictionary<string, RuneMenuController> {
+            { "Mana", statRunes[0] },
+            { "Damage", statRunes[1] },
+            { "Health", statRunes[2] }
+        };
 
         if (playerModel.transform.rotation.eulerAngles.y == 90) {
             isFacingLeft = true;

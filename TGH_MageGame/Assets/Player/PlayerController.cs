@@ -311,6 +311,10 @@ public class PlayerController : MonoBehaviour {
     }
     //Wrapper for cast input callbacks
     public void OnCast(InputAction.CallbackContext context) {
+        //Stop input on pause
+        if (gameManager.GetComponent<PauseController>().IsPaused) {
+            return;
+        }
 
         if (castAnimation == null) {
             castAnimation = StartCoroutine(CastAnim());

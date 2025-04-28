@@ -85,9 +85,7 @@ public class SpellBook : MonoBehaviour
             case ShatterstoneBarrage:
                 currentSpawnPoint = spellSpawnPoints[3];
                 break;
-            case ThunderlordsCascade:
-                currentSpawnPoint = spellSpawnPoints[4];
-                break;
+            // THUNDERLORDS CASCADE DOESN'T NEED A SPAWN POINT
             case WintersWrath:
                 currentSpawnPoint = spellSpawnPoints[3];
                 break;
@@ -125,12 +123,12 @@ public class SpellBook : MonoBehaviour
             case ShatterstoneBarrage sb:
                 StartCoroutine(ShatterstoneSpawnProjectiles(sb));
                 break;
-            //case ThunderlordsCascade tc:
-            //    //
-            //    break;
-            //case WintersWrath ww:
-            //    //
-            //    break;
+            case ThunderlordsCascade tc:
+                StartCoroutine(CastThunderlordsCascade(tc, gameManager.CrosshairPositionIn3DSpace));
+                break;
+                //case WintersWrath ww:
+                //    //
+                //    break;
         }
     }
 
@@ -178,13 +176,48 @@ public class SpellBook : MonoBehaviour
     #endregion
 
     #region THUNDERLORD'S CASCADE
+    private IEnumerator CastThunderlordsCascade(ThunderlordsCascade tc, Vector3 direction) // NO SPAWN POSITION. ALL FROM DIRECTION. 
+    {
+        float boltSpacing = tc.BoltSpread / (tc.BoltCount - 1);
+
+        for (int i = 0; i < tc.VolleyCount; i++)
+        {
+            Vector3 spawnPosition = new(direction.x - (tc.BoltSpread / 2), 0, direction.z); // CLAMP Y TO 0
+
+            for (int j = 0; j < tc.BoltCount; j++)
+            {
+                GameObject newProjectile = Instantiate(spellBook[currentSpellIndex].Projectile, spawnPosition, Quaternion.identity);
+                spawnPosition = new(spawnPosition.x + boltSpacing, 0, spawnPosition.z);
+                SetThunderlordsCascadeProjectile(tc, newProjectile);
+            }
+
+            yield return new WaitForSeconds(tc.VolleyCooldown);
+        }
+    }
+
+    private void SetThunderlordsCascadeProjectile(ThunderlordsCascade tc, GameObject gameObject)
+    {
+        // ENEMY DAMAGER
+        gameObject.GetComponent<EnemyDamager>().SetAttributes(tc.Damage, tc.LifeSpan);
+
+        // PARTICLE SYSTEM REFERENCE
+        ParticleSystem particleSystem = gameObject.GetComponent<ParticleSystem>();
+        ParticleSystem.MainModule particle = particleSystem.main;
+
+        // START DELAY
+        particle.startDelay = Random.Range(0f, tc.BoltSpawnDelay);
+
+        // START ROTATION
+        float rotation = Random.Range(-tc.BoltAngularSpread, tc.BoltAngularSpread) * Mathf.Deg2Rad; // CONVERT UNITS
+        particle.startRotation = rotation;
+    } 
     #endregion
 
     #region WINTER'S WRATH
     #endregion
 
     // TEST TO SEE HOW THIS WORKS WITH SWITCHING SPELLS. HARD TO TEST WITH TOUCHPAD.
-    public IEnumerator CastCooldown(float waitTime)
+    private IEnumerator CastCooldown(float waitTime)
     {
         isReadyToCast = false;
         yield return new WaitForSeconds(waitTime);

@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 9050071033443067856}
   - component: {fileID: 5671084199697224883}
   - component: {fileID: 3988834075773593456}
-  - component: {fileID: 321793857850848124}
   - component: {fileID: -3355182507354069518}
+  - component: {fileID: 2893362896015941643}
   m_Layer: 0
   m_Name: Enemy Projectile
   m_TagString: Enemy Projectile
@@ -64,6 +64,7 @@ MeshRenderer:
   m_RayTraceProcedural: 0
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -104,7 +105,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 128
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -130,6 +131,7 @@ TrailRenderer:
   m_RayTraceProcedural: 0
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -234,22 +236,6 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
---- !u!114 &321793857850848124
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3749226296805990834}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3c8abe18248f69419ed5c8d3cb04e79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lifeSpan: 1
-  moveSpeed: 1
-  damage: 1
-  playerStats: {fileID: 11400000, guid: f5f0a9cfc30db7740be311bccceebbb0, type: 2}
 --- !u!54 &-3355182507354069518
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -277,3 +263,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2893362896015941643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3749226296805990834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47fc5e354d329a44eab7cdeb40ea5dd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 1
+  lifeSpan: 5
+  target: {x: 0, y: 0, z: 0}
+  damage: 0

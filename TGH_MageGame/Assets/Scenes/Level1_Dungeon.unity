@@ -3924,6 +3924,10 @@ PrefabInstance:
       propertyPath: runeLevelRaised.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 8630654537844436222, guid: 41a0755bad083f642a64c68234a56d74, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8870210333477321073, guid: 41a0755bad083f642a64c68234a56d74, type: 3}
       propertyPath: SpellCasted.m_PersistentCalls.m_Calls.Array.size
       value: 1

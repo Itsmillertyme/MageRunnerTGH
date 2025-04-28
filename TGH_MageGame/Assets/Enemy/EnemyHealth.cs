@@ -1,27 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour
-{
+public class EnemyHealth : MonoBehaviour {
+
+    //**PROPERTIES**
     [Header("Health Base Stats")]
     [SerializeField] private int currentHealth;
     [SerializeField] private int maxHealth;
     private readonly int minHealth = 0;
 
-    // GETTERS
+    //**FIELDS**
     public int CurrentHealth => currentHealth;
     public int MaxHealth => maxHealth;
     public int MinHealth => minHealth;
 
-    public void RemoveFromHealth(int remove)
-    {
-        if (remove < currentHealth)
-        {
-            currentHealth -= remove;
-        }
-        else
-        {
+    //**UTILITY METHODS**
+    public void RemoveFromHealth(int amountToRemove) {
+
+        //remove health
+        currentHealth -= amountToRemove;
+
+        //test for death
+        if (currentHealth <= minHealth) {
             currentHealth = minHealth;
             Destroy(gameObject);
         }

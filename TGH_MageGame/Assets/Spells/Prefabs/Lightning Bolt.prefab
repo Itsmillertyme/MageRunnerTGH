@@ -1,5 +1,99 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1401768256146167067
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7749139988263648658}
+  - component: {fileID: 5005785907327752312}
+  - component: {fileID: 4123876475644703442}
+  - component: {fileID: 6422067221524854852}
+  m_Layer: 6
+  m_Name: Collisions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7749139988263648658
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1401768256146167067}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 181385036535585204}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5005785907327752312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1401768256146167067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f4afc34b6798cf439d927e89d273d19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &4123876475644703442
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1401768256146167067}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 1919
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 6, y: 75, z: 6}
+  m_Center: {x: 0, y: 37.5, z: 0}
+--- !u!54 &6422067221524854852
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1401768256146167067}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 1919
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2719750962599343100
 GameObject:
   m_ObjectHideFlags: 0
@@ -11,7 +105,7 @@ GameObject:
   - component: {fileID: 7014044501158178992}
   - component: {fileID: 306292236780025101}
   - component: {fileID: 8401827435332219546}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FX_LightningStrike_Impact_Dust_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4923,7 +5017,7 @@ GameObject:
   - component: {fileID: 7422162108826071045}
   - component: {fileID: 93191405833602520}
   - component: {fileID: 7006885130507391452}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FX_LightningStrike_Impact_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9825,7 +9919,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8761541354146446722}
   - component: {fileID: 65885080498804631}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FX_LightningStrike_Light_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9903,7 +9997,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 7.362e-42, y: 2.524355e-29, z: 0, w: 8e-45}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
@@ -9923,8 +10017,7 @@ GameObject:
   - component: {fileID: 181385036535585204}
   - component: {fileID: 3251091784880920057}
   - component: {fileID: 8891503949133351578}
-  - component: {fileID: 540835350972429955}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Lightning Bolt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9948,6 +10041,7 @@ Transform:
   - {fileID: 1745900061769633764}
   - {fileID: 7014044501158178992}
   - {fileID: 7422162108826071045}
+  - {fileID: 7749139988263648658}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &3251091784880920057
@@ -14820,18 +14914,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &540835350972429955
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6967175780439943125}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f4afc34b6798cf439d927e89d273d19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8290513645416335090
 GameObject:
   m_ObjectHideFlags: 0
@@ -14843,7 +14925,7 @@ GameObject:
   - component: {fileID: 1745900061769633764}
   - component: {fileID: 4475774877038396142}
   - component: {fileID: 3854227290986134952}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FX_LightningStrike_Ground_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

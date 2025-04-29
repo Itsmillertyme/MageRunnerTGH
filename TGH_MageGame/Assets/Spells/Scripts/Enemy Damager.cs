@@ -4,16 +4,18 @@ public class EnemyDamager : MonoBehaviour
 {
     private int damage;
     private float lifeSpan;
+    private bool destroyOnImpact;
 
     private void Start()
     {
         Destroy(gameObject, lifeSpan);
     }
 
-    public void SetAttributes(int newDamage, float newLifeSpan)
+    public void SetAttributes(int newDamage, float newLifeSpan, bool newDestroyOnImpact)
     {
         damage = newDamage;
         lifeSpan = newLifeSpan;
+        destroyOnImpact = newDestroyOnImpact;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -21,11 +23,18 @@ public class EnemyDamager : MonoBehaviour
         if (collision.gameObject.CompareTag("Mob Enemy") || collision.gameObject.CompareTag("Boss Enemy"))
         {
             collision.gameObject.GetComponent<EnemyHealth>().RemoveFromHealth(damage);
-            Destroy(gameObject);
+
+            if (destroyOnImpact)
+            {
+                Destroy(gameObject);
+            }
         }
         else
         {
-            Destroy(gameObject);
+            if (destroyOnImpact)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
@@ -35,11 +44,18 @@ public class EnemyDamager : MonoBehaviour
         if (collided.gameObject.CompareTag("Mob Enemy") || collided.gameObject.CompareTag("Boss Enemy"))
         {
             collided.gameObject.GetComponent<EnemyHealth>().RemoveFromHealth(damage);
-            Destroy(gameObject);
+
+            if (destroyOnImpact)
+            {
+                Destroy(gameObject);
+            }
         }
         else
         {
-            Destroy(gameObject);
+            if (destroyOnImpact)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

@@ -137,7 +137,7 @@ public class SpellBook : MonoBehaviour
     {
         GameObject newProjectile = Instantiate(spellBook[currentSpellIndex].Projectile, position, Quaternion.identity);
         newProjectile.GetComponent<AbyssalFangProjectileMovement>().SetAttributes(spellBook[currentSpellIndex].MoveSpeed, spellBook[currentSpellIndex].ProjectileSize, direction);
-        newProjectile.GetComponent<EnemyDamager>().SetAttributes(af.Damage, af.LifeSpan);
+        newProjectile.GetComponent<EnemyDamager>().SetAttributes(af.Damage, af.LifeSpan, af.DestroyOnImpact);
     }
 
     public IEnumerator CooldownThenCastAltHandAbyssalFang(AbyssalFang af, float waitTime)
@@ -198,7 +198,8 @@ public class SpellBook : MonoBehaviour
     private void SetThunderlordsCascadeProjectile(ThunderlordsCascade tc, GameObject gameObject)
     {
         // ENEMY DAMAGER
-        gameObject.GetComponent<EnemyDamager>().SetAttributes(tc.Damage, tc.LifeSpan);
+        gameObject.GetComponentInChildren<EnemyDamager>().SetAttributes(tc.Damage, tc.LifeSpan, tc.DestroyOnImpact);
+        Destroy(gameObject, tc.LifeSpan); // DESTROY ON DAMAGER DOESN'T WORK BECAUSE COLLISION LOGIC IS ON CHILD
 
         // PARTICLE SYSTEM REFERENCE
         ParticleSystem particleSystem = gameObject.GetComponent<ParticleSystem>();
@@ -210,6 +211,15 @@ public class SpellBook : MonoBehaviour
         // START ROTATION
         float rotation = Random.Range(-tc.BoltAngularSpread, tc.BoltAngularSpread) * Mathf.Deg2Rad; // CONVERT UNITS
         particle.startRotation = rotation;
+
+        // COLLIDER
+        BoxCollider boltCollider = gameObject.GetComponentInChildren<BoxCollider>();
+        float xSize = particle.startSizeX.constantMax;
+        float ySize = particle.startSizeY.constantMax;
+        float zSize = particle.startSizeZ.constantMax;
+        boltCollider.size = new(xSize, ySize, zSize);
+        boltCollider.center = new(0, ySize / 2, 0);
+        // boltCollider.gameObject.transform.rotation =
     } 
     #endregion
 

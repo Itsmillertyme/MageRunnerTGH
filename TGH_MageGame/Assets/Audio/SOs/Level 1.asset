@@ -13,4 +13,9 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   playlist:
+  - {fileID: 8300000, guid: 6ddcea481a6a0dc41bd10c75f3ed47a2, type: 3}
+  - {fileID: 8300000, guid: e0272e9240e0e414ca3726f0bf1b97cd, type: 3}
+  - {fileID: 8300000, guid: 193577d49de98c047aa9ef68449585a0, type: 3}
   - {fileID: 8300000, guid: 54a827c7e7fc3f94caf7e8bf3368c75f, type: 3}
+  - {fileID: 8300000, guid: 3aca7d9c37beebd47b5290c7e7444443, type: 3}
+  - {fileID: 8300000, guid: e71d02e9e12da204aae64457420f3d1c, type: 3}

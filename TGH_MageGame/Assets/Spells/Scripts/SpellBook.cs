@@ -124,7 +124,7 @@ public class SpellBook : MonoBehaviour
                 StartCoroutine(ShatterstoneSpawnProjectiles(sb));
                 break;
             case ThunderlordsCascade tc:
-                StartCoroutine(CastThunderlordsCascade(tc, gameManager.CrosshairPositionIn3DSpace));
+                StartCoroutine(CastThunderlordsCascade(tc));
                 break;
                 //case WintersWrath ww:
                 //    //
@@ -176,13 +176,13 @@ public class SpellBook : MonoBehaviour
     #endregion
 
     #region THUNDERLORD'S CASCADE
-    private IEnumerator CastThunderlordsCascade(ThunderlordsCascade tc, Vector3 direction) // NO SPAWN POSITION. ALL FROM DIRECTION. 
+    private IEnumerator CastThunderlordsCascade(ThunderlordsCascade tc) // NO SPAWN POSITION. ALL FROM DIRECTION. 
     {
         float boltSpacing = tc.BoltSpread / (tc.BoltCount - 1);
 
         for (int i = 0; i < tc.VolleyCount; i++)
         {
-            Vector3 spawnPosition = new(direction.x - (tc.BoltSpread / 2), 0, direction.z); // CLAMP Y TO 0
+            Vector3 spawnPosition = new(gameManager.CrosshairPositionIn3DSpace.x - (tc.BoltSpread / 2), 0, gameManager.CrosshairPositionIn3DSpace.z); // CLAMP Y TO 0
 
             for (int j = 0; j < tc.BoltCount; j++)
             {
@@ -208,18 +208,19 @@ public class SpellBook : MonoBehaviour
         // START DELAY
         particle.startDelay = Random.Range(0f, tc.BoltSpawnDelay);
 
-        // START ROTATION
-        float rotation = Random.Range(-tc.BoltAngularSpread, tc.BoltAngularSpread) * Mathf.Deg2Rad; // CONVERT UNITS
-        particle.startRotation = rotation;
+        // 3D START ROTATION
+        float zRotation = Random.Range(-tc.BoltAngularSpread, tc.BoltAngularSpread) * Mathf.Deg2Rad;
+        particle.startRotationZ = zRotation;
 
         // COLLIDER
         BoxCollider boltCollider = gameObject.GetComponentInChildren<BoxCollider>();
         float xSize = particle.startSizeX.constantMax;
         float ySize = particle.startSizeY.constantMax;
         float zSize = particle.startSizeZ.constantMax;
+
         boltCollider.size = new(xSize, ySize, zSize);
         boltCollider.center = new(0, ySize / 2, 0);
-        // boltCollider.gameObject.transform.rotation =
+        boltCollider.gameObject.transform.rotation = Quaternion.Euler(0, 180, zRotation * Mathf.Rad2Deg);
     } 
     #endregion
 

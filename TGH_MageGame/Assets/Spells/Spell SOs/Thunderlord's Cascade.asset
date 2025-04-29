@@ -39,9 +39,9 @@ MonoBehaviour:
   reticle: {fileID: 21300000, guid: f7c739c49273bcc4a8170f0df487956a, type: 3}
   isUnlocked: 1
   isAuto: 0
-  boltCount: 2
-  volleyCount: 1
-  boltSpread: 14
-  volleyCooldown: 2
+  boltCount: 5
+  volleyCount: 2
+  boltSpread: 12
+  volleyCooldown: 0.75
   boltAngularSpread: 25
   boltSpawnDelay: 0.25

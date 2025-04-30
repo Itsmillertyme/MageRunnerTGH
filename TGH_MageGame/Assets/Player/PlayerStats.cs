@@ -1,16 +1,9 @@
-using JetBrains.Annotations;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.IO.Enumeration;
 using UnityEngine;
 using UnityEngine.Events;
 
 [CreateAssetMenu]
 
-public class PlayerStats : ScriptableObject
-{
+public class PlayerStats : ScriptableObject {
     [System.NonSerialized]
     public UnityEvent<int> currentHealthChangeEvent;
     [System.NonSerializedAttribute]
@@ -67,8 +60,8 @@ public class PlayerStats : ScriptableObject
     [SerializeField]
     int currentMana;
 
-    private void OnEnable()
-    {
+    private void OnEnable() {
+
         // Initialzes the max value of each stat at the beginning of the game.
         updateMaxHealth();
         updateMaxAttackDamage();
@@ -78,176 +71,146 @@ public class PlayerStats : ScriptableObject
         updateMaxMana();
         currentHealth = maxHealth;
         currentMana = maxMana;
-        if (currentHealthChangeEvent == null)
-        {
+        if (currentHealthChangeEvent == null) {
             currentHealthChangeEvent = new UnityEvent<int>();
         }
-        if (currentManaChangeEvent == null)
-        {
+        if (currentManaChangeEvent == null) {
             currentManaChangeEvent = new UnityEvent<int>();
         }
-        if(manaSpentEvent == null)
-        {
+        if (manaSpentEvent == null) {
             manaSpentEvent = new UnityEvent();
         }
-        if(experienceChangeEvent == null)
-        {
+        if (experienceChangeEvent == null) {
             experienceChangeEvent = new UnityEvent<int>();
         }
-        if(levelChangeEvent == null)
-        {
+        if (levelChangeEvent == null) {
             levelChangeEvent = new UnityEvent<int>();
         }
     }
 
     // Methods that will be called whenever the maximum value of a stat should change
-    void updateMaxHealth()
-    {
+    void updateMaxHealth() {
         int oldMax = maxHealth;
         maxHealth = baseHealth + (healthUpgrade * (level - 1)) + bonusHealth;
 
-        if (currentHealth >= oldMax)
-        {
+        if (currentHealth >= oldMax) {
             currentHealth = maxHealth;
         }
     }
-    void updateMaxAttackDamage()
-    {
+    void updateMaxAttackDamage() {
         maxAttackDamage = baseAttackDamage + (attackDamageUpgrade * (level - 1)) + bonusAttackDamage;
     }
-    void updateMaxAttackSpeed()
-    {
+    void updateMaxAttackSpeed() {
         maxAttackSpeed = baseAttackSpeed + (attackSpeedUpgrade * (level - 1)) + bonusAttackSpeed;
     }
-    void updateMaxDefence()
-    {
+    void updateMaxDefence() {
         maxDefence = baseDefence + (defenceUpgrade * (level - 1)) + bonusDefence;
 
 
         // Right now the idea for defence is that it will reduce a percent of damage so 100 will be the max since that will reduce 100% of damage
-        if (maxDefence > 100)
-        {
+        if (maxDefence > 100) {
             maxDefence = 100;
         }
     }
-    void updateMaxMovementSpeed()
-    {
+    void updateMaxMovementSpeed() {
         maxMovementSpeed = baseMovementSpeed + (movementSpeedUpgrade * (level - 1)) + bonusMovementSpeed;
     }
-    void updateMaxMana()
-    {
+    void updateMaxMana() {
         int oldMax = maxMana;
         maxMana = baseMana + (manaUpgrade * (level - 1)) + bonusMana;
 
-        if (currentMana >= oldMax)
-        {
+        if (currentMana >= oldMax) {
             currentMana = maxMana;
         }
 
     }
 
     // Methods for applying the bonus from the skill tree or other sources
-    public void updateBonusHealth(int bonus)
-    {
+    public void updateBonusHealth(int bonus) {
         bonusHealth += bonus;
         updateMaxHealth();
     }
-    public void updateBonusAttackDamage(int bonus)
-    {
+    public void updateBonusAttackDamage(int bonus) {
         bonusAttackDamage += bonus;
         updateMaxAttackDamage();
     }
-    public void updateBonusAttackSpeed(int bonus)
-    {
+    public void updateBonusAttackSpeed(int bonus) {
         bonusAttackSpeed += bonus;
         updateMaxAttackSpeed();
     }
-    public void updateBonusDefence(int bonus)
-    {
+    public void updateBonusDefence(int bonus) {
         bonusDefence += bonus;
         updateMaxDefence();
     }
-    public void updateBonusMovementSpeed(int bonus)
-    {
+    public void updateBonusMovementSpeed(int bonus) {
         bonusMovementSpeed += bonus;
         updateMaxMovementSpeed();
     }
-    public void updateBonusMana(int bonus)
-    {
+    public void updateBonusMana(int bonus) {
         bonusMana += bonus;
         updateMaxMana();
     }
-    
+
+    //HACKY FOR THE MOMENT (NEED TO CONFIRM USAGE OF THIS SCRIPT)
+    public void updateBonusManaFromRuneStat() {
+        updateBonusMana((int) GameObject.Find("Player").GetComponent<PlayerController>().PlayerStats["Mana"].StatStep);
+    }
+
     // Functions for spending skillpoints
-    public void spendSkillpoint()
-    {
+    public void spendSkillpoint() {
         skillPoints--;
     }
     // The value of amount will be equal to the amount healed or damage dealt
-    public void updateCurrentHealth(int amount)
-    {
-        if (amount >= 0)
-        {
+    public void updateCurrentHealth(int amount) {
+        if (amount >= 0) {
             currentHealth += amount;
         }
-        else if (amount < 0)
-        {
-            if (maxDefence > 0)
-            {
-                currentHealth += (int)((1f - ((float)maxDefence/100)) *  amount);
+        else if (amount < 0) {
+            if (maxDefence > 0) {
+                currentHealth += (int) ((1f - ((float) maxDefence / 100)) * amount);
             }
-            else
-            {
+            else {
                 currentHealth += amount;
             }
         }
 
-        if (currentHealth > maxHealth)
-        {
+        if (currentHealth > maxHealth) {
             currentHealth = maxHealth;
         }
-        if (currentHealth < 0)
-        {
+        if (currentHealth < 0) {
             currentHealth = 0;
         }
         currentHealthChangeEvent.Invoke(currentHealth);
     }
-    public void updateCurrentMana(int amount)
-    {
+    public void updateCurrentMana(int amount) {
         currentMana += amount;
 
-        if (currentMana > maxMana)
-        {
+        if (currentMana > maxMana) {
             currentMana = maxMana;
         }
-        if (currentMana < 0)
-        {
+        if (currentMana < 0) {
             currentMana = 0;
         }
-        if (amount < 0)
-        {
+        if (amount < 0) {
             manaSpentEvent.Invoke();
         }
         currentManaChangeEvent.Invoke(currentMana);
     }
 
     // The function for updating experience and levels
-    public void updateExperience(int exp)
-    {
+    public void updateExperience(int exp) {
         experience += exp;
 
-        if (experience >= experienceForNextLevel)
-        {
+        if (experience >= experienceForNextLevel) {
             experience = experience - experienceForNextLevel;
-            experienceForNextLevel = (int)(experienceForNextLevel * 1.05);
+            experienceForNextLevel = (int) (experienceForNextLevel * 1.05);
 
             level++;
             skillPoints += 3;
 
             // Calls function again if there is enough exp for another level up
 
-            if (experience >= experienceForNextLevel)
-            {
+            if (experience >= experienceForNextLevel) {
                 updateExperience(0);
             }
 
@@ -266,8 +229,7 @@ public class PlayerStats : ScriptableObject
     }
 
     // Resets all stats to default values
-    public void resetToDefault()
-    {
+    public void resetToDefault() {
         bonusHealth = 0;
         bonusAttackDamage = 0;
         bonusAttackSpeed = 0;
@@ -288,52 +250,40 @@ public class PlayerStats : ScriptableObject
     }
 
     // Functions that allow the stats to be gotten
-    public int getMaxHealth()
-    {
+    public int getMaxHealth() {
         return maxHealth;
     }
-    public int getMaxAttackDamage()
-    {
+    public int getMaxAttackDamage() {
         return maxAttackDamage;
     }
-    public int getMaxAttackSpeed()
-    {
+    public int getMaxAttackSpeed() {
         return maxAttackSpeed;
     }
-    public int getMaxDefence()
-    {
+    public int getMaxDefence() {
         return maxDefence;
     }
-    public int getMaxMovementSpeed()
-    {
+    public int getMaxMovementSpeed() {
         return maxMovementSpeed;
     }
-    public int getMaxMana()
-    {
+    public int getMaxMana() {
         return maxMana;
     }
-    public int getCurrentHealth()
-    {
+    public int getCurrentHealth() {
         return currentHealth;
     }
-    public int getCurrentMana()
-    {
+    public int getCurrentMana() {
         return currentMana;
     }
-    public int getLevel()
-    {
+    public int getLevel() {
         return level;
     }
-    public int getExperience()
-    {
+    public int getExperience() {
         return experience;
     }
-    public int getExperienceForNextLevel()
-    {
+    public int getExperienceForNextLevel() {
         return experienceForNextLevel;
     }
-    public int getSkillPoints()
-    {
+    public int getSkillPoints() {
         return skillPoints;
     }
 }

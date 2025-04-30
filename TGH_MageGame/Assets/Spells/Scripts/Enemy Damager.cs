@@ -9,7 +9,11 @@ public class EnemyDamager : MonoBehaviour {
     }
 
     public void SetAttributes(int newDamage, float newLifeSpan) {
-        damage = newDamage;
+
+        //STAT INTEGRATION
+        int bonusStatDamage = (int) GameObject.Find("Player").GetComponent<PlayerController>().PlayerStats["Damage"].StatValue;
+
+        damage = newDamage + bonusStatDamage;
         lifeSpan = newLifeSpan;
     }
 

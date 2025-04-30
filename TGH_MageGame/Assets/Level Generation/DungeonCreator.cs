@@ -306,7 +306,10 @@ public class DungeonCreator : MonoBehaviour {
                     //Debug.Log(enemy.name);
                     enemy.GetComponent<NavMeshAgent>().enabled = true;
                     //Debug.Log("Is mob");
-                    enemy.GetComponent<IBehave>().Initialize(room, gameManager.DebugEnemySpawning);
+                    IBehave[] behaviors = enemy.GetComponents<IBehave>();
+                    foreach (IBehave behavior in behaviors) {
+                        behavior.Initialize(room, gameManager.DebugEnemySpawning);
+                    }
                 }
             }
         }

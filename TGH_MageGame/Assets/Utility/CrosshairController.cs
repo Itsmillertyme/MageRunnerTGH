@@ -29,7 +29,7 @@ public class CrosshairController : MonoBehaviour {
 
             //FULL ON WIZARDRY - Converts position on screen to a point on the canvas
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                canvas.GetComponent<RectTransform>(), mousePos, canvas.worldCamera, out Vector2 localPoint
+                canvas.GetComponent<RectTransform>(), mousePos, null, out Vector2 localPoint
             );
 
             //Set anchored position

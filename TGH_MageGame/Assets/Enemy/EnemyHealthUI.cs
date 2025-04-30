@@ -1,21 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyHealthUI : MonoBehaviour
-{
-    [SerializeField] Scrollbar healthUI;
+public class EnemyHealthUI : MonoBehaviour {
+    [SerializeField] Image healthBar;
     EnemyHealth health;
 
-    private void Awake()
-    {
+    private void Awake() {
         health = GetComponent<EnemyHealth>();
     }
 
-    void Update()
-    {
-        healthUI.size = (float)health.CurrentHealth / health.MaxHealth;
+    void Update() {
+        healthBar.fillAmount = (float) health.CurrentHealth / health.MaxHealth;
     }
 }

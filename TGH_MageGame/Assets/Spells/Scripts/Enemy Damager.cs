@@ -11,9 +11,12 @@ public class EnemyDamager : MonoBehaviour
         Destroy(gameObject, lifeSpan);
     }
 
-    public void SetAttributes(int newDamage, float newLifeSpan, bool newDestroyOnImpact)
-    {
-        damage = newDamage;
+    public void SetAttributes(int newDamage, float newLifeSpan, bool newDestroyOnImpact) {
+
+        //STAT INTEGRATION
+        int bonusStatDamage = (int) GameObject.Find("Player").GetComponent<PlayerController>().PlayerStats["Damage"].StatValue;
+
+        damage = newDamage + bonusStatDamage;
         lifeSpan = newLifeSpan;
         destroyOnImpact = newDestroyOnImpact;
     }

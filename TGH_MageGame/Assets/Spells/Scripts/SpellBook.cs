@@ -85,9 +85,7 @@ public class SpellBook : MonoBehaviour
             case ShatterstoneBarrage:
                 currentSpawnPoint = spellSpawnPoints[3];
                 break;
-            case ThunderlordsCascade:
-                currentSpawnPoint = spellSpawnPoints[4];
-                break;
+            // THUNDERLORDS CASCADE DOESN'T NEED A SPAWN POINT
             case WintersWrath:
                 currentSpawnPoint = spellSpawnPoints[3];
                 break;
@@ -125,12 +123,12 @@ public class SpellBook : MonoBehaviour
             case ShatterstoneBarrage sb:
                 StartCoroutine(ShatterstoneSpawnProjectiles(sb));
                 break;
-            //case ThunderlordsCascade tc:
-            //    //
-            //    break;
-            //case WintersWrath ww:
-            //    //
-            //    break;
+            case ThunderlordsCascade tc:
+                StartCoroutine(CastThunderlordsCascade(tc));
+                break;
+                //case WintersWrath ww:
+                //    //
+                //    break;
         }
     }
 
@@ -139,7 +137,7 @@ public class SpellBook : MonoBehaviour
     {
         GameObject newProjectile = Instantiate(spellBook[currentSpellIndex].Projectile, position, Quaternion.identity);
         newProjectile.GetComponent<AbyssalFangProjectileMovement>().SetAttributes(spellBook[currentSpellIndex].MoveSpeed, spellBook[currentSpellIndex].ProjectileSize, direction);
-        newProjectile.GetComponent<EnemyDamager>().SetAttributes(af.Damage, af.LifeSpan);
+        newProjectile.GetComponent<EnemyDamager>().SetAttributes(af.Damage, af.LifeSpan, af.DestroyOnImpact);
     }
 
     public IEnumerator CooldownThenCastAltHandAbyssalFang(AbyssalFang af, float waitTime)
@@ -178,13 +176,59 @@ public class SpellBook : MonoBehaviour
     #endregion
 
     #region THUNDERLORD'S CASCADE
+    private IEnumerator CastThunderlordsCascade(ThunderlordsCascade tc) // NO SPAWN POSITION. ALL FROM DIRECTION. 
+    {
+        float boltSpacing = tc.BoltSpread / (tc.BoltCount - 1);
+
+        for (int i = 0; i < tc.VolleyCount; i++)
+        {
+            Vector3 spawnPosition = new(gameManager.CrosshairPositionIn3DSpace.x - (tc.BoltSpread / 2), 0, gameManager.CrosshairPositionIn3DSpace.z); // CLAMP Y TO 0
+
+            for (int j = 0; j < tc.BoltCount; j++)
+            {
+                GameObject newProjectile = Instantiate(spellBook[currentSpellIndex].Projectile, spawnPosition, Quaternion.identity);
+                spawnPosition = new(spawnPosition.x + boltSpacing, 0, spawnPosition.z);
+                SetThunderlordsCascadeProjectile(tc, newProjectile);
+            }
+
+            yield return new WaitForSeconds(tc.VolleyCooldown);
+        }
+    }
+
+    private void SetThunderlordsCascadeProjectile(ThunderlordsCascade tc, GameObject gameObject)
+    {
+        // ENEMY DAMAGER
+        gameObject.GetComponentInChildren<EnemyDamager>().SetAttributes(tc.Damage, tc.LifeSpan, tc.DestroyOnImpact);
+        Destroy(gameObject, tc.LifeSpan); // DESTROY ON DAMAGER DOESN'T WORK BECAUSE COLLISION LOGIC IS ON CHILD
+
+        // PARTICLE SYSTEM REFERENCE
+        ParticleSystem particleSystem = gameObject.GetComponent<ParticleSystem>();
+        ParticleSystem.MainModule particle = particleSystem.main;
+
+        // START DELAY
+        particle.startDelay = Random.Range(0f, tc.BoltSpawnDelay);
+
+        // 3D START ROTATION
+        float zRotation = Random.Range(-tc.BoltAngularSpread, tc.BoltAngularSpread) * Mathf.Deg2Rad;
+        particle.startRotationZ = zRotation;
+
+        // COLLIDER
+        BoxCollider boltCollider = gameObject.GetComponentInChildren<BoxCollider>();
+        float xSize = particle.startSizeX.constantMax;
+        float ySize = particle.startSizeY.constantMax;
+        float zSize = particle.startSizeZ.constantMax;
+
+        boltCollider.size = new(xSize, ySize, zSize);
+        boltCollider.center = new(0, ySize / 2, 0);
+        boltCollider.gameObject.transform.rotation = Quaternion.Euler(0, 180, zRotation * Mathf.Rad2Deg);
+    } 
     #endregion
 
     #region WINTER'S WRATH
     #endregion
 
     // TEST TO SEE HOW THIS WORKS WITH SWITCHING SPELLS. HARD TO TEST WITH TOUCHPAD.
-    public IEnumerator CastCooldown(float waitTime)
+    private IEnumerator CastCooldown(float waitTime)
     {
         isReadyToCast = false;
         yield return new WaitForSeconds(waitTime);

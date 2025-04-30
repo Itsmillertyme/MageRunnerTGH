@@ -18,8 +18,9 @@ public abstract class Spell : ScriptableObject
     [SerializeField] private float defaultCastCooldownTime;
     [SerializeField] private float defaultMoveSpeed;
     [SerializeField] private Vector3 defaultProjectileSize;
+    [SerializeField] private bool defaultDestroyOnImpact;
 
-    [Header("NO EDIT - Current Attributes")]
+    [Header("NO EDIT - Current Attributes")] // TEMP. ONCE WE HAVE SAVES, THIS WILL GO AWAY
     [SerializeField] private int manaCost;
     [SerializeField] private int damage;
     [SerializeField] private float lifeSpan;
@@ -29,6 +30,7 @@ public abstract class Spell : ScriptableObject
     [SerializeField] private float castCooldownTime;
     [SerializeField] private float moveSpeed;
     [SerializeField] private Vector3 projectileSize;
+    [SerializeField] private bool destroyOnImpact;
 
     [Header("Prefab")]
     [SerializeField] private GameObject projectile;
@@ -56,6 +58,7 @@ public abstract class Spell : ScriptableObject
     public float CastCooldownTime => castCooldownTime;
     public float MoveSpeed => moveSpeed;
     public Vector3 ProjectileSize => projectileSize;
+    public bool DestroyOnImpact => destroyOnImpact;
     public GameObject Projectile => projectile;
     public AudioClip SpawnSFX => spawnSFX;
     public AnimationClip CastAnimation => castAnimation;
@@ -73,6 +76,7 @@ public abstract class Spell : ScriptableObject
         castCooldownTime = defaultCastCooldownTime;
         moveSpeed = defaultMoveSpeed;
         projectileSize = defaultProjectileSize;
+        destroyOnImpact = defaultDestroyOnImpact;
     }    
 
     public void SetProjectileSize(Vector3 newValue) => projectileSize = newValue;

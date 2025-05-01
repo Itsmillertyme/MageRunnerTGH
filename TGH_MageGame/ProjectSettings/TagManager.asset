@@ -12,6 +12,7 @@ TagManager:
   - Level
   - Mob Enemy
   - Boss Enemy
+  - Platform
   layers:
   - Default
   - TransparentFX

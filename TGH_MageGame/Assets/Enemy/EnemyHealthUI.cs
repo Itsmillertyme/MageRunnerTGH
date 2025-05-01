@@ -3,13 +3,29 @@ using UnityEngine.UI;
 
 public class EnemyHealthUI : MonoBehaviour {
     [SerializeField] Image healthBar;
-    EnemyHealth health;
+    float currentHealth;
+    float maxHealth;
+    bool isBoss;
 
     private void Awake() {
-        health = GetComponent<EnemyHealth>();
+        if (GetComponent<EnemyHealth>() == null) {
+            isBoss = true;
+            maxHealth = GetComponent<BossHealth>().MaxHealth;
+        }
+        else {
+            isBoss = false;
+            maxHealth = GetComponent<EnemyHealth>().MaxHealth;
+        }
+
     }
 
     void Update() {
-        healthBar.fillAmount = (float) health.CurrentHealth / health.MaxHealth;
+        if (isBoss) {
+            currentHealth = GetComponent<BossHealth>().CurrentHealth;
+        }
+        else {
+            currentHealth = GetComponent<EnemyHealth>().CurrentHealth;
+        }
+        healthBar.fillAmount = currentHealth / maxHealth;
     }
 }

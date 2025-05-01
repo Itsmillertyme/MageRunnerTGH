@@ -58,11 +58,14 @@ public class EnemyPatrol : MonoBehaviour, IBehave {
                     currentWaypoint++;
                     currentWaypoint %= waypointPositions.Count;
 
-                    targetWaypoint = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                    targetWaypoint.name = $"Agent target";
-                    targetWaypoint.transform.position = waypointPositions[currentWaypoint];
-                    targetWaypoint.GetComponent<MeshRenderer>().material.color = Color.red;
-                    targetWaypoint.transform.parent = GameObject.Find("DEV").transform;
+                    GameManager gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+                    if (gm.DebugEnemySpawning) {
+                        targetWaypoint = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                        targetWaypoint.name = $"Agent target";
+                        targetWaypoint.transform.position = waypointPositions[currentWaypoint];
+                        targetWaypoint.GetComponent<MeshRenderer>().material.color = Color.red;
+                        targetWaypoint.transform.parent = GameObject.Find("DEV").transform;
+                    }
                 }
                 agent.SetDestination(waypointPositions[currentWaypoint]);
             }
@@ -159,12 +162,20 @@ public class EnemyPatrol : MonoBehaviour, IBehave {
         //Set initial destination
         currentWaypoint = Random.Range(0, waypointPositions.Count);
         if (Application.isPlaying) {
+
+
+
             agent.SetDestination(waypointPositions[currentWaypoint]);
-            targetWaypoint = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            targetWaypoint.name = $"Agent target";
-            targetWaypoint.transform.position = waypointPositions[currentWaypoint];
-            targetWaypoint.GetComponent<MeshRenderer>().material.color = Color.red;
-            targetWaypoint.transform.parent = GameObject.Find("DEV").transform;
+
+            GameManager gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+            if (gm.DebugEnemySpawning) {
+
+                targetWaypoint = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                targetWaypoint.name = $"Agent target";
+                targetWaypoint.transform.position = waypointPositions[currentWaypoint];
+                targetWaypoint.GetComponent<MeshRenderer>().material.color = Color.red;
+                targetWaypoint.transform.parent = GameObject.Find("DEV").transform;
+            }
         }
 
         //Flag

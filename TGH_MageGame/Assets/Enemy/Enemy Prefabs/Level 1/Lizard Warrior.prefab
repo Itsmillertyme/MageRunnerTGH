@@ -1577,6 +1577,7 @@ GameObject:
   - component: {fileID: 1006346967639313140}
   - component: {fileID: 51792995138255214}
   - component: {fileID: 1712262664441383809}
+  - component: {fileID: 6254218913063813893}
   m_Layer: 7
   m_Name: Lizard Warrior
   m_TagString: Mob Enemy
@@ -1594,7 +1595,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2234243387828001921}
@@ -1658,8 +1659,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f06fd6249395e6448b5f40d826bd73e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 10
-  maxHealth: 10
+  currentHealth: 100
+  maxHealth: 100
 --- !u!114 &4612696788365194736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1757,6 +1758,29 @@ MonoBehaviour:
     m_RotationOrder: 4
   parabolicHeight: 2
   parabolicTime: 1
+--- !u!136 &6254218913063813893
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5222568307164741218}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &5236589341476087302
 GameObject:
   m_ObjectHideFlags: 0
@@ -2265,6 +2289,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2228611413252667071}
   - component: {fileID: 8247740384343763809}
+  - component: {fileID: 2966379351782319125}
   m_Layer: 0
   m_Name: LizardWarriorMesh
   m_TagString: Untagged
@@ -2414,6 +2439,28 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.40909743, y: -0.01685363, z: 0.037436187}
     m_Extent: {x: 1.8998473, y: 1.1419291, z: 1.4611242}
   m_DirtyAABB: 0
+--- !u!64 &2966379351782319125
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6772374866432930539}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &6798666922850069177
 GameObject:
   m_ObjectHideFlags: 0

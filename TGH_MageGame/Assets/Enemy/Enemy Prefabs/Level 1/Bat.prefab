@@ -757,6 +757,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5122791751604887361}
   - component: {fileID: 5122791751599443553}
+  - component: {fileID: 3596922649422712042}
   m_Layer: 0
   m_Name: Bat
   m_TagString: Untagged
@@ -869,6 +870,28 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.0008979738, y: -0.06751382, z: 0.019530088}
     m_Extent: {x: 0.84108543, y: 0.655231, z: 0.8510982}
   m_DirtyAABB: 0
+--- !u!64 &3596922649422712042
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5122791751604650849}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &5122791751604650851
 GameObject:
   m_ObjectHideFlags: 0
@@ -1300,6 +1323,7 @@ GameObject:
   - component: {fileID: 1135271354817318448}
   - component: {fileID: -4233423784301649574}
   - component: {fileID: -5186306778459080185}
+  - component: {fileID: 1456015702994467775}
   m_Layer: 0
   m_Name: Bat
   m_TagString: Mob Enemy
@@ -1317,7 +1341,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5122791751604887363}
@@ -1381,8 +1405,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f06fd6249395e6448b5f40d826bd73e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 7
-  maxHealth: 7
+  currentHealth: 25
+  maxHealth: 25
 --- !u!114 &2138041685447433971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1480,6 +1504,27 @@ MonoBehaviour:
     m_RotationOrder: 4
   parabolicHeight: 2
   parabolicTime: 1
+--- !u!135 &1456015702994467775
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5122791751604650877}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 1.57, z: 0}
 --- !u!1 &5122791751604650879
 GameObject:
   m_ObjectHideFlags: 0

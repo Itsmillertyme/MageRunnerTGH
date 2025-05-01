@@ -6,6 +6,11 @@ public class SplashManager : MonoBehaviour {
 
     [SerializeField] AudioSource menuAudio;
     [SerializeField] AudioClip startGameClip;
+    [SerializeField] MusicManager musicManager;
+
+    private void Awake() {
+        musicManager.SwitchPlaylist(0); // Switch to the splash screen playlist
+    }
 
     public void StartNewGame() {
 
@@ -21,6 +26,8 @@ public class SplashManager : MonoBehaviour {
 
         //Load level 1
         SceneManager.LoadScene("Level1_Dungeon");
+        musicManager.SwitchPlaylist(1); // Switch to the first playlist (level 1 music)
+
 
     }
 }

@@ -369,7 +369,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6971282179834705676}
   - component: {fileID: 7014069606239618634}
-  - component: {fileID: 2829155958254021867}
   m_Layer: 0
   m_Name: Slime
   m_TagString: Untagged
@@ -458,28 +457,6 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.3588662, y: 0.1749603, z: 0.000000059604645}
     m_Extent: {x: 0.62954795, y: 0.6683546, z: 0.4895594}
   m_DirtyAABB: 0
---- !u!64 &2829155958254021867
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6968242923078503932}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: b6a309eaf67f407c8b502e0a2e43faf9, type: 3}
 --- !u!1 &6968251144574177852
 GameObject:
   m_ObjectHideFlags: 0
@@ -720,6 +697,7 @@ GameObject:
   - component: {fileID: 7142394613840721298}
   - component: {fileID: 87195906878156026}
   - component: {fileID: 1624416202334243243}
+  - component: {fileID: 884516028563581295}
   m_Layer: 0
   m_Name: Slime
   m_TagString: Mob Enemy
@@ -737,7 +715,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6971560861020883908}
@@ -801,8 +779,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f06fd6249395e6448b5f40d826bd73e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 5
-  maxHealth: 5
+  currentHealth: 50
+  maxHealth: 50
 --- !u!114 &3302623358602410492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -902,6 +880,27 @@ MonoBehaviour:
     m_RotationOrder: 4
   parabolicHeight: 2
   parabolicTime: 1
+--- !u!135 &884516028563581295
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6969136263848371978}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0.42, z: 0}
 --- !u!1 &6969283729008570918
 GameObject:
   m_ObjectHideFlags: 0

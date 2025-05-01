@@ -36,8 +36,11 @@ public class EnemyProjectileMover : MonoBehaviour {
                 playerHealth.RemoveFromHealth(damage);
             }
         }
-        //Destroy projectile
-        Destroy(gameObject);
+
+        if (!other.CompareTag("Enemy Projectile")) {
+            //Destroy projectile
+            Destroy(gameObject);
+        }
     }
 
     //**UTILITY METHODS**

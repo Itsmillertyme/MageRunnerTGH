@@ -204,7 +204,8 @@ public class EnemyCombat : MonoBehaviour, IBehave {
     }
 }
 
-enum AttackType {
+public enum AttackType {
     Melee,
-    Ranged
+    Ranged,
+    Super
 }

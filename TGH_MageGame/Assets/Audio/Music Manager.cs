@@ -3,8 +3,7 @@ using UnityEngine;
 
 // THIS SCRIPT MANAGES MUSIC ACROSS ALL LEVELS
 
-public class MusicManager : MonoBehaviour
-{
+public class MusicManager : MonoBehaviour {
     [SerializeField] private float backgroundVolume = 0.3f;
     [SerializeField] private MusicPlaylist[] soundTrack; // THE GAME'S OST
     [SerializeField] private float songTransitionTime = 0.15f;
@@ -15,41 +14,35 @@ public class MusicManager : MonoBehaviour
     private AudioSource music;
     private Coroutine playingCoroutine;
 
-    private void Awake()
-    {
+    private void Awake() {
         music = GetComponent<AudioSource>();
         music.volume = backgroundVolume;
     }
 
-    private void Start()
-    {
+    private void Start() {
         SwitchPlaylist(0);
         PlayTrack();
     }
 
-    private IEnumerator PlayTrackRoutine()
-    {
+    private IEnumerator PlayTrackRoutine() {
         yield return new WaitForSeconds(music.clip.length + songTransitionTime);
 
         SwitchToNextTrack();
         PlayTrack();
     }
 
-    private void PlayTrack()
-    {
+    private void PlayTrack() {
         music.clip = currentPlaylist[currentSongIndex];
         music.Play();
 
         // RESET COROUTINE
-        if (playingCoroutine != null)
-        {
+        if (playingCoroutine != null) {
             StopCoroutine(playingCoroutine);
         }
         playingCoroutine = StartCoroutine(PlayTrackRoutine());
     }
 
-    private void SwitchToNextTrack()
-    {
+    private void SwitchToNextTrack() {
         if (currentSongIndex < currentPlaylist.Length - 1) // IF NOT AT END OF PLAYLIST
         {
             currentSongIndex++; // NEXT TRACK
@@ -60,12 +53,16 @@ public class MusicManager : MonoBehaviour
         }
     }
 
+    public void PlayNextTrack() {
+        SwitchToNextTrack();
+        PlayTrack();
+    }
+
     public void SwitchPlaylist(int sceneIndex)  // RUNS OFF OF SCENE BUILD INDEX VALUES
     {
         music.Stop();
 
-        if (playingCoroutine != null)
-        {
+        if (playingCoroutine != null) {
             StopCoroutine(playingCoroutine);
         }
 

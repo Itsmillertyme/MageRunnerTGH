@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] Transform projectileSpawn;
     [SerializeField] GameManager gameManager;
     [SerializeField] RectTransform crosshairRect;
+    [SerializeField] PlayerStats playerStats;
 
     //Player variables
     float currentMovementInput;
@@ -35,7 +36,7 @@ public class PlayerController : MonoBehaviour {
     //bool isPaused = false;
     bool topCollided = false;
     bool freezePhysics = false;
-    Dictionary<string, RuneMenuController> playerStats;
+    Dictionary<string, RuneMenuController> playerStatRunes;
 
 
     [Header("Player Settings")]
@@ -80,7 +81,7 @@ public class PlayerController : MonoBehaviour {
     //**FIELDS**
     public bool IsFacingLeft { get => isFacingLeft; set => isFacingLeft = value; }
     public bool FreezePhysics { get => freezePhysics; set => freezePhysics = value; }
-    public Dictionary<string, RuneMenuController> PlayerStats { get => playerStats; set => playerStats = value; }
+    public Dictionary<string, RuneMenuController> PlayerStats { get => playerStatRunes; set => playerStatRunes = value; }
 
     //**UNITY METHODS**
     void Awake() {
@@ -110,7 +111,7 @@ public class PlayerController : MonoBehaviour {
         //
         animator.SetBool(landedHash, true);
         //
-        playerStats = new Dictionary<string, RuneMenuController> {
+        playerStatRunes = new Dictionary<string, RuneMenuController> {
             { "Mana", statRunes[0] },
             { "Damage", statRunes[1] },
             { "Health", statRunes[2] }
@@ -662,45 +663,30 @@ public class PlayerController : MonoBehaviour {
         }
 
         //play animation state
-        if (spellBook.IsReadyToCast) {
+        if (spellBook.IsReadyToCast && playerStats.getCurrentMana() >= spellBook.GetSpellManaCost()) {
             animator.CrossFade(castHash, 0.01f);
+
+            //play cast sound
+            audioSource.resource = spellBook.GetSpellSpawnSound();
+            audioSource.Play();
+
+            //Set anim delay
+            float delayFrame = spellBook.GetSpellCastDelayTime();
+
+            //scale delay based on speed of animation
+            float delay = (delayFrame / 30f) / animator.GetCurrentAnimatorStateInfo(0).speed;
+
+            //wait for delay
+            yield return new WaitForSeconds(delay);
+
+            //test if cursor is not between player and spawn point
+            if (Vector3.Distance(gameManager.GetPlayerPivot(), gameManager.GetMousePositionInWorldSpace()) > Vector3.Distance(gameManager.GetPlayerPivot(), projectileSpawn.position)) {
+                spellBook.Cast();
+            }
+
+            //Wait for animation to finish
+            yield return new WaitUntil(() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Cast"));
         }
-
-
-        //Set anim delay
-        int delayFrame = 0;
-        switch (spellBook.ActiveSpell) {
-            case 0:
-                delayFrame = 15;
-                break;
-            case 1:
-                delayFrame = 11;
-                break;
-            case 2:
-                delayFrame = 9;
-                break;
-        }
-
-        //scale delay based on speed of animation
-        float delay = (delayFrame / 30f) / animator.GetCurrentAnimatorStateInfo(0).speed;
-
-        //wait for delay
-        yield return new WaitForSeconds(delay);
-
-        //FIRE FROM SPELL BOOK
-        //GameManager gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-
-        //test if cursor is not between player and spawn point
-        if (Vector3.Distance(gameManager.GetPlayerPivot(), gameManager.GetMousePositionInWorldSpace()) > Vector3.Distance(gameManager.GetPlayerPivot(), projectileSpawn.position)) {
-            spellBook.Cast();
-        }
-
-        //play cast sound
-        audioSource.resource = spellBook.GetSpellSpawnSound();
-        audioSource.Play();
-
-        //Wait for animation to finish
-        yield return new WaitUntil(() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Cast"));
 
         //reset cast coroutine variable
         castAnimation = null;

@@ -18,7 +18,7 @@ MonoBehaviour:
   defaultManaCost: 50
   defaultDamage: 50
   defaultLifeSpan: 2
-  defaultCastDelayTime: 2.2
+  defaultCastDelayTime: 55
   defaultCastCooldownTime: 3
   defaultMoveSpeed: 0
   defaultProjectileSize: {x: 2.5, y: 14, z: 1}
@@ -26,7 +26,7 @@ MonoBehaviour:
   manaCost: 50
   damage: 50
   lifeSpan: 2
-  castDelayTime: 2.2
+  castDelayTime: 55
   castCooldownTime: 3
   moveSpeed: 0
   projectileSize: {x: 2.5, y: 14, z: 1}

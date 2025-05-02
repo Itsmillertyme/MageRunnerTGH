@@ -322,6 +322,12 @@ public class DungeonCreator : MonoBehaviour {
             }
         }
 
+        //Hide laoding screen
+        if (gameManager.LoadingScreen.localScale.x > 0.001f) {
+            gameManager.LoadingScreen.localScale = new Vector3(0.001f, 0.001f, 0.001f);
+            gameManager.LoadingScreen.gameObject.SetActive(false);
+        }
+
         //DEV ONLY
         if (gameManager.DebugLevelGeneration) {
             for (int i = 0; i < pf.Path.Count - 1; i++) {

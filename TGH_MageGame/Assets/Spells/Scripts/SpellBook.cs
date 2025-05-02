@@ -205,7 +205,11 @@ public class SpellBook : MonoBehaviour {
 
         boltCollider.size = new(xSize, ySize, zSize);
         boltCollider.center = new(0, ySize / 2, 0);
-        boltCollider.gameObject.transform.rotation = Quaternion.Euler(0, 180, zRotation * Mathf.Rad2Deg);
+        boltCollider.gameObject.transform.rotation = Quaternion.Euler(0, 0, zRotation * Mathf.Rad2Deg);
+        //GameObject debugCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        //debugCube.transform.position = boltCollider.transform.position;
+        //debugCube.transform.rotation = boltCollider.transform.rotation;
+        //debugCube.transform.localScale = boltCollider.size;
     }
     #endregion
 

@@ -672,17 +672,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1745315282}
     - target: {fileID: 4242984033191643486, guid: b70620ff3f8e2a24a8e7ed9c27065c4c, type: 3}
-      propertyPath: keepSeed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4242984033191643486, guid: b70620ff3f8e2a24a8e7ed9c27065c4c, type: 3}
       propertyPath: devParent
       value: 
       objectReference: {fileID: 1566664602}
-    - target: {fileID: 4242984033191643486, guid: b70620ff3f8e2a24a8e7ed9c27065c4c, type: 3}
-      propertyPath: levelSeed
-      value: 678758116
-      objectReference: {fileID: 0}
     - target: {fileID: 4242984033191643486, guid: b70620ff3f8e2a24a8e7ed9c27065c4c, type: 3}
       propertyPath: maskParent
       value: 
@@ -747,6 +739,26 @@ PrefabInstance:
       propertyPath: projectileSpawn
       value: 
       objectReference: {fileID: 465656304}
+    - target: {fileID: 8118595991286049172, guid: b70620ff3f8e2a24a8e7ed9c27065c4c, type: 3}
+      propertyPath: pauseMenu
+      value: 
+      objectReference: {fileID: 1318440568}
+    - target: {fileID: 8118595991286049172, guid: b70620ff3f8e2a24a8e7ed9c27065c4c, type: 3}
+      propertyPath: pauseMenuAudio
+      value: 
+      objectReference: {fileID: 1318440571}
+    - target: {fileID: 8868479989824275462, guid: b70620ff3f8e2a24a8e7ed9c27065c4c, type: 3}
+      propertyPath: m_Volume
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8868479989824275462, guid: b70620ff3f8e2a24a8e7ed9c27065c4c, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 62e03a4b25b425148b6be1261ebe6435, type: 3}
+    - target: {fileID: 8868479989824275462, guid: b70620ff3f8e2a24a8e7ed9c27065c4c, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 62e03a4b25b425148b6be1261ebe6435, type: 3}
     - target: {fileID: 8951188675090632615, guid: b70620ff3f8e2a24a8e7ed9c27065c4c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -790,17 +802,14 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2020309084726206776, guid: b70620ff3f8e2a24a8e7ed9c27065c4c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1701640555}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b70620ff3f8e2a24a8e7ed9c27065c4c, type: 3}
 --- !u!114 &802638879 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6934601227346008653, guid: b70620ff3f8e2a24a8e7ed9c27065c4c, type: 3}
   m_PrefabInstance: {fileID: 802638878}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1701640546}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f1f50eb406b6a441a999579e34afdc9, type: 3}
@@ -2159,29 +2168,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 521344055}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1701640546 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2020309084726206776, guid: b70620ff3f8e2a24a8e7ed9c27065c4c, type: 3}
+--- !u!114 &1701640555 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8118595991286049172, guid: b70620ff3f8e2a24a8e7ed9c27065c4c, type: 3}
   m_PrefabInstance: {fileID: 802638878}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1701640555
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1701640546}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 605a91179b87ac8418dc47658448c106, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseMenu: {fileID: 1318440568}
-  pauseMenuAudio: {fileID: 1318440571}
-  pauseMenuClip: {fileID: 8300000, guid: dca3084cb66e8824bab682c584bec504, type: 3}
-  openCloseSpeed: 0.25
-  isPaused: 0
-  isAnimationHappening: 0
 --- !u!1 &1745315281
 GameObject:
   m_ObjectHideFlags: 0

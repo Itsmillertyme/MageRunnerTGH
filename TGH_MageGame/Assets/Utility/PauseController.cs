@@ -72,6 +72,7 @@ public class PauseController : MonoBehaviour {
     public void Exit() {
         pauseMenuAudio.clip = pauseMenuClip;
         pauseMenuAudio.Play();
+        Application.Quit();
         StartCoroutine(ExitGame());
     }
 

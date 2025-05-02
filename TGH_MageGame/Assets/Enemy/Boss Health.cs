@@ -39,10 +39,6 @@ public class BossHealth : MonoBehaviour {
             //show loading screen            
             StartCoroutine(GameObject.Find("GameManager").GetComponent<GameManager>().ShowAndHideLoadingScreen());
 
-            //reload level 
-            //GameObject.Find("GameManager").GetComponent<DungeonCreator>().RetryGeneration();
-
         }
     }
-
 }

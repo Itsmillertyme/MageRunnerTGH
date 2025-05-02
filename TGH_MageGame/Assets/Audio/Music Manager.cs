@@ -58,9 +58,23 @@ public class MusicManager : MonoBehaviour {
         PlayTrack();
     }
 
+    public void PauseMusic() {
+        if (music.isPlaying) {
+            music.Pause();
+        }
+    }
+
+    public void ResumeMusic() {
+        if (!music.isPlaying) {
+            music.UnPause();
+        }
+    }
+
     public void SwitchPlaylist(int sceneIndex)  // RUNS OFF OF SCENE BUILD INDEX VALUES
     {
-        music.Stop();
+        if (music.isPlaying) {
+            music.Stop();
+        }
 
         if (playingCoroutine != null) {
             StopCoroutine(playingCoroutine);

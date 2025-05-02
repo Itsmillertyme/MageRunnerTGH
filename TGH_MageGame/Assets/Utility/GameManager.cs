@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField] RectTransform crosshairRect;
     [SerializeField] RectTransform loadingScreen;
     [SerializeField] Image imgLoadingWheel;
+    MusicManager musicManager;
 
     [Header("Scritable Object References")]
     [SerializeField] LevelEnemies levelEnemies;
@@ -56,6 +57,7 @@ public class GameManager : MonoBehaviour {
     public bool DebugInput { get => debugInput; set => debugInput = value; }
     public bool DebugEnemySpawning { get => debugEnemySpawning; set => debugEnemySpawning = value; }
     public int CurrentLevel { get => currentLevel; }
+    public RectTransform LoadingScreen { get => loadingScreen; set => loadingScreen = value; }
 
     //**UNITY METHODS**
     private void Awake() {
@@ -72,6 +74,8 @@ public class GameManager : MonoBehaviour {
             playerPositionObject.GetComponent<MeshRenderer>().material = debugMaterial;
         }
 
+        musicManager = GameObject.Find("Music Manager").GetComponent<MusicManager>();
+
         //foreach (string bug in knownBugs) {
         //    if (bug != "") {
         //        Debug.LogWarning(bug);
@@ -80,6 +84,9 @@ public class GameManager : MonoBehaviour {
 
         //Enable HUD is disabled
         hud.gameObject.SetActive(true);
+
+        //shenanigans        
+
     }
     //
     private void Update() {
@@ -167,6 +174,16 @@ public class GameManager : MonoBehaviour {
     //**COROUTINES**
     public IEnumerator ShowAndHideLoadingScreen() {
 
+        //Pause music manager
+        musicManager.PauseMusic();
+
+        //Play victory music
+        GetComponent<AudioSource>().Play();
+
+        //pause
+        yield return new WaitForSeconds(5);
+
+        imgLoadingWheel.fillAmount = 0f;
         loadingScreen.gameObject.SetActive(true);
 
         //Show and lerp big        
@@ -178,14 +195,20 @@ public class GameManager : MonoBehaviour {
             yield return null;
         }
 
+
         //Wait 5 seconds and do loading wheel
         time = 0f;
-        while (time < 5f) {
+        while (time < 2.9f) { //Shenanigans
             time += Time.unscaledDeltaTime;
-            imgLoadingWheel.fillAmount = time / 5f;
+            imgLoadingWheel.fillAmount = time / 3f;
             yield return null;
         }
 
+        musicManager.PlayNextTrack();
+
+        //reload level
+        GetComponent<DungeonCreator>().keepSeed = false;
+        GetComponent<DungeonCreator>().RetryGeneration();
 
         //Lerp small and hide
         time = 0f;
@@ -195,7 +218,6 @@ public class GameManager : MonoBehaviour {
             loadingScreen.transform.localScale = Vector3.Lerp(new Vector3(1, 1, 1), new Vector3(0.001f, 0.001f, 0.001f), normalizedTime);
             yield return null;
         }
-
         loadingScreen.gameObject.SetActive(false);
     }
 

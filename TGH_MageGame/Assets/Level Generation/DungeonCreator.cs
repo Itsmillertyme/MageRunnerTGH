@@ -50,7 +50,6 @@ public class DungeonCreator : MonoBehaviour {
     public GameObject wallVertical;
     public GameObject maskPrefab;
     public GameObject playerPrefab;
-    public GameObject bossPrefab;
     public GameObject corridorEffect;
     public GameObject platformPrefab;
     public GameObject castleWall5x5Prefab;
@@ -306,9 +305,27 @@ public class DungeonCreator : MonoBehaviour {
                     //Debug.Log(enemy.name);
                     enemy.GetComponent<NavMeshAgent>().enabled = true;
                     //Debug.Log("Is mob");
-                    enemy.GetComponent<IBehave>().Initialize(room, gameManager.DebugEnemySpawning);
+                    IBehave[] behaviors = enemy.GetComponents<IBehave>();
+                    foreach (IBehave behavior in behaviors) {
+                        behavior.Initialize(room, gameManager.DebugEnemySpawning);
+                    }
+                }
+                else if (enemy.CompareTag("Boss Enemy")) {
+                    //Debug.Log(enemy.name);
+                    enemy.GetComponent<NavMeshAgent>().enabled = true;
+                    //Debug.Log("Is boss");
+                    IBehave[] behaviors = enemy.GetComponents<IBehave>();
+                    foreach (IBehave behavior in behaviors) {
+                        behavior.Initialize(room, gameManager.DebugEnemySpawning);
+                    }
                 }
             }
+        }
+
+        //Hide laoding screen
+        if (gameManager.LoadingScreen.localScale.x > 0.001f) {
+            gameManager.LoadingScreen.localScale = new Vector3(0.001f, 0.001f, 0.001f);
+            gameManager.LoadingScreen.gameObject.SetActive(false);
         }
 
         //DEV ONLY
@@ -693,7 +710,7 @@ public class DungeonCreator : MonoBehaviour {
 
         if ((spawnRoomPathNode.RoomTopLeftCorner.y - spawnRoomPathNode.RoomDimensions.y / 2) > dungeonWidth / 2) {
             //Spawn on "left" side of room
-            spawnPos = new Vector3(spawnRoomPathNode.RoomTopLeftCorner.x + .1f, 0, spawnRoomPathNode.RoomTopLeftCorner.y - 2);
+            spawnPos = new Vector3(spawnRoomPathNode.RoomTopLeftCorner.x + .25f, 0, spawnRoomPathNode.RoomTopLeftCorner.y - 2);
 
             //Rotate player
             playerPrefab.transform.GetChild(0).transform.localRotation = Quaternion.Euler(0, 270, 0);
@@ -702,7 +719,7 @@ public class DungeonCreator : MonoBehaviour {
         }
         else {
             //spawn on "right" side of room
-            spawnPos = new Vector3(spawnRoomPathNode.RoomTopLeftCorner.x + .1f, 0, spawnRoomPathNode.RoomTopLeftCorner.y - spawnRoomPathNode.RoomDimensions.y + 1);
+            spawnPos = new Vector3(spawnRoomPathNode.RoomTopLeftCorner.x + .25f, 0, spawnRoomPathNode.RoomTopLeftCorner.y - spawnRoomPathNode.RoomDimensions.y + 1);
 
             //Rotate player
             playerPrefab.transform.GetChild(0).transform.localRotation = Quaternion.Euler(0, 90, 0);
@@ -711,7 +728,9 @@ public class DungeonCreator : MonoBehaviour {
 
 
         //places player
+        playerPrefab.GetComponent<CharacterController>().enabled = false;
         playerPrefab.transform.position = spawnPos;
+        playerPrefab.GetComponent<CharacterController>().enabled = true;
 
         levelDecorator.PlacePlayerDoorDecoration(playerPrefab.transform.position, gameManager.DebugLevelGeneration);
         if (!dungeonFlatMode) {
@@ -720,9 +739,11 @@ public class DungeonCreator : MonoBehaviour {
             playerPrefab.transform.RotateAround(Vector3.zero, Vector3.left, 90);
         }
 
+        //replaces player...don't ask
+        playerPrefab.GetComponent<CharacterController>().enabled = false;
         playerPrefab.transform.rotation = Quaternion.Euler(0, 0, 0);
         playerPrefab.transform.position = new Vector3(playerPrefab.transform.position.x + 1, spawnPos.x, playerPrefab.transform.position.z + 1);
-
+        playerPrefab.GetComponent<CharacterController>().enabled = true;
 
 
     }
@@ -840,6 +861,7 @@ public class DungeonCreator : MonoBehaviour {
             GameObject platform = Instantiate(platformPrefab, spawnPos, Quaternion.Euler(0, 0, 0));
             platform.transform.parent = platformParent;
             SetAllChildrenToLayer(platform, 9);// Set to Ground layer
+            SetAllChildrenToTag(platform, "Platform"); // set to "platform" tag
 
             //Add to output variables
             platformLocationsOut.Add(spawnPos);
@@ -1064,6 +1086,16 @@ public class DungeonCreator : MonoBehaviour {
         //Recursively set for children
         foreach (Transform child in objIn.transform) {
             SetAllChildrenToLayer(child.gameObject, layerIndexIn);
+        }
+    }
+
+    void SetAllChildrenToTag(GameObject objIn, string tagIn) {
+        //Set layer
+        objIn.tag = tagIn;
+
+        //Recursively set for children
+        foreach (Transform child in objIn.transform) {
+            SetAllChildrenToTag(child.gameObject, tagIn);
         }
     }
     //

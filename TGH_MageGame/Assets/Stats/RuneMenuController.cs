@@ -1,36 +1,48 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class RuneMenuController : MonoBehaviour {
 
-    [SerializeField] GameObject[] runeOrbs;
-
+    //**PROPERTIES**
+    [Header("Stat Properties")]
     [SerializeField] float statValue;
+    [SerializeField] float statStep;
 
+    [Header("GUI References")]
+    [SerializeField] GameObject[] runeOrbs;
     [SerializeField] Button increaseButton;
     [SerializeField] Button decreaseButton;
-    [SerializeField] LightningBolt2D.LightningBolt2D runeBolt;
+
+    [Header("Misc")]
+    [SerializeField] UnityEvent runeLevelRaised;
 
     int statLevel;
 
-    float statStep;
+    //**FIELDS**
+    public int StatLevel { get => statLevel; set => statLevel = value; }
+    public float StatValue { get => statValue; set => statValue = value; }
+    public float StatStep { get => statStep; set => statStep = value; }
 
+    //**UNITY METHODS**
     private void Awake() {
-        //Initialize
-        statStep = 1;
+        //Initialize        
         statLevel = 1;
 
         UpdateRuneOrbs();
     }
 
+    //**UTILITY METHODS**
     public void IncreaseLevel() {
         if (statLevel < 10) {
             statLevel++;
             statValue += statStep;
             UpdateRuneOrbs();
+
+            runeLevelRaised.Invoke();
         }
     }
-
+    //
     public void DecreaseLevel() {
         if (statLevel > 1) {
             statLevel--;
@@ -38,7 +50,7 @@ public class RuneMenuController : MonoBehaviour {
             UpdateRuneOrbs();
         }
     }
-
+    //
     private void UpdateRuneOrbs() {
 
         //Turn on appropriate number of orbs

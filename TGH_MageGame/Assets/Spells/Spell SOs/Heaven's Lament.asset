@@ -22,6 +22,7 @@ MonoBehaviour:
   defaultCastCooldownTime: 1
   defaultMoveSpeed: 0
   defaultProjectileSize: {x: 2.2, y: 1, z: 1}
+  defaultDestroyOnImpact: 0
   manaCost: 10
   damage: 20
   lifeSpan: 1
@@ -29,6 +30,7 @@ MonoBehaviour:
   castCooldownTime: 1
   moveSpeed: 0
   projectileSize: {x: 2.2, y: 1, z: 1}
+  destroyOnImpact: 0
   projectile: {fileID: 6217830414919029886, guid: b17c54899f071eb49ba7583372e662e6, type: 3}
   spawnSFX: {fileID: 8300000, guid: d078d1af61f4b3046b3c112735abdcf9, type: 3}
   hitSFX: {fileID: 8300000, guid: 4872456dc12dd4d4da6e98de793d365e, type: 3}

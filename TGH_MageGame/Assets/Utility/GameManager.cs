@@ -1,7 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
@@ -11,6 +13,10 @@ public class GameManager : MonoBehaviour {
     [SerializeField] Transform projectileSpawn;
     [SerializeField] Transform player;
     [SerializeField] RectTransform crosshairRect;
+    [SerializeField] RectTransform loadingScreen;
+    [SerializeField] Image imgLoadingWheel;
+    MusicManager musicManager;
+
     [Header("Scritable Object References")]
     [SerializeField] LevelEnemies levelEnemies;
     [SerializeField] LevelDecorations levelDecorations;
@@ -51,6 +57,7 @@ public class GameManager : MonoBehaviour {
     public bool DebugInput { get => debugInput; set => debugInput = value; }
     public bool DebugEnemySpawning { get => debugEnemySpawning; set => debugEnemySpawning = value; }
     public int CurrentLevel { get => currentLevel; }
+    public RectTransform LoadingScreen { get => loadingScreen; set => loadingScreen = value; }
 
     //**UNITY METHODS**
     private void Awake() {
@@ -67,6 +74,8 @@ public class GameManager : MonoBehaviour {
             playerPositionObject.GetComponent<MeshRenderer>().material = debugMaterial;
         }
 
+        musicManager = GameObject.Find("Music Manager").GetComponent<MusicManager>();
+
         //foreach (string bug in knownBugs) {
         //    if (bug != "") {
         //        Debug.LogWarning(bug);
@@ -75,6 +84,9 @@ public class GameManager : MonoBehaviour {
 
         //Enable HUD is disabled
         hud.gameObject.SetActive(true);
+
+        //shenanigans        
+
     }
     //
     private void Update() {
@@ -101,28 +113,6 @@ public class GameManager : MonoBehaviour {
         //get mouse input position
         Vector3 screenPos = Vector3.zero;
 
-        //if (currentScheme == ControlScheme.KEYBOARDMOUSE) {
-        //    screenPos = Mouse.current.position.ReadValue();
-        //}
-        //else if (currentScheme == ControlScheme.GAMEPAD) {
-
-        //    //800x450 base canvas resolution, mult 2.4
-
-        //    //float canvasWidth = crosshairRect.parent.GetComponent<RectTransform>().rect.width;
-        //    //float canvasheight = crosshairRect.parent.GetComponent<RectTransform>().rect.height;
-
-        //    //screenPos = new Vector3((crosshairRect.anchoredPosition.x + canvasWidth / 2f) * 2.4f, (crosshairRect.anchoredPosition.y + canvasheight / 2f) * 2.4f, 0);
-
-        //    screenPos = new Vector3(crosshairRect.anchoredPosition.x, crosshairRect.anchoredPosition.y, Mathf.Abs(Camera.main.transform.position.z));
-        //}
-
-        //screenPos = new Vector3(crosshairRect.anchoredPosition.x, crosshairRect.anchoredPosition.y, 0);
-
-        //Debug.Log($"Crosshair screen position: {screenPos}");
-
-        //convert mouse input to point in world         
-        //Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(crosshairRect.anchoredPosition.x, crosshairRect.anchoredPosition.y, Mathf.Abs(Camera.main.transform.position.z)));
-
 
         // Get position in center of player model
         playerPivot = new Vector3(player.position.x, player.position.y + 1.162f, 2.5f);
@@ -133,7 +123,7 @@ public class GameManager : MonoBehaviour {
 
         //Set debug object positions
         playerPositionObject.position = playerPivot;
-        cursorPositionObject.position = new Vector3(worldPosition.x, worldPosition.y, 2.5f);
+        cursorPositionObject.position = new Vector3(worldPosition.x, worldPosition.y, 2.0f);
 
         //Setup ray 
         Ray ray = new Ray(playerPivot, (cursorPositionObject.position - playerPivot).normalized);
@@ -180,6 +170,57 @@ public class GameManager : MonoBehaviour {
         //Set new Mat as current room
         newNodeRenderer.sharedMaterial = playerRoomMaterial;
     }
+
+    //**COROUTINES**
+    public IEnumerator ShowAndHideLoadingScreen() {
+
+        //Pause music manager
+        musicManager.PauseMusic();
+
+        //Play victory music
+        GetComponent<AudioSource>().Play();
+
+        //pause
+        yield return new WaitForSeconds(5);
+
+        imgLoadingWheel.fillAmount = 0f;
+        loadingScreen.gameObject.SetActive(true);
+
+        //Show and lerp big        
+        float time = 0f;
+        while (time < 0.25f) {
+            time += Time.unscaledDeltaTime;
+            float normalizedTime = Mathf.Clamp01(time / 0.25f);
+            loadingScreen.transform.localScale = Vector3.Lerp(new Vector3(0.001f, 0.001f, 0.001f), new Vector3(1, 1, 1), normalizedTime);
+            yield return null;
+        }
+
+
+        //Wait 5 seconds and do loading wheel
+        time = 0f;
+        while (time < 2.9f) { //Shenanigans
+            time += Time.unscaledDeltaTime;
+            imgLoadingWheel.fillAmount = time / 3f;
+            yield return null;
+        }
+
+        musicManager.PlayNextTrack();
+
+        //reload level
+        GetComponent<DungeonCreator>().keepSeed = false;
+        GetComponent<DungeonCreator>().RetryGeneration();
+
+        //Lerp small and hide
+        time = 0f;
+        while (time < 0.25f) {
+            time += Time.unscaledDeltaTime;
+            float normalizedTime = Mathf.Clamp01(time / 0.25f);
+            loadingScreen.transform.localScale = Vector3.Lerp(new Vector3(1, 1, 1), new Vector3(0.001f, 0.001f, 0.001f), normalizedTime);
+            yield return null;
+        }
+        loadingScreen.gameObject.SetActive(false);
+    }
+
 }
 
 public enum ControlScheme {

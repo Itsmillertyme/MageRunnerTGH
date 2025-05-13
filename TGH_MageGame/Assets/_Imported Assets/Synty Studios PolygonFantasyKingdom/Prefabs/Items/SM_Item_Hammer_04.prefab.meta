@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: ace7f770f2ec73d44a51f105d343979d
+timeCreated: 1582060236
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 164532
+  packageName: POLYGON Fantasy Kingdom - Low Poly 3D Art by Synty
+  packageVersion: 1.11.4
+  assetPath: Assets/_Imported Assets/Synty Studios PolygonFantasyKingdom/Prefabs/Items/SM_Item_Hammer_04.prefab
+  uploadId: 751511

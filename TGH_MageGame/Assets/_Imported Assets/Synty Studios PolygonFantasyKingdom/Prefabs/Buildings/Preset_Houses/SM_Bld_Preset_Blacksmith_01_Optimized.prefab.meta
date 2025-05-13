@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 8adfb299be9e7f74c859e0c948e2f4c0
+timeCreated: 1583377667
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 164532
+  packageName: POLYGON Fantasy Kingdom - Low Poly 3D Art by Synty
+  packageVersion: 1.11.4
+  assetPath: Assets/_Imported Assets/Synty Studios PolygonFantasyKingdom/Prefabs/Buildings/Preset_Houses/SM_Bld_Preset_Blacksmith_01_Optimized.prefab
+  uploadId: 751511

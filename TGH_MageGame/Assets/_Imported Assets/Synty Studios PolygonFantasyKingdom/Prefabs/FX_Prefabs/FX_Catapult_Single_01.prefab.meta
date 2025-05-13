@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 6068794fe4ebb9f4aa22ef6c9d7c0f7a
+timeCreated: 1583900045
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 164532
+  packageName: POLYGON Fantasy Kingdom - Low Poly 3D Art by Synty
+  packageVersion: 1.11.4
+  assetPath: Assets/_Imported Assets/Synty Studios PolygonFantasyKingdom/Prefabs/FX_Prefabs/FX_Catapult_Single_01.prefab
+  uploadId: 751511

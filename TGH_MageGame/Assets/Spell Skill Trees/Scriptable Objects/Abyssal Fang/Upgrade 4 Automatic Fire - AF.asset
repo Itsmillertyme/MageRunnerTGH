@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da41735c0ee9675479a78c0960651c91, type: 3}
   m_Name: Upgrade 4 Automatic Fire - AF
   m_EditorClassIdentifier: 
-  autoFire: 0
+  autoFire: 1

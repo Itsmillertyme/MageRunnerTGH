@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5445f262901f76b4ea69a5087b2b5c82, type: 3}
-  m_Name: Upgrade 0 Projectile Size - AF
+  m_Script: {fileID: 11500000, guid: 8fafacd7ff0b1ad4fb98716354da69ee, type: 3}
+  m_Name: Upgrade 5 Obstacle Piercing - AF
   m_EditorClassIdentifier: 
-  sizeIncrease: {x: 0.1, y: 0.1, z: 0.1}
+  pierceObjects: 0

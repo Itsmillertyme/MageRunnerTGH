@@ -6,14 +6,14 @@ public class AbyssalFangProjectileMovement : MonoBehaviour
 {
     [Header("Debugging")]
     [SerializeField] private float moveSpeed;
-    [SerializeField] PlayerStats playerStats;
     private Vector3 targetPosition;
 
-    // 
+    private GameManager gameManager;
     private Vector3 moveDirection;
 
     private void Start()
     {
+        gameManager = FindFirstObjectByType<GameManager>();
         moveDirection = (targetPosition - transform.position).normalized;
     }
 
@@ -21,7 +21,7 @@ public class AbyssalFangProjectileMovement : MonoBehaviour
     {
         Move();
         //Snap z to 0
-        //transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+        transform.position = new Vector3(transform.position.x, transform.position.y, gameManager.CrosshairPositionIn3DSpace.z);
     }
 
     private void Move()

@@ -9,7 +9,7 @@ public class UpgradeAutomaticFire : SpellSkillUpgrade
 
     public override void Apply(Spell spell)
     {
-        spell.SetAutomaticFireRate(true);
+        spell.SetAutomaticFireRate(autoFire);
         Debug.Log("Auotmatic fire unlocked");
     }
 }

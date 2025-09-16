@@ -5,15 +5,15 @@ using UnityEngine;
 public class ShatterstoneBarrage : Spell
 {
     [Header("Unique Spell Attributes")]
-    [SerializeField] private int projectileCount;
-    [SerializeField] private float spawnRadius;
-    [SerializeField] private float riseHeight;
-    [SerializeField] private float riseSpeed;
-    [SerializeField] private float attackSpeed;
-    [SerializeField] private float delayBetweenSpawns;
-    [SerializeField] private float riseMaxTime;
-    [SerializeField] private float pauseBetweenPhases;
-    [SerializeField] private float riseHeightVariation;
+    [SerializeField] private int projectileCount = 10;
+    [SerializeField] private float spawnRadius = 3f;
+    [SerializeField] private float riseHeight = 5.5f;
+    [SerializeField] private float riseSpeed = 1.3f;
+    [SerializeField] private float attackSpeed = 32f;
+    [SerializeField] private float delayBetweenSpawns = 0.15f;
+    [SerializeField] private float riseMaxTime = 1.25f;
+    [SerializeField] private float pauseBetweenPhases = 1.1f;
+    [SerializeField] private float riseHeightVariation = 1.25f;
     [SerializeField] private GameObject[] prefabs;
 
     // GETTERS

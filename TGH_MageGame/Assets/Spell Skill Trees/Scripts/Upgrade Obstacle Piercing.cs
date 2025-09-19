@@ -4,13 +4,9 @@ using UnityEngine;
 
 public class UpgradeObstaclePiercing : SpellSkillUpgrade
 {
-    [Tooltip("True means projectiles pass through environmental/enemy objects")]
-    [SerializeField] private bool pierceObjects;
-
     public override void Apply(Spell spell)
     {
-        spell.SetDestroyOnEnemyImpact(pierceObjects);
-        spell.SetDestroyOnEnvironmentalImpact(pierceObjects);
-        Debug.Log("Obstacle piercing unlocked");
+        spell.SetDestroyOnEnemyImpact(false);
+        spell.SetDestroyOnEnvironmentalImpact(false);
     }
 }

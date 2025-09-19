@@ -7,6 +7,7 @@ public class EnemyDamager : MonoBehaviour
     private bool destroyOnEnemyImpact;
     private bool destroyOnPlatformImpact;
     private int bonusStatDamage;
+    private bool addDamageOverTime;
 
     private void Start()
     {
@@ -54,6 +55,11 @@ public class EnemyDamager : MonoBehaviour
         {
             collided.gameObject.GetComponent<EnemyHealth>().RemoveFromHealth(damage);
 
+            if (addDamageOverTime)
+            {
+                collided.gameObject.AddComponent<EnemyTakeDamageOverTime>();
+            }
+
             if (destroyOnEnemyImpact)
             {
                 Destroy(gameObject);
@@ -62,6 +68,11 @@ public class EnemyDamager : MonoBehaviour
         else if (collided.gameObject.CompareTag("Boss Enemy"))
         {
             collided.gameObject.GetComponent<BossHealth>().RemoveFromHealth(damage);
+
+            if (addDamageOverTime)
+            {
+                collided.gameObject.AddComponent<EnemyTakeDamageOverTime>();
+            }
 
             if (destroyOnEnemyImpact)
             {
@@ -78,11 +89,12 @@ public class EnemyDamager : MonoBehaviour
         }
     }
 
-    public void SetAttributes(int newDamage, float newLifeSpan, bool newDestroyOnEnemyImpact, bool newDestroyOnPlatformImpact)
+    public void SetAttributes(int newDamage, float newLifeSpan, bool newDestroyOnEnemyImpact, bool newDestroyOnPlatformImpact, bool newDamageOverTime)
     {
         damage = newDamage + bonusStatDamage;
         lifeSpan = newLifeSpan;
         destroyOnEnemyImpact = newDestroyOnEnemyImpact;
         destroyOnPlatformImpact = newDestroyOnPlatformImpact;
+        addDamageOverTime = newDamageOverTime;
     }
 }

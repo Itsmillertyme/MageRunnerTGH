@@ -137,7 +137,7 @@ public class SpellBook : MonoBehaviour
     {
         GameObject newProjectile = Instantiate(spellBook[currentSpellIndex].Projectile, position, Quaternion.identity);
         newProjectile.GetComponent<AbyssalFangProjectileMovement>().SetAttributes(spellBook[currentSpellIndex].MoveSpeed, spellBook[currentSpellIndex].ProjectileSize, direction);
-        newProjectile.GetComponent<EnemyDamager>().SetAttributes(af.Damage, af.LifeSpan, af.DestroyOnEnemyImpact, af.DestroyOnEnvironmentImpact);
+        newProjectile.GetComponent<EnemyDamager>().SetAttributes(af.Damage, af.LifeSpan, af.DestroyOnEnemyImpact, af.DestroyOnEnvironmentImpact, af.DamageOverTime);
     }
 
     public IEnumerator CooldownThenCastAltHandAbyssalFang(AbyssalFang af, float waitTime) // THERE IS A BUG WHERE YOU CAN SPAM THE ALT HAND CAST WHEN YOU SHOULD NOT BE ABLE TO CAST
@@ -165,6 +165,7 @@ public class SpellBook : MonoBehaviour
 
             // CREATE RANDOM TYPE OF PROJECTILE WITH RANDOM ROTATIONS
             GameObject projectile = Instantiate(sb.Prefabs[Random.Range(0, sb.Prefabs.Length)], spawnPosition, Quaternion.Euler(Random.Range(0f, 360f), Random.Range(0f, 360f), Random.Range(0f, 360f))); // RANDOM ROTATIONS
+            projectile.GetComponent<ShatterstoneBarrageProjectileMovement>().SetProjectileSize(sb.ProjectileSizeScalar);
 
             // INVOKE MOVEMENT LOGIC
             StartCoroutine(projectile.GetComponent<ShatterstoneBarrageProjectileMovement>().ShatterstoneMoveProjectile(sb, spawnOffset));
@@ -199,7 +200,7 @@ public class SpellBook : MonoBehaviour
     private void SetThunderlordsCascadeProjectile(ThunderlordsCascade tc, GameObject gameObject)
     {
         // ENEMY DAMAGER
-        gameObject.GetComponentInChildren<EnemyDamager>().SetAttributes(tc.Damage, tc.LifeSpan, tc.DestroyOnEnemyImpact, tc.DestroyOnEnvironmentImpact);
+        gameObject.GetComponentInChildren<EnemyDamager>().SetAttributes(tc.Damage, tc.LifeSpan, tc.DestroyOnEnemyImpact, tc.DestroyOnEnvironmentImpact, tc.DamageOverTime);
         Destroy(gameObject, tc.LifeSpan); // DESTROY ON DAMAGER DOESN'T WORK BECAUSE COLLISION LOGIC IS ON CHILD
 
         // PARTICLE SYSTEM REFERENCE

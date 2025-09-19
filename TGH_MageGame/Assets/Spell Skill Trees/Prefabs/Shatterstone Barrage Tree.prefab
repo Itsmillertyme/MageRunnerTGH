@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7438195259131336237}
   - component: {fileID: 3003094058194087389}
   - component: {fileID: 3213057647973026985}
+  - component: {fileID: 6206587013935486519}
   m_Layer: 5
   m_Name: 4
   m_TagString: Untagged
@@ -133,6 +134,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &6206587013935486519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 340360025251588414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 459955d59023dde4cb600b57f18f2e14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeNode: {fileID: 11400000, guid: 2c3f9027e2a73e6428e5da6b5472c7d7, type: 2}
 --- !u!1 &483092906913357630
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,7 +212,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: +Explosive Impact
+  m_text: "+Damage\t"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -606,7 +620,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: +Additional Wave
+  m_text: +Travel Speed
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -810,6 +824,7 @@ GameObject:
   - component: {fileID: 1701286144741636326}
   - component: {fileID: 3124456144796336977}
   - component: {fileID: 3765128554790288222}
+  - component: {fileID: 3613801370947529689}
   m_Layer: 5
   m_Name: 1
   m_TagString: Untagged
@@ -931,6 +946,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3613801370947529689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1991404154453557094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 459955d59023dde4cb600b57f18f2e14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeNode: {fileID: 11400000, guid: 8c6af9cd76673ce42bf584e53b3b2063, type: 2}
 --- !u!1 &3551937110775162475
 GameObject:
   m_ObjectHideFlags: 0
@@ -943,6 +971,7 @@ GameObject:
   - component: {fileID: 1693925584170766461}
   - component: {fileID: 7632360180475461847}
   - component: {fileID: 7806010450016490218}
+  - component: {fileID: 1198838918518199812}
   m_Layer: 5
   m_Name: 2
   m_TagString: Untagged
@@ -1064,6 +1093,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1198838918518199812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3551937110775162475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 459955d59023dde4cb600b57f18f2e14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeNode: {fileID: 11400000, guid: 415677ae3a15cb040bb941fc1ed145fd, type: 2}
 --- !u!1 &3880947282827252152
 GameObject:
   m_ObjectHideFlags: 0
@@ -1250,7 +1292,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: +Spell Duration
+  m_text: -Spawn Delay
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1333,6 +1375,7 @@ GameObject:
   - component: {fileID: 6470865959847900986}
   - component: {fileID: 9073267211228922097}
   - component: {fileID: 7318445338637333421}
+  - component: {fileID: 6532878069668349533}
   m_Layer: 5
   m_Name: 3
   m_TagString: Untagged
@@ -1454,6 +1497,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &6532878069668349533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5483545579287077324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 459955d59023dde4cb600b57f18f2e14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeNode: {fileID: 11400000, guid: 8e21145f975e50544a8b32325a49a3d6, type: 2}
 --- !u!1 &6105585318939144752
 GameObject:
   m_ObjectHideFlags: 0
@@ -2071,7 +2127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 459955d59023dde4cb600b57f18f2e14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradeNode: {fileID: 0}
+  upgradeNode: {fileID: 11400000, guid: 3a055604326aac24a9aeef178a7edf8e, type: 2}
 --- !u!1 &9021130605954686250
 GameObject:
   m_ObjectHideFlags: 0

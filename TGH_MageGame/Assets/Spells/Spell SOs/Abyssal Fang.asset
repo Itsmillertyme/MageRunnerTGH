@@ -19,13 +19,12 @@ MonoBehaviour:
   defaultDamage: 5
   defaultLifeSpan: 1
   defaultCastDelayTime: 0.3666667
-  defaultCastCooldownTime: 0.2
-  defaultFullyAutoCast: 0
+  defaultCastCooldownTime: 0.3
   defaultMoveSpeed: 20
-  defaultProjectileSize: {x: 1, y: 0.2, z: 0.2}
+  defaultProjectileSize: {x: 0.75, y: 1, z: 0.75}
   defaultDestroyOnEnemyImpact: 1
   defaultDestroyOnEnvironmentImpact: 1
-  projectile: {fileID: 395013047651984768, guid: ed762d4623fb57948b971a433ead280e, type: 3}
+  projectile: {fileID: 5685377436292771932, guid: ae3ed7fd0b25522409d3baf333af4720, type: 3}
   spawnSFX: {fileID: 8300000, guid: f5e870bcbf26ca04d8159c5faaad6a84, type: 3}
   hitSFX: {fileID: 8300000, guid: e1d61468a269b2343962d97c42dcb20f, type: 3}
   castAnimation: {fileID: 7400000, guid: 653c1b3e8dcbb8242b1269f433990ab0, type: 2}

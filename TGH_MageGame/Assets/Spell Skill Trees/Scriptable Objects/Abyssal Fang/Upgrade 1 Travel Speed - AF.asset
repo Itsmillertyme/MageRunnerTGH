@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cebf02a72f71330488dfb294a60f0a6f, type: 3}
   m_Name: Upgrade 1 Travel Speed - AF
   m_EditorClassIdentifier: 
-  boost: 0.5
+  movementIncrease: 10
+  riseIncrease: 0

@@ -34,8 +34,8 @@ public class AbyssalFangProjectileMovement : MonoBehaviour
         {
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
 
-            // ADD 90 ON Y-AXIS TO FIX PROJECTILE ROTATION
-            transform.rotation = targetRotation * Quaternion.Euler(0, 90, 0);
+            // FIX PROJECTILE ROTATION
+            transform.rotation = targetRotation * Quaternion.Euler(90, 0, 0);
         }
     }
 

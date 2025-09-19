@@ -16,11 +16,11 @@ public abstract class Spell : ScriptableObject
     [SerializeField] private float defaultCastDelayTime;
     [Tooltip("Time between casts")]
     [SerializeField] private float defaultCastCooldownTime;
-    [SerializeField] private bool defaultFullyAutoCast;
     [SerializeField] private float defaultMoveSpeed;
     [SerializeField] private Vector3 defaultProjectileSize;
     [SerializeField] private bool defaultDestroyOnEnemyImpact;
     [SerializeField] private bool defaultDestroyOnEnvironmentImpact;
+    [SerializeField] private bool defaultDamageOverTime;
 
     [Header("NO EDIT - Current Attributes")] // TEMP. ONCE WE HAVE SAVES, THIS WILL GO AWAY AND DEFAULT WILL BECOME CURRENT
     private int manaCost;
@@ -30,11 +30,11 @@ public abstract class Spell : ScriptableObject
     private float castDelayTime;
     [Tooltip("Time between casts")]
     private float castCooldownTime;
-    private bool fullyAutoCast;
     private float moveSpeed;
     private Vector3 projectileSize;
     private bool destroyOnEnemyImpact;
     private bool destroyOnEnvironmentImpact;
+    private bool damageOverTime;
 
     [Header("Prefab")]
     [SerializeField] private GameObject projectile;
@@ -64,6 +64,7 @@ public abstract class Spell : ScriptableObject
     public Vector3 ProjectileSize => projectileSize;
     public bool DestroyOnEnemyImpact => destroyOnEnemyImpact;
     public bool DestroyOnEnvironmentImpact => destroyOnEnvironmentImpact;
+    public bool DamageOverTime => damageOverTime;
     public GameObject Projectile => projectile;
     public AudioClip SpawnSFX => spawnSFX;
     public AnimationClip CastAnimation => castAnimation;
@@ -79,22 +80,25 @@ public abstract class Spell : ScriptableObject
         lifeSpan = defaultLifeSpan;
         castDelayTime = defaultCastDelayTime;
         castCooldownTime = defaultCastCooldownTime;
-        fullyAutoCast = defaultFullyAutoCast;
         moveSpeed = defaultMoveSpeed;
         projectileSize = defaultProjectileSize;
         destroyOnEnemyImpact = defaultDestroyOnEnemyImpact;
         destroyOnEnvironmentImpact = defaultDestroyOnEnvironmentImpact;
+        damageOverTime = defaultDamageOverTime;
     }    
 
+    public void SetManaCost(int newValue) => manaCost = newValue;
     public void SetProjectileSize(Vector3 newValue) => projectileSize = newValue;
 
     public void SetMoveSpeed(float newValue) => moveSpeed = newValue;
 
     public void SetCastCooldownTime(float newValue) => castCooldownTime = newValue;
 
-    public void SetAutomaticFireRate(bool newValue) => fullyAutoCast = newValue;
+    public void SetDamage(int newValue) => damage = newValue;
 
     public void SetDestroyOnEnemyImpact(bool newValue) => destroyOnEnemyImpact = newValue;
 
     public void SetDestroyOnEnvironmentalImpact(bool newValue) => destroyOnEnvironmentImpact = newValue;
+
+    public void SetDamageOverTime(bool value) => damageOverTime = value;
 }

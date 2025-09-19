@@ -5,10 +5,20 @@ using UnityEngine;
 public class UpgradeProjectilesCount : SpellSkillUpgrade
 {
     [Tooltip("Amount to be added to the base value of the amount of projectiles")]
-    [SerializeField] private float boost;
+    [SerializeField] private int increase;
 
     public override void Apply(Spell spell)
     {
-        spell.SetMoveSpeed(spell.MoveSpeed + boost);
+        switch (spell)
+        {
+            case ShatterstoneBarrage sb:
+                sb.SetProjectileCount(sb.ProjectileCount + increase);
+                break;
+            case ThunderlordsCascade tc:
+                tc.SetProjectileCount(tc.BoltCount + increase);
+                break;
+            default:
+                break;
+        }
     }
 }

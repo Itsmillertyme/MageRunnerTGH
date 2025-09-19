@@ -12,4 +12,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fafacd7ff0b1ad4fb98716354da69ee, type: 3}
   m_Name: Upgrade 5 Obstacle Piercing - AF
   m_EditorClassIdentifier: 
-  pierceObjects: 0

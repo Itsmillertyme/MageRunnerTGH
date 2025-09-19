@@ -55,7 +55,7 @@ public class EnemyDamager : MonoBehaviour
         {
             collided.gameObject.GetComponent<EnemyHealth>().RemoveFromHealth(damage);
 
-            if (addDamageOverTime)
+            if (addDamageOverTime && NoDamageOverTimeAlreadyExists(collided.gameObject))
             {
                 collided.gameObject.AddComponent<EnemyTakeDamageOverTime>();
             }
@@ -69,7 +69,7 @@ public class EnemyDamager : MonoBehaviour
         {
             collided.gameObject.GetComponent<BossHealth>().RemoveFromHealth(damage);
 
-            if (addDamageOverTime)
+            if (addDamageOverTime && NoDamageOverTimeAlreadyExists(collided.gameObject))
             {
                 collided.gameObject.AddComponent<EnemyTakeDamageOverTime>();
             }
@@ -96,5 +96,17 @@ public class EnemyDamager : MonoBehaviour
         destroyOnEnemyImpact = newDestroyOnEnemyImpact;
         destroyOnPlatformImpact = newDestroyOnPlatformImpact;
         addDamageOverTime = newDamageOverTime;
+    }
+
+    private bool NoDamageOverTimeAlreadyExists(GameObject enemy)
+    {
+        if (enemy.GetComponent<EnemyTakeDamageOverTime>() == null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

@@ -20,15 +20,11 @@ MonoBehaviour:
   defaultLifeSpan: 3
   defaultCastDelayTime: 0.4
   defaultCastCooldownTime: 2
+  defaultFullyAutoCast: 0
   defaultMoveSpeed: 14
   defaultProjectileSize: {x: 0.5, y: 0.5, z: 0.5}
-  manaCost: 15
-  damage: 15
-  lifeSpan: 3
-  castDelayTime: 0.4
-  castCooldownTime: 2
-  moveSpeed: 14
-  projectileSize: {x: 0.5, y: 0.5, z: 0.5}
+  defaultDestroyOnEnemyImpact: 0
+  defaultDestroyOnEnvironmentImpact: 0
   projectile: {fileID: 3886056780359568004, guid: 6e535dd60937e6a4bb29c8dc036bc547, type: 3}
   spawnSFX: {fileID: 8300000, guid: c1b696512730afd419cf972439680077, type: 3}
   hitSFX: {fileID: 8300000, guid: 4897caa60f417444b972bca550a8a76a, type: 3}
@@ -36,4 +32,3 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 12c28f7828b9dac429b215fda81958ad, type: 3}
   reticle: {fileID: 21300000, guid: e698f77bcca134941b2edad09247d436, type: 3}
   isUnlocked: 0
-  isAuto: 0

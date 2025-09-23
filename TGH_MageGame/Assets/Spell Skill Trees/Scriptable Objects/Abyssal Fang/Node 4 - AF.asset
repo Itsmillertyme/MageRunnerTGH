@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52758d0caa60256449371c5fbebb8fe5, type: 3}
   m_Name: Node 4 - AF
   m_EditorClassIdentifier: 
-  upgradeName: Automatic Fire
+  upgradeName: Damage
   prerequisiteUpgrades:
   - {fileID: 11400000, guid: 0f975e836e7956341ac3a52c11c1c0b5, type: 2}
-  upgrade: {fileID: 11400000, guid: 610b985d2b7a8324fbb32e1ef21b8faa, type: 2}
+  upgrade: {fileID: 11400000, guid: 31ed5a0cc90a37c4db9ba22cc2cb0984, type: 2}

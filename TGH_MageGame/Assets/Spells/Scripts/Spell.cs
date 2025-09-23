@@ -18,19 +18,23 @@ public abstract class Spell : ScriptableObject
     [SerializeField] private float defaultCastCooldownTime;
     [SerializeField] private float defaultMoveSpeed;
     [SerializeField] private Vector3 defaultProjectileSize;
-    [SerializeField] private bool defaultDestroyOnImpact;
+    [SerializeField] private bool defaultDestroyOnEnemyImpact;
+    [SerializeField] private bool defaultDestroyOnEnvironmentImpact;
+    [SerializeField] private bool defaultDamageOverTime;
 
-    [Header("NO EDIT - Current Attributes")] // TEMP. ONCE WE HAVE SAVES, THIS WILL GO AWAY
-    [SerializeField] private int manaCost;
-    [SerializeField] private int damage;
-    [SerializeField] private float lifeSpan;
+    [Header("NO EDIT - Current Attributes")] // TEMP. ONCE WE HAVE SAVES, THIS WILL GO AWAY AND DEFAULT WILL BECOME CURRENT
+    private int manaCost;
+    private int damage;
+    private float lifeSpan;
     [Tooltip("Time it takes to perform cast")]
-    [SerializeField] private float castDelayTime;
+    private float castDelayTime;
     [Tooltip("Time between casts")]
-    [SerializeField] private float castCooldownTime;
-    [SerializeField] private float moveSpeed;
-    [SerializeField] private Vector3 projectileSize;
-    [SerializeField] private bool destroyOnImpact;
+    private float castCooldownTime;
+    private float moveSpeed;
+    private Vector3 projectileSize;
+    private bool destroyOnEnemyImpact;
+    private bool destroyOnEnvironmentImpact;
+    private bool damageOverTime;
 
     [Header("Prefab")]
     [SerializeField] private GameObject projectile;
@@ -58,7 +62,9 @@ public abstract class Spell : ScriptableObject
     public float CastCooldownTime => castCooldownTime;
     public float MoveSpeed => moveSpeed;
     public Vector3 ProjectileSize => projectileSize;
-    public bool DestroyOnImpact => destroyOnImpact;
+    public bool DestroyOnEnemyImpact => destroyOnEnemyImpact;
+    public bool DestroyOnEnvironmentImpact => destroyOnEnvironmentImpact;
+    public bool DamageOverTime => damageOverTime;
     public GameObject Projectile => projectile;
     public AudioClip SpawnSFX => spawnSFX;
     public AnimationClip CastAnimation => castAnimation;
@@ -76,15 +82,23 @@ public abstract class Spell : ScriptableObject
         castCooldownTime = defaultCastCooldownTime;
         moveSpeed = defaultMoveSpeed;
         projectileSize = defaultProjectileSize;
-        destroyOnImpact = defaultDestroyOnImpact;
+        destroyOnEnemyImpact = defaultDestroyOnEnemyImpact;
+        destroyOnEnvironmentImpact = defaultDestroyOnEnvironmentImpact;
+        damageOverTime = defaultDamageOverTime;
     }    
 
+    public void SetManaCost(int newValue) => manaCost = newValue;
     public void SetProjectileSize(Vector3 newValue) => projectileSize = newValue;
 
     public void SetMoveSpeed(float newValue) => moveSpeed = newValue;
 
-    public bool isAuto;
-    public void SetAutomaticFireRate(bool newValue) => isAuto = newValue;
-
     public void SetCastCooldownTime(float newValue) => castCooldownTime = newValue;
+
+    public void SetDamage(int newValue) => damage = newValue;
+
+    public void SetDestroyOnEnemyImpact(bool newValue) => destroyOnEnemyImpact = newValue;
+
+    public void SetDestroyOnEnvironmentalImpact(bool newValue) => destroyOnEnvironmentImpact = newValue;
+
+    public void SetDamageOverTime(bool value) => damageOverTime = value;
 }

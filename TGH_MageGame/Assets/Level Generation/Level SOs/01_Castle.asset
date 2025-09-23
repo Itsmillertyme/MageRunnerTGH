@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 222a2e830197ac74e8fd2d82894f5550, type: 3}
+  m_Name: 01_Castle
+  m_EditorClassIdentifier: 
+  startRoom: {fileID: 2925029470820409178, guid: 825eb623e4065c44fb5302229cf175ea, type: 3}
+  straights:
+  - {fileID: 9127894747978123092, guid: 525342d381208bb4698f84d15113a51d, type: 3}
+  - {fileID: 8313689084408099964, guid: 7f2d08bc4b861fa498eb1d3815c52a35, type: 3}
+  corners:
+  - {fileID: 7840926861662678586, guid: aa9378af5b1ac444ebde209e80ce3182, type: 3}
+  - {fileID: 9116467655901005845, guid: 20917373f98b1284e846b8c9c9c608e7, type: 3}
+  - {fileID: 1554568518308327115, guid: 9edc4356186a8ac499e789fc8d5290c9, type: 3}
+  - {fileID: 1554568518308327115, guid: cf419c0f90666c647b2d6893cbaed53e, type: 3}
+  junctions:
+  - {fileID: 9144332681056205304, guid: a3e6f0bf7e4677f4abca8cedc49afa0d, type: 3}
+  deadEnds:
+  - {fileID: 2154146922595351453, guid: 03bdb01773220a4458d0406df820c25f, type: 3}
+  horizontalConnectors:
+  - {fileID: 8027053354991310902, guid: 1313b48433a2b6540b66f11ecf35bf3c, type: 3}
+  verticalConnectors:
+  - {fileID: 8027053354991310902, guid: 63589b7d2a1ae0542910be1e5c63ad86, type: 3}
+  maxWidth: 300
+  maxHeight: 150

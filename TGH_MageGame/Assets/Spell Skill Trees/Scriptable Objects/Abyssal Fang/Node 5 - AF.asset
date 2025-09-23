@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Node 5 - AF
   m_EditorClassIdentifier: 
   upgradeName: Obstacle Piercing
-  prerequisiteUpgrades: []
-  upgrade: {fileID: 0}
+  prerequisiteUpgrades:
+  - {fileID: 11400000, guid: 0f975e836e7956341ac3a52c11c1c0b5, type: 2}
+  upgrade: {fileID: 11400000, guid: 823ea2a8f7d584f48881e3ef69dd24fd, type: 2}

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UpgradeFireRate : SpellSkillUpgrade
 {
-    [Tooltip("Amount to be subtracted from the base value")]
+    [Tooltip("Amount to be subtracted from the base value of cast cooldown time")]
     [SerializeField] private float reduction;
 
     public override void Apply(Spell spell)

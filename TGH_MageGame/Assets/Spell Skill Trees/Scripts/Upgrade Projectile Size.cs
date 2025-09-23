@@ -4,12 +4,21 @@ using UnityEngine;
 
 public class UpgradeProjectileSize : SpellSkillUpgrade
 {
+    [Header("Only edit one of the two attributes")]
     [Tooltip("Amount to be added to the base value")]
-    [SerializeField] private Vector3 sizeIncrease;
+    [SerializeField] private Vector3 sizeIncreaseVector3;
+    [SerializeField] private float sizeIncreaseFloat;
 
     public override void Apply(Spell spell)
     {
-        spell.SetProjectileSize(spell.ProjectileSize + sizeIncrease);
-        Debug.Log($"{spell.Name} projectile size increased {spell.ProjectileSize + sizeIncrease}");
+        switch (spell)
+        {
+            case ShatterstoneBarrage sb:
+                sb.SetProjectileSizeScalar(sb.ProjectileSizeScalar + sizeIncreaseFloat);
+                break;
+            default:
+                spell.SetProjectileSize(spell.ProjectileSize + sizeIncreaseVector3);
+                break;
+        }
     }
 }

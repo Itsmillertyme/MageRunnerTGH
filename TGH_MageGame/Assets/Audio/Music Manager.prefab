@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2c8deaafc8649b47be7eda40219f9ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backgroundVolume: 0.3
+  backgroundVolume: 0.025
   soundTrack:
   - {fileID: 11400000, guid: 3e63953a8dd812a42afdf5cc7bb2b95c, type: 2}
   - {fileID: 11400000, guid: ffe61e4b3189ca046a5bd33c3a554790, type: 2}

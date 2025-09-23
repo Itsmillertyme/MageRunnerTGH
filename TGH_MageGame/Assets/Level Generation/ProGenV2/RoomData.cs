@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RoomData : MonoBehaviour {
-    //**PROPERTIES**
+
     [Header("Room Data")]
     [SerializeField] RoomType roomType;
 
@@ -14,26 +14,70 @@ public class RoomData : MonoBehaviour {
     [SerializeField] Transform topLeftObject;
     [SerializeField] Transform bottomRightObject;
 
-    //**FIELDS**
-    public RoomType RoomType { get => roomType; set => roomType = value; }
-    public List<PortalData> Portals { get => portals; set => portals = value; }
-    public List<Transform> EnemySpawns { get => enemySpawns; set => enemySpawns = value; }
-    public Transform PlayerSpawn { get => playerSpawn; set => playerSpawn = value; }
-    public Transform PathNode { get => pathNode; set => pathNode = value; }
-    public Transform TopLeftObject { get => topLeftObject; set => topLeftObject = value; }
-    public Transform BottomRightObject { get => bottomRightObject; set => bottomRightObject = value; }
+    //**PROPERTIES**
+    public RoomType RoomType { get => roomType; }
+    public List<PortalData> Portals { get => portals; }
+    public List<Transform> EnemySpawns { get => enemySpawns; }
+    public Transform PlayerSpawn { get => playerSpawn; }
+    public Transform PathNode { get => pathNode; }
+    public Transform TopLeftObject { get => topLeftObject; }
+    public Transform BottomRightObject { get => bottomRightObject; }
+
+    public int Width => Mathf.Abs(Mathf.RoundToInt(bottomRightObject.position.x - topLeftObject.position.x));
+    public int Height => Mathf.Abs(Mathf.RoundToInt(topLeftObject.position.y - bottomRightObject.position.y));
+    public Vector2Int Center => new Vector2Int(Mathf.RoundToInt((topLeftObject.position.x + bottomRightObject.position.x) / 2), Mathf.RoundToInt((topLeftObject.position.y + bottomRightObject.position.y) / 2));
 
 
 
     //**UNITY METHODS**
     private void Awake() {
+        Debug.Log($"{name} Awake called. Portals before init: {portals.Count}");
 
+        // Initialize all portals
+        if (Application.isPlaying) {
+            InitializePortals();
+        }
+
+        Debug.Log($"{name} Awake finished. Portals after init: {portals.Count}");
     }
+
+    //**UTILITY METHODS**
+    //Fetches whether there is an active portal in the given direction
+    public bool HasPortalInDirection(PortalDirection direction) {
+        foreach (PortalData portal in portals) {
+            if (portal.PortalDirection == direction) {
+                return true;
+            }
+        }
+        return false;
+    }
+    //Fetches the portal in the given direction, or null if none exists
+    public PortalData GetPortalInDirection(PortalDirection direction) {
+        foreach (PortalData portal in portals) {
+            if (portal.PortalDirection == direction) {
+                return portal;
+            }
+        }
+        return null;
+    }
+    //
+    public void InitializePortals() {
+        foreach (PortalData portal in portals) {
+            if (portal != null) {
+                portal.PortalRoom = this;
+                portal.IsActive = true; //default to active
+                portal.IsConnected = false; //default to unconnected
+                portal.LinkedPortal = null;
+            }
+        }
+    }
+
 }
 
 public enum RoomType {
     Junction,
     Straight,
     Corner,
-    DeadEnd
+    DeadEnd,
+    Connector
 }

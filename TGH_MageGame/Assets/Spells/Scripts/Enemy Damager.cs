@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyDamager : MonoBehaviour
@@ -11,45 +12,13 @@ public class EnemyDamager : MonoBehaviour
 
     private void Start()
     {
-        //STAT INTEGRATION
-        bonusStatDamage = (int)GameObject.Find("Player").GetComponent<PlayerController>().PlayerStats["Damage"].StatValue;
-
         Destroy(gameObject, lifeSpan);
     }
 
-    //private void OnCollisionEnter(Collision collision)
-    //{
-
-    //    if (collision.gameObject.CompareTag("Mob Enemy"))
-    //    {
-    //        collision.gameObject.GetComponent<EnemyHealth>().RemoveFromHealth(damage);
-
-    //        if (destroyOnEnemyImpact)
-    //        {
-    //            Destroy(gameObject);
-    //        }
-    //    }
-    //    else if (collision.gameObject.CompareTag("Boss Enemy"))
-    //    {
-    //        collision.gameObject.GetComponent<BossHealth>().RemoveFromHealth(damage);
-
-    //        if (destroyOnEnemyImpact)
-    //        {
-    //            Destroy(gameObject);
-    //        }
-    //    }
-    //    else if (collision.gameObject.CompareTag("Platform") && !destroyOnPlatformImpact)
-    //    {
-    //        // Do nothing, projectile will not be destroyed on platform impact
-    //    }
-    //    else
-    //    {
-    //        Destroy(gameObject);
-    //    }
-    //}
-
     private void OnTriggerEnter(Collider collided)
     {
+        // ADD SOUND EFFECT ON AN COLLISION
+        AddSFXObject(collided);
 
         if (collided.gameObject.CompareTag("Mob Enemy"))
         {
@@ -108,5 +77,11 @@ public class EnemyDamager : MonoBehaviour
         {
             return false;
         }
+    }
+
+    private void AddSFXObject(Collider collided)
+    {
+        AudioSource audioSource = collided.AddComponent<AudioSource>();
+        //audioSource.
     }
 }

@@ -3731,8 +3731,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1965837439}
   - component: {fileID: 1965837438}
+  - component: {fileID: 1965837440}
   m_Layer: 0
-  m_Name: Notes
+  m_Name: Debug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3752,7 +3753,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayNotes: 0
   notes:
-  - abf, fix coroutine on alt hand
+  - Change damager to pass in spell only. use values from it. that way we can get
+    audiosource
   - tc, fix collider size issue
   - 'add mana ammo count and rewrite the spellbook logic for mana cost and use. '
   - 'add audio impacts on projectiles '
@@ -3761,6 +3763,7 @@ MonoBehaviour:
   - add "canmove" active param for checking with player controller. should check
     with can traverse while cast which will be a new all spell attribute
   - fix game stats being called with a find.
+  - SPAWN POINTS in lvl1 on spellbook
 --- !u!4 &1965837439
 Transform:
   m_ObjectHideFlags: 0
@@ -3776,6 +3779,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1965837440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965837437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 603b27c86cd782e47b114febf09cb8a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slowTimeScale: 0.1
 --- !u!1001 &1969715672
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4123,11 +4139,11 @@ PrefabInstance:
     - target: {fileID: 8870210333477321073, guid: 41a0755bad083f642a64c68234a56d74, type: 3}
       propertyPath: 'spellSpawnPoints.Array.data[0]'
       value: 
-      objectReference: {fileID: 1322239859}
+      objectReference: {fileID: 1379562800}
     - target: {fileID: 8870210333477321073, guid: 41a0755bad083f642a64c68234a56d74, type: 3}
       propertyPath: 'spellSpawnPoints.Array.data[1]'
       value: 
-      objectReference: {fileID: 1379562800}
+      objectReference: {fileID: 1322239859}
     - target: {fileID: 8870210333477321073, guid: 41a0755bad083f642a64c68234a56d74, type: 3}
       propertyPath: 'spellSpawnPoints.Array.data[2]'
       value: 
@@ -4414,5 +4430,5 @@ SceneRoots:
   - {fileID: 1442783086}
   - {fileID: 521672897}
   - {fileID: 6127100166466875496}
-  - {fileID: 1965837439}
   - {fileID: 209372272}
+  - {fileID: 1965837439}

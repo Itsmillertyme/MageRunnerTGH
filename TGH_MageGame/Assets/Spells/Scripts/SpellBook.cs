@@ -24,6 +24,7 @@ public class SpellBook : MonoBehaviour
     // VARIABLES
     public int ActiveSpell => currentSpellIndex;
     public bool IsReadyToCast => isReadyToCast;
+    public PlayerStats PlayerStats => playerStats;
 
     // METHODS
     //public Transform GetSpellSpawnPoint() => spellSpawnPoints[currentSpellIndex]; // GETTER FOR ACTIVE SPELL SPAWN POINT FOR CAST
@@ -70,25 +71,25 @@ public class SpellBook : MonoBehaviour
 
     public Transform GetSpellSpawnPosition()
     {
-        // POSITIONS: 0 IS RH, 1 IS LH, 2 IS CHEST, 3 IS GROUND, 4 IS SKY
+        // POSITIONS: 0 IS LH, 1 IS RH, 2 IS CHEST, 3 IS GROUND, 4 IS SKY
         switch (spellBook[currentSpellIndex])
         {
             case AbyssalFang:
                 currentSpawnPoint = spellSpawnPoints[0];
                 break;
-            case HeavensLament:
-                currentSpawnPoint = spellSpawnPoints[2];
-                break;
-            case InfernalEmbrace:
-                currentSpawnPoint = spellSpawnPoints[0];
-                break;
+            //case HeavensLament:
+            //    currentSpawnPoint = spellSpawnPoints[2];
+            //    break;
+            //case InfernalEmbrace:
+            //    currentSpawnPoint = spellSpawnPoints[0];
+            //    break;
             case ShatterstoneBarrage:
                 currentSpawnPoint = spellSpawnPoints[3];
                 break;
             // THUNDERLORDS CASCADE DOESN'T NEED A SPAWN POINT
-            case WintersWrath:
-                currentSpawnPoint = spellSpawnPoints[3];
-                break;
+            //case WintersWrath:
+            //    currentSpawnPoint = spellSpawnPoints[3];
+            //    break;
         }
 
         return currentSpawnPoint;
@@ -112,6 +113,7 @@ public class SpellBook : MonoBehaviour
         {
             case AbyssalFang af:
                 CastAbyssalFang(af, currentSpawnPoint.position, gameManager.CrosshairPositionIn3DSpace);
+                isReadyToCast = false;
                 StartCoroutine(CooldownThenCastAltHandAbyssalFang(af, af.CastAltHandCooldownTime));
                 break;
             //case HeavensLament hl:

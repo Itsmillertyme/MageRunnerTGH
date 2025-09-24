@@ -53,6 +53,14 @@ public abstract class Spell : ScriptableObject
     [Header("Unlock Status")]
     [SerializeField] private bool isUnlocked;
 
+    [Header("References Gathered On Awake")]
+    private PlayerStats playerStats;
+
+    private void OnEnable()
+    {
+        playerStats = FindFirstObjectByType<SpellBook>().PlayerStats;
+    }
+
     #region GETTERS
     public string Name => name;
     public int ManaCost => manaCost;
@@ -76,7 +84,7 @@ public abstract class Spell : ScriptableObject
     public void Initialize()
     {
         manaCost = defaultManaCost;
-        damage = defaultDamage;
+        damage = defaultDamage + playerStats.baseAttackDamage; // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx waiting on feedback
         lifeSpan = defaultLifeSpan;
         castDelayTime = defaultCastDelayTime;
         castCooldownTime = defaultCastCooldownTime;

@@ -22,21 +22,19 @@ MonoBehaviour:
   defaultCastCooldownTime: 1
   defaultMoveSpeed: 0
   defaultProjectileSize: {x: 2.2, y: 1, z: 1}
-  defaultDestroyOnImpact: 0
-  manaCost: 10
-  damage: 20
-  lifeSpan: 1
-  castDelayTime: 0.3
-  castCooldownTime: 1
-  moveSpeed: 0
-  projectileSize: {x: 2.2, y: 1, z: 1}
-  destroyOnImpact: 0
+  defaultDestroyOnEnemyImpact: 0
+  defaultDestroyOnEnvironmentImpact: 0
+  defaultDamageOverTime: 0
   projectile: {fileID: 6217830414919029886, guid: b17c54899f071eb49ba7583372e662e6, type: 3}
   spawnSFX: {fileID: 8300000, guid: d078d1af61f4b3046b3c112735abdcf9, type: 3}
+  spawnSFXVolume: 0
+  spawnSFXPitch: 0
   hitSFX: {fileID: 8300000, guid: 4872456dc12dd4d4da6e98de793d365e, type: 3}
+  hitSFXVolume: 0
+  hitSFXPitch: 0
+  hitSFXPrefab: {fileID: 3504064766699411386, guid: 4609a9ad124764942b0af0e484dab43f, type: 3}
   castAnimation: {fileID: 7400000, guid: 923c3e14b6a36064d867f4530b447b9d, type: 2}
   icon: {fileID: 21300000, guid: 916cbc7dd18d79d439f504fa46087f68, type: 3}
   reticle: {fileID: 21300000, guid: 82968af8344fa0b468e5b4971940b6d3, type: 3}
   isUnlocked: 0
-  isAuto: 0
   vfxPrefab: {fileID: 4539411528033638731, guid: 6ddd438cfa780b34c8ee3b5305edad30, type: 3}

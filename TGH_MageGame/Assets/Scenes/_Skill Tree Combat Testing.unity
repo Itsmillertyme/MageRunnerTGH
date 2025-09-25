@@ -3753,17 +3753,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayNotes: 0
   notes:
-  - Change damager to pass in spell only. use values from it. that way we can get
-    audiosource
-  - tc, fix collider size issue
+  - TC, fix collider size issue
+  - TC, delay dust effects with spawn delay. then increase delay to 1ish
   - 'add mana ammo count and rewrite the spellbook logic for mana cost and use. '
-  - 'add audio impacts on projectiles '
-  - 'on scripts for spells, create a solution for damage impact spawning of sound
-    and effect.  '
-  - add "canmove" active param for checking with player controller. should check
-    with can traverse while cast which will be a new all spell attribute
-  - fix game stats being called with a find.
-  - SPAWN POINTS in lvl1 on spellbook
+  - MERGE, SPAWN POINTS in lvl1 on spellbook
+  - MERGE add the player controller lines shown to jacob
+  - MERGE add the player controller lines shown to jacob
+  - MERGE I added a canmovewhilecast for player controller so that we can lock movement
+    during certain spells
 --- !u!4 &1965837439
 Transform:
   m_ObjectHideFlags: 0

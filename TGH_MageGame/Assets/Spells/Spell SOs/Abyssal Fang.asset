@@ -25,9 +25,15 @@ MonoBehaviour:
   defaultDestroyOnEnemyImpact: 1
   defaultDestroyOnEnvironmentImpact: 1
   defaultDamageOverTime: 0
+  defaultCanMoveWhileCasting: 1
   projectile: {fileID: 5685377436292771932, guid: ae3ed7fd0b25522409d3baf333af4720, type: 3}
   spawnSFX: {fileID: 8300000, guid: f5e870bcbf26ca04d8159c5faaad6a84, type: 3}
+  spawnSFXVolume: 1
+  spawnSFXPitch: 0.88
   hitSFX: {fileID: 8300000, guid: e1d61468a269b2343962d97c42dcb20f, type: 3}
+  hitSFXVolume: 0.21
+  hitSFXPitch: 0.57
+  hitSFXPrefab: {fileID: 3504064766699411386, guid: 4609a9ad124764942b0af0e484dab43f, type: 3}
   castAnimation: {fileID: 7400000, guid: 653c1b3e8dcbb8242b1269f433990ab0, type: 2}
   icon: {fileID: 21300000, guid: 4029a9cfeb86f134c9c5af05993eaac8, type: 3}
   reticle: {fileID: 21300000, guid: 12437f522baabf744ae290bba6780b6d, type: 3}

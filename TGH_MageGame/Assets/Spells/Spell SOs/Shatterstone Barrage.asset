@@ -23,10 +23,16 @@ MonoBehaviour:
   defaultMoveSpeed: 35
   defaultProjectileSize: {x: 0.3, y: 0.3, z: 0.3}
   defaultDestroyOnEnemyImpact: 1
-  defaultDestroyOnEnvironmentImpact: 1
+  defaultDestroyOnEnvironmentImpact: 0
+  defaultDamageOverTime: 0
   projectile: {fileID: 0}
   spawnSFX: {fileID: 8300000, guid: b99c3b8b3053ff5489ffb9a8d8c51286, type: 3}
+  spawnSFXVolume: 0.556
+  spawnSFXPitch: 0.71
   hitSFX: {fileID: 8300000, guid: d5af729c639e9a0438716881df40bd1c, type: 3}
+  hitSFXVolume: 0.123
+  hitSFXPitch: 1.01
+  hitSFXPrefab: {fileID: 3504064766699411386, guid: 4609a9ad124764942b0af0e484dab43f, type: 3}
   castAnimation: {fileID: 7400000, guid: 42655518abd596849af4805a991c6153, type: 2}
   icon: {fileID: 21300000, guid: dd77e5174e333744bb6a35c62f607bfc, type: 3}
   reticle: {fileID: 21300000, guid: 24e774678ccc4c2498483de1155380d6, type: 3}

@@ -35,6 +35,8 @@ public class SpellBook : MonoBehaviour
     public float GetSpellCastDelayTime() => spellBook[currentSpellIndex].CastDelayTime; // GETTER FOR CAST DELAY TIME
     public float GetSpellManaCost() => spellBook[currentSpellIndex].ManaCost; // GETTER FOR ACTIVE SPELL MANA COST
     public AudioClip GetSpellSpawnSound() => spellBook[currentSpellIndex].SpawnSFX; // GETTER FOR ACTIVE SPELL SPAWN SOUND
+    public float GetSpellSpawnVolume() => spellBook[currentSpellIndex].SpawnSFXVolume; // GETTER FOR ACTIVE SPELL SFX VOLUME
+    public float GetSpellSpawnPitch() => spellBook[currentSpellIndex].SpawnSFXPitch + RandomPitch(); // GETTER FOR ACTIVE SPELL SFX PITCH
     #endregion
 
     #region // DRIVEN
@@ -139,7 +141,7 @@ public class SpellBook : MonoBehaviour
     {
         GameObject newProjectile = Instantiate(spellBook[currentSpellIndex].Projectile, position, Quaternion.identity);
         newProjectile.GetComponent<AbyssalFangProjectileMovement>().SetAttributes(spellBook[currentSpellIndex].MoveSpeed, spellBook[currentSpellIndex].ProjectileSize, direction);
-        newProjectile.GetComponent<EnemyDamager>().SetAttributes(af.Damage, af.LifeSpan, af.DestroyOnEnemyImpact, af.DestroyOnEnvironmentImpact, af.DamageOverTime);
+        newProjectile.GetComponent<EnemyDamager>().SetAttributes(spellBook[currentSpellIndex]);
     }
 
     public IEnumerator CooldownThenCastAltHandAbyssalFang(AbyssalFang af, float waitTime) // THERE IS A BUG WHERE YOU CAN SPAM THE ALT HAND CAST WHEN YOU SHOULD NOT BE ABLE TO CAST
@@ -202,7 +204,7 @@ public class SpellBook : MonoBehaviour
     private void SetThunderlordsCascadeProjectile(ThunderlordsCascade tc, GameObject gameObject)
     {
         // ENEMY DAMAGER
-        gameObject.GetComponentInChildren<EnemyDamager>().SetAttributes(tc.Damage, tc.LifeSpan, tc.DestroyOnEnemyImpact, tc.DestroyOnEnvironmentImpact, tc.DamageOverTime);
+        gameObject.GetComponentInChildren<EnemyDamager>().SetAttributes(spellBook[currentSpellIndex]);
         Destroy(gameObject, tc.LifeSpan); // DESTROY ON DAMAGER DOESN'T WORK BECAUSE COLLISION LOGIC IS ON CHILD
 
         // PARTICLE SYSTEM REFERENCE
@@ -305,5 +307,11 @@ public class SpellBook : MonoBehaviour
     public void HotSwitchSpell()
     {
         SetSpellByIndex(lastActiveSpell);
+    }
+
+    private float RandomPitch()
+    {
+        float variance = Random.Range(-0.1f, 0.1f);
+        return variance;
     }
 }

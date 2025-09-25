@@ -1,14 +1,14 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyDamager : MonoBehaviour
 {
+    [SerializeField] private GameObject impactSFXPrefab;
     private int damage;
     private float lifeSpan;
     private bool destroyOnEnemyImpact;
     private bool destroyOnPlatformImpact;
-    private int bonusStatDamage;
     private bool addDamageOverTime;
+    private Spell spell;
 
     private void Start()
     {
@@ -58,13 +58,14 @@ public class EnemyDamager : MonoBehaviour
         }
     }
 
-    public void SetAttributes(int newDamage, float newLifeSpan, bool newDestroyOnEnemyImpact, bool newDestroyOnPlatformImpact, bool newDamageOverTime)
+    public void SetAttributes(Spell newSpell)
     {
-        damage = newDamage + bonusStatDamage;
-        lifeSpan = newLifeSpan;
-        destroyOnEnemyImpact = newDestroyOnEnemyImpact;
-        destroyOnPlatformImpact = newDestroyOnPlatformImpact;
-        addDamageOverTime = newDamageOverTime;
+        spell = newSpell;
+        damage = spell.Damage;
+        lifeSpan = spell.LifeSpan;
+        destroyOnEnemyImpact = spell.DestroyOnEnemyImpact;
+        destroyOnPlatformImpact = spell.DestroyOnEnvironmentImpact;
+        addDamageOverTime = spell.DamageOverTime;
     }
 
     private bool NoDamageOverTimeAlreadyExists(GameObject enemy)
@@ -81,7 +82,12 @@ public class EnemyDamager : MonoBehaviour
 
     private void AddSFXObject(Collider collided)
     {
-        AudioSource audioSource = collided.AddComponent<AudioSource>();
-        //audioSource.
+        GameObject projectile = Instantiate(spell.HitSFXPrefab, transform.position, Quaternion.identity);
+        projectile.GetComponent<SpellImpactSFX>().BeginEffect(spell);
+    }
+
+    public void SetPrefab(GameObject runtimeObject)
+    {
+        impactSFXPrefab = runtimeObject;
     }
 }

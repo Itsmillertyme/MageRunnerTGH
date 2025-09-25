@@ -21,6 +21,7 @@ public abstract class Spell : ScriptableObject
     [SerializeField] private bool defaultDestroyOnEnemyImpact;
     [SerializeField] private bool defaultDestroyOnEnvironmentImpact;
     [SerializeField] private bool defaultDamageOverTime;
+    [SerializeField] private bool defaultCanMoveWhileCasting;
 
     [Header("NO EDIT - Current Attributes")] // TEMP. ONCE WE HAVE SAVES, THIS WILL GO AWAY AND DEFAULT WILL BECOME CURRENT
     private int manaCost;
@@ -35,13 +36,23 @@ public abstract class Spell : ScriptableObject
     private bool destroyOnEnemyImpact;
     private bool destroyOnEnvironmentImpact;
     private bool damageOverTime;
+    private bool canMoveWhileCasting;
 
     [Header("Prefab")]
     [SerializeField] private GameObject projectile;
 
     [Header("SFX")]
     [SerializeField] private AudioClip spawnSFX;
-    [SerializeField] private AudioClip hitSFX; // UNUSED // NO GETTER
+    [Range(0f, 1f)]
+    [SerializeField] private float spawnSFXVolume;
+    [Range(-3f, 3f)]
+    [SerializeField] private float spawnSFXPitch;
+    [SerializeField] private AudioClip hitSFX;
+    [Range(0f, 1f)]
+    [SerializeField] private float hitSFXVolume;
+    [Range(-3f, 3f)]
+    [SerializeField] private float hitSFXPitch;
+    [SerializeField] private GameObject hitSFXPrefab;
 
     [Header("Animation")]
     [SerializeField] private AnimationClip castAnimation;
@@ -52,14 +63,6 @@ public abstract class Spell : ScriptableObject
 
     [Header("Unlock Status")]
     [SerializeField] private bool isUnlocked;
-
-    [Header("References Gathered On Awake")]
-    private PlayerStats playerStats;
-
-    private void OnEnable()
-    {
-        playerStats = FindFirstObjectByType<SpellBook>().PlayerStats;
-    }
 
     #region GETTERS
     public string Name => name;
@@ -73,8 +76,15 @@ public abstract class Spell : ScriptableObject
     public bool DestroyOnEnemyImpact => destroyOnEnemyImpact;
     public bool DestroyOnEnvironmentImpact => destroyOnEnvironmentImpact;
     public bool DamageOverTime => damageOverTime;
+    public bool CanMoveWhileCasting => canMoveWhileCasting;
     public GameObject Projectile => projectile;
     public AudioClip SpawnSFX => spawnSFX;
+    public float SpawnSFXVolume => spawnSFXVolume;
+    public float SpawnSFXPitch => spawnSFXPitch;
+    public AudioClip HitSFX => hitSFX;
+    public float HitSFXPitch => hitSFXPitch;
+    public float HitSFXVolume => hitSFXVolume;
+    public GameObject HitSFXPrefab => hitSFXPrefab;
     public AnimationClip CastAnimation => castAnimation;
     public Sprite SpellIcon => icon;
     public Sprite Reticle => reticle;
@@ -84,7 +94,7 @@ public abstract class Spell : ScriptableObject
     public void Initialize()
     {
         manaCost = defaultManaCost;
-        damage = defaultDamage + playerStats.baseAttackDamage; // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx waiting on feedback
+        damage = defaultDamage;
         lifeSpan = defaultLifeSpan;
         castDelayTime = defaultCastDelayTime;
         castCooldownTime = defaultCastCooldownTime;

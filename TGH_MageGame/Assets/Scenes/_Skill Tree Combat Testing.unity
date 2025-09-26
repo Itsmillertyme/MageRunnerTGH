@@ -3758,6 +3758,7 @@ MonoBehaviour:
   - TC, Lighting controller
   - 'add mana ammo count and rewrite the spellbook logic for mana cost and use. '
   - animation syncing/timing with spells
+  - Spell tree skill point system and leveling of spells
   - MERGE, SPAWN POINTS in lvl1 on spellbook
   - MERGE add the player controller lines shown to jacob
   - MERGE I added a canmovewhilecast for player controller so that we can lock movement

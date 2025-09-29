@@ -1,18 +1,27 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.AI.Navigation;
 using UnityEngine;
-
+using UnityEngine.AI;
+[RequireComponent(typeof(NavMeshLinkBuilder))]
+[RequireComponent(typeof(MaskGeneratorPG2))]
+[RequireComponent(typeof(EnemySpawnerPG2))]
 public class LevelGenerator : MonoBehaviour {
     #region Variables
-    [Header("Level Setup")]
+    [Header("Level Data")]
     [SerializeField] LevelData levelData;
-    [SerializeField] StartRoomPosition startRoomPosition = StartRoomPosition.CENTER; //default to center
-    [SerializeField] Transform levelParent;
+    [SerializeField] NavMeshSurface navMeshSurface;
 
     [Header("Level Settings")]
+    [SerializeField] StartRoomPosition startRoomPosition = StartRoomPosition.CENTER; //default to center
     [Range(0f, 1f)]
     [SerializeField] float deadEndChance;
     [SerializeField] bool debugMode;
+
+    [Header("Parent References")]
+    [SerializeField] Transform levelParent;
+    [SerializeField] Transform maskParent;
+    [SerializeField] Transform enemyParent;
 
     //**FIELDS**
     RoomSelector roomSelector;
@@ -57,12 +66,38 @@ public class LevelGenerator : MonoBehaviour {
     }
     //finish level gen
     void FinalizeLevel() {
+        //Close any remaining portals
+        Debug.Log($"scanning {placedRooms.Count} placed rooms");
         foreach (KeyValuePair<Vector2Int, RoomInstance> placedRoom in placedRooms) {
             RoomInstance room = placedRoom.Value;
+
+            Debug.Log($"Closing {room.GetActiveUnconnectedPortals().Count} unconnected portals");
             foreach (PortalData portal in room.GetActiveUnconnectedPortals()) {
                 portal.ClosePortal();
             }
         }
+
+        //Bake navmesh
+        if (navMeshSurface != null) {
+
+            if (debugMode) {
+                Debug.Log("Building NavMesh...");
+            }
+            navMeshSurface.BuildNavMesh();
+        }
+
+        NavMeshLinkBuilder linkBuilder = GetComponent<NavMeshLinkBuilder>();
+        linkBuilder.BuildAll();
+
+        //Create mask
+        MaskGeneratorPG2 maskGen = GetComponent<MaskGeneratorPG2>();
+        List<RoomData> rooms = placedRooms.Values.Select(r => r.RoomData).ToList();
+        maskGen.GenerateMaskMesh(rooms, levelData.MaxWidth, levelData.MaxHeight);
+
+        //Spawn Enemies
+        EnemySpawnerPG2 enemySpawner = GetComponent<EnemySpawnerPG2>();
+        enemySpawner.SpawnEnemies(placedRooms, enemyParent);
+
     }
     //Place start room at designated position
     void PlaceStartRoom() {
@@ -747,6 +782,47 @@ public class LevelGenerator : MonoBehaviour {
 #endif
             }
         }
+
+        //Remove mask
+        if (maskParent != null) {
+            var children = new List<GameObject>();
+            foreach (Transform child in maskParent) {
+                children.Add(child.gameObject);
+            }
+
+            foreach (GameObject child in children) {
+#if UNITY_EDITOR
+                if (!Application.isPlaying)
+                    DestroyImmediate(child);
+                else
+                    Destroy(child);
+#else
+            Destroy(child);
+#endif
+            }
+        }
+
+        //Remove enemies
+        if (enemyParent != null) {
+            var children = new List<GameObject>();
+            foreach (Transform child in enemyParent) {
+                children.Add(child.gameObject);
+            }
+
+            foreach (GameObject child in children) {
+#if UNITY_EDITOR
+                if (!Application.isPlaying)
+                    DestroyImmediate(child);
+                else
+                    Destroy(child);
+#else
+            Destroy(child);
+#endif
+            }
+        }
+
+        //Remove NavMesh
+        NavMesh.RemoveAllNavMeshData();
     }
 
     #endregion

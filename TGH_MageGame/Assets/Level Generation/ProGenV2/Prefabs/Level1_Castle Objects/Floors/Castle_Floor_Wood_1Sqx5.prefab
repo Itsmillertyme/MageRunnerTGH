@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 33672133090232686}
   - component: {fileID: 23434468066441550}
   - component: {fileID: 64521005816444806}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Castle_Floor_Wood_1Sqx5
   m_TagString: Untagged
   m_Icon: {fileID: 0}

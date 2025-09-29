@@ -668,6 +668,8 @@ public class PlayerController : MonoBehaviour {
 
             //play cast sound
             audioSource.resource = spellBook.GetSpellSpawnSound();
+            //audioSource.volume = spellBook.GetSpellSpawnSoundVolume();
+            //audioSource.pitch = spellBook.GetSpellSpawnSoundPitch();
             audioSource.Play();
 
             //Set anim delay

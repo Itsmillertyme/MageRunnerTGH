@@ -121,7 +121,6 @@ GameObject:
   - component: {fileID: 33701973520255614}
   - component: {fileID: 23644411709814144}
   - component: {fileID: 64546997089513118}
-  - component: {fileID: -6606243065130778576}
   m_Layer: 0
   m_Name: SM_Bld_Castle_Wall_Gate_L_01
   m_TagString: Untagged
@@ -222,23 +221,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: f8938770e15fc924c85e53f8ab1aeacf, type: 3}
---- !u!114 &-6606243065130778576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1474201465068626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35e95dc5ff2b64380880dd7ac5922847, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SerializedVersion: 0
-  m_Size: {x: 8, y: 16, z: 3}
-  m_Center: {x: -2.56, y: 7.5, z: 0.2}
-  m_Area: 1
-  m_AffectedAgents: ffffffff
 --- !u!1 &1608817535007850
 GameObject:
   m_ObjectHideFlags: 0

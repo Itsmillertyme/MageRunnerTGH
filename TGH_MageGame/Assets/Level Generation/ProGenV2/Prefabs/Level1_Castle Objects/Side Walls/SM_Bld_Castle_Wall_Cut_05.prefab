@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 33439410305202106}
   - component: {fileID: 23612108173544530}
   - component: {fileID: 64744837094271772}
-  - component: {fileID: 169236782542781585}
   m_Layer: 0
   m_Name: SM_Bld_Castle_Wall_Cut_05
   m_TagString: Untagged
@@ -110,20 +109,3 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 43449150423275474, guid: d7a210de4316aeb4382f8d28dd82e4c3, type: 2}
---- !u!114 &169236782542781585
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1784407661406140}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35e95dc5ff2b64380880dd7ac5922847, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SerializedVersion: 0
-  m_Size: {x: 1.25, y: 2.5, z: 1}
-  m_Center: {x: -0.625, y: 1.25, z: 0}
-  m_Area: 1
-  m_AffectedAgents: ffffffff

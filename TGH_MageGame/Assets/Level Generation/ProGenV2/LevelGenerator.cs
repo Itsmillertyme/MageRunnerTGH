@@ -11,12 +11,14 @@ public class LevelGenerator : MonoBehaviour {
     [Header("Level Data")]
     [SerializeField] LevelData levelData;
     [SerializeField] NavMeshSurface navMeshSurface;
+    [SerializeField] GameObject playerPrefab;
 
     [Header("Level Settings")]
     [SerializeField] StartRoomPosition startRoomPosition = StartRoomPosition.CENTER; //default to center
     [Range(0f, 1f)]
     [SerializeField] float deadEndChance;
     [SerializeField] bool debugMode;
+    [SerializeField] bool omitMask;
 
     [Header("Parent References")]
     [SerializeField] Transform levelParent;
@@ -27,6 +29,7 @@ public class LevelGenerator : MonoBehaviour {
     RoomSelector roomSelector;
     Dictionary<Vector2Int, RoomInstance> placedRooms;
     Queue<PortalTask> openPortals;
+    PlayerController player;
     #endregion
 
     #region Unity Methods
@@ -64,6 +67,7 @@ public class LevelGenerator : MonoBehaviour {
         placedRooms = new Dictionary<Vector2Int, RoomInstance>();
         openPortals = new Queue<PortalTask>();
     }
+
     //finish level gen
     void FinalizeLevel() {
         //Close any remaining portals
@@ -71,8 +75,8 @@ public class LevelGenerator : MonoBehaviour {
         foreach (KeyValuePair<Vector2Int, RoomInstance> placedRoom in placedRooms) {
             RoomInstance room = placedRoom.Value;
 
-            Debug.Log($"Closing {room.GetActiveUnconnectedPortals().Count} unconnected portals");
-            foreach (PortalData portal in room.GetActiveUnconnectedPortals()) {
+            Debug.Log($"Closing {room.GetActiveUnconnectedPortals(debugMode).Count} unconnected portals");
+            foreach (PortalData portal in room.GetActiveUnconnectedPortals(debugMode)) {
                 portal.ClosePortal();
             }
         }
@@ -90,15 +94,18 @@ public class LevelGenerator : MonoBehaviour {
         linkBuilder.BuildAll();
 
         //Create mask
-        MaskGeneratorPG2 maskGen = GetComponent<MaskGeneratorPG2>();
-        List<RoomData> rooms = placedRooms.Values.Select(r => r.RoomData).ToList();
-        maskGen.GenerateMaskMesh(rooms, levelData.MaxWidth, levelData.MaxHeight);
+        if (!omitMask) {
+            MaskGeneratorPG2 maskGen = GetComponent<MaskGeneratorPG2>();
+            List<RoomData> rooms = placedRooms.Values.Select(r => r.RoomData).ToList();
+            maskGen.GenerateMaskMesh(rooms, levelData.MaxWidth, levelData.MaxHeight);
+        }
 
         //Spawn Enemies
         EnemySpawnerPG2 enemySpawner = GetComponent<EnemySpawnerPG2>();
         enemySpawner.SpawnEnemies(placedRooms, enemyParent);
 
     }
+
     //Place start room at designated position
     void PlaceStartRoom() {
         GameObject startRoomPrefab = Instantiate(levelData.StartRoom, levelParent);
@@ -159,439 +166,23 @@ public class LevelGenerator : MonoBehaviour {
 
         //Enqueue portals
         if (debugMode) {
-            var portals = startRoomInstance.GetActiveUnconnectedPortals().ToList();
+            var portals = startRoomInstance.GetActiveUnconnectedPortals(debugMode).ToList();
             Debug.Log($"Starter room portals found: {portals.Count}");
         }
-        foreach (PortalData portal in startRoomInstance.GetActiveUnconnectedPortals()) {
+        foreach (PortalData portal in startRoomInstance.GetActiveUnconnectedPortals(debugMode)) {
             if (debugMode) {
                 Debug.Log($"Enqueueing portal {portal.PortalDirection} (Active={portal.IsActive}, Connected={portal.IsConnected})");
             }
             openPortals.Enqueue(new PortalTask(startRoomInstance, portal));
         }
+
+        //Place Player
+        GameObject playerInstance = Instantiate(playerPrefab, startRoomData.PlayerSpawn.position, Quaternion.identity, levelParent.parent);
+        player = playerInstance.GetComponent<PlayerController>();
+        if (debugMode) Debug.Log($"Player instantiated in scene at {startRoomData.PlayerSpawn.position}");
+
     }
-    //Expand level from a source portal task
-    //void TryExpandFromPortal(PortalTask portalTaskIn) {
-    //    // Helpers
-    //    RoomInstance sourceRoom = portalTaskIn.SourceRoom;
-    //    PortalData sourcePortal = portalTaskIn.SourcePortal;
-    //    //
-    //    List<GameObject> connectorList =
-    //        (sourcePortal.PortalDirection == PortalDirection.LEFT || sourcePortal.PortalDirection == PortalDirection.RIGHT) ? levelData.HorizontalConnectors : levelData.VerticalConnectors;
-    //    GameObject connectorPrefab = connectorList[Random.Range(0, connectorList.Count)];
-    //    RoomData connectorRoomDataPrefab = connectorPrefab.GetComponent<RoomData>();
-    //    PortalData connectorEntrancePrefab = connectorRoomDataPrefab.GetPortalInDirection(sourcePortal.GetOppositeDirection());
-    //    PortalData connectorExitPrefab = connectorRoomDataPrefab.GetPortalInDirection(sourcePortal.PortalDirection);
 
-    //    if (connectorEntrancePrefab == null || connectorExitPrefab == null) {
-    //        sourcePortal.ClosePortal();
-    //        return;
-    //    }
-
-    //    //Place connector
-    //    Vector3 sourcePortalWorldPos = sourcePortal.GetWorldPosition();
-    //    Vector3 connectorEntranceLocalPos = connectorEntrancePrefab.transform.localPosition;
-    //    Vector3 connectorWorldPos = sourcePortalWorldPos - connectorEntranceLocalPos;
-
-    //    Vector2Int connectorGridPos = new Vector2Int(
-    //        Mathf.RoundToInt(connectorWorldPos.x),
-    //        Mathf.RoundToInt(connectorWorldPos.y)
-    //    );
-
-    //    if (!IsWithinLevelBounds(connectorGridPos, connectorRoomDataPrefab) || !IsRoomSpaceFree(connectorGridPos, connectorRoomDataPrefab)) {
-    //        sourcePortal.ClosePortal();
-    //        return;
-    //    }
-
-    //    GameObject connectorInstanceObj = Instantiate(connectorPrefab, connectorWorldPos, Quaternion.identity, levelParent);
-    //    RoomData connectorRoomData = connectorInstanceObj.GetComponent<RoomData>();
-    //    connectorRoomData.InitializePortals();
-
-    //    RoomInstance connectorInstance = new RoomInstance(connectorRoomData, connectorGridPos);
-    //    placedRooms.Add(connectorGridPos, connectorInstance);
-
-    //    PortalData connectorEntrance = connectorRoomData.GetPortalInDirection(sourcePortal.GetOppositeDirection());
-    //    PortalData connectorExit = connectorRoomData.GetPortalInDirection(sourcePortal.PortalDirection);
-
-    //    sourceRoom.ConnectPortals(sourcePortal, connectorEntrance);
-
-    //    //Place new room
-    //    GameObject nextRoomPrefab = roomSelector.GetValidRoomPrefab(connectorExit);
-    //    if (nextRoomPrefab == null) {
-    //        if (debugMode) {
-    //            Debug.LogWarning($"No valid prefab for {sourcePortal.name} in {sourceRoom.RoomData.name}, closing portal.");
-    //        }
-    //        connectorExit.ClosePortal(); // no next room, close connector exit
-    //        return;
-    //    }
-
-    //    RoomData nextRoomDataPrefab = nextRoomPrefab.GetComponent<RoomData>();
-    //    PortalData nextRoomEntrancePrefab = nextRoomDataPrefab.GetPortalInDirection(connectorExit.GetOppositeDirection());
-    //    if (nextRoomEntrancePrefab == null) {
-    //        connectorExit.ClosePortal();
-    //        return;
-    //    }
-
-    //    Vector3 connectorExitWorldPos = connectorExit.GetWorldPosition();
-    //    Vector3 nextRoomEntranceLocalPos = nextRoomEntrancePrefab.transform.localPosition;
-    //    Vector3 nextRoomWorldPos = connectorExitWorldPos - nextRoomEntranceLocalPos;
-
-    //    Vector2Int nextRoomGridPos = new Vector2Int(
-    //        Mathf.RoundToInt(nextRoomWorldPos.x),
-    //        Mathf.RoundToInt(nextRoomWorldPos.y)
-    //    );
-
-    //    if (!IsWithinLevelBounds(nextRoomGridPos, nextRoomDataPrefab) || !IsRoomSpaceFree(nextRoomGridPos, nextRoomDataPrefab)) {
-    //        connectorExit.ClosePortal();
-    //        return;
-    //    }
-
-    //    GameObject nextRoomPrefabInstance = Instantiate(nextRoomPrefab, nextRoomWorldPos, Quaternion.identity, levelParent);
-    //    RoomData placedRoomData = nextRoomPrefabInstance.GetComponent<RoomData>();
-    //    placedRoomData.InitializePortals();
-
-    //    RoomInstance placedRoomInstance = new RoomInstance(placedRoomData, nextRoomGridPos);
-    //    placedRooms.Add(nextRoomGridPos, placedRoomInstance);
-
-    //    PortalData nextRoomEntrance = placedRoomData.GetPortalInDirection(connectorExit.GetOppositeDirection());
-    //    connectorInstance.ConnectPortals(connectorExit, nextRoomEntrance);
-
-    //    //Enqueue portals
-    //    foreach (PortalData portal in placedRoomInstance.GetActiveUnconnectedPortals()) {
-    //        if (portal != nextRoomEntrance) {
-    //            openPortals.Enqueue(new PortalTask(placedRoomInstance, portal));
-    //        }
-    //    }
-    //}
-    //void TryExpandFromPortal(PortalTask portalTaskIn) {
-    //    // Helpers
-    //    RoomInstance sourceRoom = portalTaskIn.SourceRoom;
-    //    PortalData sourcePortal = portalTaskIn.SourcePortal;
-
-    //    if (debugMode) {
-    //        Debug.Log($"[Expand] Trying to expand from {sourcePortal.PortalDirection} portal of room {sourceRoom.RoomData.name} at {sourceRoom.GridPosition}");
-    //    }
-
-    //    // Connector selection
-    //    List<GameObject> connectorList =
-    //        (sourcePortal.PortalDirection == PortalDirection.LEFT || sourcePortal.PortalDirection == PortalDirection.RIGHT)
-    //            ? levelData.HorizontalConnectors : levelData.VerticalConnectors;
-    //    GameObject connectorPrefab = connectorList[Random.Range(0, connectorList.Count)];
-    //    RoomData connectorRoomDataPrefab = connectorPrefab.GetComponent<RoomData>();
-    //    PortalData connectorEntrancePrefab = connectorRoomDataPrefab.GetPortalInDirection(sourcePortal.GetOppositeDirection());
-    //    PortalData connectorExitPrefab = connectorRoomDataPrefab.GetPortalInDirection(sourcePortal.PortalDirection);
-
-    //    if (connectorEntrancePrefab == null || connectorExitPrefab == null) {
-    //        if (debugMode) Debug.LogWarning($"[Expand] Connector prefab {connectorPrefab.name} missing entrance/exit for {sourcePortal.PortalDirection}. Closing portal.");
-    //        sourcePortal.ClosePortal();
-    //        return;
-    //    }
-
-    //    // Place connector
-    //    Vector3 sourcePortalWorldPos = sourcePortal.GetWorldPosition();
-    //    Vector3 connectorEntranceLocalPos = connectorEntrancePrefab.transform.localPosition;
-    //    Vector3 connectorWorldPos = sourcePortalWorldPos - connectorEntranceLocalPos;
-
-    //    Vector2Int connectorGridPos = new Vector2Int(
-    //        Mathf.RoundToInt(connectorWorldPos.x),
-    //        Mathf.RoundToInt(connectorWorldPos.y)
-    //    );
-
-    //    if (!IsWithinLevelBounds(connectorGridPos, connectorRoomDataPrefab)) {
-    //        if (debugMode) Debug.LogWarning($"[Expand] Connector {connectorPrefab.name} out of bounds at {connectorGridPos}. Closing portal.");
-    //        sourcePortal.ClosePortal();
-    //        return;
-    //    }
-
-    //    if (!IsRoomSpaceFree(connectorGridPos, connectorRoomDataPrefab)) {
-    //        if (debugMode) Debug.LogWarning($"[Expand] Space occupied at {connectorGridPos} for connector {connectorPrefab.name}. Closing portal.");
-    //        sourcePortal.ClosePortal();
-    //        return;
-    //    }
-
-    //    GameObject connectorInstanceObj = Instantiate(connectorPrefab, connectorWorldPos, Quaternion.identity, levelParent);
-    //    RoomData connectorRoomData = connectorInstanceObj.GetComponent<RoomData>();
-    //    connectorRoomData.InitializePortals();
-
-    //    RoomInstance connectorInstance = new RoomInstance(connectorRoomData, connectorGridPos);
-    //    placedRooms.Add(connectorGridPos, connectorInstance);
-
-    //    PortalData connectorEntrance = connectorRoomData.GetPortalInDirection(sourcePortal.GetOppositeDirection());
-    //    PortalData connectorExit = connectorRoomData.GetPortalInDirection(sourcePortal.PortalDirection);
-
-    //    sourceRoom.ConnectPortals(sourcePortal, connectorEntrance);
-
-    //    // Place next room
-    //    GameObject nextRoomPrefab = roomSelector.GetValidRoomPrefab(connectorExit);
-    //    if (nextRoomPrefab == null) {
-    //        if (debugMode) Debug.LogWarning($"[Expand] No valid prefab found for exit {connectorExit.PortalDirection} from {sourceRoom.RoomData.name}. Closing connector exit.");
-    //        connectorExit.ClosePortal();
-    //        return;
-    //    }
-
-    //    RoomData nextRoomDataPrefab = nextRoomPrefab.GetComponent<RoomData>();
-    //    PortalData nextRoomEntrancePrefab = nextRoomDataPrefab.GetPortalInDirection(connectorExit.GetOppositeDirection());
-    //    if (nextRoomEntrancePrefab == null) {
-    //        if (debugMode) Debug.LogWarning($"[Expand] Next room prefab {nextRoomPrefab.name} missing entrance for {connectorExit.PortalDirection}. Closing connector exit.");
-    //        connectorExit.ClosePortal();
-    //        return;
-    //    }
-
-    //    Vector3 connectorExitWorldPos = connectorExit.GetWorldPosition();
-    //    Vector3 nextRoomEntranceLocalPos = nextRoomEntrancePrefab.transform.localPosition;
-    //    Vector3 nextRoomWorldPos = connectorExitWorldPos - nextRoomEntranceLocalPos;
-
-    //    Vector2Int nextRoomGridPos = new Vector2Int(
-    //        Mathf.RoundToInt(nextRoomWorldPos.x),
-    //        Mathf.RoundToInt(nextRoomWorldPos.y)
-    //    );
-
-    //    if (!IsWithinLevelBounds(nextRoomGridPos, nextRoomDataPrefab)) {
-    //        if (debugMode) Debug.LogWarning($"[Expand] Next room {nextRoomPrefab.name} out of bounds at {nextRoomGridPos}. Closing connector exit.");
-    //        connectorExit.ClosePortal();
-    //        return;
-    //    }
-
-    //    if (!IsRoomSpaceFree(nextRoomGridPos, nextRoomDataPrefab)) {
-    //        if (debugMode) Debug.LogWarning($"[Expand] Space occupied at {nextRoomGridPos} for next room {nextRoomPrefab.name}. Closing connector exit.");
-    //        connectorExit.ClosePortal();
-    //        return;
-    //    }
-
-    //    GameObject nextRoomPrefabInstance = Instantiate(nextRoomPrefab, nextRoomWorldPos, Quaternion.identity, levelParent);
-    //    RoomData placedRoomData = nextRoomPrefabInstance.GetComponent<RoomData>();
-    //    placedRoomData.InitializePortals();
-
-    //    RoomInstance placedRoomInstance = new RoomInstance(placedRoomData, nextRoomGridPos);
-    //    placedRooms.Add(nextRoomGridPos, placedRoomInstance);
-
-    //    PortalData nextRoomEntrance = placedRoomData.GetPortalInDirection(connectorExit.GetOppositeDirection());
-    //    connectorInstance.ConnectPortals(connectorExit, nextRoomEntrance);
-
-    //    // Enqueue portals
-    //    foreach (PortalData portal in placedRoomInstance.GetActiveUnconnectedPortals()) {
-    //        if (portal != nextRoomEntrance) {
-    //            if (debugMode) Debug.Log($"[Expand] Enqueueing new portal {portal.PortalDirection} from room {placedRoomData.name}");
-    //            openPortals.Enqueue(new PortalTask(placedRoomInstance, portal));
-    //        }
-    //    }
-    //}
-    //void TryExpandFromPortal(PortalTask portalTaskIn) {
-    //    // Helpers
-    //    RoomInstance sourceRoom = portalTaskIn.SourceRoom;
-    //    PortalData sourcePortal = portalTaskIn.SourcePortal;
-
-    //    if (debugMode) {
-    //        Debug.Log($"[Expand] Trying to expand from {sourcePortal.PortalDirection} portal of room {sourceRoom.RoomData.name} at {sourceRoom.GridPosition}");
-    //    }
-
-    //    // Choose connector prefab based on portal direction
-    //    List<GameObject> connectorList =
-    //        (sourcePortal.PortalDirection == PortalDirection.LEFT || sourcePortal.PortalDirection == PortalDirection.RIGHT)
-    //            ? levelData.HorizontalConnectors : levelData.VerticalConnectors;
-
-    //    if (connectorList.Count == 0) {
-    //        Debug.LogWarning($"[Expand] No connector prefabs available for {sourcePortal.PortalDirection}. Closing portal.");
-    //        sourcePortal.ClosePortal();
-    //        return;
-    //    }
-
-    //    GameObject connectorPrefab = connectorList[Random.Range(0, connectorList.Count)];
-
-    //    // Instantiate connector first
-    //    Vector3 sourcePortalWorldPos = sourcePortal.GetWorldPosition();
-    //    GameObject connectorInstanceObj = Instantiate(connectorPrefab, sourcePortalWorldPos, Quaternion.identity, levelParent);
-
-    //    RoomData connectorRoomData = connectorInstanceObj.GetComponent<RoomData>();
-    //    connectorRoomData.InitializePortals();
-
-    //    // Get entrance/exit portals from instance
-    //    PortalData connectorEntrance = connectorRoomData.GetPortalInDirection(sourcePortal.GetOppositeDirection());
-    //    PortalData connectorExit = connectorRoomData.GetPortalInDirection(sourcePortal.PortalDirection);
-
-    //    if (connectorEntrance == null || connectorExit == null) {
-    //        if (debugMode) Debug.LogWarning($"[Expand] Connector instance {connectorInstanceObj.name} missing entrance/exit for {sourcePortal.PortalDirection}. Closing portal.");
-    //        Destroy(connectorInstanceObj);
-    //        sourcePortal.ClosePortal();
-    //        return;
-    //    }
-
-    //    // Align connector so entrance matches source portal
-    //    Vector3 connectorEntranceLocalPos = connectorEntrance.transform.localPosition;
-    //    connectorInstanceObj.transform.position = sourcePortalWorldPos - connectorEntranceLocalPos;
-
-    //    // Grid position for connector
-    //    Vector2Int connectorGridPos = new Vector2Int(
-    //        Mathf.RoundToInt(connectorInstanceObj.transform.position.x),
-    //        Mathf.RoundToInt(connectorInstanceObj.transform.position.y)
-    //    );
-
-    //    if (!IsWithinLevelBounds(connectorGridPos, connectorRoomData) || !IsRoomSpaceFree(connectorGridPos, connectorRoomData)) {
-    //        if (debugMode) Debug.LogWarning($"[Expand] Connector {connectorInstanceObj.name} invalid at {connectorGridPos}. Closing portal.");
-    //        Destroy(connectorInstanceObj);
-    //        sourcePortal.ClosePortal();
-    //        return;
-    //    }
-
-    //    // Register connector room
-    //    RoomInstance connectorInstance = new RoomInstance(connectorRoomData, connectorGridPos);
-    //    placedRooms.Add(connectorGridPos, connectorInstance);
-
-    //    // Connect portals
-    //    sourceRoom.ConnectPortals(sourcePortal, connectorEntrance);
-
-    //    // --- Place next room ---
-
-    //    GameObject nextRoomPrefab = roomSelector.GetValidRoomPrefab(connectorExit);
-    //    if (nextRoomPrefab == null) {
-    //        if (debugMode) Debug.LogWarning($"[Expand] No valid next room prefab for exit {connectorExit.PortalDirection}. Closing connector exit.");
-    //        connectorExit.ClosePortal();
-    //        return;
-    //    }
-
-    //    GameObject nextRoomInstanceObj = Instantiate(nextRoomPrefab, Vector3.zero, Quaternion.identity, levelParent);
-    //    RoomData nextRoomData = nextRoomInstanceObj.GetComponent<RoomData>();
-    //    nextRoomData.InitializePortals();
-
-    //    PortalData nextRoomEntrance = nextRoomData.GetPortalInDirection(connectorExit.GetOppositeDirection());
-    //    if (nextRoomEntrance == null) {
-    //        if (debugMode) Debug.LogWarning($"[Expand] Next room {nextRoomPrefab.name} missing entrance for {connectorExit.PortalDirection}. Closing connector exit.");
-    //        Destroy(nextRoomInstanceObj);
-    //        connectorExit.ClosePortal();
-    //        return;
-    //    }
-
-    //    // Align next room so entrance matches connector exit
-    //    Vector3 connectorExitWorldPos = connectorExit.GetWorldPosition();
-    //    Vector3 nextRoomEntranceLocalPos = nextRoomEntrance.transform.localPosition;
-    //    nextRoomInstanceObj.transform.position = connectorExitWorldPos - nextRoomEntranceLocalPos;
-
-    //    // Grid position for next room
-    //    Vector2Int nextRoomGridPos = new Vector2Int(
-    //        Mathf.RoundToInt(nextRoomInstanceObj.transform.position.x),
-    //        Mathf.RoundToInt(nextRoomInstanceObj.transform.position.y)
-    //    );
-
-    //    if (!IsWithinLevelBounds(nextRoomGridPos, nextRoomData) || !IsRoomSpaceFree(nextRoomGridPos, nextRoomData)) {
-    //        if (debugMode) Debug.LogWarning($"[Expand] Next room {nextRoomPrefab.name} invalid at {nextRoomGridPos}. Closing connector exit.");
-    //        Destroy(nextRoomInstanceObj);
-    //        connectorExit.ClosePortal();
-    //        return;
-    //    }
-
-    //    // Register next room
-    //    RoomInstance nextRoomInstance = new RoomInstance(nextRoomData, nextRoomGridPos);
-    //    placedRooms.Add(nextRoomGridPos, nextRoomInstance);
-
-    //    // Connect connector exit to next room entrance
-    //    connectorInstance.ConnectPortals(connectorExit, nextRoomEntrance);
-
-    //    // Enqueue new portals
-    //    foreach (PortalData portal in nextRoomInstance.GetActiveUnconnectedPortals()) {
-    //        if (portal != nextRoomEntrance) {
-    //            if (debugMode) Debug.Log($"[Expand] Enqueueing new portal {portal.PortalDirection} from room {nextRoomData.name}");
-    //            openPortals.Enqueue(new PortalTask(nextRoomInstance, portal));
-    //        }
-    //    }
-    //}
-    //void TryExpandFromPortal(PortalTask portalTaskIn) {
-    //    // Helpers
-    //    RoomInstance sourceRoom = portalTaskIn.SourceRoom;
-    //    PortalData sourcePortal = portalTaskIn.SourcePortal;
-
-    //    if (debugMode) {
-    //        Debug.Log($"[Expand] Trying to expand from {sourcePortal.PortalDirection} portal of room {sourceRoom.RoomData.name} at {sourceRoom.GridPosition}");
-    //    }
-
-    //    // === 1. Connector selection ===
-    //    List<GameObject> connectorList =
-    //        (sourcePortal.PortalDirection == PortalDirection.LEFT || sourcePortal.PortalDirection == PortalDirection.RIGHT)
-    //            ? levelData.HorizontalConnectors : levelData.VerticalConnectors;
-
-    //    GameObject connectorPrefab = connectorList[Random.Range(0, connectorList.Count)];
-
-    //    // Place connector
-    //    Vector3 sourcePortalWorldPos = sourcePortal.GetWorldPosition();
-    //    RoomData connectorPrefabData = connectorPrefab.GetComponent<RoomData>();
-    //    PortalData connectorEntrancePrefab = connectorPrefabData.GetPortalInDirection(sourcePortal.GetOppositeDirection());
-
-    //    if (connectorEntrancePrefab == null) {
-    //        if (debugMode) Debug.LogWarning($"[Expand] Connector prefab {connectorPrefab.name} missing entrance for {sourcePortal.PortalDirection}. Closing portal.");
-    //        sourcePortal.ClosePortal();
-    //        return;
-    //    }
-
-    //    Vector3 connectorEntranceLocalPos = connectorEntrancePrefab.transform.localPosition;
-    //    Vector3 connectorWorldPos = sourcePortalWorldPos - connectorEntranceLocalPos;
-    //    Vector2Int connectorGridPos = new Vector2Int(Mathf.RoundToInt(connectorWorldPos.x), Mathf.RoundToInt(connectorWorldPos.y));
-
-    //    if (!IsWithinLevelBounds(connectorGridPos, connectorPrefabData) || !IsRoomSpaceFree(connectorGridPos, connectorPrefabData)) {
-    //        if (debugMode) Debug.LogWarning($"[Expand] Connector {connectorPrefab.name} invalid placement at {connectorGridPos}. Closing portal.");
-    //        sourcePortal.ClosePortal();
-    //        return;
-    //    }
-
-    //    GameObject connectorInstanceObj = Instantiate(connectorPrefab, connectorWorldPos, Quaternion.identity, levelParent);
-    //    RoomData connectorRoomData = connectorInstanceObj.GetComponent<RoomData>();
-    //    connectorRoomData.InitializePortals();
-    //    RoomInstance connectorInstance = new RoomInstance(connectorRoomData, connectorGridPos);
-    //    placedRooms.Add(connectorGridPos, connectorInstance);
-
-    //    PortalData connectorEntrance = connectorRoomData.GetPortalInDirection(sourcePortal.GetOppositeDirection());
-    //    PortalData connectorExit = connectorRoomData.GetPortalInDirection(sourcePortal.PortalDirection);
-
-    //    if (connectorExit == null) {
-    //        if (debugMode) Debug.LogWarning($"[Expand] Connector instance {connectorInstanceObj.name} missing exit for {sourcePortal.PortalDirection}. Closing portal.");
-    //        sourcePortal.ClosePortal();
-    //        return;
-    //    }
-
-    //    // Connect source to connector
-    //    sourceRoom.ConnectPortals(sourcePortal, connectorEntrance);
-
-    //    // === 2. Next room ===
-    //    GameObject nextRoomPrefab = roomSelector.GetValidRoomPrefab(connectorExit);
-    //    if (nextRoomPrefab == null) {
-    //        if (debugMode) Debug.LogWarning($"[Expand] No valid next room for {connectorExit.PortalDirection}. Closing connector exit.");
-    //        connectorExit.ClosePortal();
-    //        return;
-    //    }
-
-    //    RoomData nextRoomPrefabData = nextRoomPrefab.GetComponent<RoomData>();
-    //    PortalData nextRoomEntrancePrefab = nextRoomPrefabData.GetPortalInDirection(connectorExit.GetOppositeDirection());
-    //    if (nextRoomEntrancePrefab == null) {
-    //        if (debugMode) Debug.LogWarning($"[Expand] Next room prefab {nextRoomPrefab.name} missing entrance for {connectorExit.PortalDirection}. Closing connector exit.");
-    //        connectorExit.ClosePortal();
-    //        return;
-    //    }
-
-    //    Vector3 connectorExitWorldPos = connectorExit.GetWorldPosition();
-    //    Vector3 nextRoomEntranceLocalPos = nextRoomEntrancePrefab.transform.localPosition;
-    //    Vector3 nextRoomWorldPos = connectorExitWorldPos - nextRoomEntranceLocalPos;
-    //    Vector2Int nextRoomGridPos = new Vector2Int(Mathf.RoundToInt(nextRoomWorldPos.x), Mathf.RoundToInt(nextRoomWorldPos.y));
-
-    //    if (!IsWithinLevelBounds(nextRoomGridPos, nextRoomPrefabData) || !IsRoomSpaceFree(nextRoomGridPos, nextRoomPrefabData)) {
-    //        if (debugMode) Debug.LogWarning($"[Expand] Next room {nextRoomPrefab.name} invalid placement at {nextRoomGridPos}. Closing connector exit.");
-    //        connectorExit.ClosePortal();
-    //        return;
-    //    }
-
-    //    GameObject nextRoomInstanceObj = Instantiate(nextRoomPrefab, nextRoomWorldPos, Quaternion.identity, levelParent);
-    //    RoomData nextRoomData = nextRoomInstanceObj.GetComponent<RoomData>();
-    //    nextRoomData.InitializePortals();
-    //    RoomInstance nextRoomInstance = new RoomInstance(nextRoomData, nextRoomGridPos);
-    //    placedRooms.Add(nextRoomGridPos, nextRoomInstance);
-
-    //    PortalData nextRoomEntrance = nextRoomData.GetPortalInDirection(connectorExit.GetOppositeDirection());
-    //    connectorInstance.ConnectPortals(connectorExit, nextRoomEntrance);
-
-    //    // Enqueue all other portals
-    //    foreach (PortalData portal in nextRoomInstance.GetActiveUnconnectedPortals()) {
-    //        if (portal != nextRoomEntrance) {
-    //            if (debugMode) Debug.Log($"[Expand] Enqueueing new portal {portal.PortalDirection} from room {nextRoomData.name}");
-    //            openPortals.Enqueue(new PortalTask(nextRoomInstance, portal));
-    //        }
-    //    }
-    //}
     // Expand level from a source portal task
     private void TryExpandFromPortal(PortalTask portalTaskIn) {
         // --- Source references ---
@@ -750,7 +341,7 @@ public class LevelGenerator : MonoBehaviour {
         connectorInstance.ConnectPortals(connectorExit, nextRoomEntrance);
 
         // --- Enqueue new open portals from the newly placed room ---
-        List<PortalData> unconnected = placedRoomInstance.GetActiveUnconnectedPortals();
+        List<PortalData> unconnected = placedRoomInstance.GetActiveUnconnectedPortals(debugMode);
         for (int i = 0; i < unconnected.Count; i++) {
             PortalData portal = unconnected[i];
             if (portal != nextRoomEntrance) // safeguard; usually already excluded by "unconnected"
@@ -761,10 +352,21 @@ public class LevelGenerator : MonoBehaviour {
         }
     }
 
-
     //Clear level
     public void ClearLevel() {
-        // Destroy all child objects
+        //Destroy player
+        if (player != null) {
+#if UNITY_EDITOR
+            if (!Application.isPlaying)
+                DestroyImmediate(player.gameObject);
+            else
+                Destroy(player.gameObject);
+#else
+            Destroy(player.gameObject);
+#endif
+        }
+
+        // Destroy all level objects
         if (levelParent != null) {
             var children = new List<GameObject>();
             foreach (Transform child in levelParent) {
@@ -837,6 +439,7 @@ public class LevelGenerator : MonoBehaviour {
 
         return leftCheck && rightCheck && bottomCheck && topCheck;
     }
+
     //
     bool IsRoomSpaceFree(Vector2Int newPositionIn, RoomData newRoomDataIn) {
         //calc new footprint

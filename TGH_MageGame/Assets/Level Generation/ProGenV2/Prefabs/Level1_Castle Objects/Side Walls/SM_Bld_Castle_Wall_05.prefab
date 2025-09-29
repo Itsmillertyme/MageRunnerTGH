@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 65950207762758912}
   - component: {fileID: 65915145317591152}
   - component: {fileID: 65188916355570718}
-  - component: {fileID: 5539581494984941062}
   m_Layer: 0
   m_Name: SM_Bld_Castle_Wall_05
   m_TagString: Untagged
@@ -153,20 +152,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.83186483, y: 5.0000005, z: 1.1232808}
   m_Center: {x: -1.0850604, y: 2.5000002, z: 0.31163108}
---- !u!114 &5539581494984941062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1556846874371714}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35e95dc5ff2b64380880dd7ac5922847, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SerializedVersion: 0
-  m_Size: {x: 5, y: 5, z: 1.5}
-  m_Center: {x: -2.5, y: 2.5, z: 0.3}
-  m_Area: 1
-  m_AffectedAgents: ffffffff

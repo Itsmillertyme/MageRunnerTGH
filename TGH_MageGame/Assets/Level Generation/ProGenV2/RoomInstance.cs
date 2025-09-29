@@ -17,11 +17,13 @@ public class RoomInstance {
 
     //**UTILITY METHODS**
     //Fetches unlinked portals from the room instance
-    public List<PortalData> GetActiveUnconnectedPortals() {
+    public List<PortalData> GetActiveUnconnectedPortals(bool debugMode = false) {
 
         List<PortalData> openPortals = new List<PortalData>();
         foreach (PortalData portal in Portals) {
-            Debug.Log($"Checking portal {portal.name} (Active={portal.IsActive}, Connected={portal.IsConnected})");
+            if (debugMode) {
+                Debug.Log($"Checking portal {portal.name} (Active={portal.IsActive}, Connected={portal.IsConnected})");
+            }
             if (portal.IsActive && !portal.IsConnected) {
                 openPortals.Add(portal);
             }

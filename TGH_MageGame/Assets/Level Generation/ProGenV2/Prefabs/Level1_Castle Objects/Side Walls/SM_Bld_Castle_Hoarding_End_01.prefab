@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 33769438536080356}
   - component: {fileID: 23470407390310414}
   - component: {fileID: 64710865991165146}
-  - component: {fileID: -8179632646674256221}
   m_Layer: 0
   m_Name: SM_Bld_Castle_Hoarding_End_01
   m_TagString: Untagged
@@ -111,20 +110,3 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 43766396873542264, guid: 1d6565147ab52da4abcb8921ba08100a, type: 2}
---- !u!114 &-8179632646674256221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1071967896790384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35e95dc5ff2b64380880dd7ac5922847, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SerializedVersion: 0
-  m_Size: {x: 1, y: 6, z: 3.15}
-  m_Center: {x: 0, y: 1.05, z: 0.77}
-  m_Area: 1
-  m_AffectedAgents: ffffffff

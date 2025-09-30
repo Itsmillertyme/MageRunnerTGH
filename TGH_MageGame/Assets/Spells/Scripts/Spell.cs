@@ -9,7 +9,8 @@ public abstract class Spell : ScriptableObject
     [SerializeField] private string loreText; // UNUSED // NO GETTER
 
     [Header("Default Attributes")]
-    [SerializeField] private int defaultManaCost;
+    [SerializeField] private int defaultCurrentMana;
+    [SerializeField] private int defaultMaxMana;
     [SerializeField] private int defaultDamage;
     [SerializeField] private float defaultLifeSpan;
     [Tooltip("Time it takes to perform cast")]
@@ -21,10 +22,12 @@ public abstract class Spell : ScriptableObject
     [SerializeField] private bool defaultDestroyOnEnemyImpact;
     [SerializeField] private bool defaultDestroyOnEnvironmentImpact;
     [SerializeField] private bool defaultDamageOverTime;
-    [SerializeField] private bool defaultCanMoveWhileCasting;
+    [SerializeField] private bool defaultCanMoveDuringCast;
+    [SerializeField] private bool defaultCanJumpDuringCast;
 
     [Header("NO EDIT - Current Attributes")] // TEMP. ONCE WE HAVE SAVES, THIS WILL GO AWAY AND DEFAULT WILL BECOME CURRENT
-    private int manaCost;
+    private int currentMana;
+    private int maxMana;
     private int damage;
     private float lifeSpan;
     [Tooltip("Time it takes to perform cast")]
@@ -36,7 +39,8 @@ public abstract class Spell : ScriptableObject
     private bool destroyOnEnemyImpact;
     private bool destroyOnEnvironmentImpact;
     private bool damageOverTime;
-    private bool canMoveWhileCasting;
+    private bool canMoveDuringCast;
+    private bool canJumpDuringCast;
 
     [Header("Prefab")]
     [SerializeField] private GameObject projectile;
@@ -66,7 +70,8 @@ public abstract class Spell : ScriptableObject
 
     #region GETTERS
     public string Name => name;
-    public int ManaCost => manaCost;
+    public int CurrentMana => currentMana;
+    public int MaxMana => maxMana;
     public int Damage => damage;
     public float LifeSpan => lifeSpan;
     public float CastDelayTime => castDelayTime;
@@ -76,7 +81,6 @@ public abstract class Spell : ScriptableObject
     public bool DestroyOnEnemyImpact => destroyOnEnemyImpact;
     public bool DestroyOnEnvironmentImpact => destroyOnEnvironmentImpact;
     public bool DamageOverTime => damageOverTime;
-    public bool CanMoveWhileCasting => canMoveWhileCasting;
     public GameObject Projectile => projectile;
     public AudioClip SpawnSFX => spawnSFX;
     public float SpawnSFXVolume => spawnSFXVolume;
@@ -89,11 +93,14 @@ public abstract class Spell : ScriptableObject
     public Sprite SpellIcon => icon;
     public Sprite Reticle => reticle;
     public bool IsUnlocked => isUnlocked;
+    public bool CanMoveDuringCast => canMoveDuringCast;
+    public bool CanJumpDuringCast => canJumpDuringCast;
     #endregion
 
     public void Initialize()
     {
-        manaCost = defaultManaCost;
+        currentMana = defaultCurrentMana;
+        maxMana = defaultMaxMana;
         damage = defaultDamage;
         lifeSpan = defaultLifeSpan;
         castDelayTime = defaultCastDelayTime;
@@ -103,20 +110,22 @@ public abstract class Spell : ScriptableObject
         destroyOnEnemyImpact = defaultDestroyOnEnemyImpact;
         destroyOnEnvironmentImpact = defaultDestroyOnEnvironmentImpact;
         damageOverTime = defaultDamageOverTime;
-    }    
+        canMoveDuringCast = defaultCanMoveDuringCast;
+        canJumpDuringCast = defaultCanJumpDuringCast;
+    }
 
-    public void SetManaCost(int newValue) => manaCost = newValue;
     public void SetProjectileSize(Vector3 newValue) => projectileSize = newValue;
-
     public void SetMoveSpeed(float newValue) => moveSpeed = newValue;
-
     public void SetCastCooldownTime(float newValue) => castCooldownTime = newValue;
-
     public void SetDamage(int newValue) => damage = newValue;
-
     public void SetDestroyOnEnemyImpact(bool newValue) => destroyOnEnemyImpact = newValue;
-
     public void SetDestroyOnEnvironmentalImpact(bool newValue) => destroyOnEnvironmentImpact = newValue;
-
     public void SetDamageOverTime(bool value) => damageOverTime = value;
+    public void ManaExpended() => currentMana--;
+
+    public void SetMaxMana(int newValue)
+    {
+        maxMana = newValue;
+        currentMana = maxMana;
+    }
 }

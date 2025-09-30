@@ -15,7 +15,8 @@ MonoBehaviour:
   name: Shatterstone Barrage
   description: Attributes tbd
   loreText: 
-  defaultManaCost: 25
+  defaultCurrentMana: 10
+  defaultMaxMana: 10
   defaultDamage: 5
   defaultLifeSpan: 5
   defaultCastDelayTime: 1.3
@@ -25,6 +26,8 @@ MonoBehaviour:
   defaultDestroyOnEnemyImpact: 1
   defaultDestroyOnEnvironmentImpact: 0
   defaultDamageOverTime: 0
+  defaultCanMoveDuringCast: 0
+  defaultCanJumpDuringCast: 0
   projectile: {fileID: 0}
   spawnSFX: {fileID: 8300000, guid: b99c3b8b3053ff5489ffb9a8d8c51286, type: 3}
   spawnSFXVolume: 0.556

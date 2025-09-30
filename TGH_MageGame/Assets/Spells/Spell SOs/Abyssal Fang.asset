@@ -15,7 +15,8 @@ MonoBehaviour:
   name: Abyssal Fang
   description: 
   loreText: 
-  defaultManaCost: 2
+  defaultCurrentMana: 50
+  defaultMaxMana: 50
   defaultDamage: 5
   defaultLifeSpan: 1
   defaultCastDelayTime: 11
@@ -25,7 +26,8 @@ MonoBehaviour:
   defaultDestroyOnEnemyImpact: 1
   defaultDestroyOnEnvironmentImpact: 1
   defaultDamageOverTime: 0
-  defaultCanMoveWhileCasting: 1
+  defaultCanMoveDuringCast: 0
+  defaultCanJumpDuringCast: 0
   projectile: {fileID: 5685377436292771932, guid: ae3ed7fd0b25522409d3baf333af4720, type: 3}
   spawnSFX: {fileID: 8300000, guid: f5e870bcbf26ca04d8159c5faaad6a84, type: 3}
   spawnSFXVolume: 1

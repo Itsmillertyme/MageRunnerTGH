@@ -44,7 +44,7 @@ public class SpellSkillUpgradeButton : MonoBehaviour
         else
         {
             button.interactable = true;
-            buttonText.text = upgradeNode.UpgradeName;
+            buttonText.text = $"{upgradeNode.UpgradeName}: {upgradeNode.UpgradeCost}";
         }
     }
 }

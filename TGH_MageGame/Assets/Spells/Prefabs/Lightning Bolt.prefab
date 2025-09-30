@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 306292236780025101}
   - component: {fileID: 8401827435332219546}
   m_Layer: 6
-  m_Name: FX_LightningStrike_Impact_Dust_01
+  m_Name: Ground Dust Cloud
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4924,7 +4924,7 @@ GameObject:
   - component: {fileID: 93191405833602520}
   - component: {fileID: 7006885130507391452}
   m_Layer: 6
-  m_Name: FX_LightningStrike_Impact_01
+  m_Name: Ground Dust Debris
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9828,7 +9828,7 @@ GameObject:
   - component: {fileID: 405141337791272381}
   - component: {fileID: 7330292515669499691}
   m_Layer: 6
-  m_Name: Lightning Bolt Collider
+  m_Name: Impact Logic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9922,7 +9922,7 @@ GameObject:
   - component: {fileID: 65885080498804631}
   - component: {fileID: 4011434229414898136}
   m_Layer: 6
-  m_Name: FX_LightningStrike_Light_01
+  m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14951,7 +14951,7 @@ GameObject:
   - component: {fileID: 4475774877038396142}
   - component: {fileID: 3854227290986134952}
   m_Layer: 6
-  m_Name: FX_LightningStrike_Ground_01
+  m_Name: Ground Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

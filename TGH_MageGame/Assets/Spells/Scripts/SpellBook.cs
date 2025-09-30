@@ -11,29 +11,24 @@ public class SpellBook : MonoBehaviour
     [Tooltip("Must be in the same order as the spells themselves")]
     [SerializeField] private Transform[] spellSpawnPoints;
 
-    [Header("Unity Events")]
-    [SerializeField] private UnityEvent ActiveSpellSwitched;
-    [SerializeField] private UnityEvent SpellCasted;
-
-    [Header("Player Stats")]
-    [SerializeField] PlayerStats playerStats;
+    [Header("Spell UI Reference")]
+    [SerializeField] private SpellUI spellUI;
 
     private GameManager gameManager;
 
     #region // GETTERS
     // VARIABLES
-    public int ActiveSpell => currentSpellIndex;
+    public int CurrentSpellIndex => currentSpellIndex;
     public bool IsReadyToCast => isReadyToCast;
-    public PlayerStats PlayerStats => playerStats;
 
     // METHODS
     //public Transform GetSpellSpawnPoint() => spellSpawnPoints[currentSpellIndex]; // GETTER FOR ACTIVE SPELL SPAWN POINT FOR CAST
-    public string GetSpellUIData() => spellBook[currentSpellIndex].Name; // GETTER FOR ACTIVE SPELL TO USE IN UI TEXT
+    public string GetSpellUIData() => $"{spellBook[currentSpellIndex].Name}\nMana: {spellBook[currentSpellIndex].CurrentMana}/{spellBook[currentSpellIndex].MaxMana}"; // GETTER FOR ACTIVE SPELL TO USE IN UI TEXT
     public Sprite GetSpellIconData() => spellBook[currentSpellIndex].SpellIcon; // GETTER FOR ACTIVE SPELL ICON TO USE IN UI
     public Sprite GetSpellReticleData() => spellBook[currentSpellIndex].Reticle; // GETTER FOR ACTIVE SPELL RETICLE TO USE IN UI
     public AnimationClip GetSpellAnimation() => spellBook[currentSpellIndex].CastAnimation; // GETTER FOR ACTIVE SPELL ANIMATION
     public float GetSpellCastDelayTime() => spellBook[currentSpellIndex].CastDelayTime; // GETTER FOR CAST DELAY TIME
-    public float GetSpellManaCost() => spellBook[currentSpellIndex].ManaCost; // GETTER FOR ACTIVE SPELL MANA COST
+    public float GetSpellManaCost() => spellBook[currentSpellIndex].CurrentMana; // GETTER FOR ACTIVE SPELL MANA COST
     public AudioClip GetSpellSpawnSound() => spellBook[currentSpellIndex].SpawnSFX; // GETTER FOR ACTIVE SPELL SPAWN SOUND
     public float GetSpellSpawnVolume() => spellBook[currentSpellIndex].SpawnSFXVolume; // GETTER FOR ACTIVE SPELL SFX VOLUME
     public float GetSpellSpawnPitch() => spellBook[currentSpellIndex].SpawnSFXPitch + RandomPitch(); // GETTER FOR ACTIVE SPELL SFX PITCH
@@ -45,7 +40,7 @@ public class SpellBook : MonoBehaviour
     private Coroutine castCooldown;
     private int currentSpellIndex = 0;
     private bool isReadyToCast = true;
-    private int lastActiveSpell;
+    private int previousSpellIndex;
     #endregion
 
     private void Awake()
@@ -57,6 +52,7 @@ public class SpellBook : MonoBehaviour
             spell.Initialize();
         }
 
+        spellUI.UpdateSpellUI(GetSpellUIData(), GetSpellIconData(), GetSpellReticleData());
         currentSpawnPoint = GetSpellSpawnPosition();
     }
 
@@ -99,13 +95,13 @@ public class SpellBook : MonoBehaviour
 
     public void Cast()
     {
-        if (isReadyToCast && playerStats.getCurrentMana() >= spellBook[currentSpellIndex].ManaCost)
+        if (isReadyToCast && spellBook[currentSpellIndex].CurrentMana > 0)
         {
             HandleSpellLogic();
 
-            castCooldown = StartCoroutine(CastCooldown(spellBook[ActiveSpell].CastCooldownTime));
-            SpellCasted.Invoke();
-            playerStats.updateCurrentMana(-spellBook[currentSpellIndex].ManaCost);
+            castCooldown = StartCoroutine(CastCooldown(spellBook[CurrentSpellIndex].CastCooldownTime));
+            spellBook[CurrentSpellIndex].ManaExpended();
+            spellUI.UpdateSpellUI(GetSpellUIData(), GetSpellIconData(), GetSpellReticleData());
         }
     }
 
@@ -118,21 +114,12 @@ public class SpellBook : MonoBehaviour
                 isReadyToCast = false;
                 StartCoroutine(CooldownThenCastAltHandAbyssalFang(af, af.CastAltHandCooldownTime));
                 break;
-            //case HeavensLament hl:
-            //    //
-            //    break;
-            //case InfernalEmbrace ie:
-            //    //
-            //    break;
             case ShatterstoneBarrage sb:
                 StartCoroutine(ShatterstoneSpawnProjectiles(sb));
                 break;
             case ThunderlordsCascade tc:
                 StartCoroutine(CastThunderlordsCascade(tc));
                 break;
-                //case WintersWrath ww:
-                //    //
-                //    break;
         }
     }
 
@@ -149,12 +136,6 @@ public class SpellBook : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         CastAbyssalFang(af, spellSpawnPoints[1].position, gameManager.CrosshairPositionIn3DSpace);
     }
-    #endregion
-
-    #region HEAVEN'S LAMENT
-    #endregion
-
-    #region INFERNAL EMBRACE
     #endregion
 
     #region SHATTERSTONE BARRAGE
@@ -230,15 +211,14 @@ public class SpellBook : MonoBehaviour
     }
     #endregion
 
-    #region WINTER'S WRATH
-    #endregion
-
     // TEST TO SEE HOW THIS WORKS WITH SWITCHING SPELLS. HARD TO TEST WITH TOUCHPAD.
     private IEnumerator CastCooldown(float waitTime)
     {
         isReadyToCast = false;
         yield return new WaitForSeconds(waitTime);
-        isReadyToCast = true;
+
+        // SET isReadyToCast
+        isReadyToCast = SetIsReadyToCast();
     }
 
     // REVIEW THIS
@@ -250,7 +230,7 @@ public class SpellBook : MonoBehaviour
         {
             do
             {
-                lastActiveSpell = currentSpellIndex;
+                previousSpellIndex = currentSpellIndex;
                 currentSpellIndex++;
 
                 if (currentSpellIndex >= spellBook.Length)
@@ -265,7 +245,7 @@ public class SpellBook : MonoBehaviour
         {
             do
             {
-                lastActiveSpell = currentSpellIndex;
+                previousSpellIndex = currentSpellIndex;
                 currentSpellIndex--;
 
                 if (currentSpellIndex < 0)
@@ -279,34 +259,49 @@ public class SpellBook : MonoBehaviour
         // SET SPELL SPAWN POINT
         currentSpawnPoint = GetSpellSpawnPosition();
 
-        // RAISE AN EVENT THAT THE SPELL SELECTION HAS CHANGED
-        ActiveSpellSwitched.Invoke();
+        // SET isReadyToCast
+        isReadyToCast = SetIsReadyToCast();
+
+        // UPDATE UI
+        spellUI.UpdateSpellUI(GetSpellUIData(), GetSpellIconData(), GetSpellReticleData());
     }
 
-    // REVIEW THIS
-    // SET SPELL DIRECTLY
-    public void SetSpellByIndex(int newSpellIndex)
-    {
-        //Validate input
-        if (newSpellIndex < 0 || newSpellIndex > spellBook.Length)
-        {
-            return;
-        }
+    //// REVIEW THIS
+    //// SET SPELL DIRECTLY
+    //public void SetSpellByIndex(int newSpellIndex)
+    //{
+    //    //Validate input
+    //    if (newSpellIndex < 0 || newSpellIndex > spellBook.Length)
+    //    {
+    //        return;
+    //    }
 
-        lastActiveSpell = currentSpellIndex;
-        currentSpellIndex = newSpellIndex;
+    //    lastActiveSpell = currentSpellIndex;
+    //    currentSpellIndex = newSpellIndex;
 
-        // SET SPELL SPAWN POINT
-        currentSpawnPoint = GetSpellSpawnPosition();
+    //    // SET SPELL SPAWN POINT
+    //    currentSpawnPoint = GetSpellSpawnPosition();
 
-        // RAISE AN EVENT THAT THE SPELL SELECTION HAS CHANGED
-        ActiveSpellSwitched.Invoke();
-    }
+    //    // RAISE AN EVENT THAT THE SPELL SELECTION HAS CHANGED
+    //    ActiveSpellSwitched.Invoke();
+    //}
 
-    // REVIEW THIS.
+    //// REVIEW THIS.
     public void HotSwitchSpell()
     {
-        SetSpellByIndex(lastActiveSpell);
+        //SetSpellByIndex(lastActiveSpell);
+    }
+
+    private bool SetIsReadyToCast()
+    {
+        if (spellBook[CurrentSpellIndex].CurrentMana > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     private float RandomPitch()

@@ -15,7 +15,8 @@ MonoBehaviour:
   name: Thunderlord's Cascade
   description: 
   loreText: 
-  defaultManaCost: 50
+  defaultCurrentMana: 3
+  defaultMaxMana: 3
   defaultDamage: 25
   defaultLifeSpan: 2
   defaultCastDelayTime: 55
@@ -25,6 +26,8 @@ MonoBehaviour:
   defaultDestroyOnEnemyImpact: 0
   defaultDestroyOnEnvironmentImpact: 0
   defaultDamageOverTime: 0
+  defaultCanMoveDuringCast: 0
+  defaultCanJumpDuringCast: 0
   projectile: {fileID: 6967175780439943125, guid: 03e1e7e637eed4a449c1f185ebe5be4d, type: 3}
   spawnSFX: {fileID: 8300000, guid: 7ac26352be64b8842a33baffc9d4d829, type: 3}
   spawnSFXVolume: 1

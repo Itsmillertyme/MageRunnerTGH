@@ -7,14 +7,15 @@ public class SpellSkillNode : ScriptableObject
 {
     [Tooltip("This name will show on the button's text")]
     [SerializeField] private string upgradeName; // UPGRADE BUTTON TEXT NAME
+    [SerializeField] private int upgradeCost; // AMOUNT OF SKILL POINTS REQUIRED TO UPGRADE
     [SerializeField] private SpellSkillNode[] prerequisiteUpgrades; // UPGRADES REQUIRED BEFORE THIS NODE
     [SerializeField] private SpellSkillUpgrade upgrade; // BOOST TO APPLY IN UPGRADE
 
-    #region GETTERS
+    // GETTERS
     public string UpgradeName => upgradeName;
-    #endregion
+    public int UpgradeCost => upgradeCost;
 
-    public bool CanUpgrade(HashSet<SpellSkillNode> ownedUpgrades)
+    public bool CanUpgrade(HashSet<SpellSkillNode> ownedUpgrades, int availableSkillPoints)
     {
         foreach (SpellSkillNode prerequisite in prerequisiteUpgrades)
         {
@@ -22,6 +23,11 @@ public class SpellSkillNode : ScriptableObject
             {
                 return false;
             }
+        }
+
+        if (upgradeCost > availableSkillPoints)
+        {
+            return false;
         }
 
         return true;

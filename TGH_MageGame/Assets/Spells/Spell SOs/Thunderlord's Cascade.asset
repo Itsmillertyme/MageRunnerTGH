@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Thunderlord's Cascade
   description: 
   loreText: 
-  defaultCurrentMana: 3
+  defaultCurrentMana: 1000
   defaultMaxMana: 3
   defaultDamage: 25
   defaultLifeSpan: 2
@@ -28,6 +28,8 @@ MonoBehaviour:
   defaultDamageOverTime: 0
   defaultCanMoveDuringCast: 0
   defaultCanJumpDuringCast: 0
+  defaultCurrentLevel: 1
+  defaultMaxLevel: 1
   projectile: {fileID: 6967175780439943125, guid: 03e1e7e637eed4a449c1f185ebe5be4d, type: 3}
   spawnSFX: {fileID: 8300000, guid: 7ac26352be64b8842a33baffc9d4d829, type: 3}
   spawnSFXVolume: 1
@@ -45,4 +47,6 @@ MonoBehaviour:
   boltSpread: 12
   volleyCooldown: 0.75
   boltAngularSpread: 25
-  boltSpawnDelay: 0.25
+  boltSpawnDelay: 1
+  dimTimeFrame: 0.25
+  dimIntensityScale: 0.1

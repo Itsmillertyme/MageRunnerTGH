@@ -1017,6 +1017,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bff248cf4d7f774999e20cf6d932c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &717226920 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2020309084726206776, guid: b70620ff3f8e2a24a8e7ed9c27065c4c, type: 3}
+  m_PrefabInstance: {fileID: 802638878}
+  m_PrefabAsset: {fileID: 0}
 --- !u!223 &796540101 stripped
 Canvas:
   m_CorrespondingSourceObject: {fileID: 1450063740285092222, guid: 41a0755bad083f642a64c68234a56d74, type: 3}
@@ -1208,17 +1213,32 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2020309084726206776, guid: b70620ff3f8e2a24a8e7ed9c27065c4c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 802638890}
   m_SourcePrefab: {fileID: 100100000, guid: b70620ff3f8e2a24a8e7ed9c27065c4c, type: 3}
 --- !u!114 &802638879 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6934601227346008653, guid: b70620ff3f8e2a24a8e7ed9c27065c4c, type: 3}
   m_PrefabInstance: {fileID: 802638878}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 717226920}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f1f50eb406b6a441a999579e34afdc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &802638890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717226920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27d1f698ebbfa084784cb285ddd37ea6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &871489244 stripped
@@ -3893,8 +3913,9 @@ MonoBehaviour:
   displayNotes: 0
   notes:
   - TC, fix collider size issue
-  - TC, delay dust effects with spawn delay. then increase delay to 1ish
-  - TC, Lighting controller
+  - TC, adjust impact locations to hit accurately to ground below
+  - 'TC, make the dimming of the Lighting controller adjust on upgrade so it''s dark
+    until end of last bolt plus cushion. '
   - Spell tree skill point system and leveling of spells
   - MERGE, SPAWN POINTS in lvl1 on spellbook
   - MERGE add the player controller lines shown to jacob
@@ -3902,6 +3923,8 @@ MonoBehaviour:
     during certain spells
   - MERGE, add player spellbook reference for spell ui. remove listener for spell
     switched and spell casted. delete corresponding game events
+  - 'MERGE, CastAnim make line 666 just say if isreadytocast. remove mana logic. '
+  - MERGE, get lighting controller onto game manager
   - POSTMERGE, animation syncing/timing with spells
 --- !u!4 &1965837439
 Transform:
@@ -3930,7 +3953,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 603b27c86cd782e47b114febf09cb8a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slowTimeScale: 0.1
+  slowTimeScale: 0.25
 --- !u!1001 &1969715672
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class SpellBook : MonoBehaviour
 {
@@ -15,6 +14,7 @@ public class SpellBook : MonoBehaviour
     [SerializeField] private SpellUI spellUI;
 
     private GameManager gameManager;
+    private LightingController lightingController;
 
     #region // GETTERS
     // VARIABLES
@@ -46,6 +46,7 @@ public class SpellBook : MonoBehaviour
     private void Awake()
     {
         gameManager = FindFirstObjectByType<GameManager>();
+        lightingController = gameManager.GetComponent<LightingController>();
 
         foreach (Spell spell in spellBook)
         {
@@ -84,7 +85,8 @@ public class SpellBook : MonoBehaviour
             case ShatterstoneBarrage:
                 currentSpawnPoint = spellSpawnPoints[3];
                 break;
-            // THUNDERLORDS CASCADE DOESN'T NEED A SPAWN POINT
+            case ThunderlordsCascade:
+                break;
             //case WintersWrath:
             //    currentSpawnPoint = spellSpawnPoints[3];
             //    break;
@@ -164,12 +166,15 @@ public class SpellBook : MonoBehaviour
     #region THUNDERLORD'S CASCADE
     private IEnumerator CastThunderlordsCascade(ThunderlordsCascade tc) // NO SPAWN POSITION. ALL FROM DIRECTION. 
     {
+        // DIM THE LIGHTS DURING SPELL
+        lightingController.DimLights(tc.DimTimeFrame, tc.DimIntensityScale);
+
+        // BEGIN CASTING LOGIC
         float boltSpacing = tc.BoltSpread / (tc.BoltCount - 1);
 
         for (int i = 0; i < tc.VolleyCount; i++)
         {
-            Vector3 spawnPosition = new(gameManager.CrosshairPositionIn3DSpace.x - (tc.BoltSpread / 2), gameManager.Player.position.y, gameManager.CrosshairPositionIn3DSpace.z); // CLAMP Y TO 0
-
+            Vector3 spawnPosition = new(gameManager.CrosshairPositionIn3DSpace.x - (tc.BoltSpread / 2), gameManager.Player.position.y, gameManager.CrosshairPositionIn3DSpace.z);
 
             for (int j = 0; j < tc.BoltCount; j++)
             {
@@ -188,22 +193,36 @@ public class SpellBook : MonoBehaviour
         gameObject.GetComponentInChildren<EnemyDamager>().SetAttributes(spellBook[currentSpellIndex]);
         Destroy(gameObject, tc.LifeSpan); // DESTROY ON DAMAGER DOESN'T WORK BECAUSE COLLISION LOGIC IS ON CHILD
 
-        // PARTICLE SYSTEM REFERENCE
-        ParticleSystem particleSystem = gameObject.GetComponent<ParticleSystem>();
-        ParticleSystem.MainModule particle = particleSystem.main;
+        // PARTICLE SYSTEM REFERENCE SETTING FOR MAIN EFFECT
+        ParticleSystem particleSystemMain = gameObject.GetComponent<ParticleSystem>();
+        ParticleSystem.MainModule particleMain = particleSystemMain.main;
+
+        // PARTICLE SYSTEM REFERENCE SETTING FOR IMPACT EFFECTS
+        ThunderlordsCascadeProjectileMovement tcpm = gameObject.GetComponent<ThunderlordsCascadeProjectileMovement>();
+        ParticleSystem sparksFX = tcpm.SparksFX;
+        ParticleSystem dustCloudFX = tcpm.DustCloudFX;
+        ParticleSystem dustDebrisFX = tcpm.DustDebrisFX;
+        ParticleSystem.MainModule particleSparks = sparksFX.main;
+        ParticleSystem.MainModule particleDustCloud = dustCloudFX.main;
+        ParticleSystem.MainModule particleDustDebris = dustDebrisFX.main;
 
         // START DELAY
-        particle.startDelay = Random.Range(0f, tc.BoltSpawnDelay);
+        float startDelay = Random.Range(0f, tc.BoltSpawnDelay);
+        particleMain.startDelay = startDelay;
+        particleSparks.startDelay = startDelay;
+        particleDustCloud.startDelay = startDelay;
+        particleDustDebris.startDelay = startDelay;
+
 
         // 3D START ROTATION
         float zRotation = Random.Range(-tc.BoltAngularSpread, tc.BoltAngularSpread) * Mathf.Deg2Rad;
-        particle.startRotationZ = zRotation;
+        particleMain.startRotationZ = zRotation;
 
         // COLLIDER
         BoxCollider boltCollider = gameObject.GetComponentInChildren<BoxCollider>();
-        float xSize = particle.startSizeX.constantMax;
-        float ySize = particle.startSizeY.constantMax;
-        float zSize = particle.startSizeZ.constantMax;
+        float xSize = particleMain.startSizeX.constantMax;
+        float ySize = particleMain.startSizeY.constantMax;
+        float zSize = particleMain.startSizeZ.constantMax;
 
         boltCollider.size = new(xSize, ySize, zSize);
         boltCollider.center = new(0, ySize / 2, 0);

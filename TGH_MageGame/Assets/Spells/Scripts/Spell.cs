@@ -8,7 +8,7 @@ public abstract class Spell : ScriptableObject
     [SerializeField] private string description; // UNUSED // NO GETTER
     [SerializeField] private string loreText; // UNUSED // NO GETTER
 
-    [Header("Default Attributes")]
+    [Header("Casting Default Attributes")]
     [SerializeField] private int defaultCurrentMana;
     [SerializeField] private int defaultMaxMana;
     [SerializeField] private int defaultDamage;
@@ -24,6 +24,10 @@ public abstract class Spell : ScriptableObject
     [SerializeField] private bool defaultDamageOverTime;
     [SerializeField] private bool defaultCanMoveDuringCast;
     [SerializeField] private bool defaultCanJumpDuringCast;
+
+    [Header("Leveling Default Attributes")]
+    [SerializeField] private int defaultCurrentLevel;
+    [SerializeField] private int defaultMaxLevel;
 
     [Header("NO EDIT - Current Attributes")] // TEMP. ONCE WE HAVE SAVES, THIS WILL GO AWAY AND DEFAULT WILL BECOME CURRENT
     private int currentMana;
@@ -41,6 +45,9 @@ public abstract class Spell : ScriptableObject
     private bool damageOverTime;
     private bool canMoveDuringCast;
     private bool canJumpDuringCast;
+
+    private int currentLevel;
+    private int maxLevel;
 
     [Header("Prefab")]
     [SerializeField] private GameObject projectile;
@@ -95,6 +102,8 @@ public abstract class Spell : ScriptableObject
     public bool IsUnlocked => isUnlocked;
     public bool CanMoveDuringCast => canMoveDuringCast;
     public bool CanJumpDuringCast => canJumpDuringCast;
+    public int CurrentLevel => currentLevel;
+    public int MaxLevel => maxLevel;
     #endregion
 
     public void Initialize()
@@ -112,6 +121,8 @@ public abstract class Spell : ScriptableObject
         damageOverTime = defaultDamageOverTime;
         canMoveDuringCast = defaultCanMoveDuringCast;
         canJumpDuringCast = defaultCanJumpDuringCast;
+        currentLevel = defaultCurrentLevel;
+        maxLevel = defaultMaxLevel;
     }
 
     public void SetProjectileSize(Vector3 newValue) => projectileSize = newValue;

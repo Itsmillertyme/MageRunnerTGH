@@ -28,6 +28,8 @@ MonoBehaviour:
   defaultDamageOverTime: 0
   defaultCanMoveDuringCast: 0
   defaultCanJumpDuringCast: 0
+  defaultCurrentLevel: 1
+  defaultMaxLevel: 1
   projectile: {fileID: 0}
   spawnSFX: {fileID: 8300000, guid: b99c3b8b3053ff5489ffb9a8d8c51286, type: 3}
   spawnSFXVolume: 0.556

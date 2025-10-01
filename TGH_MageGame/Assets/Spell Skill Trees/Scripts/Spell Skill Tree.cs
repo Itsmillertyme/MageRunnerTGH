@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.ExceptionServices;
 using UnityEngine;
 
 public class SpellSkillTree : MonoBehaviour
@@ -50,5 +51,20 @@ public class SpellSkillTree : MonoBehaviour
         {
             button.UpdateButtonState();
         }
+    }
+}
+
+public struct DoubleBool
+{
+    private bool first;
+    private bool second;
+
+    public bool First => first;
+    public bool Second => second;
+
+    public DoubleBool(bool newFirst, bool newSecond)
+    {
+        first = newFirst;
+        second = newSecond;
     }
 }

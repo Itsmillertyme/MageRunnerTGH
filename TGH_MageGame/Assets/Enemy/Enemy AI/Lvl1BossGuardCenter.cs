@@ -86,7 +86,7 @@ public class Lvl1BossGuardCenter : MonoBehaviour, IBehave {
         initialized = true;
     }
 
-    public void Initialize(RoomData roomDataIn, bool debugMode = false) {
+    public void Initialize(RoomData roomDataIn, bool spawningDebugMode = false, bool aiDebugMode = false) {
         throw new System.NotImplementedException();
     }
 }

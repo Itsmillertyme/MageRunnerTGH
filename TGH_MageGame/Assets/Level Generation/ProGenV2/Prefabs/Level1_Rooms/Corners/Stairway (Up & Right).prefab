@@ -5520,6 +5520,10 @@ PrefabInstance:
       value: SM_Bld_Castle_Floor_Wood_01 (1)
       objectReference: {fileID: 0}
     - target: {fileID: 1098222522617662, guid: 6e22efa820c49ea459764a5e57edd79b, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1098222522617662, guid: 6e22efa820c49ea459764a5e57edd79b, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}

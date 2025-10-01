@@ -97,7 +97,7 @@ public class EnemySpawner : MonoBehaviour {
 
         foreach (Vector3 spawnPos in spawnLocations) {
             //get random enemy
-            GameObject enemy = levelEnemies.mobEnemyPrefabs[Random.Range(0, levelEnemies.mobEnemyPrefabs.Count)];
+            GameObject enemy = levelEnemies.GetRandomMob();
 
             enemy = Instantiate(enemy, spawnPos, Quaternion.Euler(0, 0, -90), enemiesParentIn);
 

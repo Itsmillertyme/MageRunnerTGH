@@ -1456,6 +1456,7 @@ MonoBehaviour:
   extraTurnSpeed: 5
   playerDetectionRadius: 5
   playerForgetRadius: 12
+  debugOrb: {fileID: 5886576140093531377, guid: 46d93abd248c27f469701082065d70c8, type: 3}
 --- !u!114 &-5186306778459080185
 MonoBehaviour:
   m_ObjectHideFlags: 0

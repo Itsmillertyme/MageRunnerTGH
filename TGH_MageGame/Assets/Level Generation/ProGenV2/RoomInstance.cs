@@ -22,7 +22,7 @@ public class RoomInstance {
         List<PortalData> openPortals = new List<PortalData>();
         foreach (PortalData portal in Portals) {
             if (debugMode) {
-                Debug.Log($"Checking portal {portal.name} (Active={portal.IsActive}, Connected={portal.IsConnected})");
+                Debug.Log($"[Level Generation] Checking portal {portal.name} (Active={portal.IsActive}, Connected={portal.IsConnected})");
             }
             if (portal.IsActive && !portal.IsConnected) {
                 openPortals.Add(portal);
@@ -38,7 +38,7 @@ public class RoomInstance {
                 thisPortalIn.Connect(otherPortalin);
             }
             else {
-                Debug.LogError("Tried to connect a portal that does not belong to this RoomInstance.");
+                Debug.LogError("[Level Generation] Tried to connect a portal that does not belong to this RoomInstance.");
             }
         }
     }

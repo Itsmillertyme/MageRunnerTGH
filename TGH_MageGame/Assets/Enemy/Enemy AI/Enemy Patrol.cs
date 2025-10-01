@@ -186,17 +186,11 @@ public class EnemyPatrol : MonoBehaviour, IBehave {
         initialized = true;
     }
 
-    public void Initialize(RoomData roomDataIn, bool debugMode = false) {
+    public void Initialize(RoomData roomDataIn, bool spawningDebugMode = false, bool aiDebugMode = false) {
 
-        Debug.Log("Initilizing agent from RoomData");
+        if (spawningDebugMode) Debug.Log("[Enemy Spawning] Initilizing agent from RoomData");
         waypointPositions = new List<Vector3>();
         agent = GetComponent<NavMeshAgent>();
-
-        //Establish bounds
-        //float roomLeftBound = roomIn.transform.position.x + roomIn.RoomDimensions.y / 2;
-        //float roomRightBound = roomIn.transform.position.x - roomIn.RoomDimensions.y / 2;
-        //float roomUpBound = roomIn.transform.position.y + roomIn.RoomDimensions.x / 2;
-        //float roomDownBound = roomIn.transform.position.y - roomIn.RoomDimensions.x / 2;
 
         float roomLeftBound = roomDataIn.TopLeftObject.position.x;
         float roomRightBound = roomDataIn.BottomRightObject.position.x;
@@ -234,59 +228,37 @@ public class EnemyPatrol : MonoBehaviour, IBehave {
         waypointPositions.Add(p3);
         waypointPositions.Add(p4);
 
-        //DEV ONLY
-        if (debugMode) {
-            Transform parent = GameObject.Find("DEV").transform;
-            //Play mode execution
+
+        for (int i = waypointPositions.Count - 1; i >= 0; i--) {
+            NavMeshPath path = new NavMeshPath();
             if (Application.isPlaying) {
-                GameObject doQ1 = Instantiate(debugOrb, p1, Quaternion.identity, parent);
-                Color q1Color = doQ1.GetComponent<MeshRenderer>().sharedMaterial.color;
-                doQ1.GetComponent<MeshRenderer>().material.color = new Color(0f, 0.5f, 1f);
-                GameObject doQ2 = Instantiate(debugOrb, p2, Quaternion.identity, parent);
-                Color q2Color = doQ2.GetComponent<MeshRenderer>().sharedMaterial.color;
-                doQ2.GetComponent<MeshRenderer>().material.color = new Color(0f, 1f, .33f);
-                GameObject doQ3 = Instantiate(debugOrb, p3, Quaternion.identity, parent);
-                Color q3Color = doQ3.GetComponent<MeshRenderer>().sharedMaterial.color;
-                doQ3.GetComponent<MeshRenderer>().material.color = new Color(1f, 1f, 0f);
-                GameObject doQ4 = Instantiate(debugOrb, p4, Quaternion.identity, parent);
-                Color q4Color = doQ4.GetComponent<MeshRenderer>().sharedMaterial.color;
-                doQ4.GetComponent<MeshRenderer>().material.color = new Color(1f, 0.5f, 0f);
+                if (!agent.CalculatePath(waypointPositions[i], path)) {
+                    waypointPositions.RemoveAt(i);
+                }
             }
-            //Editor script execution
             else {
-                GameObject doQ1 = Instantiate(debugOrb, p1, Quaternion.identity, parent);
-                Color q1Color = doQ1.GetComponent<MeshRenderer>().sharedMaterial.color;
-                doQ1.GetComponent<MeshRenderer>().sharedMaterial.color = new Color(0f, 0.5f, 1f);
-                GameObject doQ2 = Instantiate(debugOrb, p2, Quaternion.identity, parent);
-                Color q2Color = doQ2.GetComponent<MeshRenderer>().sharedMaterial.color;
-                doQ2.GetComponent<MeshRenderer>().material.color = new Color(0f, 1f, .33f);
-                GameObject doQ3 = Instantiate(debugOrb, p3, Quaternion.identity, parent);
-                Color q3Color = doQ3.GetComponent<MeshRenderer>().sharedMaterial.color;
-                doQ3.GetComponent<MeshRenderer>().sharedMaterial.color = new Color(1f, 1f, 0f);
-                GameObject doQ4 = Instantiate(debugOrb, p4, Quaternion.identity, parent);
-                Color q4Color = doQ4.GetComponent<MeshRenderer>().sharedMaterial.color;
-                doQ4.GetComponent<MeshRenderer>().sharedMaterial.color = new Color(1f, 0.5f, 0f);
+                if (!NavMesh.CalculatePath(agent.transform.position, waypointPositions[i], NavMesh.AllAreas, path)) {
+                    waypointPositions.RemoveAt(i);
+                }
             }
+        }
+
+
+
+        //DEV ONLY
+        if (spawningDebugMode) {
+            GameObject parentObj = new GameObject($"{name}: Waypoints");
+            for (int i = 0; i < waypointPositions.Count; i++) {
+                GameObject debugWaypoint = Instantiate(debugOrb, waypointPositions[i], Quaternion.identity, parentObj.transform);
+                debugWaypoint.name = $"{name}: Waypoint {i + 1}";
+            }
+            parentObj.transform.parent = transform.parent;
         }
 
         //Set initial destination
         currentWaypoint = Random.Range(0, waypointPositions.Count);
-        if (Application.isPlaying) {
-
-
-
-            agent.SetDestination(waypointPositions[currentWaypoint]);
-
-            GameManager gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-            if (gm.DebugEnemySpawning) {
-
-                targetWaypoint = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                targetWaypoint.name = $"Agent target";
-                targetWaypoint.transform.position = waypointPositions[currentWaypoint];
-                targetWaypoint.GetComponent<MeshRenderer>().material.color = Color.red;
-                targetWaypoint.transform.parent = GameObject.Find("DEV").transform;
-            }
-        }
+        if (Application.isPlaying) agent.SetDestination(waypointPositions[currentWaypoint]);
+        if (spawningDebugMode) Debug.Log($"[Enemy Spawning] Waypoint {currentWaypoint} set as initial waypoint at {waypointPositions[currentWaypoint]}");
 
         //Flag
         initialized = true;

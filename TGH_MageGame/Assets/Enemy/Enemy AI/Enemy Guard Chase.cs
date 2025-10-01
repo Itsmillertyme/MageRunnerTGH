@@ -6,7 +6,7 @@ public class EnemyGuardChase : MonoBehaviour, IBehave {
     //**PROPERTIES**    
     [SerializeField] float extraTurnSpeed;
     [SerializeField] float playerSearchRadius;
-
+    [SerializeField] GameObject debugOrb;
     [SerializeField] Vector3 guardPosition;
 
     NavMeshAgent agent;
@@ -42,24 +42,34 @@ public class EnemyGuardChase : MonoBehaviour, IBehave {
                 playerInRange = false;
             }
 
+            float stopDistance = 3f;
             //Set destination
             if (playerInRange) {
-                //Chase
-                if (agent.destination != player.transform.position) {
-                    agent.SetDestination(player.transform.position);
+                float distToPlayer = Vector3.Distance(agent.transform.position, player.transform.position);
+
+                if (distToPlayer > stopDistance) {
+                    // Chase until within stopDistance
+                    if (agent.destination != player.transform.position) {
+                        agent.SetDestination(player.transform.position);
+                    }
+                }
+                else {
+                    agent.SetDestination(transform.position);
                 }
             }
             else {
-                //Move go to guard position
+                // Return to guard position
                 if (agent.destination != guardPosition) {
                     agent.SetDestination(guardPosition);
                 }
             }
+
         }
     }
 
 
     //**UTILITY METHODS**
+    //DEPRECATED - Uses old level gen system, keeping now for reference and compatibility
     public void Initialize(PathNode roomIn, bool debugMode = false) {
 
         //Add POIs retrieval from GameManager in future, get navmesh point closest to center of the room        
@@ -80,7 +90,28 @@ public class EnemyGuardChase : MonoBehaviour, IBehave {
         initialized = true;
     }
 
-    public void Initialize(RoomData roomDataIn, bool debugMode = false) {
-        throw new System.NotImplementedException();
+    public void Initialize(RoomData roomDataIn, bool spawningDebugMode = false, bool aiDebugMode = false) {
+        //Add POIs retrieval from GameManager in future, get navmesh point closest to center of the room        
+
+        //Helpers
+        Vector3 guardPosition = new Vector3(roomDataIn.PathNode.position.x, roomDataIn.PathNode.position.y, -2.5f);
+
+        //Sample Navmesh
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(guardPosition, out hit, 10f, NavMesh.AllAreas)) {
+            guardPosition = hit.position;
+        }
+
+        //DEV ONLY
+        if (spawningDebugMode) {
+            GameObject debugWaypoint = Instantiate(debugOrb, guardPosition, Quaternion.identity, transform.parent);
+            debugWaypoint.name = $"{name}: Guard Position";
+        }
+
+        //Set property
+        this.guardPosition = guardPosition;
+
+        //Flag
+        initialized = true;
     }
 }

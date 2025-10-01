@@ -15,26 +15,45 @@ public class SpellSkillNode : ScriptableObject
     public string UpgradeName => upgradeName;
     public int UpgradeCost => upgradeCost;
 
-    public bool CanUpgrade(HashSet<SpellSkillNode> ownedUpgrades, int availableSkillPoints)
+    public DoubleBool CanUpgrade(HashSet<SpellSkillNode> ownedUpgrades, int availableSkillPoints)
     {
+        bool hasPrereqs = true;
+        bool hasSkillPoints = true;
+
         foreach (SpellSkillNode prerequisite in prerequisiteUpgrades)
         {
             if (!ownedUpgrades.Contains(prerequisite))
             {
-                return false;
+                hasPrereqs = false;
             }
         }
 
         if (upgradeCost > availableSkillPoints)
         {
-            return false;
+            hasSkillPoints = false;
         }
 
-        return true;
+        return new DoubleBool(hasPrereqs, hasSkillPoints);
     }
 
     public void ApplyUpgrade(Spell spell)
     {
         upgrade.Apply(spell);
     }
+}
+
+public struct DoubleBool
+{
+    private bool hasPrereqs;
+    private bool hasSkillPoints;
+
+    public DoubleBool(bool hasPrereqs, bool hasSkillPoints)
+    {
+        this.hasPrereqs = hasPrereqs;
+        this.hasSkillPoints = hasSkillPoints;
+    }
+
+    public bool HasPrereqsButNotSkillPoints() => hasPrereqs && !hasSkillPoints;
+    public bool HasSkillPointsButNotPrereqs() => !hasPrereqs && hasSkillPoints;
+    public bool MeetsAllRequirements() => hasPrereqs && hasSkillPoints;
 }

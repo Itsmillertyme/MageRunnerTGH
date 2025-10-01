@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4e87c42cefcc4a46b2b024a139f6ad2, type: 3}
-  m_Name: Upgrade 1 Mana Cost - TC
+  m_Name: Upgrade 1 Max Mana - TC
   m_EditorClassIdentifier: 
-  decrease: 25
+  increase: 5

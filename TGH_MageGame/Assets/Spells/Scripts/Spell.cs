@@ -13,7 +13,7 @@ public abstract class Spell : ScriptableObject
     [SerializeField] private int defaultMaxMana;
     [SerializeField] private int defaultDamage;
     [SerializeField] private float defaultLifeSpan;
-    [Tooltip("Time it takes to perform cast")]
+    [Tooltip("Delay from click to end of animation to end cast. It's divided by 30 in playercontroller")]
     [SerializeField] private float defaultCastDelayTime;
     [Tooltip("Time between casts")]
     [SerializeField] private float defaultCastCooldownTime;

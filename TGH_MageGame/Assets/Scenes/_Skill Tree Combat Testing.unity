@@ -397,6 +397,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 672994532372707235, guid: 1398c45f96961234db3bdb9e7cd7da4e, type: 3}
   m_PrefabInstance: {fileID: 1142948581}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &204757526 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4407993359697708978, guid: 41a0755bad083f642a64c68234a56d74, type: 3}
+  m_PrefabInstance: {fileID: 1969715672}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &209372272
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -723,6 +734,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 351126521477295493, guid: 41a0755bad083f642a64c68234a56d74, type: 3}
   m_PrefabInstance: {fileID: 1969715672}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &514824674 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6774322120598785003, guid: 41a0755bad083f642a64c68234a56d74, type: 3}
+  m_PrefabInstance: {fileID: 1969715672}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &518950866
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3647,6 +3669,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1653802371}
   m_CullTransparentMesh: 1
+--- !u!114 &1673702176 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1667068039395091000, guid: 41a0755bad083f642a64c68234a56d74, type: 3}
+  m_PrefabInstance: {fileID: 1969715672}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1791590400 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8630654537844436222, guid: 41a0755bad083f642a64c68234a56d74, type: 3}
@@ -3925,7 +3958,10 @@ MonoBehaviour:
     switched and spell casted. delete corresponding game events
   - 'MERGE, CastAnim make line 666 just say if isreadytocast. remove mana logic. '
   - MERGE, get lighting controller onto game manager
-  - POSTMERGE, animation syncing/timing with spells
+  - POSTMERGE, animation syncing/timing with af
+  - POSTMERGE, Delete boss health and implement loot drops
+  - POSTMERGE, Move lighting dimmer to player controller
+  - 'POSTMERGE, Test upgrades to make sure they work with new cast animation times. '
 --- !u!4 &1965837439
 Transform:
   m_ObjectHideFlags: 0
@@ -4186,6 +4222,22 @@ PrefabInstance:
       propertyPath: m_IncludeLayers.m_Bits
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5198400264246654444, guid: 41a0755bad083f642a64c68234a56d74, type: 3}
+      propertyPath: treesTexts.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5198400264246654444, guid: 41a0755bad083f642a64c68234a56d74, type: 3}
+      propertyPath: 'treesTexts.Array.data[0]'
+      value: 
+      objectReference: {fileID: 514824674}
+    - target: {fileID: 5198400264246654444, guid: 41a0755bad083f642a64c68234a56d74, type: 3}
+      propertyPath: 'treesTexts.Array.data[1]'
+      value: 
+      objectReference: {fileID: 204757526}
+    - target: {fileID: 5198400264246654444, guid: 41a0755bad083f642a64c68234a56d74, type: 3}
+      propertyPath: 'treesTexts.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1673702176}
     - target: {fileID: 5699126101576829381, guid: 41a0755bad083f642a64c68234a56d74, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -340.26

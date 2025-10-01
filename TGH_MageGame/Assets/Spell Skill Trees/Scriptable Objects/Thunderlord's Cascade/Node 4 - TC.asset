@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Node 4 - TC
   m_EditorClassIdentifier: 
   upgradeName: Additional Volley
+  upgradeCost: 3
   prerequisiteUpgrades:
   - {fileID: 11400000, guid: 7e661670228585743ab670e62de86b56, type: 2}
   upgrade: {fileID: 11400000, guid: e5f9d7ee5bf82aa42868eeb4b1bb6c23, type: 2}

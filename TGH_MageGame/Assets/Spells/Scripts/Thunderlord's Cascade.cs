@@ -36,6 +36,10 @@ public class ThunderlordsCascade : Spell
     }
 
     // SETTERS
-    public void SetProjectileCount(int newValue) => boltCount = newValue;
+    public void SetProjectileCount(int newValue)
+    {
+        boltCount = newValue;
+        boltSpread += 3;
+    }
     public void SetVolleyCount(int value) => volleyCount = value;
 }

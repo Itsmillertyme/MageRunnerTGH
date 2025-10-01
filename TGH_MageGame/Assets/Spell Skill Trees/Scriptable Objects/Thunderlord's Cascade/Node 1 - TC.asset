@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Node 1 - TC
   m_EditorClassIdentifier: 
   upgradeName: Reduced Mana Cost
+  upgradeCost: 1
   prerequisiteUpgrades:
   - {fileID: 11400000, guid: 8a00053bd270ce540b5adfad48b4fcf3, type: 2}
   upgrade: {fileID: 11400000, guid: 455e4e12f7e697c4086f582c8988105a, type: 2}

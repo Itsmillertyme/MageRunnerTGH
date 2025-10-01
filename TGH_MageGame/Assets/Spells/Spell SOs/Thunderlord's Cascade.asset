@@ -19,8 +19,8 @@ MonoBehaviour:
   defaultMaxMana: 3
   defaultDamage: 25
   defaultLifeSpan: 2
-  defaultCastDelayTime: 55
-  defaultCastCooldownTime: 3
+  defaultCastDelayTime: 52.5
+  defaultCastCooldownTime: 2.3
   defaultMoveSpeed: 0
   defaultProjectileSize: {x: 2.5, y: 14, z: 1}
   defaultDestroyOnEnemyImpact: 0
@@ -44,9 +44,9 @@ MonoBehaviour:
   isUnlocked: 1
   defaultBoltCount: 3
   defaultVolleyCount: 1
-  boltSpread: 12
+  boltSpread: 15
   volleyCooldown: 0.75
   boltAngularSpread: 25
   boltSpawnDelay: 1
-  dimTimeFrame: 0.25
+  dimTimeFrame: 1
   dimIntensityScale: 0.1

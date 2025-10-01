@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Node 0 - TC
   m_EditorClassIdentifier: 
   upgradeName: Additional Bolts
+  upgradeCost: 2
   prerequisiteUpgrades: []
   upgrade: {fileID: 11400000, guid: c06d43fe09fe9a9469ae066d4a9a6602, type: 2}

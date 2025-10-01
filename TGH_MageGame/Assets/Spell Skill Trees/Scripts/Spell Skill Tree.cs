@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Runtime.ExceptionServices;
 using UnityEngine;
 
 public class SpellSkillTree : MonoBehaviour
@@ -9,6 +8,8 @@ public class SpellSkillTree : MonoBehaviour
 
     private readonly HashSet<SpellSkillNode> ownedUpgrades = new();
 
+    public int SkillPoints => skillPoints;
+
     // CHECK IF UPGRADE IS ALREADY OWNED
     public bool UpgradeOwned(SpellSkillNode upgrade)
     {
@@ -16,7 +17,7 @@ public class SpellSkillTree : MonoBehaviour
     }   
 
     // CHECK IF ELIGIBLE TO UPGRADE
-    public bool CanUpgrade(SpellSkillNode upgrade)
+    public DoubleBool CanUpgrade(SpellSkillNode upgrade)
     {
         return upgrade.CanUpgrade(ownedUpgrades, skillPoints);
     }
@@ -25,7 +26,7 @@ public class SpellSkillTree : MonoBehaviour
     public void ApplyUpgrade(SpellSkillNode upgrade)
     {
         // IF SHOULD NOT UPGRADE, RETURN
-        if (UpgradeOwned(upgrade) || !CanUpgrade(upgrade))
+        if (UpgradeOwned(upgrade) || !CanUpgrade(upgrade).MeetsAllRequirements())
         {
             return;
         }
@@ -46,25 +47,10 @@ public class SpellSkillTree : MonoBehaviour
     {
         skillPoints++;
 
-        // tempPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+        // UPDATE BUTTON TEXT AND INTERACTABILITY
         foreach (var button in FindObjectsByType<SpellSkillUpgradeButton>(FindObjectsSortMode.None))
         {
             button.UpdateButtonState();
         }
-    }
-}
-
-public struct DoubleBool
-{
-    private bool first;
-    private bool second;
-
-    public bool First => first;
-    public bool Second => second;
-
-    public DoubleBool(bool newFirst, bool newSecond)
-    {
-        first = newFirst;
-        second = newSecond;
     }
 }

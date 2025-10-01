@@ -23,7 +23,7 @@ public class CameraController : MonoBehaviour {
         }
 
         //Initialize TMP
-        primHUDCamTMP.text = "Camera Position: " + activeCam;
+        if (primHUDCamTMP != null) primHUDCamTMP.text = "Camera Position: " + activeCam;
 
     }
 

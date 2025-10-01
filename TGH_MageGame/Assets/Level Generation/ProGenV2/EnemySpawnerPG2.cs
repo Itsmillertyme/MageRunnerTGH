@@ -6,7 +6,7 @@ public class EnemySpawnerPG2 : MonoBehaviour {
     [SerializeField] LevelEnemies enemyData; // ScriptableObject with enemies
 
     // Called by LevelGenerator after generation
-    public void SpawnEnemies(Dictionary<Vector2Int, RoomInstance> placedRooms, Transform enemyParent) {
+    public void SpawnEnemies(Dictionary<Vector2Int, RoomInstance> placedRooms, Transform enemyParent, bool debugMode = false) {
         if (enemyData == null || enemyData.mobEnemyPrefabs.Count == 0) {
             Debug.LogWarning("[EnemySpawner] No enemy Scritable Object or no mob prefabs assigned.");
             return;
@@ -33,9 +33,13 @@ public class EnemySpawnerPG2 : MonoBehaviour {
                 GameObject enemyInstance = Instantiate(enemyPrefab, spawnPoint.position, randomRotation);
                 enemyInstance.name = $"{enemyPrefab.name}_Spawned";
                 enemyInstance.transform.parent = enemyParent;
+
+                //Initialize AI
+                EnemyPatrol enemyAI = enemyInstance.GetComponent<EnemyPatrol>();
+                enemyAI.Initialize(roomData, debugMode);
             }
         }
 
-        Debug.Log("[EnemySpawner] Finished spawning enemies.");
+        if (debugMode) Debug.Log("[EnemySpawner] Finished spawning enemies.");
     }
 }

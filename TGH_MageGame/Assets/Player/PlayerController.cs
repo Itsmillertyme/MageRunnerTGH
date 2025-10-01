@@ -164,6 +164,10 @@ public class PlayerController : MonoBehaviour {
 
         SetupJumpVariables();
         HandlePlayerDirection();
+
+        if (gameManager != null) {
+            gameManager = FindAnyObjectByType<GameManager>();
+        }
     }
     //
     void Update() {
@@ -213,7 +217,7 @@ public class PlayerController : MonoBehaviour {
             }
 
             //Snap Z coord to 0
-            transform.position = new Vector3(transform.position.x, transform.position.y, 2.5f);
+            transform.position = new Vector3(transform.position.x, transform.position.y, -2.5f);
         }
 
 
@@ -265,7 +269,7 @@ public class PlayerController : MonoBehaviour {
 
 
         //Read values from Input System
-        currentMovementInput = -1 * context.ReadValue<float>();
+        currentMovementInput = context.ReadValue<float>();
 
 
         //Negate movement while turning or blocking
@@ -341,7 +345,7 @@ public class PlayerController : MonoBehaviour {
         bool isBackwardWalking = animator.GetBool(isBackwardWalkingHash);
         bool isBlocking = animator.GetBool(isBlockingHash);
         //get current movement direction (Right is "forward" and stored here as a positive 1)
-        float movementDir = currentMovementInput * -1;
+        float movementDir = currentMovementInput;
 
 
         if (isBlockPressed && !isBlocking) {
@@ -529,7 +533,7 @@ public class PlayerController : MonoBehaviour {
         //Turn left to right
         if (isFacingLeft) {
             isFacingLeft = false;
-            newRotation = Quaternion.Euler(0, -90, 0);
+            newRotation = Quaternion.Euler(0, 90, 0);
             //test if walking right
             if (isMovementPressed && appliedMovement.x < 0) {
 
@@ -546,7 +550,7 @@ public class PlayerController : MonoBehaviour {
         //Turn right to left
         else {
             isFacingLeft = true;
-            newRotation = Quaternion.Euler(0, 90, 0);
+            newRotation = Quaternion.Euler(0, -90, 0);
             //test if walking right
             if (isMovementPressed && appliedMovement.x < 0) {
                 animator.SetBool(isWalkingHash, false);
@@ -664,6 +668,10 @@ public class PlayerController : MonoBehaviour {
 
         //play animation state
         if (spellBook.IsReadyToCast && playerStats.getCurrentMana() >= spellBook.GetSpellManaCost()) {
+
+            //Handle movement
+            //Test bool from spell SO
+
             animator.CrossFade(castHash, 0.01f);
 
             //play cast sound

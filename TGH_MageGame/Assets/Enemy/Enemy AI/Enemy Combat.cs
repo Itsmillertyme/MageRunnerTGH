@@ -202,6 +202,10 @@ public class EnemyCombat : MonoBehaviour, IBehave {
             DoRangedAttack(targetPosition);
         }
     }
+
+    public void Initialize(RoomData roomDataIn, bool debugMode = false) {
+
+    }
 }
 
 public enum AttackType {

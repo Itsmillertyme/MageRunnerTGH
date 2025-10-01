@@ -79,4 +79,8 @@ public class EnemyGuardChase : MonoBehaviour, IBehave {
         //Flag
         initialized = true;
     }
+
+    public void Initialize(RoomData roomDataIn, bool debugMode = false) {
+        throw new System.NotImplementedException();
+    }
 }

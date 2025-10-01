@@ -79,4 +79,7 @@ public class EnemyMelee : MonoBehaviour, IBehave {
         attackReady = true;
     }
 
+    public void Initialize(RoomData roomDataIn, bool debugMode = false) {
+        throw new System.NotImplementedException();
+    }
 }

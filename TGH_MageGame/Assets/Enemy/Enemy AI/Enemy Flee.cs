@@ -124,4 +124,8 @@ public class EnemyFlee : MonoBehaviour, IBehave {
 
         return farthestPoint;
     }
+
+    public void Initialize(RoomData roomDataIn, bool debugMode = false) {
+        throw new System.NotImplementedException();
+    }
 }

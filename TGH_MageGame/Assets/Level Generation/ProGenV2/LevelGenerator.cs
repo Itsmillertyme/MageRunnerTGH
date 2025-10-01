@@ -11,7 +11,7 @@ public class LevelGenerator : MonoBehaviour {
     [Header("Level Data")]
     [SerializeField] LevelData levelData;
     [SerializeField] NavMeshSurface navMeshSurface;
-    [SerializeField] GameObject playerPrefab;
+    [SerializeField] PlayerController playerController;
 
     [Header("Level Settings")]
     [SerializeField] StartRoomPosition startRoomPosition = StartRoomPosition.CENTER; //default to center
@@ -20,16 +20,16 @@ public class LevelGenerator : MonoBehaviour {
     [SerializeField] bool debugMode;
     [SerializeField] bool omitMask;
 
-    [Header("Parent References")]
+    [Header("Miscellaneous References")]
     [SerializeField] Transform levelParent;
     [SerializeField] Transform maskParent;
     [SerializeField] Transform enemyParent;
+    [SerializeField] GameObject VirtualCameraContainer;
 
     //**FIELDS**
     RoomSelector roomSelector;
     Dictionary<Vector2Int, RoomInstance> placedRooms;
     Queue<PortalTask> openPortals;
-    PlayerController player;
     #endregion
 
     #region Unity Methods
@@ -41,16 +41,34 @@ public class LevelGenerator : MonoBehaviour {
     private void Start() {
         GenerateLevel();
     }
+    //
+    private void OnDisable() {
+        ClearLevel();
+    }
     #endregion
 
     #region Generation
     //**MAIN GENERATION METHOD**
     public void GenerateLevel() {
-        Debug.Log("========== [LevelGen] START GENERATION RUN ==========");
+        if (debugMode) Debug.Log("========== [LevelGen] START GENERATION RUN ==========");
         ClearLevel();
         Initialize();
 
         PlaceStartRoom();
+
+        //intialize level virtual cameras
+        if (VirtualCameraContainer != null && playerController != null) {
+            VirtualCameraController vCamController = VirtualCameraContainer.GetComponent<VirtualCameraController>();
+            if (vCamController != null) {
+                vCamController.InitializeVCams(playerController.transform);
+            }
+            else if (debugMode) {
+                Debug.LogWarning("No VirtualCameraController found on VirtualCameraContainer!");
+            }
+        }
+        else if (debugMode) {
+            Debug.LogWarning("No VirtualCameraContainer or Player found for virtual camera initialization!");
+        }
 
         //Start building from open portals
         while (openPortals.Count > 0) {
@@ -71,11 +89,11 @@ public class LevelGenerator : MonoBehaviour {
     //finish level gen
     void FinalizeLevel() {
         //Close any remaining portals
-        Debug.Log($"scanning {placedRooms.Count} placed rooms");
+        if (debugMode) Debug.Log($"scanning {placedRooms.Count} placed rooms");
         foreach (KeyValuePair<Vector2Int, RoomInstance> placedRoom in placedRooms) {
             RoomInstance room = placedRoom.Value;
 
-            Debug.Log($"Closing {room.GetActiveUnconnectedPortals(debugMode).Count} unconnected portals");
+            if (debugMode) Debug.Log($"Closing {room.GetActiveUnconnectedPortals(debugMode).Count} unconnected portals");
             foreach (PortalData portal in room.GetActiveUnconnectedPortals(debugMode)) {
                 portal.ClosePortal();
             }
@@ -89,7 +107,6 @@ public class LevelGenerator : MonoBehaviour {
             }
             navMeshSurface.BuildNavMesh();
         }
-
         NavMeshLinkBuilder linkBuilder = GetComponent<NavMeshLinkBuilder>();
         linkBuilder.BuildAll();
 
@@ -102,7 +119,7 @@ public class LevelGenerator : MonoBehaviour {
 
         //Spawn Enemies
         EnemySpawnerPG2 enemySpawner = GetComponent<EnemySpawnerPG2>();
-        enemySpawner.SpawnEnemies(placedRooms, enemyParent);
+        enemySpawner.SpawnEnemies(placedRooms, enemyParent, debugMode);
 
     }
 
@@ -177,9 +194,8 @@ public class LevelGenerator : MonoBehaviour {
         }
 
         //Place Player
-        GameObject playerInstance = Instantiate(playerPrefab, startRoomData.PlayerSpawn.position, Quaternion.identity, levelParent.parent);
-        player = playerInstance.GetComponent<PlayerController>();
-        if (debugMode) Debug.Log($"Player instantiated in scene at {startRoomData.PlayerSpawn.position}");
+        playerController.transform.position = startRoomData.PlayerSpawn.position;
+        if (debugMode) Debug.Log($"Player placed in scene at {startRoomData.PlayerSpawn.position}");
 
     }
 
@@ -355,16 +371,16 @@ public class LevelGenerator : MonoBehaviour {
     //Clear level
     public void ClearLevel() {
         //Destroy player
-        if (player != null) {
-#if UNITY_EDITOR
-            if (!Application.isPlaying)
-                DestroyImmediate(player.gameObject);
-            else
-                Destroy(player.gameObject);
-#else
-            Destroy(player.gameObject);
-#endif
-        }
+        //        if (playerController != null) {
+        //#if UNITY_EDITOR
+        //            if (!Application.isPlaying)
+        //                DestroyImmediate(playerController.gameObject);
+        //            else
+        //                Destroy(playerController.gameObject);
+        //#else
+        //            Destroy(playerController.gameObject);
+        //#endif
+        //        }
 
         // Destroy all level objects
         if (levelParent != null) {

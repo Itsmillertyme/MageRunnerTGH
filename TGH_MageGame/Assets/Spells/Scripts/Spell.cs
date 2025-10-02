@@ -8,11 +8,12 @@ public abstract class Spell : ScriptableObject
     [SerializeField] private string description; // UNUSED // NO GETTER
     [SerializeField] private string loreText; // UNUSED // NO GETTER
 
-    [Header("Default Attributes")]
-    [SerializeField] private int defaultManaCost;
+    [Header("Casting Default Attributes")]
+    [SerializeField] private int defaultCurrentMana;
+    [SerializeField] private int defaultMaxMana;
     [SerializeField] private int defaultDamage;
     [SerializeField] private float defaultLifeSpan;
-    [Tooltip("Time it takes to perform cast")]
+    [Tooltip("Delay from click to end of animation to end cast. It's divided by 30 in playercontroller")]
     [SerializeField] private float defaultCastDelayTime;
     [Tooltip("Time between casts")]
     [SerializeField] private float defaultCastCooldownTime;
@@ -21,9 +22,16 @@ public abstract class Spell : ScriptableObject
     [SerializeField] private bool defaultDestroyOnEnemyImpact;
     [SerializeField] private bool defaultDestroyOnEnvironmentImpact;
     [SerializeField] private bool defaultDamageOverTime;
+    [SerializeField] private bool defaultCanMoveDuringCast;
+    [SerializeField] private bool defaultCanJumpDuringCast;
+
+    [Header("Leveling Default Attributes")]
+    [SerializeField] private int defaultCurrentLevel;
+    [SerializeField] private int defaultMaxLevel;
 
     [Header("NO EDIT - Current Attributes")] // TEMP. ONCE WE HAVE SAVES, THIS WILL GO AWAY AND DEFAULT WILL BECOME CURRENT
-    private int manaCost;
+    private int currentMana;
+    private int maxMana;
     private int damage;
     private float lifeSpan;
     [Tooltip("Time it takes to perform cast")]
@@ -35,13 +43,27 @@ public abstract class Spell : ScriptableObject
     private bool destroyOnEnemyImpact;
     private bool destroyOnEnvironmentImpact;
     private bool damageOverTime;
+    private bool canMoveDuringCast;
+    private bool canJumpDuringCast;
+
+    private int currentLevel;
+    private int maxLevel;
 
     [Header("Prefab")]
     [SerializeField] private GameObject projectile;
 
     [Header("SFX")]
     [SerializeField] private AudioClip spawnSFX;
-    [SerializeField] private AudioClip hitSFX; // UNUSED // NO GETTER
+    [Range(0f, 1f)]
+    [SerializeField] private float spawnSFXVolume;
+    [Range(-3f, 3f)]
+    [SerializeField] private float spawnSFXPitch;
+    [SerializeField] private AudioClip hitSFX;
+    [Range(0f, 1f)]
+    [SerializeField] private float hitSFXVolume;
+    [Range(-3f, 3f)]
+    [SerializeField] private float hitSFXPitch;
+    [SerializeField] private GameObject hitSFXPrefab;
 
     [Header("Animation")]
     [SerializeField] private AnimationClip castAnimation;
@@ -55,7 +77,8 @@ public abstract class Spell : ScriptableObject
 
     #region GETTERS
     public string Name => name;
-    public int ManaCost => manaCost;
+    public int CurrentMana => currentMana;
+    public int MaxMana => maxMana;
     public int Damage => damage;
     public float LifeSpan => lifeSpan;
     public float CastDelayTime => castDelayTime;
@@ -67,15 +90,26 @@ public abstract class Spell : ScriptableObject
     public bool DamageOverTime => damageOverTime;
     public GameObject Projectile => projectile;
     public AudioClip SpawnSFX => spawnSFX;
+    public float SpawnSFXVolume => spawnSFXVolume;
+    public float SpawnSFXPitch => spawnSFXPitch;
+    public AudioClip HitSFX => hitSFX;
+    public float HitSFXPitch => hitSFXPitch;
+    public float HitSFXVolume => hitSFXVolume;
+    public GameObject HitSFXPrefab => hitSFXPrefab;
     public AnimationClip CastAnimation => castAnimation;
     public Sprite SpellIcon => icon;
     public Sprite Reticle => reticle;
     public bool IsUnlocked => isUnlocked;
+    public bool CanMoveDuringCast => canMoveDuringCast;
+    public bool CanJumpDuringCast => canJumpDuringCast;
+    public int CurrentLevel => currentLevel;
+    public int MaxLevel => maxLevel;
     #endregion
 
     public void Initialize()
     {
-        manaCost = defaultManaCost;
+        currentMana = defaultCurrentMana;
+        maxMana = defaultMaxMana;
         damage = defaultDamage;
         lifeSpan = defaultLifeSpan;
         castDelayTime = defaultCastDelayTime;
@@ -85,20 +119,24 @@ public abstract class Spell : ScriptableObject
         destroyOnEnemyImpact = defaultDestroyOnEnemyImpact;
         destroyOnEnvironmentImpact = defaultDestroyOnEnvironmentImpact;
         damageOverTime = defaultDamageOverTime;
-    }    
+        canMoveDuringCast = defaultCanMoveDuringCast;
+        canJumpDuringCast = defaultCanJumpDuringCast;
+        currentLevel = defaultCurrentLevel;
+        maxLevel = defaultMaxLevel;
+    }
 
-    public void SetManaCost(int newValue) => manaCost = newValue;
     public void SetProjectileSize(Vector3 newValue) => projectileSize = newValue;
-
     public void SetMoveSpeed(float newValue) => moveSpeed = newValue;
-
     public void SetCastCooldownTime(float newValue) => castCooldownTime = newValue;
-
     public void SetDamage(int newValue) => damage = newValue;
-
     public void SetDestroyOnEnemyImpact(bool newValue) => destroyOnEnemyImpact = newValue;
-
     public void SetDestroyOnEnvironmentalImpact(bool newValue) => destroyOnEnvironmentImpact = newValue;
-
     public void SetDamageOverTime(bool value) => damageOverTime = value;
+    public void ManaExpended() => currentMana--;
+
+    public void SetMaxMana(int newValue)
+    {
+        maxMana = newValue;
+        currentMana = maxMana;
+    }
 }

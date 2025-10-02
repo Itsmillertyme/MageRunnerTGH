@@ -2,54 +2,23 @@ using UnityEngine;
 
 public class EnemyDamager : MonoBehaviour
 {
+    [SerializeField] private GameObject impactSFXPrefab;
     private int damage;
     private float lifeSpan;
     private bool destroyOnEnemyImpact;
     private bool destroyOnPlatformImpact;
-    private int bonusStatDamage;
     private bool addDamageOverTime;
+    private Spell spell;
 
     private void Start()
     {
-        //STAT INTEGRATION
-        bonusStatDamage = (int)GameObject.Find("Player").GetComponent<PlayerController>().PlayerStats["Damage"].StatValue;
-
         Destroy(gameObject, lifeSpan);
     }
 
-    //private void OnCollisionEnter(Collision collision)
-    //{
-
-    //    if (collision.gameObject.CompareTag("Mob Enemy"))
-    //    {
-    //        collision.gameObject.GetComponent<EnemyHealth>().RemoveFromHealth(damage);
-
-    //        if (destroyOnEnemyImpact)
-    //        {
-    //            Destroy(gameObject);
-    //        }
-    //    }
-    //    else if (collision.gameObject.CompareTag("Boss Enemy"))
-    //    {
-    //        collision.gameObject.GetComponent<BossHealth>().RemoveFromHealth(damage);
-
-    //        if (destroyOnEnemyImpact)
-    //        {
-    //            Destroy(gameObject);
-    //        }
-    //    }
-    //    else if (collision.gameObject.CompareTag("Platform") && !destroyOnPlatformImpact)
-    //    {
-    //        // Do nothing, projectile will not be destroyed on platform impact
-    //    }
-    //    else
-    //    {
-    //        Destroy(gameObject);
-    //    }
-    //}
-
     private void OnTriggerEnter(Collider collided)
     {
+        // ADD SOUND EFFECT ON AN COLLISION
+        AddSFXObject(collided);
 
         if (collided.gameObject.CompareTag("Mob Enemy"))
         {
@@ -89,13 +58,14 @@ public class EnemyDamager : MonoBehaviour
         }
     }
 
-    public void SetAttributes(int newDamage, float newLifeSpan, bool newDestroyOnEnemyImpact, bool newDestroyOnPlatformImpact, bool newDamageOverTime)
+    public void SetAttributes(Spell newSpell)
     {
-        damage = newDamage + bonusStatDamage;
-        lifeSpan = newLifeSpan;
-        destroyOnEnemyImpact = newDestroyOnEnemyImpact;
-        destroyOnPlatformImpact = newDestroyOnPlatformImpact;
-        addDamageOverTime = newDamageOverTime;
+        spell = newSpell;
+        damage = spell.Damage;
+        lifeSpan = spell.LifeSpan;
+        destroyOnEnemyImpact = spell.DestroyOnEnemyImpact;
+        destroyOnPlatformImpact = spell.DestroyOnEnvironmentImpact;
+        addDamageOverTime = spell.DamageOverTime;
     }
 
     private bool NoDamageOverTimeAlreadyExists(GameObject enemy)
@@ -108,5 +78,16 @@ public class EnemyDamager : MonoBehaviour
         {
             return false;
         }
+    }
+
+    private void AddSFXObject(Collider collided)
+    {
+        GameObject projectile = Instantiate(spell.HitSFXPrefab, transform.position, Quaternion.identity);
+        projectile.GetComponent<SpellImpactSFX>().BeginEffect(spell);
+    }
+
+    public void SetPrefab(GameObject runtimeObject)
+    {
+        impactSFXPrefab = runtimeObject;
     }
 }

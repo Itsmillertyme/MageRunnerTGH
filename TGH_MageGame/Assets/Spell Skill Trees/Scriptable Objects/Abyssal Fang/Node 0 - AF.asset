@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Node 0 - AF
   m_EditorClassIdentifier: 
   upgradeName: Projectile Size
+  upgradeCost: 1
   prerequisiteUpgrades: []
   upgrade: {fileID: 11400000, guid: 01909892fc48fa4469b9afedba1a0a5f, type: 2}

@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class SpellBook : MonoBehaviour
 {
@@ -11,29 +10,28 @@ public class SpellBook : MonoBehaviour
     [Tooltip("Must be in the same order as the spells themselves")]
     [SerializeField] private Transform[] spellSpawnPoints;
 
-    [Header("Unity Events")]
-    [SerializeField] private UnityEvent ActiveSpellSwitched;
-    [SerializeField] private UnityEvent SpellCasted;
-
-    [Header("Player Stats")]
-    [SerializeField] PlayerStats playerStats;
+    [Header("Spell UI Reference")]
+    [SerializeField] private SpellUI spellUI;
 
     private GameManager gameManager;
+    private LightingController lightingController;
 
     #region // GETTERS
     // VARIABLES
-    public int ActiveSpell => currentSpellIndex;
+    public int CurrentSpellIndex => currentSpellIndex;
     public bool IsReadyToCast => isReadyToCast;
 
     // METHODS
     //public Transform GetSpellSpawnPoint() => spellSpawnPoints[currentSpellIndex]; // GETTER FOR ACTIVE SPELL SPAWN POINT FOR CAST
-    public string GetSpellUIData() => spellBook[currentSpellIndex].Name; // GETTER FOR ACTIVE SPELL TO USE IN UI TEXT
+    public string GetSpellUIData() => $"{spellBook[currentSpellIndex].Name}\nMana: {spellBook[currentSpellIndex].CurrentMana}/{spellBook[currentSpellIndex].MaxMana}"; // GETTER FOR ACTIVE SPELL TO USE IN UI TEXT
     public Sprite GetSpellIconData() => spellBook[currentSpellIndex].SpellIcon; // GETTER FOR ACTIVE SPELL ICON TO USE IN UI
     public Sprite GetSpellReticleData() => spellBook[currentSpellIndex].Reticle; // GETTER FOR ACTIVE SPELL RETICLE TO USE IN UI
     public AnimationClip GetSpellAnimation() => spellBook[currentSpellIndex].CastAnimation; // GETTER FOR ACTIVE SPELL ANIMATION
     public float GetSpellCastDelayTime() => spellBook[currentSpellIndex].CastDelayTime; // GETTER FOR CAST DELAY TIME
-    public float GetSpellManaCost() => spellBook[currentSpellIndex].ManaCost; // GETTER FOR ACTIVE SPELL MANA COST
+    public float GetSpellManaCost() => spellBook[currentSpellIndex].CurrentMana; // GETTER FOR ACTIVE SPELL MANA COST
     public AudioClip GetSpellSpawnSound() => spellBook[currentSpellIndex].SpawnSFX; // GETTER FOR ACTIVE SPELL SPAWN SOUND
+    public float GetSpellSpawnVolume() => spellBook[currentSpellIndex].SpawnSFXVolume; // GETTER FOR ACTIVE SPELL SFX VOLUME
+    public float GetSpellSpawnPitch() => spellBook[currentSpellIndex].SpawnSFXPitch + RandomPitch(); // GETTER FOR ACTIVE SPELL SFX PITCH
     #endregion
 
     #region // DRIVEN
@@ -42,18 +40,20 @@ public class SpellBook : MonoBehaviour
     private Coroutine castCooldown;
     private int currentSpellIndex = 0;
     private bool isReadyToCast = true;
-    private int lastActiveSpell;
+    private int previousSpellIndex;
     #endregion
 
     private void Awake()
     {
         gameManager = FindFirstObjectByType<GameManager>();
+        lightingController = gameManager.GetComponent<LightingController>();
 
         foreach (Spell spell in spellBook)
         {
             spell.Initialize();
         }
 
+        spellUI.UpdateSpellUI(GetSpellUIData(), GetSpellIconData(), GetSpellReticleData());
         currentSpawnPoint = GetSpellSpawnPosition();
     }
 
@@ -70,25 +70,26 @@ public class SpellBook : MonoBehaviour
 
     public Transform GetSpellSpawnPosition()
     {
-        // POSITIONS: 0 IS RH, 1 IS LH, 2 IS CHEST, 3 IS GROUND, 4 IS SKY
+        // POSITIONS: 0 IS LH, 1 IS RH, 2 IS CHEST, 3 IS GROUND, 4 IS SKY
         switch (spellBook[currentSpellIndex])
         {
             case AbyssalFang:
                 currentSpawnPoint = spellSpawnPoints[0];
                 break;
-            case HeavensLament:
-                currentSpawnPoint = spellSpawnPoints[2];
-                break;
-            case InfernalEmbrace:
-                currentSpawnPoint = spellSpawnPoints[0];
-                break;
+            //case HeavensLament:
+            //    currentSpawnPoint = spellSpawnPoints[2];
+            //    break;
+            //case InfernalEmbrace:
+            //    currentSpawnPoint = spellSpawnPoints[0];
+            //    break;
             case ShatterstoneBarrage:
                 currentSpawnPoint = spellSpawnPoints[3];
                 break;
-            // THUNDERLORDS CASCADE DOESN'T NEED A SPAWN POINT
-            case WintersWrath:
-                currentSpawnPoint = spellSpawnPoints[3];
+            case ThunderlordsCascade:
                 break;
+            //case WintersWrath:
+            //    currentSpawnPoint = spellSpawnPoints[3];
+            //    break;
         }
 
         return currentSpawnPoint;
@@ -96,13 +97,13 @@ public class SpellBook : MonoBehaviour
 
     public void Cast()
     {
-        if (isReadyToCast && playerStats.getCurrentMana() >= spellBook[currentSpellIndex].ManaCost)
+        if (isReadyToCast && spellBook[currentSpellIndex].CurrentMana > 0)
         {
             HandleSpellLogic();
 
-            castCooldown = StartCoroutine(CastCooldown(spellBook[ActiveSpell].CastCooldownTime));
-            SpellCasted.Invoke();
-            playerStats.updateCurrentMana(-spellBook[currentSpellIndex].ManaCost);
+            castCooldown = StartCoroutine(CastCooldown(spellBook[CurrentSpellIndex].CastCooldownTime));
+            spellBook[CurrentSpellIndex].ManaExpended();
+            spellUI.UpdateSpellUI(GetSpellUIData(), GetSpellIconData(), GetSpellReticleData());
         }
     }
 
@@ -112,23 +113,15 @@ public class SpellBook : MonoBehaviour
         {
             case AbyssalFang af:
                 CastAbyssalFang(af, currentSpawnPoint.position, gameManager.CrosshairPositionIn3DSpace);
+                isReadyToCast = false;
                 StartCoroutine(CooldownThenCastAltHandAbyssalFang(af, af.CastAltHandCooldownTime));
                 break;
-            //case HeavensLament hl:
-            //    //
-            //    break;
-            //case InfernalEmbrace ie:
-            //    //
-            //    break;
             case ShatterstoneBarrage sb:
                 StartCoroutine(ShatterstoneSpawnProjectiles(sb));
                 break;
             case ThunderlordsCascade tc:
                 StartCoroutine(CastThunderlordsCascade(tc));
                 break;
-                //case WintersWrath ww:
-                //    //
-                //    break;
         }
     }
 
@@ -137,7 +130,7 @@ public class SpellBook : MonoBehaviour
     {
         GameObject newProjectile = Instantiate(spellBook[currentSpellIndex].Projectile, position, Quaternion.identity);
         newProjectile.GetComponent<AbyssalFangProjectileMovement>().SetAttributes(spellBook[currentSpellIndex].MoveSpeed, spellBook[currentSpellIndex].ProjectileSize, direction);
-        newProjectile.GetComponent<EnemyDamager>().SetAttributes(af.Damage, af.LifeSpan, af.DestroyOnEnemyImpact, af.DestroyOnEnvironmentImpact, af.DamageOverTime);
+        newProjectile.GetComponent<EnemyDamager>().SetAttributes(spellBook[currentSpellIndex]);
     }
 
     public IEnumerator CooldownThenCastAltHandAbyssalFang(AbyssalFang af, float waitTime) // THERE IS A BUG WHERE YOU CAN SPAM THE ALT HAND CAST WHEN YOU SHOULD NOT BE ABLE TO CAST
@@ -145,12 +138,6 @@ public class SpellBook : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         CastAbyssalFang(af, spellSpawnPoints[1].position, gameManager.CrosshairPositionIn3DSpace);
     }
-    #endregion
-
-    #region HEAVEN'S LAMENT
-    #endregion
-
-    #region INFERNAL EMBRACE
     #endregion
 
     #region SHATTERSTONE BARRAGE
@@ -179,12 +166,15 @@ public class SpellBook : MonoBehaviour
     #region THUNDERLORD'S CASCADE
     private IEnumerator CastThunderlordsCascade(ThunderlordsCascade tc) // NO SPAWN POSITION. ALL FROM DIRECTION. 
     {
+        // DIM THE LIGHTS DURING SPELL
+        lightingController.DimLights(tc.DimTimeFrame, tc.DimIntensityScale);
+
+        // BEGIN CASTING LOGIC
         float boltSpacing = tc.BoltSpread / (tc.BoltCount - 1);
 
         for (int i = 0; i < tc.VolleyCount; i++)
         {
-            Vector3 spawnPosition = new(gameManager.CrosshairPositionIn3DSpace.x - (tc.BoltSpread / 2), gameManager.Player.position.y, gameManager.CrosshairPositionIn3DSpace.z); // CLAMP Y TO 0
-
+            Vector3 spawnPosition = new(gameManager.CrosshairPositionIn3DSpace.x - (tc.BoltSpread / 2), gameManager.Player.position.y, gameManager.CrosshairPositionIn3DSpace.z);
 
             for (int j = 0; j < tc.BoltCount; j++)
             {
@@ -200,25 +190,39 @@ public class SpellBook : MonoBehaviour
     private void SetThunderlordsCascadeProjectile(ThunderlordsCascade tc, GameObject gameObject)
     {
         // ENEMY DAMAGER
-        gameObject.GetComponentInChildren<EnemyDamager>().SetAttributes(tc.Damage, tc.LifeSpan, tc.DestroyOnEnemyImpact, tc.DestroyOnEnvironmentImpact, tc.DamageOverTime);
+        gameObject.GetComponentInChildren<EnemyDamager>().SetAttributes(spellBook[currentSpellIndex]);
         Destroy(gameObject, tc.LifeSpan); // DESTROY ON DAMAGER DOESN'T WORK BECAUSE COLLISION LOGIC IS ON CHILD
 
-        // PARTICLE SYSTEM REFERENCE
-        ParticleSystem particleSystem = gameObject.GetComponent<ParticleSystem>();
-        ParticleSystem.MainModule particle = particleSystem.main;
+        // PARTICLE SYSTEM REFERENCE SETTING FOR MAIN EFFECT
+        ParticleSystem particleSystemMain = gameObject.GetComponent<ParticleSystem>();
+        ParticleSystem.MainModule particleMain = particleSystemMain.main;
+
+        // PARTICLE SYSTEM REFERENCE SETTING FOR IMPACT EFFECTS
+        ThunderlordsCascadeProjectileMovement tcpm = gameObject.GetComponent<ThunderlordsCascadeProjectileMovement>();
+        ParticleSystem sparksFX = tcpm.SparksFX;
+        ParticleSystem dustCloudFX = tcpm.DustCloudFX;
+        ParticleSystem dustDebrisFX = tcpm.DustDebrisFX;
+        ParticleSystem.MainModule particleSparks = sparksFX.main;
+        ParticleSystem.MainModule particleDustCloud = dustCloudFX.main;
+        ParticleSystem.MainModule particleDustDebris = dustDebrisFX.main;
 
         // START DELAY
-        particle.startDelay = Random.Range(0f, tc.BoltSpawnDelay);
+        float startDelay = Random.Range(0f, tc.BoltSpawnDelay);
+        particleMain.startDelay = startDelay;
+        particleSparks.startDelay = startDelay;
+        particleDustCloud.startDelay = startDelay;
+        particleDustDebris.startDelay = startDelay;
+
 
         // 3D START ROTATION
         float zRotation = Random.Range(-tc.BoltAngularSpread, tc.BoltAngularSpread) * Mathf.Deg2Rad;
-        particle.startRotationZ = zRotation;
+        particleMain.startRotationZ = zRotation;
 
         // COLLIDER
         BoxCollider boltCollider = gameObject.GetComponentInChildren<BoxCollider>();
-        float xSize = particle.startSizeX.constantMax;
-        float ySize = particle.startSizeY.constantMax;
-        float zSize = particle.startSizeZ.constantMax;
+        float xSize = particleMain.startSizeX.constantMax;
+        float ySize = particleMain.startSizeY.constantMax;
+        float zSize = particleMain.startSizeZ.constantMax;
 
         boltCollider.size = new(xSize, ySize, zSize);
         boltCollider.center = new(0, ySize / 2, 0);
@@ -226,15 +230,14 @@ public class SpellBook : MonoBehaviour
     }
     #endregion
 
-    #region WINTER'S WRATH
-    #endregion
-
     // TEST TO SEE HOW THIS WORKS WITH SWITCHING SPELLS. HARD TO TEST WITH TOUCHPAD.
     private IEnumerator CastCooldown(float waitTime)
     {
         isReadyToCast = false;
         yield return new WaitForSeconds(waitTime);
-        isReadyToCast = true;
+
+        // SET isReadyToCast
+        isReadyToCast = SetIsReadyToCast();
     }
 
     // REVIEW THIS
@@ -246,7 +249,7 @@ public class SpellBook : MonoBehaviour
         {
             do
             {
-                lastActiveSpell = currentSpellIndex;
+                previousSpellIndex = currentSpellIndex;
                 currentSpellIndex++;
 
                 if (currentSpellIndex >= spellBook.Length)
@@ -261,7 +264,7 @@ public class SpellBook : MonoBehaviour
         {
             do
             {
-                lastActiveSpell = currentSpellIndex;
+                previousSpellIndex = currentSpellIndex;
                 currentSpellIndex--;
 
                 if (currentSpellIndex < 0)
@@ -275,33 +278,54 @@ public class SpellBook : MonoBehaviour
         // SET SPELL SPAWN POINT
         currentSpawnPoint = GetSpellSpawnPosition();
 
-        // RAISE AN EVENT THAT THE SPELL SELECTION HAS CHANGED
-        ActiveSpellSwitched.Invoke();
+        // SET isReadyToCast
+        isReadyToCast = SetIsReadyToCast();
+
+        // UPDATE UI
+        spellUI.UpdateSpellUI(GetSpellUIData(), GetSpellIconData(), GetSpellReticleData());
     }
 
-    // REVIEW THIS
-    // SET SPELL DIRECTLY
-    public void SetSpellByIndex(int newSpellIndex)
-    {
-        //Validate input
-        if (newSpellIndex < 0 || newSpellIndex > spellBook.Length)
-        {
-            return;
-        }
+    //// REVIEW THIS
+    //// SET SPELL DIRECTLY
+    //public void SetSpellByIndex(int newSpellIndex)
+    //{
+    //    //Validate input
+    //    if (newSpellIndex < 0 || newSpellIndex > spellBook.Length)
+    //    {
+    //        return;
+    //    }
 
-        lastActiveSpell = currentSpellIndex;
-        currentSpellIndex = newSpellIndex;
+    //    lastActiveSpell = currentSpellIndex;
+    //    currentSpellIndex = newSpellIndex;
 
-        // SET SPELL SPAWN POINT
-        currentSpawnPoint = GetSpellSpawnPosition();
+    //    // SET SPELL SPAWN POINT
+    //    currentSpawnPoint = GetSpellSpawnPosition();
 
-        // RAISE AN EVENT THAT THE SPELL SELECTION HAS CHANGED
-        ActiveSpellSwitched.Invoke();
-    }
+    //    // RAISE AN EVENT THAT THE SPELL SELECTION HAS CHANGED
+    //    ActiveSpellSwitched.Invoke();
+    //}
 
-    // REVIEW THIS.
+    //// REVIEW THIS.
     public void HotSwitchSpell()
     {
-        SetSpellByIndex(lastActiveSpell);
+        //SetSpellByIndex(lastActiveSpell);
+    }
+
+    private bool SetIsReadyToCast()
+    {
+        if (spellBook[CurrentSpellIndex].CurrentMana > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private float RandomPitch()
+    {
+        float variance = Random.Range(-0.1f, 0.1f);
+        return variance;
     }
 }

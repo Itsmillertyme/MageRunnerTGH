@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Node 3 - SB
   m_EditorClassIdentifier: 
   upgradeName: Travel Speed
+  upgradeCost: 2
   prerequisiteUpgrades:
   - {fileID: 11400000, guid: 3a055604326aac24a9aeef178a7edf8e, type: 2}
   - {fileID: 11400000, guid: 8c6af9cd76673ce42bf584e53b3b2063, type: 2}

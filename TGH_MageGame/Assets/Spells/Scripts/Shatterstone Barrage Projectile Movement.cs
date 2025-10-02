@@ -35,7 +35,7 @@ public class ShatterstoneBarrageProjectileMovement : MonoBehaviour
 
         // ADD DAMAGER COMPONENT AND SET ATTRIBUTES. THERE WERE ISSUES HAVING IT ON THE PREFAB BY DEFAULT.
         EnemyDamager damager = gameObject.AddComponent<EnemyDamager>();
-        damager.SetAttributes(sb.Damage, sb.LifeSpan, sb.DestroyOnEnemyImpact, sb.DestroyOnEnvironmentImpact, sb.DamageOverTime);
+        damager.SetAttributes(sb);
 
         // PHASE 2: MOVE TOWARDS RETICLE DIRECTION
         Vector3 targetPosition = gameManager.CrosshairPositionIn3DSpace + spawnOffset; // PROJECTILE'S TARGET CONSIDERING OFFSET

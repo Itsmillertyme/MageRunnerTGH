@@ -7,7 +7,7 @@ public class ThunderlordsCascade : Spell
     [Header("Unique Spell Attributes")]
     [SerializeField] private int defaultBoltCount = 3;
     [SerializeField] private int defaultVolleyCount = 1;
-    [SerializeField] private float boltSpread;
+    [SerializeField] private float defaultBoltSpread;
     [SerializeField] private float volleyCooldown;
     [SerializeField] private float boltAngularSpread;
     [SerializeField] private float boltSpawnDelay;
@@ -18,6 +18,7 @@ public class ThunderlordsCascade : Spell
     // TEMP UNTIL WE HAVE A SAVE SYSTEM
     private int boltCount;
     private int volleyCount;
+    private float boltSpread;
 
     // GETTERS
     public int BoltCount => boltCount;
@@ -33,6 +34,7 @@ public class ThunderlordsCascade : Spell
     {
         boltCount = defaultBoltCount;
         volleyCount = defaultVolleyCount;
+        boltSpread = defaultBoltSpread;
     }
 
     // SETTERS

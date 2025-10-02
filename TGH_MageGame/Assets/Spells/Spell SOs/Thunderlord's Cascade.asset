@@ -44,7 +44,7 @@ MonoBehaviour:
   isUnlocked: 1
   defaultBoltCount: 3
   defaultVolleyCount: 1
-  boltSpread: 15
+  defaultBoltSpread: 9
   volleyCooldown: 0.75
   boltAngularSpread: 25
   boltSpawnDelay: 1

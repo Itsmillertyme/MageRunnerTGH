@@ -1772,7 +1772,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spellBookUIText: {fileID: 3953188598965916059}
-  SpellBook: {fileID: 8870210333477321073}
   activeSpellIcon: {fileID: 5304923434451294597}
   activeSpellReticle: {fileID: 2068831857547963571}
 --- !u!114 &4997837955280028284
@@ -3657,44 +3656,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b97ba2bfc6116cf449652b74933a620f, type: 2}
   - {fileID: 11400000, guid: 79da248aa9ba0ed4686afea072603736, type: 2}
   spellSpawnPoints:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 5227091102670359798}
+  - {fileID: 5778790368936159221}
   - {fileID: 351126521477295493}
-  - {fileID: 351126521477295493}
-  - {fileID: 351126521477295493}
-  - {fileID: 351126521477295493}
-
-  ActiveSpellSwitched:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000, guid: 7e05ee028a4aeb941b428e30ae75ec2a, type: 2}
-        m_TargetAssemblyTypeName: GameEvent, Assembly-CSharp
-        m_MethodName: Raise
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  SpellCasted:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000, guid: a3156c450a504324b96533b595c41b70, type: 2}
-        m_TargetAssemblyTypeName: GameEvent, Assembly-CSharp
-        m_MethodName: Raise
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  playerStats: {fileID: 11400000, guid: f5f0a9cfc30db7740be311bccceebbb0, type: 2}
+  - {fileID: 1274630204268922568}
+  spellUI: {fileID: 3943365685811408200}
 --- !u!114 &6492926076646446371
 MonoBehaviour:
   m_ObjectHideFlags: 0

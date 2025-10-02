@@ -5,10 +5,14 @@ public class SpellSkillTree : MonoBehaviour
 {
     [SerializeField] private Spell spell;
     [SerializeField] private int skillPoints;
-
+    private SpellSkillTreeUIController uiController;
     private readonly HashSet<SpellSkillNode> ownedUpgrades = new();
-
     public int SkillPoints => skillPoints;
+
+    private void Awake()
+    {
+        uiController = GetComponentInParent<SpellSkillTreeUIController>();
+    }
 
     // CHECK IF UPGRADE IS ALREADY OWNED
     public bool UpgradeOwned(SpellSkillNode upgrade)
@@ -41,6 +45,8 @@ public class SpellSkillTree : MonoBehaviour
         {
             button.UpdateButtonState();
         }
+
+        uiController.UpdateSkillPoints();
     }
 
     public void SkillPointEarned()

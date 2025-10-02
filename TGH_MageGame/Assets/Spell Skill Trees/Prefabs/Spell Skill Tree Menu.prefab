@@ -51,6 +51,10 @@ MonoBehaviour:
   - {fileID: 5131657150659113938}
   - {fileID: 3717590020398598928}
   - {fileID: 2834946739586865515}
+  treesTexts:
+  - {fileID: 2218423527855100979}
+  - {fileID: 9071939570481797226}
+  - {fileID: 6334537102918532576}
 --- !u!1001 &6020433882892573374
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -143,139 +147,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Abyssal Fang Tree
       objectReference: {fileID: 0}
-    - target: {fileID: 1493979314417871212, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2528824530337605946, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2528824530337605946, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2528824530337605946, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 643516793402911284}
-    - target: {fileID: 2528824530337605946, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2528824530337605946, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: NextTree
-      objectReference: {fileID: 0}
-    - target: {fileID: 2528824530337605946, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: SpellSkillTreeUIController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 2528824530337605946, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 4430723734457996168, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4430723734457996168, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4430723734457996168, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4430723734457996168, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 643516793402911284}
-    - target: {fileID: 4430723734457996168, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4430723734457996168, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4430723734457996168, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PreviousTree
-      objectReference: {fileID: 0}
-    - target: {fileID: 4430723734457996168, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: SpellSkillTreeUIController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 4430723734457996168, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: UnityEngine.UI.Selectable, UnityEngine.UI
-      objectReference: {fileID: 0}
-    - target: {fileID: 4430723734457996168, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 5706070023038670213, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5706070023038670213, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5706070023038670213, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 643516793402911284}
-    - target: {fileID: 5706070023038670213, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5706070023038670213, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: NextTree
-      objectReference: {fileID: 0}
-    - target: {fileID: 5706070023038670213, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: SpellSkillTreeUIController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 5706070023038670213, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 6266699289359956600, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6266699289359956600, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6266699289359956600, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 643516793402911284}
-    - target: {fileID: 6266699289359956600, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6266699289359956600, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PreviousTree
-      objectReference: {fileID: 0}
-    - target: {fileID: 6266699289359956600, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: SpellSkillTreeUIController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 6266699289359956600, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
+--- !u!114 &2218423527855100979 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5568011313065856653, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
+  m_PrefabInstance: {fileID: 6020433882892573374}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5131657150659113938 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1493979314417871212, guid: d58ac01b036ee5b478617b91311fdd74, type: 3}
@@ -375,68 +270,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3378355931195511734, guid: b7e4d15a0385ea0429b477d3e42e007d, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3378355931195511734, guid: b7e4d15a0385ea0429b477d3e42e007d, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3378355931195511734, guid: b7e4d15a0385ea0429b477d3e42e007d, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 643516793402911284}
-    - target: {fileID: 3378355931195511734, guid: b7e4d15a0385ea0429b477d3e42e007d, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3378355931195511734, guid: b7e4d15a0385ea0429b477d3e42e007d, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PreviousTree
-      objectReference: {fileID: 0}
-    - target: {fileID: 3378355931195511734, guid: b7e4d15a0385ea0429b477d3e42e007d, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: SpellSkillTreeUIController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 3378355931195511734, guid: b7e4d15a0385ea0429b477d3e42e007d, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 5923557830400937223, guid: b7e4d15a0385ea0429b477d3e42e007d, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5923557830400937223, guid: b7e4d15a0385ea0429b477d3e42e007d, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5923557830400937223, guid: b7e4d15a0385ea0429b477d3e42e007d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 643516793402911284}
     - target: {fileID: 5923557830400937223, guid: b7e4d15a0385ea0429b477d3e42e007d, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5923557830400937223, guid: b7e4d15a0385ea0429b477d3e42e007d, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: NextTree
-      objectReference: {fileID: 0}
-    - target: {fileID: 5923557830400937223, guid: b7e4d15a0385ea0429b477d3e42e007d, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: SpellSkillTreeUIController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 5923557830400937223, guid: b7e4d15a0385ea0429b477d3e42e007d, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 643516793402911284}
     - target: {fileID: 6181102839225815612, guid: b7e4d15a0385ea0429b477d3e42e007d, type: 3}
       propertyPath: m_Name
       value: Shatterstone Barrage Tree
-      objectReference: {fileID: 0}
-    - target: {fileID: 6181102839225815612, guid: b7e4d15a0385ea0429b477d3e42e007d, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -453,6 +296,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3350535528343182628, guid: b7e4d15a0385ea0429b477d3e42e007d, type: 3}
   m_PrefabInstance: {fileID: 7372454324897831212}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &9071939570481797226 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1996846005084176710, guid: b7e4d15a0385ea0429b477d3e42e007d, type: 3}
+  m_PrefabInstance: {fileID: 7372454324897831212}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8245642859101376743
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -462,40 +316,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 7562309001707759486}
     m_Modifications:
     - target: {fileID: 4942305698245337743, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4942305698245337743, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4942305698245337743, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 643516793402911284}
-    - target: {fileID: 4942305698245337743, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4942305698245337743, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: NextTree
-      objectReference: {fileID: 0}
-    - target: {fileID: 4942305698245337743, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: SpellSkillTreeUIController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 4942305698245337743, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 6141125883169294732, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
       propertyPath: m_Name
       value: Thunderlord's Cascade Tree
-      objectReference: {fileID: 0}
-    - target: {fileID: 6141125883169294732, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8422896854874078351, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
       propertyPath: m_Pivot.x
@@ -578,33 +404,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8510174042939392887, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8510174042939392887, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8510174042939392887, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 643516793402911284}
-    - target: {fileID: 8510174042939392887, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8510174042939392887, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PreviousTree
-      objectReference: {fileID: 0}
-    - target: {fileID: 8510174042939392887, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: SpellSkillTreeUIController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 8510174042939392887, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -620,3 +422,14 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6141125883169294732, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
   m_PrefabInstance: {fileID: 8245642859101376743}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6334537102918532576 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2704028468685106439, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
+  m_PrefabInstance: {fileID: 8245642859101376743}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

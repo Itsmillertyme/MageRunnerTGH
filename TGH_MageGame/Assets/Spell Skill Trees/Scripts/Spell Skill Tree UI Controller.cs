@@ -5,14 +5,26 @@ public class SpellSkillTreeUIController : MonoBehaviour
 {
     [SerializeField] GameObject[] trees;
     [SerializeField] TextMeshProUGUI[] treesTexts;
-    int activeTreeIndex = 0;
-    bool uiEnabled = false;
+    private int activeTreeIndex = 0;
+    private bool uiEnabled = false;
+
+    //private SpellSkillTree[] spellSkillTrees;
+
+    //private void Awake()
+    //{
+    //    spellSkillTrees = new SpellSkillTree[trees.Length];
+
+    //    foreach (var tree in trees)
+    //    {
+    //        spellSkillTrees[activeTreeIndex] = trees[activeTreeIndex].GetComponentInParent<SpellSkillTree>();
+    //    }
+    //}
 
     public void SetUIVisibility()
     {
         uiEnabled = !uiEnabled;
         trees[activeTreeIndex].SetActive(uiEnabled);
-        treesTexts[activeTreeIndex].text = $"Skill Points: {trees[activeTreeIndex].GetComponent<SpellSkillTree>().SkillPoints}";
+        UpdateSkillPoints();
     }
 
     public void NextTree()
@@ -29,7 +41,7 @@ public class SpellSkillTreeUIController : MonoBehaviour
         }
 
         trees[activeTreeIndex].SetActive(true);
-        treesTexts[activeTreeIndex].text = $"Skill Points: {trees[activeTreeIndex].GetComponent<SpellSkillTree>().SkillPoints}";
+        UpdateSkillPoints();
     }
 
     public void PreviousTree()
@@ -46,6 +58,11 @@ public class SpellSkillTreeUIController : MonoBehaviour
         }
 
         trees[activeTreeIndex].SetActive(true);
+        UpdateSkillPoints();
+    }
+
+    public void UpdateSkillPoints()
+    {
         treesTexts[activeTreeIndex].text = $"Skill Points: {trees[activeTreeIndex].GetComponent<SpellSkillTree>().SkillPoints}";
     }
 }

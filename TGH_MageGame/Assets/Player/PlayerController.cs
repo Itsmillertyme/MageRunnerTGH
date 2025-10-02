@@ -667,7 +667,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         //play animation state
-        if (spellBook.IsReadyToCast && playerStats.getCurrentMana() >= spellBook.GetSpellManaCost()) {
+        if (spellBook.IsReadyToCast) {
 
             //Handle movement
             //Test bool from spell SO
@@ -676,8 +676,8 @@ public class PlayerController : MonoBehaviour {
 
             //play cast sound
             audioSource.resource = spellBook.GetSpellSpawnSound();
-            //audioSource.volume = spellBook.GetSpellSpawnSoundVolume();
-            //audioSource.pitch = spellBook.GetSpellSpawnSoundPitch();
+            audioSource.volume = spellBook.GetSpellSpawnVolume();
+            audioSource.pitch = spellBook.GetSpellSpawnPitch();
             audioSource.Play();
 
             //Set anim delay

@@ -10,10 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e49bca7170c59e844a4078f391ed04a4, type: 3}
-  m_Name: CastleEnemies
+  m_Name: 01Castle_Enemies
   m_EditorClassIdentifier: 
-  mobEnemyPrefabs:
-  - {fileID: 6969136263848371978, guid: d1728a1d814a263499002f419d17a67f, type: 3}
-  - {fileID: 5122791751604650877, guid: 3d297bff63849f24c8fe0178ba0c6035, type: 3}
-  - {fileID: 5222568307164741218, guid: 82f235710da27314da1e40f59da2d868, type: 3}
+  mobEnemies:
+  - prefab: {fileID: 6969136263848371978, guid: d1728a1d814a263499002f419d17a67f, type: 3}
+    weight: 50
+  - prefab: {fileID: 5122791751604650877, guid: 3d297bff63849f24c8fe0178ba0c6035, type: 3}
+    weight: 35
+  - prefab: {fileID: 5222568307164741218, guid: 82f235710da27314da1e40f59da2d868, type: 3}
+    weight: 15
   bossPrefab: {fileID: 1802286859466036053, guid: 5c919a7942b487745ac37058fe3e8b6c, type: 3}

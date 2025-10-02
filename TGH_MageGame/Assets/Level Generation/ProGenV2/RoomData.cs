@@ -31,14 +31,11 @@ public class RoomData : MonoBehaviour {
 
     //**UNITY METHODS**
     private void Awake() {
-        Debug.Log($"{name} Awake called. Portals before init: {portals.Count}");
 
         // Initialize all portals
         if (Application.isPlaying) {
             InitializePortals();
         }
-
-        Debug.Log($"{name} Awake finished. Portals after init: {portals.Count}");
     }
 
     //**UTILITY METHODS**

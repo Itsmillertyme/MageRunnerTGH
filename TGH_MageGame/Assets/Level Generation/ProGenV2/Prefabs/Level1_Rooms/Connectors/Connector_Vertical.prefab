@@ -634,6 +634,10 @@ PrefabInstance:
       value: Castle_Floor_Stone_5x5
       objectReference: {fileID: 0}
     - target: {fileID: 1093191259624944, guid: 3543ea8107a930d49808f31ad1883852, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1093191259624944, guid: 3543ea8107a930d49808f31ad1883852, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -850,6 +854,10 @@ PrefabInstance:
     - target: {fileID: 1093191259624944, guid: 3543ea8107a930d49808f31ad1883852, type: 3}
       propertyPath: m_Name
       value: Castle_Floor_Stone_5x5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1093191259624944, guid: 3543ea8107a930d49808f31ad1883852, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1093191259624944, guid: 3543ea8107a930d49808f31ad1883852, type: 3}
       propertyPath: m_IsActive

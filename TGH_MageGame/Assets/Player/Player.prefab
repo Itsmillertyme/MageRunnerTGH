@@ -3660,7 +3660,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 351126521477295493}
-  - {fileID: 0}
+  - {fileID: 351126521477295493}
+  - {fileID: 351126521477295493}
+  - {fileID: 351126521477295493}
+
   ActiveSpellSwitched:
     m_PersistentCalls:
       m_Calls:

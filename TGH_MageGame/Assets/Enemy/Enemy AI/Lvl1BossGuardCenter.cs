@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class Lvl1BossGuardCenter : MonoBehaviour, IBehave {
-     
+
     //**PROPERTIES**    
     [SerializeField] float extraTurnSpeed;
     [SerializeField] float playerSearchRadius;
@@ -84,5 +84,9 @@ public class Lvl1BossGuardCenter : MonoBehaviour, IBehave {
 
         //Flag
         initialized = true;
+    }
+
+    public void Initialize(RoomData roomDataIn, bool spawningDebugMode = false, bool aiDebugMode = false) {
+        throw new System.NotImplementedException();
     }
 }

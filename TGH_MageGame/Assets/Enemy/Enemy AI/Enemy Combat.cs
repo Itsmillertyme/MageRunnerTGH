@@ -22,6 +22,8 @@ public class EnemyCombat : MonoBehaviour, IBehave {
     Animator animator;
     NavMeshAgent agent;
     GameObject player;
+    bool aiDebugMode;
+    bool spawningDebugMode;
 
     //**UNITY METHODS**
     private void Awake() {
@@ -54,7 +56,15 @@ public class EnemyCombat : MonoBehaviour, IBehave {
     }
 
     //**UTILITY METHODS**
+    //DEPRECATED - Uses old level gen system, keeping now for reference and compatibility
     public void Initialize(PathNode roomIn, bool debugMode = false) {
+
+        //Flag
+        initialized = true;
+    }
+    public void Initialize(RoomData roomDataIn, bool spawningDebugMode = false, bool aiDebugMode = false) {
+        this.aiDebugMode = aiDebugMode;
+        this.spawningDebugMode = spawningDebugMode;
 
         //Flag
         initialized = true;
@@ -93,8 +103,14 @@ public class EnemyCombat : MonoBehaviour, IBehave {
 
     //**COROUTINES**
     IEnumerator DoCooldown() {
+
+        Debug.Log($"[Enemy AI] {name} attack cooldown begins");
+
         //Wait for cooldown
         yield return new WaitForSeconds(attackCoolDown);
+
+        Debug.Log($"[Enemy AI] {name} attack ready");
+
         //Set flag
         attackReady = true;
     }

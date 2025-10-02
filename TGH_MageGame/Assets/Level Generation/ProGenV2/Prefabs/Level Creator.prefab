@@ -1,0 +1,111 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3530573066067533382
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8920440581982959757}
+  - component: {fileID: 2976392499744626740}
+  - component: {fileID: 6786892194969944038}
+  - component: {fileID: 8156424092395974037}
+  - component: {fileID: 8731926553272330979}
+  m_Layer: 0
+  m_Name: Level Creator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8920440581982959757
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3530573066067533382}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2976392499744626740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3530573066067533382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d18e3a82b8bfc04db15bf19c7825150, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelData: {fileID: 11400000, guid: c3163082d923d2f47ba5f9ed58073c15, type: 2}
+  navMeshSurface: {fileID: 0}
+  playerPrefab: {fileID: 1563637665092759220, guid: 41a0755bad083f642a64c68234a56d74, type: 3}
+  startRoomPosition: 0
+  deadEndChance: 0.1
+  debugMode: 0
+  omitMask: 1
+  levelParent: {fileID: 0}
+  maskParent: {fileID: 0}
+  enemyParent: {fileID: 0}
+  VirtualCameraContainer: {fileID: 0}
+--- !u!114 &6786892194969944038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3530573066067533382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 851f9bb9f54739f4b847c57edd79cd6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  surface: {fileID: 0}
+  LevelRoot: {fileID: 0}
+  MinHorizontal: 0.25
+  MaxHorizontal: 9
+  MaxVertical: 6
+  AgentRadius: 0.5
+  Bidirectional: 1
+  SkipIfPathAlreadyWalkable: 1
+  PlainPathAreaMask: -1
+  MaxDetourRatio: 1.35
+--- !u!114 &8156424092395974037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3530573066067533382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7728defefa63bf442aa76a812298b21f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maskPrefab: {fileID: 6201183106024395409, guid: 3c7f20510053e0a489502f78facc17b6, type: 3}
+  maskParent: {fileID: 0}
+  maskMat: {fileID: 2100000, guid: 53925bff86a59934ca147c881e5d848b, type: 2}
+  altMat: {fileID: 2100000, guid: 449c93c38f83b724da4342e821840af6, type: 2}
+--- !u!114 &8731926553272330979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3530573066067533382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ec91fb81986a354585b05f5a3591d62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyData: {fileID: 11400000, guid: 6979f6b60b369ba48886a650d9c4e7e6, type: 2}

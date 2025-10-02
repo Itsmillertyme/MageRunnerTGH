@@ -1378,7 +1378,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5122791751604650877}
-  m_Enabled: 0
+  m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
@@ -1456,6 +1456,7 @@ MonoBehaviour:
   extraTurnSpeed: 5
   playerDetectionRadius: 5
   playerForgetRadius: 12
+  debugOrb: {fileID: 5886576140093531377, guid: 46d93abd248c27f469701082065d70c8, type: 3}
 --- !u!114 &-5186306778459080185
 MonoBehaviour:
   m_ObjectHideFlags: 0

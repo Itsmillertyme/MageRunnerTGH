@@ -242,5 +242,8 @@ public class Lvl1BossCombat : MonoBehaviour, IBehave {
         superAttackReady = true;
     }
 
+    public void Initialize(RoomData roomDataIn, bool spawningDebugMode = false, bool aiDebugMode = false) {
+        throw new System.NotImplementedException();
+    }
 }
 

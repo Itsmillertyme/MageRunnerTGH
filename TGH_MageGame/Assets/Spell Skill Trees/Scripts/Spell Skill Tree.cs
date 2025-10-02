@@ -4,8 +4,11 @@ using UnityEngine;
 public class SpellSkillTree : MonoBehaviour
 {
     [SerializeField] private Spell spell;
+    [SerializeField] private int skillPoints;
 
     private readonly HashSet<SpellSkillNode> ownedUpgrades = new();
+
+    public int SkillPoints => skillPoints;
 
     // CHECK IF UPGRADE IS ALREADY OWNED
     public bool UpgradeOwned(SpellSkillNode upgrade)
@@ -14,16 +17,16 @@ public class SpellSkillTree : MonoBehaviour
     }   
 
     // CHECK IF ELIGIBLE TO UPGRADE
-    public bool CanUpgrade(SpellSkillNode upgrade)
+    public DoubleBool CanUpgrade(SpellSkillNode upgrade)
     {
-        return upgrade.CanUpgrade(ownedUpgrades);
+        return upgrade.CanUpgrade(ownedUpgrades, skillPoints);
     }
 
     // PERFORM THE UPGRADE
     public void ApplyUpgrade(SpellSkillNode upgrade)
     {
         // IF SHOULD NOT UPGRADE, RETURN
-        if (UpgradeOwned(upgrade) || !CanUpgrade(upgrade))
+        if (UpgradeOwned(upgrade) || !CanUpgrade(upgrade).MeetsAllRequirements())
         {
             return;
         }
@@ -31,6 +34,18 @@ public class SpellSkillTree : MonoBehaviour
         // UPGRADE
         ownedUpgrades.Add(upgrade);
         upgrade.ApplyUpgrade(spell);
+        skillPoints = skillPoints - upgrade.UpgradeCost;
+
+        // UPDATE BUTTON TEXT AND INTERACTABILITY
+        foreach (var button in FindObjectsByType<SpellSkillUpgradeButton>(FindObjectsSortMode.None))
+        {
+            button.UpdateButtonState();
+        }
+    }
+
+    public void SkillPointEarned()
+    {
+        skillPoints++;
 
         // UPDATE BUTTON TEXT AND INTERACTABILITY
         foreach (var button in FindObjectsByType<SpellSkillUpgradeButton>(FindObjectsSortMode.None))

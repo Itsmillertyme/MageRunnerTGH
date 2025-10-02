@@ -22,19 +22,19 @@ MonoBehaviour:
   defaultCastCooldownTime: 0.4
   defaultMoveSpeed: 0
   defaultProjectileSize: {x: 1, y: 1, z: 1}
-  manaCost: 3
-  damage: 5
-  lifeSpan: 5
-  castDelayTime: 0.2
-  castCooldownTime: 0.4
-  moveSpeed: 0
-  projectileSize: {x: 1, y: 1, z: 1}
+  defaultDestroyOnEnemyImpact: 0
+  defaultDestroyOnEnvironmentImpact: 0
+  defaultDamageOverTime: 0
   projectile: {fileID: 8383778108806972086, guid: b67e365d91b5bab45872532a9547412c, type: 3}
   spawnSFX: {fileID: 8300000, guid: 9bbae88310133d84b9c9c66629669775, type: 3}
+  spawnSFXVolume: 0
+  spawnSFXPitch: 0
   hitSFX: {fileID: 8300000, guid: 4897caa60f417444b972bca550a8a76a, type: 3}
+  hitSFXVolume: 0
+  hitSFXPitch: 0
+  hitSFXPrefab: {fileID: 3504064766699411386, guid: 4609a9ad124764942b0af0e484dab43f, type: 3}
   castAnimation: {fileID: 7400000, guid: 70946658bb3dfdd4a86d93329aba96a7, type: 2}
   icon: {fileID: 21300000, guid: dd3885098198d104888439be4c590aba, type: 3}
   reticle: {fileID: 21300000, guid: 5623df08cb5764f4e93fb78f2feef145, type: 3}
   isUnlocked: 0
-  isAuto: 0
   continousCastingSFX: {fileID: 8300000, guid: 62da461523d972f4f9db322a5e84bec5, type: 3}

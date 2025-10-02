@@ -1,41 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class SpellUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text spellBookUIText;
-    [SerializeField] private SpellBook SpellBook;
     [SerializeField] private Image activeSpellIcon;
     [SerializeField] private Image activeSpellReticle;
 
-    private void Start()
+    public void GetSpellUIData(string newValue)
     {
-        UpdateSpellUI();
-    }
-    public void GetSpellUIData()
-    {
-       // int spellIndex = SpellBook.ActiveSpell;
-        spellBookUIText.text = $"{SpellBook.GetSpellUIData()}";
+        spellBookUIText.text = newValue;
     }
 
-    public void GetActiveSpellIcon()
+    public void GetActiveSpellIcon(Sprite newIcon)
     {
-        activeSpellIcon.sprite = SpellBook.GetSpellIconData();
+        activeSpellIcon.sprite = newIcon;
     }
 
-    public void GetActiveReticle()
+    public void GetActiveReticle(Sprite newReticle)
     {
-        activeSpellReticle. sprite = SpellBook.GetSpellReticleData();
+        activeSpellReticle.sprite = newReticle;
     }
 
-    public void UpdateSpellUI()
+    public void UpdateSpellUI(string newValue, Sprite newIcon, Sprite newReticle)
     {
-        GetSpellUIData();
-        GetActiveReticle();
-        GetActiveSpellIcon();
+        GetSpellUIData(newValue);
+        GetActiveSpellIcon(newIcon);
+        GetActiveReticle(newReticle);
     }
 }

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Node 4 - SB
   m_EditorClassIdentifier: 
   upgradeName: Damage
+  upgradeCost: 3
   prerequisiteUpgrades:
   - {fileID: 11400000, guid: 415677ae3a15cb040bb941fc1ed145fd, type: 2}
   - {fileID: 11400000, guid: 8e21145f975e50544a8b32325a49a3d6, type: 2}

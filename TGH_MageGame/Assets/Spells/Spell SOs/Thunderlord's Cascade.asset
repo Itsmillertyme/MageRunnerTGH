@@ -15,26 +15,38 @@ MonoBehaviour:
   name: Thunderlord's Cascade
   description: 
   loreText: 
-  defaultManaCost: 50
+  defaultCurrentMana: 1000
+  defaultMaxMana: 3
   defaultDamage: 25
   defaultLifeSpan: 2
-  defaultCastDelayTime: 55
-  defaultCastCooldownTime: 3
+  defaultCastDelayTime: 52.5
+  defaultCastCooldownTime: 2.3
   defaultMoveSpeed: 0
   defaultProjectileSize: {x: 2.5, y: 14, z: 1}
   defaultDestroyOnEnemyImpact: 0
   defaultDestroyOnEnvironmentImpact: 0
+  defaultDamageOverTime: 0
+  defaultCanMoveDuringCast: 0
+  defaultCanJumpDuringCast: 0
+  defaultCurrentLevel: 1
+  defaultMaxLevel: 1
   projectile: {fileID: 6967175780439943125, guid: 03e1e7e637eed4a449c1f185ebe5be4d, type: 3}
   spawnSFX: {fileID: 8300000, guid: 7ac26352be64b8842a33baffc9d4d829, type: 3}
+  spawnSFXVolume: 1
+  spawnSFXPitch: 0.85
   hitSFX: {fileID: 8300000, guid: d229eecbc27fdb64f87d8fb141594757, type: 3}
+  hitSFXVolume: 0.1
+  hitSFXPitch: 1.72
+  hitSFXPrefab: {fileID: 3504064766699411386, guid: 4609a9ad124764942b0af0e484dab43f, type: 3}
   castAnimation: {fileID: 7400000, guid: a7e9fdc68b97cbf4cbb6adcacba6fef9, type: 2}
   icon: {fileID: 21300000, guid: 9ee7fc1fa2ad8274bba5797ded341399, type: 3}
   reticle: {fileID: 21300000, guid: f7c739c49273bcc4a8170f0df487956a, type: 3}
   isUnlocked: 1
   defaultBoltCount: 3
   defaultVolleyCount: 1
-  boltSpread: 12
+  boltSpread: 15
   volleyCooldown: 0.75
   boltAngularSpread: 25
-  boltSpawnDelay: 0.25
-  defaultDamageOverTime: 0
+  boltSpawnDelay: 1
+  dimTimeFrame: 1
+  dimIntensityScale: 0.1

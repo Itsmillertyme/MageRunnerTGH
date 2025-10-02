@@ -5,7 +5,9 @@ using UnityEngine;
 public class AbyssalFang : Spell
 {
     [Header("Unique Spell Attributes")]
-    [SerializeField] private float castAltHandCooldownTime = 0.3f;
+    [SerializeField] private float castAltHandCastDelayTime = 0.3f;
 
-    public float CastAltHandCooldownTime => castAltHandCooldownTime;
+    public float CastAltHandCooldownTime => castAltHandCastDelayTime;
+
+    public void SetCastAltHandCastDelayTime(float newValue) => castAltHandCastDelayTime = newValue;
 }

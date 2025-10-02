@@ -1,46 +1,51 @@
+using TMPro;
 using UnityEngine;
 
 public class SpellSkillTreeUIController : MonoBehaviour
 {
     [SerializeField] GameObject[] trees;
-    int lastActiveTreeIndex = 0;
+    [SerializeField] TextMeshProUGUI[] treesTexts;
+    int activeTreeIndex = 0;
     bool uiEnabled = false;
 
     public void SetUIVisibility()
     {
         uiEnabled = !uiEnabled;
-        trees[lastActiveTreeIndex].SetActive(uiEnabled);
+        trees[activeTreeIndex].SetActive(uiEnabled);
+        treesTexts[activeTreeIndex].text = $"Skill Points: {trees[activeTreeIndex].GetComponent<SpellSkillTree>().SkillPoints}";
     }
 
     public void NextTree()
     {
-        trees[lastActiveTreeIndex].SetActive(false);
+        trees[activeTreeIndex].SetActive(false);
 
-        if (lastActiveTreeIndex < trees.Length - 1)
+        if (activeTreeIndex < trees.Length - 1)
         {
-            lastActiveTreeIndex++;
+            activeTreeIndex++;
         }
         else
         {
-            lastActiveTreeIndex = 0;
+            activeTreeIndex = 0;
         }
 
-        trees[lastActiveTreeIndex].SetActive(true);
+        trees[activeTreeIndex].SetActive(true);
+        treesTexts[activeTreeIndex].text = $"Skill Points: {trees[activeTreeIndex].GetComponent<SpellSkillTree>().SkillPoints}";
     }
 
     public void PreviousTree()
     {
-        trees[lastActiveTreeIndex].SetActive(false);
+        trees[activeTreeIndex].SetActive(false);
 
-        if (lastActiveTreeIndex > 0)
+        if (activeTreeIndex > 0)
         {
-            lastActiveTreeIndex--;
+            activeTreeIndex--;
         }
         else
         {
-            lastActiveTreeIndex = trees.Length - 1;
+            activeTreeIndex = trees.Length - 1;
         }
 
-        trees[lastActiveTreeIndex].SetActive(true);
+        trees[activeTreeIndex].SetActive(true);
+        treesTexts[activeTreeIndex].text = $"Skill Points: {trees[activeTreeIndex].GetComponent<SpellSkillTree>().SkillPoints}";
     }
 }

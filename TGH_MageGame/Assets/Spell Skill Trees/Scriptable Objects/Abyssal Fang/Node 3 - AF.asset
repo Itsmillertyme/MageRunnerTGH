@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Node 3 - AF
   m_EditorClassIdentifier: 
   upgradeName: Fire Rate
+  upgradeCost: 1
   prerequisiteUpgrades:
   - {fileID: 11400000, guid: 5cc78686e2a504a46b8fcf4c1be47e6a, type: 2}
   upgrade: {fileID: 11400000, guid: e9aea0db822aad040bbafb96f07de054, type: 2}

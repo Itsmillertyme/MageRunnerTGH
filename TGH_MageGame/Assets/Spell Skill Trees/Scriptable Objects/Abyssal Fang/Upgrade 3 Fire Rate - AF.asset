@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed809aecc6d8ce74b8a1b9d1ac3f7dfe, type: 3}
   m_Name: Upgrade 3 Fire Rate - AF
   m_EditorClassIdentifier: 
-  reduction: 0.3
+  reduction: 0.5

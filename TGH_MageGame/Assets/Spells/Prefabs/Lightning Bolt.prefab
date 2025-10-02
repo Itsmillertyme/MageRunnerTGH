@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 306292236780025101}
   - component: {fileID: 8401827435332219546}
   m_Layer: 6
-  m_Name: FX_LightningStrike_Impact_Dust_01
+  m_Name: Ground Dust Cloud
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4923,9 +4923,8 @@ GameObject:
   - component: {fileID: 7422162108826071045}
   - component: {fileID: 93191405833602520}
   - component: {fileID: 7006885130507391452}
-  - component: {fileID: 8638312704007711455}
   m_Layer: 6
-  m_Name: FX_LightningStrike_Impact_01
+  m_Name: Ground Dust Debris
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9816,103 +9815,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!82 &8638312704007711455
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2776403922639326888}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d229eecbc27fdb64f87d8fb141594757, type: 3}
-  m_Resource: {fileID: 8300000, guid: d229eecbc27fdb64f87d8fb141594757, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 0.01
-  m_Pitch: 1.85
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &3445745080865305204
 GameObject:
   m_ObjectHideFlags: 0
@@ -9926,7 +9828,7 @@ GameObject:
   - component: {fileID: 405141337791272381}
   - component: {fileID: 7330292515669499691}
   m_Layer: 6
-  m_Name: Lightning Bolt Collider
+  m_Name: Impact Logic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9959,6 +9861,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f4afc34b6798cf439d927e89d273d19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  impactSFXPrefab: {fileID: 3504064766699411386, guid: 4609a9ad124764942b0af0e484dab43f, type: 3}
 --- !u!65 &405141337791272381
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10019,7 +9922,7 @@ GameObject:
   - component: {fileID: 65885080498804631}
   - component: {fileID: 4011434229414898136}
   m_Layer: 6
-  m_Name: FX_LightningStrike_Light_01
+  m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10096,7 +9999,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 8.49e-43, y: 8e-44, z: 0, w: 4.3e-44}
+  m_BoundingSphereOverride: {x: 5.56e-43, y: 1.28e-43, z: 0, w: 4.3e-44}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
@@ -10139,6 +10042,7 @@ GameObject:
   - component: {fileID: 181385036535585204}
   - component: {fileID: 3251091784880920057}
   - component: {fileID: 8891503949133351578}
+  - component: {fileID: 1633765828392984134}
   m_Layer: 6
   m_Name: Lightning Bolt
   m_TagString: Untagged
@@ -15036,6 +14940,21 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &1633765828392984134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6967175780439943125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa3cff012c93a4044bfa15c0f9c8d41b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sparksFX: {fileID: 4475774877038396142}
+  dustCloudFX: {fileID: 306292236780025101}
+  dustDebrisFX: {fileID: 93191405833602520}
 --- !u!1 &8290513645416335090
 GameObject:
   m_ObjectHideFlags: 0
@@ -15048,7 +14967,7 @@ GameObject:
   - component: {fileID: 4475774877038396142}
   - component: {fileID: 3854227290986134952}
   m_Layer: 6
-  m_Name: FX_LightningStrike_Ground_01
+  m_Name: Ground Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 33268119683547296}
   - component: {fileID: 23350992778782428}
   - component: {fileID: 65952338677922976}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: CastleWall_5x5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,6 +61,7 @@ MeshRenderer:
   m_RayTraceProcedural: 0
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

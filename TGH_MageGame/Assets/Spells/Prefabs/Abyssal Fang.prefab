@@ -299,3 +299,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f4afc34b6798cf439d927e89d273d19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  impactSFXPrefab: {fileID: 3504064766699411386, guid: 4609a9ad124764942b0af0e484dab43f, type: 3}

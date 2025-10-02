@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 222a2e830197ac74e8fd2d82894f5550, type: 3}
-  m_Name: 01_Castle
+  m_Name: 01Castle_Data
   m_EditorClassIdentifier: 
   startRoom: {fileID: 2925029470820409178, guid: 825eb623e4065c44fb5302229cf175ea, type: 3}
   straights:

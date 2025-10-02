@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4923919525943194}
   - component: {fileID: 33155115352493192}
   - component: {fileID: 23455887202976914}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SM_Bld_Castle_Drawbridge_Chains_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 33921726646886512}
   - component: {fileID: 23123291392535114}
   - component: {fileID: 65052428825808154}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SM_Bld_Castle_Drawbridge_Wood_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -205,7 +205,7 @@ GameObject:
   - component: {fileID: 4126391423126730}
   - component: {fileID: 33554546964589902}
   - component: {fileID: 23607272309866926}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SM_Bld_Castle_Drawbridge_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

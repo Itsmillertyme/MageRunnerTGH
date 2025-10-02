@@ -30,7 +30,7 @@ public class PlayerHealth : MonoBehaviour {
     private void Start() {
         //healthChanged.Invoke();
 
-        statRune = GameObject.Find("Player").GetComponent<PlayerController>().PlayerStats["Health"];
+        //statRune = GameObject.Find("Player").GetComponent<PlayerController>().PlayerStats["Health"];
 
         // Initialize health
         float healthStatValue = statRune != null ? statRune.StatValue : 0;

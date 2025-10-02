@@ -9,6 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cd3f101e7ea1bb4785ea57b8c93ad27, type: 3}
-  m_Name: Spell Casted
+  m_Script: {fileID: 11500000, guid: a4e87c42cefcc4a46b2b024a139f6ad2, type: 3}
+  m_Name: Upgrade 1 Max Mana - TC
   m_EditorClassIdentifier: 
+  increase: 5

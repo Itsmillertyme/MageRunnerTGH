@@ -1632,7 +1632,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5222568307164741218}
-  m_Enabled: 0
+  m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1
   m_Speed: 3.5
@@ -1687,7 +1687,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackCoolDown: 5
-  attackRadius: 3
+  attackRadius: 3.25
   damage: 8
   attackType: 0
   projectilePrefab: {fileID: 3749226296805990834, guid: 887efaf8a43b7aa478069a596d548b0f, type: 3}
@@ -1709,6 +1709,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   extraTurnSpeed: 5
   playerSearchRadius: 15
+  debugOrb: {fileID: 5886576140093531377, guid: 46d93abd248c27f469701082065d70c8, type: 3}
   guardPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1712262664441383809
 MonoBehaviour:

@@ -100,4 +100,8 @@ public class EnemyProjectile : MonoBehaviour, IBehave {
         //Set flag
         attackReady = true;
     }
+
+    public void Initialize(RoomData roomDataIn, bool spawningDebugMode = false, bool aiDebugMode = false) {
+        throw new System.NotImplementedException();
+    }
 }

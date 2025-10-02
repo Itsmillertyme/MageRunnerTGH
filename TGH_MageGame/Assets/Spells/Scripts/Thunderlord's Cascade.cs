@@ -11,7 +11,11 @@ public class ThunderlordsCascade : Spell
     [SerializeField] private float volleyCooldown;
     [SerializeField] private float boltAngularSpread;
     [SerializeField] private float boltSpawnDelay;
+    [SerializeField] private float dimTimeFrame;
+    [Tooltip("Expressed as a decimal. 1 = 100%")]
+    [SerializeField] private float dimIntensityScale;
 
+    // TEMP UNTIL WE HAVE A SAVE SYSTEM
     private int boltCount;
     private int volleyCount;
 
@@ -22,6 +26,8 @@ public class ThunderlordsCascade : Spell
     public float VolleyCooldown => volleyCooldown;
     public float BoltAngularSpread => boltAngularSpread;
     public float BoltSpawnDelay => boltSpawnDelay;
+    public float DimTimeFrame => dimTimeFrame;
+    public float DimIntensityScale => dimIntensityScale;
 
     private void OnEnable()
     {
@@ -30,6 +36,10 @@ public class ThunderlordsCascade : Spell
     }
 
     // SETTERS
-    public void SetProjectileCount(int newValue) => boltCount = newValue;
+    public void SetProjectileCount(int newValue)
+    {
+        boltCount = newValue;
+        boltSpread += 3;
+    }
     public void SetVolleyCount(int value) => volleyCount = value;
 }

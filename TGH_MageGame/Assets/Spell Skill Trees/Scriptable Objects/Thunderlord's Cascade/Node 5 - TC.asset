@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Node 5 - TC
   m_EditorClassIdentifier: 
   upgradeName: Damage Over Time
+  upgradeCost: 1
   prerequisiteUpgrades:
   - {fileID: 11400000, guid: 10ca49550ce0a6c4dabb1cf4566eb783, type: 2}
   upgrade: {fileID: 11400000, guid: cd701b70cb4bbaf44b427353f93208d4, type: 2}

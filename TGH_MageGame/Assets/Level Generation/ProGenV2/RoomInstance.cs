@@ -31,6 +31,16 @@ public class RoomInstance {
         return openPortals;
     }
 
+    public List<PortalData> GetInactivePortals(bool debugMode = false) {
+        List<PortalData> inactivePortals = new List<PortalData>();
+        foreach (PortalData portal in Portals) {
+            if (!portal.IsActive) {
+                inactivePortals.Add(portal);
+            }
+        }
+        return inactivePortals;
+    }
+
     //Connects two portals together, marking them as connected
     public void ConnectPortals(PortalData thisPortalIn, PortalData otherPortalin) {
         if (thisPortalIn != null && otherPortalin != null) {

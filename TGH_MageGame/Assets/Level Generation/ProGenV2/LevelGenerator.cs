@@ -35,6 +35,7 @@ public class LevelGenerator : MonoBehaviour {
     RoomSelector roomSelector;
     Dictionary<Vector2Int, RoomInstance> placedRooms;
     Queue<PortalTask> openPortals;
+    RoomInstance startRoomInstance;
     #endregion
 
     #region Unity Methods
@@ -61,25 +62,14 @@ public class LevelGenerator : MonoBehaviour {
 
         PlaceStartRoom();
 
-        //intialize level virtual cameras
-        //if (VirtualCameraContainer != null && playerController != null) {
-        //    VirtualCameraController vCamController = VirtualCameraContainer.GetComponent<VirtualCameraController>();
-        //    if (vCamController != null) {
-        //        vCamController.InitializeVCams(playerController.transform);
-        //    }
-        //    else if (debugMode) {
-        //        Debug.LogWarning("No VirtualCameraController found on VirtualCameraContainer!");
-        //    }
-        //}
-        //else if (debugMode) {
-        //    Debug.LogWarning("No VirtualCameraContainer or Player found for virtual camera initialization!");
-        //}
-
         //Start building from open portals
         while (openPortals.Count > 0) {
             PortalTask currentPortalTask = openPortals.Dequeue();
             TryExpandFromPortal(currentPortalTask);
         }
+
+        //place boss room
+        PlaceBossRoom();
 
         FinalizeLevel();
     }
@@ -125,6 +115,7 @@ public class LevelGenerator : MonoBehaviour {
         enemySpawner.SpawnEnemies(placedRooms, enemyParent, enemySpawningDebug);
 
     }
+
     //Clear level
     public void ClearLevel() {
         //Destroy player
@@ -257,6 +248,7 @@ public class LevelGenerator : MonoBehaviour {
         //Track placed room
         RoomInstance startRoomInstance = new RoomInstance(startRoomData, gridPosition);
         placedRooms.Add(gridPosition, startRoomInstance);
+        this.startRoomInstance = startRoomInstance;
 
         //Enqueue portals
         if (levelGenerationDebug
@@ -276,6 +268,76 @@ public class LevelGenerator : MonoBehaviour {
         if (levelGenerationDebug) Debug.Log($"[Level Generation] Player placed in scene at {startRoomData.PlayerSpawn.position}");
 
     }
+
+    // Place Boss room
+    void PlaceBossRoom() {
+        float maxDistance = -1f;
+        RoomInstance furtherestEndRoom = null;
+        PortalData connectingPortal = null;
+
+        foreach (KeyValuePair<Vector2Int, RoomInstance> placedRoom in placedRooms) {
+            RoomInstance room = placedRoom.Value;
+            List<PortalData> inactivePortals = room.GetInactivePortals(levelGenerationDebug);
+            float distance = Vector3.Distance(startRoomInstance.RoomData.PathNode.position, room.RoomData.PathNode.position);
+
+            if (inactivePortals.Count < 0) {
+                for (int i = 0; i < inactivePortals.Count; i++) {
+                    if (inactivePortals[i].PortalDirection == PortalDirection.RIGHT) {
+                        if (distance > maxDistance) {
+                            maxDistance = distance;
+                            furtherestEndRoom = room;
+                            connectingPortal = inactivePortals[i];
+                            if (levelGenerationDebug) Debug.Log($"[Level Generation] Boss room location found!");
+                            continue;
+                        }
+                    }
+                    else {
+                        if (levelGenerationDebug) Debug.Log($"[Level Generation] Boss room placement failed - no Right facing portals found to link to");
+                    }
+                }
+            }
+            else {
+                if (levelGenerationDebug) Debug.Log($"[Level Generation] Boss room placement failed - no inactive portals found to link to");
+            }
+
+        }
+
+        // Instantiate next room first so its portals are initialized/active on the instance
+        GameObject bossRoomInstanceObj = Instantiate(levelData.BossRoom, Vector3.zero, Quaternion.identity, levelParent);
+        RoomData bossRoomData = bossRoomInstanceObj.GetComponent<RoomData>();
+        bossRoomData.InitializePortals();
+
+        PortalData bossRoomEntrance = bossRoomData.Portals[0];
+        if (bossRoomEntrance == null) {
+            if (levelGenerationDebug) Debug.LogWarning($"[Level Generation] Next room instance {bossRoomInstanceObj.name} missing entrance for {connectingPortal.PortalDirection}. Closing connector exit.");
+            if (Application.isPlaying) {
+                Destroy(bossRoomInstanceObj);
+            }
+            else {
+                DestroyImmediate(bossRoomInstanceObj);
+            }
+            return;
+        }
+
+        // Compute next room placement from connector-exit anchor -> next-room entrance local offset
+        Vector3 connectorExitWorldPos = connectingPortal.GetWorldPosition();
+        Vector3 nextRoomEntranceLocalPos = bossRoomEntrance.transform.localPosition;
+        Vector3 nextRoomWorldPos = connectorExitWorldPos - nextRoomEntranceLocalPos;
+
+        Vector2Int nextRoomGridPos = new Vector2Int(
+            Mathf.RoundToInt(nextRoomWorldPos.x),
+            Mathf.RoundToInt(nextRoomWorldPos.y)
+        );
+
+        // Commit next room placement + register
+        bossRoomInstanceObj.transform.position = nextRoomWorldPos;
+        RoomInstance placedRoomInstance = new RoomInstance(bossRoomData, nextRoomGridPos);
+        placedRooms.Add(nextRoomGridPos, placedRoomInstance);
+
+        // Wire connector <-> next room
+        furtherestEndRoom.ConnectPortals(connectingPortal, bossRoomEntrance);
+    }
+
 
     // Expand level from a source portal task
     private void TryExpandFromPortal(PortalTask portalTaskIn) {

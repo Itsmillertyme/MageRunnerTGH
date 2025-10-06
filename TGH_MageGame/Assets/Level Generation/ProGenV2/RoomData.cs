@@ -76,5 +76,6 @@ public enum RoomType {
     Straight,
     Corner,
     DeadEnd,
-    Connector
+    Connector,
+    Special
 }

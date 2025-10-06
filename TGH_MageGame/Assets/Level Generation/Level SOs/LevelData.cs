@@ -6,6 +6,7 @@ public class LevelData : ScriptableObject {
 
     [Header("Special Room")]
     [SerializeField] GameObject startRoom;
+    [SerializeField] GameObject bossRoom;
 
     [Header("Room Prefabs")]
     [SerializeField] List<GameObject> straights;
@@ -21,6 +22,7 @@ public class LevelData : ScriptableObject {
 
     //**PROPERTIES**
     public GameObject StartRoom { get => startRoom; }
+    public GameObject BossRoom { get => bossRoom; }
     //
     public List<GameObject> Straights { get => straights; }
     public List<GameObject> Corners { get => corners; }

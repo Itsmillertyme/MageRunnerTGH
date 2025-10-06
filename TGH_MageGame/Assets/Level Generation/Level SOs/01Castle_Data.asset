@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: 01Castle_Data
   m_EditorClassIdentifier: 
   startRoom: {fileID: 2925029470820409178, guid: 825eb623e4065c44fb5302229cf175ea, type: 3}
+  bossRoom: {fileID: 4326282496071784807, guid: cb30c0777b21df44fa7ad425c97ea2fc, type: 3}
   straights:
   - {fileID: 9127894747978123092, guid: 525342d381208bb4698f84d15113a51d, type: 3}
   - {fileID: 8313689084408099964, guid: 7f2d08bc4b861fa498eb1d3815c52a35, type: 3}

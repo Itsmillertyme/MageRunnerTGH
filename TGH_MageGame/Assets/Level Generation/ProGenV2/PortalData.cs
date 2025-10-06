@@ -71,6 +71,21 @@ public class PortalData : MonoBehaviour {
         }
     }
 
+    public void OpenPortal() {
+        if (isConnected) {
+            return;
+        }
+
+        // Mark this portal as open
+        IsActive = true;
+        LinkedPortal = null;
+
+        // If there's a physical door object, enable it
+        if (portalDoor != null) {
+            portalDoor.SetActive(false);
+        }
+    }
+
 }
 
 

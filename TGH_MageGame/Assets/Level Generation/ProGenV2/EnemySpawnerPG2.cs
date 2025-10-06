@@ -16,7 +16,7 @@ public class EnemySpawnerPG2 : MonoBehaviour {
             RoomInstance roomInstance = entry.Value;
             RoomData roomData = roomInstance.RoomData;
 
-            if (roomData.EnemySpawns == null || roomData.EnemySpawns.Count == 0) continue;
+            if (roomData.EnemySpawns == null || roomData.EnemySpawns.Count == 0 || roomData.RoomType == RoomType.Special) continue;
 
             foreach (Transform spawnPoint in roomData.EnemySpawns) {
                 if (spawnPoint == null) continue;

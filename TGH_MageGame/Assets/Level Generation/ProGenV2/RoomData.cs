@@ -14,6 +14,8 @@ public class RoomData : MonoBehaviour {
     [SerializeField] Transform topLeftObject;
     [SerializeField] Transform bottomRightObject;
 
+
+
     //**PROPERTIES**
     public RoomType RoomType { get => roomType; }
     public List<PortalData> Portals { get => portals; }

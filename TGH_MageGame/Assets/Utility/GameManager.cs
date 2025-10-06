@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviour {
 
         //Set debug object positions
         playerPositionObject.position = playerPivot;
-        cursorPositionObject.position = new Vector3(worldPosition.x, worldPosition.y, 2.0f);
+        cursorPositionObject.position = new Vector3(worldPosition.x, worldPosition.y, -2.5f);
 
         //Setup ray 
         Ray ray = new Ray(playerPivot, (cursorPositionObject.position - playerPivot).normalized);

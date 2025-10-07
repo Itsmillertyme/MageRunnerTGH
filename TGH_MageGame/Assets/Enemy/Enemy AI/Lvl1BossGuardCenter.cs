@@ -87,6 +87,25 @@ public class Lvl1BossGuardCenter : MonoBehaviour, IBehave {
     }
 
     public void Initialize(RoomData roomDataIn, bool spawningDebugMode = false, bool aiDebugMode = false) {
-        throw new System.NotImplementedException();
+        //Helpers
+        Vector3 guardPosition = new Vector3(roomDataIn.PathNode.transform.position.x, roomDataIn.BottomRightObject.transform.position.y + 0.5f, -2.5f);
+
+        //find lower platform
+        RaycastHit rayHit;
+        if (Physics.Raycast(guardPosition, Vector3.down, out rayHit, 20f)) {
+            guardPosition.y = rayHit.point.y;
+        }
+
+        //Sample Navmesh
+        NavMeshHit navMeshHit;
+        if (NavMesh.SamplePosition(guardPosition, out navMeshHit, 1.0f, NavMesh.AllAreas)) {
+            guardPosition = navMeshHit.position;
+        }
+
+        //Set property
+        this.guardPosition = guardPosition;
+
+        //Flag
+        initialized = true;
     }
 }

@@ -6,7 +6,7 @@ public class EnemySpawnerPG2 : MonoBehaviour {
     [SerializeField] LevelEnemies enemyData; // ScriptableObject with enemies
 
     // Called by LevelGenerator after generation
-    public void SpawnEnemies(Dictionary<Vector2Int, RoomInstance> placedRooms, Transform enemyParent, bool debugMode = false) {
+    public void SpawnMobEnemies(Dictionary<Vector2Int, RoomInstance> placedRooms, Transform enemyParent, bool debugMode = false) {
         if (enemyData == null || enemyData.mobEnemies.Count == 0) {
             Debug.LogWarning("[EnemySpawner] No enemy Scritable Object or no mob prefabs assigned.");
             return;
@@ -50,4 +50,27 @@ public class EnemySpawnerPG2 : MonoBehaviour {
 
         if (debugMode) Debug.Log("[EnemySpawner] Finished spawning enemies.");
     }
+
+    public void SpawnBossEnemy(RoomInstance bossRoom, Transform enemyParent, bool debugMode = false) {
+        if (enemyData == null || enemyData.bossPrefab == null) {
+            if (debugMode) Debug.LogWarning("[EnemySpawner] No enemy Scritable Object or no Boss prefabs assigned.");
+            return;
+        }
+
+        RoomData roomData = bossRoom.RoomData;
+        if (roomData.EnemySpawns == null || roomData.EnemySpawns.Count == 0) {
+            if (debugMode) Debug.LogWarning("[EnemySpawner] Boss room has no enemy spawn points.");
+            return;
+        }
+
+        GameObject bossInstance = Instantiate(enemyData.bossPrefab, roomData.EnemySpawns[0].position, Quaternion.identity);
+        bossInstance.name = $"**{enemyData.bossPrefab.name}{bossInstance.GetInstanceID()}**";
+        bossInstance.transform.parent = enemyParent;
+
+        IBehave[] behaviors = bossInstance.GetComponents<IBehave>();
+        foreach (IBehave behavior in behaviors) {
+            behavior.Initialize(roomData, debugMode);
+        }
+    }
+
 }

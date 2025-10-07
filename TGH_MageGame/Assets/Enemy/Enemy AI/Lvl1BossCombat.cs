@@ -91,6 +91,11 @@ public class Lvl1BossCombat : MonoBehaviour, IBehave {
         initialized = true;
     }
     //
+    public void Initialize(RoomData roomDataIn, bool spawningDebugMode = false, bool aiDebugMode = false) {
+        //Flag
+        initialized = true;
+    }
+    //
     void DoMeleeAttack() {
         //test if still in range
         if (playerInMeleeRange) {
@@ -173,7 +178,7 @@ public class Lvl1BossCombat : MonoBehaviour, IBehave {
             StartCoroutine(DoSuperAttack());
         }
     }
-
+    //
     IEnumerator DoSuperAttack() {
 
         //Get target 
@@ -242,8 +247,6 @@ public class Lvl1BossCombat : MonoBehaviour, IBehave {
         superAttackReady = true;
     }
 
-    public void Initialize(RoomData roomDataIn, bool spawningDebugMode = false, bool aiDebugMode = false) {
-        throw new System.NotImplementedException();
-    }
+
 }
 

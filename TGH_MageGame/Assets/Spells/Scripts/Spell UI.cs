@@ -7,26 +7,40 @@ public class SpellUI : MonoBehaviour
     [SerializeField] private TMP_Text spellBookUIText;
     [SerializeField] private Image activeSpellIcon;
     [SerializeField] private Image activeSpellReticle;
+    [SerializeField] private Image xpBarImage;
+    [SerializeField] private TextMeshProUGUI spellLevelText;
 
-    public void GetSpellUIData(string newValue)
+    public void SetSpellUIData(string newValue)
     {
         spellBookUIText.text = newValue;
     }
 
-    public void GetActiveSpellIcon(Sprite newIcon)
+    public void SetActiveSpellIcon(Sprite newIcon)
     {
         activeSpellIcon.sprite = newIcon;
     }
 
-    public void GetActiveReticle(Sprite newReticle)
+    public void SetActiveReticle(Sprite newReticle)
     {
         activeSpellReticle.sprite = newReticle;
     }
 
-    public void UpdateSpellUI(string newValue, Sprite newIcon, Sprite newReticle)
+    public void SetXPBarFill(float fill)
     {
-        GetSpellUIData(newValue);
-        GetActiveSpellIcon(newIcon);
-        GetActiveReticle(newReticle);
+        xpBarImage.fillAmount = fill;
+    }
+
+    public void SetSpellLevel(int value)
+    {
+        spellLevelText.text = value.ToString();
+    }
+
+    public void UpdateSpellUI(string newValue, Sprite newIcon, Sprite newReticle, float newXP, int newLevel)
+    {
+        SetSpellUIData(newValue);
+        SetActiveSpellIcon(newIcon);
+        SetActiveReticle(newReticle);
+        SetXPBarFill(newXP);
+        SetSpellLevel(newLevel);
     }
 }

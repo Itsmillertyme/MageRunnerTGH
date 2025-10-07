@@ -20,13 +20,7 @@ public class SpellImpactSFX : MonoBehaviour
     {
         soundEffect.clip = spell.HitSFX;
         soundEffect.volume = spell.HitSFXVolume;
-        soundEffect.pitch = spell.HitSFXPitch + RandomPitch();
+        soundEffect.pitch = spell.HitSFXPitch + UtilityTools.RandomVarianceFloat();
         soundEffect.Play();
-    }
-
-    private float RandomPitch()
-    {
-        float variance = Random.Range(-0.1f, 0.1f);
-        return variance;
     }
 }

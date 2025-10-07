@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7562309001707759486}
   - component: {fileID: 643516793402911284}
+  - component: {fileID: 1507051131283601938}
   m_Layer: 0
   m_Name: Spell Skill Tree Menu
   m_TagString: Untagged
@@ -55,6 +56,20 @@ MonoBehaviour:
   - {fileID: 2218423527855100979}
   - {fileID: 9071939570481797226}
   - {fileID: 6334537102918532576}
+--- !u!114 &1507051131283601938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021696092599993456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc767dde5a0bf0b4582900aacb305f2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillTrees: []
+  spells: []
 --- !u!1001 &6020433882892573374
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -324,71 +339,11 @@ PrefabInstance:
       value: Thunderlord's Cascade Tree
       objectReference: {fileID: 0}
     - target: {fileID: 8422896854874078351, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8422896854874078351, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8422896854874078351, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8422896854874078351, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8422896854874078351, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8422896854874078351, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8422896854874078351, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8422896854874078351, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8422896854874078351, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8422896854874078351, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8422896854874078351, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8422896854874078351, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8422896854874078351, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8422896854874078351, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8422896854874078351, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8422896854874078351, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8422896854874078351, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}
-      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8422896854874078351, guid: 258d2aebe3ba8704a930596c1a660e1d, type: 3}

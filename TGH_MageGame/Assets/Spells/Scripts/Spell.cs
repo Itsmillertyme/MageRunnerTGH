@@ -28,6 +28,19 @@ public abstract class Spell : ScriptableObject
     [Header("Leveling Default Attributes")]
     [SerializeField] private int defaultCurrentLevel;
     [SerializeField] private int defaultMaxLevel;
+    [SerializeField] private int defaultCurrentXP;
+    [SerializeField] private int xpToLevelUp;
+    [SerializeField] private int[] levelRequirements;
+
+
+    /*
+     * lvl 0 req 0 -> to lvl 1
+     * lvl 1 req 1 -> to lvl 2
+     * .......................
+     * lvl 50 req 50 -> to lvl 51
+     * 
+     */
+
 
     [Header("NO EDIT - Current Attributes")] // TEMP. ONCE WE HAVE SAVES, THIS WILL GO AWAY AND DEFAULT WILL BECOME CURRENT
     private int currentMana;
@@ -46,8 +59,9 @@ public abstract class Spell : ScriptableObject
     private bool canMoveDuringCast;
     private bool canJumpDuringCast;
 
-    private int currentLevel;
+    private int currentLevel = 0; // ALSO SERVES AS AN INDEX
     private int maxLevel;
+    private int currentXP;
 
     [Header("Prefab")]
     [SerializeField] private GameObject projectile;
@@ -104,6 +118,8 @@ public abstract class Spell : ScriptableObject
     public bool CanJumpDuringCast => canJumpDuringCast;
     public int CurrentLevel => currentLevel;
     public int MaxLevel => maxLevel;
+    public int CurrentXP => currentXP;
+    public int XPToLevelUp => xpToLevelUp;
     #endregion
 
     public void Initialize()
@@ -121,8 +137,11 @@ public abstract class Spell : ScriptableObject
         damageOverTime = defaultDamageOverTime;
         canMoveDuringCast = defaultCanMoveDuringCast;
         canJumpDuringCast = defaultCanJumpDuringCast;
+
         currentLevel = defaultCurrentLevel;
         maxLevel = defaultMaxLevel;
+        currentXP = defaultCurrentXP;
+        xpToLevelUp = levelRequirements[0];
     }
 
     public void SetProjectileSize(Vector3 newValue) => projectileSize = newValue;
@@ -138,5 +157,15 @@ public abstract class Spell : ScriptableObject
     {
         maxMana = newValue;
         currentMana = maxMana;
+    }
+
+    public void SetCurrentXP(int newValue) => currentXP += newValue;
+    public void LeveledUp() => currentLevel++;
+
+    public void SetNextLevelUpRequirements()
+    {
+        if (currentLevel == maxLevel) return;
+
+        xpToLevelUp = levelRequirements[currentLevel];
     }
 }

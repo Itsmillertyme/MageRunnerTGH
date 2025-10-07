@@ -15,7 +15,8 @@ MonoBehaviour:
   name: Winter's Wrath
   description: needs rework of course
   loreText: 
-  defaultManaCost: 15
+  defaultCurrentMana: 0
+  defaultMaxMana: 0
   defaultDamage: 15
   defaultLifeSpan: 3
   defaultCastDelayTime: 0.4
@@ -25,6 +26,13 @@ MonoBehaviour:
   defaultDestroyOnEnemyImpact: 0
   defaultDestroyOnEnvironmentImpact: 0
   defaultDamageOverTime: 0
+  defaultCanMoveDuringCast: 0
+  defaultCanJumpDuringCast: 0
+  defaultCurrentLevel: 0
+  defaultMaxLevel: 0
+  defaultCurrentXP: 0
+  xpToLevelUp: 0
+  levelRequirements: 00000000
   projectile: {fileID: 3886056780359568004, guid: 6e535dd60937e6a4bb29c8dc036bc547, type: 3}
   spawnSFX: {fileID: 8300000, guid: c1b696512730afd419cf972439680077, type: 3}
   spawnSFXVolume: 0

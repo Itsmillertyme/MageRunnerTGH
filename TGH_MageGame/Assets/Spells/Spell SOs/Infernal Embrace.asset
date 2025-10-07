@@ -15,7 +15,8 @@ MonoBehaviour:
   name: Infernal Embrace
   description: 
   loreText: 
-  defaultManaCost: 3
+  defaultCurrentMana: 0
+  defaultMaxMana: 0
   defaultDamage: 5
   defaultLifeSpan: 5
   defaultCastDelayTime: 0.2
@@ -25,6 +26,13 @@ MonoBehaviour:
   defaultDestroyOnEnemyImpact: 0
   defaultDestroyOnEnvironmentImpact: 0
   defaultDamageOverTime: 0
+  defaultCanMoveDuringCast: 0
+  defaultCanJumpDuringCast: 0
+  defaultCurrentLevel: 0
+  defaultMaxLevel: 0
+  defaultCurrentXP: 0
+  xpToLevelUp: 0
+  levelRequirements: 00000000
   projectile: {fileID: 8383778108806972086, guid: b67e365d91b5bab45872532a9547412c, type: 3}
   spawnSFX: {fileID: 8300000, guid: 9bbae88310133d84b9c9c66629669775, type: 3}
   spawnSFXVolume: 0

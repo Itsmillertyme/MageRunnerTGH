@@ -10,20 +10,15 @@ public class SpellBook : MonoBehaviour
     [Tooltip("Must be in the same order as the spells themselves")]
     [SerializeField] private Transform[] spellSpawnPoints;
 
-    [Header("Spell UI Reference")]
-    [SerializeField] private SpellUI spellUI;
-
+    private SpellUI spellUI;
+    private SpellLevels spellLevels;
     private GameManager gameManager;
     private LightingController lightingController;
 
     #region // GETTERS
-    // VARIABLES
     public int CurrentSpellIndex => currentSpellIndex;
     public bool IsReadyToCast => isReadyToCast;
-
-    // METHODS
-    //public Transform GetSpellSpawnPoint() => spellSpawnPoints[currentSpellIndex]; // GETTER FOR ACTIVE SPELL SPAWN POINT FOR CAST
-    public string GetSpellUIData() => $"{spellBook[currentSpellIndex].Name}\nMana: {spellBook[currentSpellIndex].CurrentMana}/{spellBook[currentSpellIndex].MaxMana}"; // GETTER FOR ACTIVE SPELL TO USE IN UI TEXT
+    public string GetSpellUIData() => $"{spellBook[currentSpellIndex].CurrentMana} / {spellBook[currentSpellIndex].MaxMana}"; // GETTER FOR ACTIVE SPELL TO USE IN UI TEXT
     public Sprite GetSpellIconData() => spellBook[currentSpellIndex].SpellIcon; // GETTER FOR ACTIVE SPELL ICON TO USE IN UI
     public Sprite GetSpellReticleData() => spellBook[currentSpellIndex].Reticle; // GETTER FOR ACTIVE SPELL RETICLE TO USE IN UI
     public AnimationClip GetSpellAnimation() => spellBook[currentSpellIndex].CastAnimation; // GETTER FOR ACTIVE SPELL ANIMATION
@@ -31,7 +26,9 @@ public class SpellBook : MonoBehaviour
     public float GetSpellManaCost() => spellBook[currentSpellIndex].CurrentMana; // GETTER FOR ACTIVE SPELL MANA COST
     public AudioClip GetSpellSpawnSound() => spellBook[currentSpellIndex].SpawnSFX; // GETTER FOR ACTIVE SPELL SPAWN SOUND
     public float GetSpellSpawnVolume() => spellBook[currentSpellIndex].SpawnSFXVolume; // GETTER FOR ACTIVE SPELL SFX VOLUME
-    public float GetSpellSpawnPitch() => spellBook[currentSpellIndex].SpawnSFXPitch + RandomPitch(); // GETTER FOR ACTIVE SPELL SFX PITCH
+    public float GetSpellSpawnPitch() => spellBook[currentSpellIndex].SpawnSFXPitch + UtilityTools.RandomVarianceFloat(); // GETTER FOR ACTIVE SPELL SFX PITCH
+    public float GetXPBarProgress() => (float)spellBook[currentSpellIndex].CurrentXP / (float)spellBook[currentSpellIndex].XPToLevelUp;
+    public int GetSpellCurrentLevel() => spellBook[currentSpellIndex].CurrentLevel;
     #endregion
 
     #region // DRIVEN
@@ -45,6 +42,8 @@ public class SpellBook : MonoBehaviour
 
     private void Awake()
     {
+        spellUI = FindFirstObjectByType<SpellUI>();
+        spellLevels = FindFirstObjectByType<SpellLevels>();
         gameManager = FindFirstObjectByType<GameManager>();
         lightingController = gameManager.GetComponent<LightingController>();
 
@@ -53,7 +52,7 @@ public class SpellBook : MonoBehaviour
             spell.Initialize();
         }
 
-        spellUI.UpdateSpellUI(GetSpellUIData(), GetSpellIconData(), GetSpellReticleData());
+        UpdateUI();
         currentSpawnPoint = GetSpellSpawnPosition();
     }
 
@@ -103,7 +102,7 @@ public class SpellBook : MonoBehaviour
 
             castCooldown = StartCoroutine(CastCooldown(spellBook[CurrentSpellIndex].CastCooldownTime));
             spellBook[CurrentSpellIndex].ManaExpended();
-            spellUI.UpdateSpellUI(GetSpellUIData(), GetSpellIconData(), GetSpellReticleData());
+            UpdateUI();
         }
     }
 
@@ -128,12 +127,12 @@ public class SpellBook : MonoBehaviour
     #region ABYSSAL FANG
     public void CastAbyssalFang(AbyssalFang af, Vector3 position, Vector3 direction)
     {
-        GameObject newProjectile = Instantiate(spellBook[currentSpellIndex].Projectile, position, Quaternion.identity);
-        newProjectile.GetComponent<AbyssalFangProjectileMovement>().SetAttributes(spellBook[currentSpellIndex].MoveSpeed, spellBook[currentSpellIndex].ProjectileSize, direction);
-        newProjectile.GetComponent<EnemyDamager>().SetAttributes(spellBook[currentSpellIndex]);
+        GameObject newProjectile = Instantiate(af.Projectile, position, Quaternion.identity);
+        newProjectile.GetComponent<AbyssalFangProjectileMovement>().SetAttributes(af.MoveSpeed, af.ProjectileSize, direction);
+        newProjectile.GetComponent<EnemyDamager>().SetAttributes(af);
     }
 
-    public IEnumerator CooldownThenCastAltHandAbyssalFang(AbyssalFang af, float waitTime) // THERE IS A BUG WHERE YOU CAN SPAM THE ALT HAND CAST WHEN YOU SHOULD NOT BE ABLE TO CAST
+    public IEnumerator CooldownThenCastAltHandAbyssalFang(AbyssalFang af, float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
         CastAbyssalFang(af, spellSpawnPoints[1].position, gameManager.CrosshairPositionIn3DSpace);
@@ -178,7 +177,7 @@ public class SpellBook : MonoBehaviour
 
             for (int j = 0; j < tc.BoltCount; j++)
             {
-                GameObject newProjectile = Instantiate(spellBook[currentSpellIndex].Projectile, spawnPosition, Quaternion.identity);
+                GameObject newProjectile = Instantiate(tc.Projectile, spawnPosition, Quaternion.identity);
                 spawnPosition = new(spawnPosition.x + boltSpacing, spawnPosition.y, spawnPosition.z);
                 SetThunderlordsCascadeProjectile(tc, newProjectile);
             }
@@ -190,7 +189,7 @@ public class SpellBook : MonoBehaviour
     private void SetThunderlordsCascadeProjectile(ThunderlordsCascade tc, GameObject gameObject)
     {
         // ENEMY DAMAGER
-        gameObject.GetComponentInChildren<EnemyDamager>().SetAttributes(spellBook[currentSpellIndex]);
+        gameObject.GetComponentInChildren<EnemyDamager>().SetAttributes(tc);
         Destroy(gameObject, tc.LifeSpan); // DESTROY ON DAMAGER DOESN'T WORK BECAUSE COLLISION LOGIC IS ON CHILD
 
         // PARTICLE SYSTEM REFERENCE SETTING FOR MAIN EFFECT
@@ -281,8 +280,11 @@ public class SpellBook : MonoBehaviour
         // SET isReadyToCast
         isReadyToCast = SetIsReadyToCast();
 
+        // UPDATE LEVELING SYSTEM INDEX
+        spellLevels.SetIndex(currentSpellIndex);
+
         // UPDATE UI
-        spellUI.UpdateSpellUI(GetSpellUIData(), GetSpellIconData(), GetSpellReticleData());
+        UpdateUI();
     }
 
     //// REVIEW THIS
@@ -323,9 +325,8 @@ public class SpellBook : MonoBehaviour
         }
     }
 
-    private float RandomPitch()
+    public void UpdateUI()
     {
-        float variance = Random.Range(-0.1f, 0.1f);
-        return variance;
+        spellUI.UpdateSpellUI(GetSpellUIData(), GetSpellIconData(), GetSpellReticleData(), GetXPBarProgress(), GetSpellCurrentLevel());
     }
 }

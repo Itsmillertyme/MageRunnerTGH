@@ -8,6 +8,7 @@ public class SpellSkillTree : MonoBehaviour
     private SpellSkillTreeUIController uiController;
     private readonly HashSet<SpellSkillNode> ownedUpgrades = new();
     public int SkillPoints => skillPoints;
+    public Spell SelectedSpell => spell;
 
     private void Awake()
     {
@@ -38,7 +39,7 @@ public class SpellSkillTree : MonoBehaviour
         // UPGRADE
         ownedUpgrades.Add(upgrade);
         upgrade.ApplyUpgrade(spell);
-        skillPoints = skillPoints - upgrade.UpgradeCost;
+        skillPoints -= upgrade.UpgradeCost;
 
         // UPDATE BUTTON TEXT AND INTERACTABILITY
         foreach (var button in FindObjectsByType<SpellSkillUpgradeButton>(FindObjectsSortMode.None))

@@ -29,7 +29,10 @@ MonoBehaviour:
   defaultCanMoveDuringCast: 1
   defaultCanJumpDuringCast: 0
   defaultCurrentLevel: 1
-  defaultMaxLevel: 1
+  defaultMaxLevel: 9
+  defaultCurrentXP: 0
+  xpToLevelUp: 10000
+  levelRequirements: 64000000e803000010270000102700001027000010270000102700001027000010270000
   projectile: {fileID: 5685377436292771932, guid: ae3ed7fd0b25522409d3baf333af4720, type: 3}
   spawnSFX: {fileID: 8300000, guid: f5e870bcbf26ca04d8159c5faaad6a84, type: 3}
   spawnSFXVolume: 1

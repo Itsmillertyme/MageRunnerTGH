@@ -7,22 +7,31 @@ public class EnemyHealth : MonoBehaviour {
     [SerializeField] private int currentHealth;
     [SerializeField] private int maxHealth;
     private readonly int minHealth = 0;
+    [SerializeField] private int xpGrantedOnDeath;
+    private SpellLevels levelingSystem;
+
 
     //**FIELDS**
     public int CurrentHealth => currentHealth;
     public int MaxHealth => maxHealth;
-    public int MinHealth => minHealth;
+
+    private void Awake()
+    {
+        levelingSystem = FindFirstObjectByType<SpellLevels>();
+    }
 
     //**UTILITY METHODS**
     public void RemoveFromHealth(int amountToRemove) {
 
-        //remove health
-        currentHealth -= amountToRemove;
-
-        //test for death
-        if (currentHealth <= minHealth) {
+        if (amountToRemove < currentHealth)
+        {
+            currentHealth -= amountToRemove;
+        }
+        else
+        {
             currentHealth = minHealth;
-            Destroy(gameObject);
+            levelingSystem.AddXP(xpGrantedOnDeath);
+            Destroy(this.gameObject);
         }
     }
 }

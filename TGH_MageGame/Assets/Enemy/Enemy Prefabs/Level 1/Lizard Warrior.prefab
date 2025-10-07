@@ -1661,6 +1661,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 100
   maxHealth: 100
+  xpGrantedOnDeath: 100
 --- !u!114 &4612696788365194736
 MonoBehaviour:
   m_ObjectHideFlags: 0

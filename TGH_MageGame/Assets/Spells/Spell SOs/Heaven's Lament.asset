@@ -15,7 +15,8 @@ MonoBehaviour:
   name: Heaven's Lament
   description: 
   loreText: 
-  defaultManaCost: 10
+  defaultCurrentMana: 0
+  defaultMaxMana: 0
   defaultDamage: 20
   defaultLifeSpan: 1
   defaultCastDelayTime: 0.3
@@ -25,6 +26,13 @@ MonoBehaviour:
   defaultDestroyOnEnemyImpact: 0
   defaultDestroyOnEnvironmentImpact: 0
   defaultDamageOverTime: 0
+  defaultCanMoveDuringCast: 0
+  defaultCanJumpDuringCast: 0
+  defaultCurrentLevel: 0
+  defaultMaxLevel: 0
+  defaultCurrentXP: 0
+  xpToLevelUp: 0
+  levelRequirements: 00000000
   projectile: {fileID: 6217830414919029886, guid: b17c54899f071eb49ba7583372e662e6, type: 3}
   spawnSFX: {fileID: 8300000, guid: d078d1af61f4b3046b3c112735abdcf9, type: 3}
   spawnSFXVolume: 0

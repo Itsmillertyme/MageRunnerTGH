@@ -18,7 +18,7 @@ public class EnemyDamager : MonoBehaviour
     private void OnTriggerEnter(Collider collided)
     {
         // ADD SOUND EFFECT ON AN COLLISION
-        AddSFXObject(collided);
+        AddSFXObject();
 
         if (collided.gameObject.CompareTag("Mob Enemy"))
         {
@@ -80,7 +80,7 @@ public class EnemyDamager : MonoBehaviour
         }
     }
 
-    private void AddSFXObject(Collider collided)
+    private void AddSFXObject()
     {
         GameObject projectile = Instantiate(spell.HitSFXPrefab, transform.position, Quaternion.identity);
         projectile.GetComponent<SpellImpactSFX>().BeginEffect(spell);

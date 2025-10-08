@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -18,7 +17,6 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] Transform projectileSpawn;
     [SerializeField] GameManager gameManager;
     [SerializeField] RectTransform crosshairRect;
-    [SerializeField] PlayerStats playerStats;
 
     //Player variables
     float currentMovementInput;
@@ -36,8 +34,6 @@ public class PlayerController : MonoBehaviour {
     //bool isPaused = false;
     bool topCollided = false;
     bool freezePhysics = false;
-    Dictionary<string, RuneMenuController> playerStatRunes;
-
 
     [Header("Player Settings")]
     //Jump Varbiables
@@ -76,12 +72,10 @@ public class PlayerController : MonoBehaviour {
 
     [Header("Miscellaneous References")]
     [SerializeField] UnityEvent SpellMenuInputPressed;
-    [SerializeField] List<RuneMenuController> statRunes;
 
     //**FIELDS**
     public bool IsFacingLeft { get => isFacingLeft; set => isFacingLeft = value; }
     public bool FreezePhysics { get => freezePhysics; set => freezePhysics = value; }
-    public Dictionary<string, RuneMenuController> PlayerStats { get => playerStatRunes; set => playerStatRunes = value; }
 
     //**UNITY METHODS**
     void Awake() {
@@ -110,12 +104,6 @@ public class PlayerController : MonoBehaviour {
         dashbackwardHash = Animator.StringToHash("Dash_Backward");
         //
         animator.SetBool(landedHash, true);
-        //
-        playerStatRunes = new Dictionary<string, RuneMenuController> {
-            { "Mana", statRunes[0] },
-            { "Damage", statRunes[1] },
-            { "Health", statRunes[2] }
-        };
 
         if (playerModel.transform.rotation.eulerAngles.y == 90) {
             isFacingLeft = true;

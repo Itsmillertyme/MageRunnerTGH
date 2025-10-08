@@ -14,9 +14,6 @@ public class PlayerHealth : MonoBehaviour {
     [Header("Health Events")]
     [SerializeField] private UnityEvent healthChanged;
 
-    [Header("Misc")]
-    RuneMenuController statRune;
-
     #region DRIVEN
     private Coroutine healthRegen;
     private readonly int minHealth = 0;
@@ -28,13 +25,7 @@ public class PlayerHealth : MonoBehaviour {
     public int MinHealth => minHealth;
 
     private void Start() {
-        //healthChanged.Invoke();
-
-        //statRune = GameObject.Find("Player").GetComponent<PlayerController>().PlayerStats["Health"];
-
-        // Initialize health
-        float healthStatValue = statRune != null ? statRune.StatValue : 0;
-        maxHealth += (int) healthStatValue;
+        //healthChanged.Invoke();                     
 
         if (healthRegen == null && currentHealth < maxHealth) {
             healthRegen = StartCoroutine(HealOverTime());
@@ -85,7 +76,4 @@ public class PlayerHealth : MonoBehaviour {
         healthChanged.Invoke();
     }
 
-    public void IncreaseMaxHealthFromStatIncrease() {
-        IncreaseMaxHealth((int) statRune.StatStep);
-    }
 }

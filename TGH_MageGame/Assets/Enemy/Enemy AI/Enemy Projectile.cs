@@ -49,11 +49,6 @@ public class EnemyProjectile : MonoBehaviour, IBehave {
 
 
     //**UTILITY METHODS**
-    public void Initialize(PathNode roomIn, bool debugMode = false) {
-
-        //Flag
-        initialized = true;
-    }
 
     //**COROUTINES**
     IEnumerator DoRanged() {

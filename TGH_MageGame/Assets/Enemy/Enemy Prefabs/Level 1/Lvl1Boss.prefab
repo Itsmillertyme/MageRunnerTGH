@@ -1884,7 +1884,7 @@ MonoBehaviour:
   meleeAttackCoolDown: 1.5
   rangedAttackCoolDown: 2
   superAttackCoolDown: 8
-  meleeAttackRadius: 2.5
+  meleeAttackRadius: 5
   rangedAttackRadius: 15
   meleeDamage: 25
   rangedDamage: 10

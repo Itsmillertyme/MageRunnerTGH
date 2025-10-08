@@ -60,31 +60,6 @@ public class Lvl1BossGuardCenter : MonoBehaviour, IBehave {
 
 
     //**UTILITY METHODS**
-    public void Initialize(PathNode roomIn, bool debugMode = false) {
-
-        //Add POIs retrieval from GameManager in future, get navmesh point closest to center of the room        
-
-        //Helpers
-        Vector3 guardPosition = new Vector3(roomIn.transform.position.x, roomIn.transform.position.y, 2f);
-
-        //find lower platform
-        RaycastHit rayHit;
-        if (Physics.Raycast(guardPosition, Vector3.down, out rayHit, 20f)) {
-            guardPosition.y = rayHit.point.y;
-        }
-
-        //Sample Navmesh
-        NavMeshHit navMeshHit;
-        if (NavMesh.SamplePosition(guardPosition, out navMeshHit, 1.0f, NavMesh.AllAreas)) {
-            guardPosition = navMeshHit.position;
-        }
-
-        //Set property
-        this.guardPosition = guardPosition;
-
-        //Flag
-        initialized = true;
-    }
 
     public void Initialize(RoomData roomDataIn, bool spawningDebugMode = false, bool aiDebugMode = false) {
         //Helpers

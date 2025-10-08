@@ -68,28 +68,7 @@ public class EnemyGuardChase : MonoBehaviour, IBehave {
     }
 
 
-    //**UTILITY METHODS**
-    //DEPRECATED - Uses old level gen system, keeping now for reference and compatibility
-    public void Initialize(PathNode roomIn, bool debugMode = false) {
-
-        //Add POIs retrieval from GameManager in future, get navmesh point closest to center of the room        
-
-        //Helpers
-        Vector3 guardPosition = new Vector3(roomIn.transform.position.x, roomIn.transform.position.y, 1.5f);
-
-        //Sample Navmesh
-        NavMeshHit hit;
-        if (NavMesh.SamplePosition(guardPosition, out hit, 1.0f, NavMesh.AllAreas)) {
-            guardPosition = hit.position;
-        }
-
-        //Set property
-        this.guardPosition = guardPosition;
-
-        //Flag
-        initialized = true;
-    }
-
+    //**UTILITY METHODS**    
     public void Initialize(RoomData roomDataIn, bool spawningDebugMode = false, bool aiDebugMode = false) {
         //Add POIs retrieval from GameManager in future, get navmesh point closest to center of the room        
 

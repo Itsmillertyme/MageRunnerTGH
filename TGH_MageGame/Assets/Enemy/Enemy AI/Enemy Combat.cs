@@ -55,13 +55,7 @@ public class EnemyCombat : MonoBehaviour, IBehave {
         }
     }
 
-    //**UTILITY METHODS**
-    //DEPRECATED - Uses old level gen system, keeping now for reference and compatibility
-    public void Initialize(PathNode roomIn, bool debugMode = false) {
-
-        //Flag
-        initialized = true;
-    }
+    //**UTILITY METHODS**    
     public void Initialize(RoomData roomDataIn, bool spawningDebugMode = false, bool aiDebugMode = false) {
         this.aiDebugMode = aiDebugMode;
         this.spawningDebugMode = spawningDebugMode;
@@ -104,12 +98,12 @@ public class EnemyCombat : MonoBehaviour, IBehave {
     //**COROUTINES**
     IEnumerator DoCooldown() {
 
-        Debug.Log($"[Enemy AI] {name} attack cooldown begins");
+        if (aiDebugMode) Debug.Log($"[Enemy AI] {name} attack cooldown begins");
 
         //Wait for cooldown
         yield return new WaitForSeconds(attackCoolDown);
 
-        Debug.Log($"[Enemy AI] {name} attack ready");
+        if (aiDebugMode) Debug.Log($"[Enemy AI] {name} attack ready");
 
         //Set flag
         attackReady = true;

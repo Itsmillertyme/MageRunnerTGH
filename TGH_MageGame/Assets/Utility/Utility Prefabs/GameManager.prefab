@@ -10,13 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8951188675090632615}
   - component: {fileID: 6934601227346008653}
-  - component: {fileID: 4242984033191643486}
-  - component: {fileID: 5677334814634081852}
-  - component: {fileID: 804772723334797445}
-  - component: {fileID: 3029957774141505769}
-  - component: {fileID: 2188308458630054604}
   - component: {fileID: 2411331737335692735}
-  - component: {fileID: 902093086850564225}
   - component: {fileID: 8118595991286049172}
   - component: {fileID: 8868479989824275462}
   - component: {fileID: 2223046570297707300}
@@ -78,137 +72,6 @@ MonoBehaviour:
   - Bullets are noticeably rotated in runtime when aiming up and firing Rays.
   - We need the animations to not play if cannot cast. I added a getter for that.
     it's not settable.
---- !u!114 &4242984033191643486
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2020309084726206776}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14472b65980f02a45a21bcbc314ec1ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelSeed: 678758116
-  keepSeed: 1
-  dungeonHeight: 75
-  dungeonWidth: 125
-  roomHeightMin: 25
-  roomWidthMin: 35
-  corridorSize: 5
-  dungeonFlatMode: 0
-  maxIterations: 10
-  roomBottomCornerModifier: 0.1
-  roomTopCornerModifier: 0.7
-  roomOffset: 1
-  NavMeshLinkJumpDistance: 15
-  roomParent: {fileID: 0}
-  corridorParent: {fileID: 0}
-  levelParent: {fileID: 0}
-  pathNodeParent: {fileID: 0}
-  wallParent: {fileID: 0}
-  maskParent: {fileID: 0}
-  platformParent: {fileID: 0}
-  decorationParent: {fileID: 0}
-  enemiesParent: {fileID: 0}
-  devParent: {fileID: 0}
-  wallHorizontal: {fileID: 1425470892372866, guid: 562f413b347060b46a3eb1c99c980ff3, type: 3}
-  wallVertical: {fileID: 1898645381966348, guid: 2dd98ce2b3decc6459d1c0305fc9f9e7, type: 3}
-  maskPrefab: {fileID: 6201183106024395409, guid: 3c7f20510053e0a489502f78facc17b6, type: 3}
-  playerPrefab: {fileID: 0}
-  corridorEffect: {fileID: 7024036781345154344, guid: cbea69dbd55783e478e36080bfff9b36, type: 3}
-  platformPrefab: {fileID: 1672980919741387504, guid: 85b8572a4c5f85148929bfe299d15829, type: 3}
-  castleWall5x5Prefab: {fileID: 1069983557862476, guid: 1f542c033163c6646a00bbee82b93999, type: 3}
-  castleWall1x5Prefab: {fileID: 1898645381966348, guid: 2dd98ce2b3decc6459d1c0305fc9f9e7, type: 3}
-  roomMaterial: {fileID: 2100000, guid: a1170929716894048aa6bcee5ad718ce, type: 2}
-  corridorMaterial: {fileID: 2100000, guid: 8ca93fc0d8ba24547bbd2eacd32a5811, type: 2}
-  pathNodeMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-  pathNodeBaseMaterial: {fileID: 2100000, guid: 9957a56b95ddd0e468392818e58da742, type: 2}
-  pathNodeStartMaterial: {fileID: 2100000, guid: cfb8654c8959d604f908a02a9a32bfa6, type: 2}
-  pathNodeEndMaterial: {fileID: 2100000, guid: 88681372e65db8e42ad8e8883e9a049b, type: 2}
-  levelDecorations: {fileID: 11400000, guid: 708476ab180c87c44a6a48aa1ab04b18, type: 2}
-  gameManager: {fileID: 6934601227346008653}
-  levelDecorator: {fileID: 5677334814634081852}
---- !u!114 &5677334814634081852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2020309084726206776}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5882f0cf32028a347baeff46de3db029, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  floorDecorationFrequency: 0.2
-  wallDecorationFrequency: 0.15
-  castleWall5x5WindowPrefab: {fileID: 1172911467984758, guid: ad8ed185cefb89f42a395d02e120a38b, type: 3}
-  castleWall5x5DrainPrefab: {fileID: 1964970002308410, guid: 05a8597b79b00554d9f2722ac46026ec, type: 3}
-  castleWall5x5DoorPrefab: {fileID: 1696747588066754, guid: c91835a049a87be46842946a618d37ec, type: 3}
---- !u!114 &804772723334797445
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2020309084726206776}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6bb8616c1a803b479bb9e00181d2cac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waypoint: {fileID: 0}
---- !u!114 &3029957774141505769
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2020309084726206776}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6981268478e92aa4fafd2eadd3de77fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maskPrefab: {fileID: 6201183106024395409, guid: 3c7f20510053e0a489502f78facc17b6, type: 3}
-  maskParent: {fileID: 0}
-  maskMat: {fileID: 2100000, guid: 53925bff86a59934ca147c881e5d848b, type: 2}
-  altMat: {fileID: 2100000, guid: 0d1a4f6e073bde44c951f5f065198b27, type: 2}
-  maskOverflow: 10
---- !u!114 &2188308458630054604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2020309084726206776}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SerializedVersion: 0
-  m_AgentTypeID: 0
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 512
-  m_UseGeometry: 0
-  m_DefaultArea: 0
-  m_GenerateLinks: 0
-  m_IgnoreNavMeshAgent: 1
-  m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 1
-  m_TileSize: 32
-  m_OverrideVoxelSize: 1
-  m_VoxelSize: 0.05
-  m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 0}
-  m_BuildHeightMesh: 1
 --- !u!114 &2411331737335692735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,29 +84,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7dd4586b13a8fd48992c18ee4d2e161, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &902093086850564225
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2020309084726206776}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbb5691d499a4b740a094e4cd93c8335, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  runesRects:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  statMenu: {fileID: 0}
-  isStatMenuOpen: 0
-  isSubMenuOpen: 0
-  isAnimationHappening: 0
 --- !u!114 &8118595991286049172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,10 +112,10 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 62e03a4b25b425148b6be1261ebe6435, type: 3}
+  m_Resource: {fileID: 8300000, guid: 62e03a4b25b425148b6be1261ebe6435, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0

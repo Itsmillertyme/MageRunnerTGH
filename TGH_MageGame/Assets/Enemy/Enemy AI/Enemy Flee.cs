@@ -64,52 +64,7 @@ public class EnemyFlee : MonoBehaviour, IBehave {
     }
 
 
-    //**UTILITY METHODS**
-    //DEPRECATED - Uses old level gen system, keeping now for reference and compatibility
-    public void Initialize(PathNode roomIn, bool debugMode = false) {
-
-        //Helper
-        float navMeshSampleRadius = 6f;
-
-        //Find corner points
-        Vector3 cBottomLeft = new Vector3(roomIn.RoomTopLeftCorner.y - 3, roomIn.RoomTopLeftCorner.x + 3, 1.5f);
-        Vector3 cTopLeft = new Vector3(roomIn.RoomTopLeftCorner.y - 3, roomIn.RoomTopLeftCorner.x + roomIn.RoomDimensions.x - 3, 1.5f);
-        Vector3 cTopRight = new Vector3(roomIn.RoomTopLeftCorner.y - roomIn.RoomDimensions.y + 3, roomIn.RoomTopLeftCorner.x + roomIn.RoomDimensions.x - 3, 1.5f);
-        Vector3 cBottomRight = new Vector3(roomIn.RoomTopLeftCorner.y - roomIn.RoomDimensions.y + 3, roomIn.RoomTopLeftCorner.x + 3, 1.5f);
-
-        //Sample
-        NavMeshHit hit;
-        if (NavMesh.SamplePosition(cBottomLeft, out hit, navMeshSampleRadius, NavMesh.AllAreas)) {
-            cBottomLeft = hit.position;
-        }
-        if (NavMesh.SamplePosition(cTopLeft, out hit, navMeshSampleRadius, NavMesh.AllAreas)) {
-            cTopLeft = hit.position;
-        }
-        if (NavMesh.SamplePosition(cTopRight, out hit, navMeshSampleRadius, NavMesh.AllAreas)) {
-            cTopRight = hit.position;
-        }
-        if (NavMesh.SamplePosition(cBottomRight, out hit, navMeshSampleRadius, NavMesh.AllAreas)) {
-            cBottomRight = hit.position;
-        }
-
-        //GameObject debug1 = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        //debug1.transform.position = cBottomLeft;
-        //GameObject debug2 = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        //debug2.transform.position = cTopLeft;
-        //GameObject debug3 = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        //debug3.transform.position = cTopRight;
-        //GameObject debug4 = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        //debug4.transform.position = cBottomRight;
-
-        cornerPoints.Add(cBottomLeft);
-        cornerPoints.Add(cTopLeft);
-        cornerPoints.Add(cTopRight);
-        cornerPoints.Add(cBottomRight);
-
-        //Flag
-        initialized = true;
-    }
-    //
+    //**UTILITY METHODS**   
     public void Initialize(RoomData roomDataIn, bool spawningDebugMode = false, bool aiDebugMode = false) {
 
         ////Helper

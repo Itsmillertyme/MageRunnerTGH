@@ -24,7 +24,6 @@ public class GameManager : MonoBehaviour {
     Vector3 playerPivot;
     //
     ControlScheme currentScheme = ControlScheme.KEYBOARDMOUSE;
-    PathNode currentPathNode;
     //
     int currentLevel = 1;
 
@@ -50,7 +49,6 @@ public class GameManager : MonoBehaviour {
     public ControlScheme CurrentScheme { get => currentScheme; }
     public Vector3 CrosshairPositionIn3DSpace { get => cursorPositionObject.transform.position; }
     public Transform Player { get => player; }
-    public PathNode CurrentPathNode { get => currentPathNode; set => SetCurrentPathNode(value); }
     public bool GenerateLevelOnLoad { get => generateLevelOnLoad; set => generateLevelOnLoad = value; }
     public bool UnlockAllPaths { get => unlockAllPaths; set => unlockAllPaths = value; }
     public bool DebugLevelGeneration { get => debugLevelGeneration; set => debugLevelGeneration = value; }
@@ -154,22 +152,6 @@ public class GameManager : MonoBehaviour {
     public void LoadMainMenu() {
         SceneManager.LoadScene("Splash");
     }
-    //
-    public void SetCurrentPathNode(PathNode nodeIn, bool isInit = false) {
-        //reset old pathnode color
-        if (!isInit) {
-            currentPathNode.GetComponent<MeshRenderer>().sharedMaterial = currentPathNodeOriginalMaterial;
-        }
-
-        //Set new node reference
-        currentPathNode = nodeIn;
-        //Cache renderer reference
-        MeshRenderer newNodeRenderer = currentPathNode.GetComponent<MeshRenderer>();
-        //Cache old Material reference
-        currentPathNodeOriginalMaterial = newNodeRenderer.sharedMaterial;
-        //Set new Mat as current room
-        newNodeRenderer.sharedMaterial = playerRoomMaterial;
-    }
 
     //**COROUTINES**
     public IEnumerator ShowAndHideLoadingScreen() {
@@ -207,8 +189,8 @@ public class GameManager : MonoBehaviour {
         musicManager.PlayNextTrack();
 
         //reload level
-        GetComponent<DungeonCreator>().keepSeed = false;
-        GetComponent<DungeonCreator>().RetryGeneration();
+        //GetComponent<DungeonCreator>().keepSeed = false;
+        //GetComponent<DungeonCreator>().RetryGeneration();
 
         //Lerp small and hide
         time = 0f;

@@ -85,12 +85,6 @@ public class Lvl1BossCombat : MonoBehaviour, IBehave {
     }
 
     //**UTILITY METHODS**
-    public void Initialize(PathNode roomIn, bool debugMode = false) {
-
-        //Flag
-        initialized = true;
-    }
-    //
     public void Initialize(RoomData roomDataIn, bool spawningDebugMode = false, bool aiDebugMode = false) {
         //Flag
         initialized = true;
